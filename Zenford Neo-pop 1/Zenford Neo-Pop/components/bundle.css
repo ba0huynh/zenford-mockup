@@ -1,0 +1,52 @@
+/* Zenford Neo-Pop — component classes (prefix zf-). Values come from tokens.css. */
+.zf{font-family:var(--font-body);color:var(--ink)}
+.zf-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:800 15px/1.2 var(--font-body);padding:13px 21px;border-radius:var(--radius-md);border:var(--border-w) solid var(--ink);background:var(--action);color:var(--on-action);box-shadow:var(--shadow-sticker);cursor:pointer;text-decoration:none;white-space:nowrap;transition:transform .1s,box-shadow .1s,background .15s}
+.zf-btn:hover{background:var(--yellow-press)}
+.zf-btn:active,.zf-btn.is-pressed{transform:translate(4px,4px);box-shadow:0 0 0 var(--ink)}
+.zf-btn:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.zf-btn--white{background:var(--paper)}.zf-btn--white:hover{background:var(--soft)}
+.zf-btn--dark{background:var(--ink);color:var(--paper);box-shadow:var(--shadow-on-dark)}.zf-btn--dark:hover{background:#2A2A2A}
+.zf-btn--sm{padding:8px 13px;font-size:13.5px;border-radius:var(--radius-sm);box-shadow:var(--shadow-sticker-sm)}
+.zf-btn--sm:active{transform:translate(3px,3px)}
+.zf-btn[disabled]{background:var(--line);color:var(--muted);border-color:var(--line);box-shadow:none;cursor:not-allowed;transform:none}
+.zf-card{background:var(--paper);border:var(--border-w) solid var(--ink);border-radius:var(--radius-lg);box-shadow:var(--shadow-sticker-lg);padding:var(--space-6);display:grid;gap:var(--space-3);transition:transform .2s,box-shadow .2s}
+.zf-card--hover:hover{transform:translate(-3px,-3px);box-shadow:var(--shadow-sticker-hover)}
+.zf-card--tilt-l{transform:rotate(-3deg)}.zf-card--tilt-r{transform:rotate(2deg)}
+.zf-card h3{font:800 22px/1.2 var(--font-display);letter-spacing:-.02em;margin:0}
+.zf-card p{margin:0}
+.zf-card>.zf-tag{justify-self:start}
+.zf-overline{display:inline-flex;align-items:center;gap:8px;font:800 12.5px/1.3 var(--font-body);letter-spacing:.09em;text-transform:uppercase}
+.zf-overline::before{content:"";width:22px;height:10px;border-radius:6px;border:var(--border-w-sm) solid var(--ink);background:var(--yellow)}
+.zf-kick{display:inline-flex;align-items:center;gap:8px;background:var(--paper);border:var(--border-w) solid var(--ink);border-radius:var(--radius-full);padding:6px 14px;font:800 14px/1.2 var(--font-body);box-shadow:var(--shadow-sticker-sm);transform:rotate(-2deg)}
+.zf-tag{display:inline-flex;align-items:center;border:var(--border-w-sm) solid var(--ink);border-radius:var(--radius-full);padding:1px 9px;font:800 12px/1.5 var(--font-body);background:var(--paper)}
+.zf-tag--ok{background:var(--mint)}.zf-tag--warn{background:var(--peach)}.zf-tag--note{background:var(--butter)}.zf-tag--ink{background:var(--ink);color:var(--yellow);border-color:var(--ink)}
+.zf-pill{border:var(--border-w) solid var(--ink);border-radius:var(--radius-full);padding:8px 16px;font:800 14px/1.2 var(--font-body);background:var(--paper);color:var(--ink);cursor:pointer;transition:background .15s,color .15s}
+.zf-pill[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.zf-pill:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.zf-switch{position:relative;width:52px;height:30px;border-radius:var(--radius-full);border:var(--border-w) solid var(--ink);background:var(--paper);cursor:pointer;padding:0;transition:background .2s}
+.zf-switch::after{content:"";position:absolute;top:3px;left:3px;width:19px;height:19px;border-radius:50%;background:var(--ink);transition:transform .2s cubic-bezier(.3,1.6,.5,1)}
+.zf-switch[aria-checked="true"]{background:var(--mint)}
+.zf-switch[aria-checked="true"]::after{transform:translateX(22px)}
+.zf-switch:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.zf-bar{height:14px;border:var(--border-w-sm) solid var(--ink);border-radius:var(--radius-full);background:var(--paper);overflow:hidden}
+.zf-bar>i{display:block;height:100%;background:var(--ink);border-radius:var(--radius-full);transition:width 1.2s cubic-bezier(.2,1,.3,1)}
+.zf-bar--yellow>i{background:var(--yellow)}
+.zf-answer{display:flex;align-items:center;gap:12px;width:100%;text-align:left;border:var(--border-w) solid var(--ink);border-radius:var(--radius-md);padding:13px 16px;font:600 16px/1.4 var(--font-body);background:var(--paper);box-shadow:var(--shadow-sticker-sm);cursor:pointer;transition:transform .1s,box-shadow .1s,background .15s}
+.zf-answer:hover{background:var(--soft)}
+.zf-answer:active{transform:translate(3px,3px);box-shadow:none}
+.zf-answer.is-ok{background:var(--mint);border-color:var(--good)}
+.zf-answer.is-ok::after{content:"Đúng";margin-left:auto;font:800 12px var(--font-body);color:var(--good-text)}
+.zf-answer.is-no{background:var(--paper);border-color:var(--bad);border-style:dashed;box-shadow:none}
+.zf-answer.is-no::after{content:"Chưa đúng";margin-left:auto;font:800 12px var(--font-body);color:var(--bad)}
+.zf-lang{display:grid;justify-items:center;gap:8px;text-align:center;padding:20px 12px 16px}
+.zf-lang .zf-glyph{width:92px;height:92px;border-radius:var(--radius-xl);border:var(--border-w) solid var(--ink);display:grid;place-items:center;font:800 50px/1 var(--font-display);box-shadow:var(--shadow-sticker-sm)}
+.zf-say{display:flex;gap:14px;align-items:center}
+.zf-say .zf-zen{width:84px;flex:none}
+.zf-say .zf-bubble{position:relative;background:var(--butter);border:var(--border-w) solid var(--ink);border-radius:var(--radius-lg);padding:12px 16px;font:600 15px/1.45 var(--font-body)}
+.zf-say .zf-bubble::before{content:"";position:absolute;left:-10px;top:50%;width:16px;height:16px;background:inherit;border-left:var(--border-w) solid var(--ink);border-bottom:var(--border-w) solid var(--ink);transform:translateY(-50%) rotate(45deg)}
+.zf-zen svg{display:block;width:100%;height:auto;overflow:visible}
+.zf-hl{background:linear-gradient(var(--yellow),var(--yellow)) no-repeat 0 62%/100% 58%;padding:0 .06em;border-radius:.12em}
+.zf-grid-bg{background-color:var(--paper);background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:28px 28px}
+.zf-checker{background:repeating-conic-gradient(var(--ink) 0 25%,var(--paper) 0 50%) 0 0/16px 16px}
+.zf-stamp{display:inline-block;font:800 32px/1 var(--font-display);border:4px solid var(--good);color:var(--good-text);border-radius:var(--radius-md);padding:6px 16px;transform:rotate(-6deg);background:var(--paper)}
+@media (prefers-reduced-motion:reduce){.zf-btn,.zf-card,.zf-switch::after,.zf-bar>i{transition:none}}

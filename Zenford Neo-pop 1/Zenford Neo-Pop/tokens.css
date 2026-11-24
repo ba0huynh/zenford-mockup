@@ -1,0 +1,137 @@
+/* Zenford Neo-Pop — generated from tokens.json */
+:root, [data-theme="light"] {
+  --ink: #141414; /* Chữ chính, viền 2.5px của mọi thẻ và nút, bóng đổ sticker. Đạt 12:1 trở lên trên mọi nền của hệ thống. */
+  --paper: #ffffff; /* Nền trang và nền khu học. Khu học luôn trắng, không đổ màu nền. */
+  --soft: #f6f7f9; /* Nền phụ: hover của nút trắng, ô nhập đang chọn, vùng chờ. */
+  --line: #e4e7ee; /* Đường kẻ chia mục, đường nét đứt trong bảng. Không dùng làm viền thẻ. */
+  --muted: #555b68; /* Chữ phụ, chú thích, mô tả ngắn. Đạt 4.5:1 trên paper, soft, mint, sky, peach, butter, yellow và lavender (lavender sát ngưỡng 4.54, chỉ dùng cỡ 14px trở lên). */
+  --mint: #bdefd8; /* Pastel bạc hà. Nền mục, thẻ, ô trạng thái 'đã xong'. Ngôn ngữ tiếng Hàn, Lab Đọc. Chữ trên nó: ink. */
+  --lavender: #d8ccff; /* Pastel oải hương. Nền mục, thẻ phụ huynh, Lab Viết, tiếng Nhật. Chữ trên nó: ink. */
+  --peach: #ffd2b8; /* Pastel đào. Nền mục giáo viên, Lab Nói, tiếng Trung, ô 'còn yếu' trên bản đồ lớp. Chữ trên nó: ink. Không thay cho màu hồng. */
+  --sky: #bfe4ff; /* Pastel da trời. Nền mục ngôn ngữ, Lab Nghe, tiếng Anh, áo mặc định của Zen. Chữ trên nó: ink. */
+  --butter: #fff1a8; /* Pastel bơ. Ô gợi ý của Zen, hàng đang được chọn, tiếng Việt. Chữ trên nó: ink. */
+  --yellow: #fde047; /* Vàng Cyber, màu năng lượng của Zenford. Nền đầu trang bán hàng, nút hành động chính, vệt tô chữ. Mỗi màn một vùng vàng lớn. Chữ trên nó: ink (13.9:1). */
+  --yellow-press: #efd33a; /* Vàng khi rê chuột hoặc đang nhấn nút chính. */
+  --cobalt: #2f4bd8; /* Xanh coban chỉ dùng trong logo (thân bong bóng chữ Z). Không dùng cho nút, viền hay khối nền. */
+  --good: #1d9a69; /* Dấu đúng, viền đáp án đúng, con dấu 'Đã thanh toán'. Chỉ làm hình và viền (3.6:1); chữ dùng good-text. */
+  --good-text: #167a53; /* Chữ báo đúng, báo thành công trên nền trắng (5.3:1). */
+  --bad: #cf4338; /* Viền đáp án sai, lỗi nhập liệu, đồng hồ giữ chỗ sắp hết. Đạt 4.6:1 trên trắng; luôn kèm chữ hoặc biểu tượng, không báo lỗi bằng màu đơn thuần. */
+  --action: var(--yellow); /* Nút hành động chính: Kiểm tra trình độ, Tiếp tục thanh toán, Bắt đầu học. */
+  --on-action: var(--ink); /* Chữ và viền trên nút hành động chính. */
+  --lab-nghe: var(--sky); /* Lab Nghe: thẻ, nhãn, nền minh họa. */
+  --lab-noi: var(--peach); /* Lab Nói: thẻ, nhãn, nền minh họa. */
+  --lab-doc: var(--mint); /* Lab Đọc: thẻ, nhãn, nền minh họa. */
+  --lab-viet: var(--lavender); /* Lab Viết: thẻ, nhãn, nền minh họa. */
+  --lang-en: var(--sky); /* Ô chữ và nhãn tiếng Anh. */
+  --lang-zh: var(--peach); /* Ô chữ và nhãn tiếng Trung. */
+  --lang-ja: var(--lavender); /* Ô chữ và nhãn tiếng Nhật. */
+  --lang-ko: var(--mint); /* Ô chữ và nhãn tiếng Hàn. */
+  --lang-vi: var(--butter); /* Ô chữ và nhãn tiếng Việt cho người nước ngoài. */
+  --shadow-sticker-sm: 3px 3px 0 #141414; /* Nút nhỏ, viên chọn, ô chữ ngôn ngữ. */
+  --shadow-sticker: 4px 4px 0 #141414; /* Nút chuẩn. Nhấn thì nút dịch 4px và bóng về 0. */
+  --shadow-sticker-lg: 5px 5px 0 #141414; /* Thẻ, hộp nội dung. */
+  --shadow-sticker-hover: 8px 8px 0 #141414; /* Thẻ khi rê chuột: dịch lên trái 3px. */
+  --shadow-on-dark: 4px 4px 0 #ffffff; /* Nút trên nền ink hoặc nền vàng khi nút là nút đen. */
+  --shadow-on-ink-yellow: 5px 5px 0 #fde047; /* Khối tóm tắt đơn hàng nền ink. */
+}
+:root {
+  --space-1: 4px; /* Khoảng giữa biểu tượng và chữ trong nhãn nhỏ. */
+  --space-2: 8px; /* Khoảng giữa các viên lọc, các nút nhỏ. */
+  --space-3: 12px; /* Khoảng giữa các dòng trong thẻ. */
+  --space-4: 16px; /* Lề hai bên trên điện thoại; padding thẻ nhỏ. */
+  --space-5: 20px; /* Khoảng giữa các thẻ trong lưới. */
+  --space-6: 24px; /* Padding thẻ lớn, hộp nội dung. */
+  --space-8: 32px; /* Khoảng giữa tiêu đề mục và nội dung. */
+  --space-10: 40px; /* Khoảng giữa hai cột lớn. */
+  --space-16: 64px; /* Đệm trên dưới của một mục trên điện thoại. */
+  --space-28: 112px; /* Đệm trên dưới của một mục trên máy tính. */
+  --radius-sm: 10px; /* Nút nhỏ, ô chấm điểm, nhãn vuông. */
+  --radius-md: 14px; /* Nút, ô nhập, ô đáp án, ô phương thức thanh toán. */
+  --radius-lg: 20px; /* Thẻ sticker, hộp nội dung, khung bản đồ lớp. */
+  --radius-xl: 26px; /* Ô chữ ngôn ngữ (A, 中, あ, 한, Ă), khối tóm tắt đơn hàng. */
+  --radius-full: 999px; /* Viên lọc, nhãn tròn, công tắc, thanh tiến độ. */
+  --border-w: 2.5px; /* Viền ink của thẻ, nút, ô nhập, ô chữ. */
+  --border-w-sm: 2px; /* Viền của nhãn nhỏ, viên trạng thái, thanh tiến độ. */
+  --font-display: "Bricolage Grotesque", "Be Vietnam Pro", system-ui, sans-serif;
+  --font-body: "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --text-display-xl: 800 88px/0.95 var(--font-display); /* Một câu lớn duy nhất ở đầu trang bán hàng. Điện thoại: 44px. */
+  --text-h1: 800 58px/1 var(--font-display); /* Tiêu đề màn: Kiểm tra, Chọn gói, Thanh toán, Phụ huynh. Điện thoại: 34px. */
+  --text-h2: 800 48px/1 var(--font-display); /* Tiêu đề mục trên trang bán hàng; nửa sau câu có thể đặt độ đậm 500. Điện thoại: 32px. */
+  --text-h3: 800 22px/1.2 var(--font-display); /* Tiêu đề thẻ, tên gói, tên khóa học. */
+  --text-number: 800 64px/1 var(--font-display); /* Con số lớn: số tuần lộ trình, tổng tiền, trình độ A2. Kèm font-variant-numeric: tabular-nums. */
+  --text-lead: 400 18px/1.55 var(--font-body); /* Đoạn mở đầu dưới tiêu đề, màu muted. Tối đa 60 ký tự một dòng. */
+  --text-body: 400 16px/1.55 var(--font-body); /* Văn bản thường, đề bài, mô tả. */
+  --text-label: 800 15px/1.3 var(--font-body); /* Chữ trên nút, nhãn ô nhập, tên mục trong thẻ. */
+  --text-caption: 600 13px/1.4 var(--font-body); /* Chú thích, ghi chú dữ liệu mẫu, thời gian. Không nhỏ hơn 12px. */
+  --text-overline: 800 12.5px/1.3 var(--font-body); /* Nhãn nhỏ viết HOA phía trên tiêu đề mục, đi kèm viên vàng 22×10px viền ink. */
+}
+.display-xl {
+  font-family: var(--font-display);
+  font-size: 88px;
+  line-height: 0.95;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+.h1 {
+  font-family: var(--font-display);
+  font-size: 58px;
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+.h2 {
+  font-family: var(--font-display);
+  font-size: 48px;
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+.h3 {
+  font-family: var(--font-display);
+  font-size: 22px;
+  line-height: 1.2;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+.number {
+  font-family: var(--font-display);
+  font-size: 64px;
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+.lead {
+  font-family: var(--font-body);
+  font-size: 18px;
+  line-height: 1.55;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+.body {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.55;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+.label {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.3;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+.caption {
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: 1.4;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+.overline {
+  font-family: var(--font-body);
+  font-size: 12.5px;
+  line-height: 1.3;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+}

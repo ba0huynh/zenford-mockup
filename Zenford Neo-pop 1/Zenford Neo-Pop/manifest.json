@@ -1,0 +1,318 @@
+{
+  "manifestVersion": 3,
+  "name": "Zenford Neo-Pop",
+  "namespace": "ZenfordNP",
+  "files": [
+    "assets/Logos/README.md",
+    "assets/Mascot/README.md",
+    "components/AnswerOption/README.md",
+    "components/Button/README.md",
+    "components/Card/README.md",
+    "components/LangTile/README.md",
+    "components/Overline/README.md",
+    "components/Pill/README.md",
+    "components/ProgressBar/README.md",
+    "components/Switch/README.md",
+    "components/Tag/README.md",
+    "components/ZenSay/README.md",
+    "components/bundle.css",
+    "components/bundle.js",
+    "components/index.d.ts",
+    "tokens.css"
+  ],
+  "libraries": [],
+  "components": [
+    {
+      "name": "Button",
+      "group": "Actions",
+      "summary": "Nút sticker: viền ink 2.5px, bóng đặc lệch 4px, nhấn thì nút lún xuống và bóng biến mất."
+    },
+    {
+      "name": "Card",
+      "group": "Surfaces",
+      "summary": "Thẻ sticker: nền trắng hoặc pastel, viền ink, bóng đặc 5px, có thể nghiêng nhẹ."
+    },
+    {
+      "name": "Overline",
+      "group": "Text",
+      "summary": "Nhãn nhỏ viết HOA phía trên tiêu đề mục, có viên vàng viền ink ở đầu."
+    },
+    {
+      "name": "Tag",
+      "group": "Text",
+      "summary": "Nhãn trạng thái nhỏ hình viên thuốc, viền ink 2px."
+    },
+    {
+      "name": "Pill",
+      "group": "Inputs",
+      "summary": "Viên chọn: bấm để lọc hoặc chọn một giá trị; đang chọn thì nền ink chữ trắng."
+    },
+    {
+      "name": "Switch",
+      "group": "Inputs",
+      "summary": "Công tắc bật tắt cho quyền riêng tư, điểm danh, tự gia hạn."
+    },
+    {
+      "name": "ProgressBar",
+      "group": "Feedback",
+      "summary": "Thanh tiến độ viền ink, chạy từ 0 tới giá trị khi xuất hiện."
+    },
+    {
+      "name": "AnswerOption",
+      "group": "Inputs",
+      "summary": "Ô đáp án trong bài kiểm tra và Lab: đúng thì nền mint viền xanh, sai thì viền đỏ nét đứt, luôn kèm chữ."
+    },
+    {
+      "name": "LangTile",
+      "group": "Surfaces",
+      "summary": "Ô chữ ngôn ngữ: một ký tự đại diện lớn trên nền pastel riêng của từng ngôn ngữ."
+    },
+    {
+      "name": "ZenSay",
+      "group": "Mascot",
+      "summary": "Zen nói một câu: linh vật kèm bong bóng thoại nền bơ."
+    }
+  ],
+  "assetGroups": [
+    {
+      "name": "Logos",
+      "order": [
+        "zenford-logo.svg",
+        "zenford-logo-reverse.svg",
+        "zenford-mark.svg",
+        "zenford-mark-yellow.svg",
+        "zenford-mark-white.svg",
+        "zenford-wordmark.svg"
+      ],
+      "files": [
+        {
+          "path": "assets/Logos/zenford-logo.svg",
+          "id": "d0f889c11c32434de611b198781ca74e"
+        },
+        {
+          "path": "assets/Logos/zenford-logo-reverse.svg",
+          "id": "ec9ccd2701301375d32c6a3d38ea16df"
+        },
+        {
+          "path": "assets/Logos/zenford-mark.svg",
+          "id": "8bd53feaa1f3a1a741908c9187244774"
+        },
+        {
+          "path": "assets/Logos/zenford-mark-yellow.svg",
+          "id": "39a6332acd95b23f09c8b7d07c474420"
+        },
+        {
+          "path": "assets/Logos/zenford-mark-white.svg",
+          "id": "971055762eaf67a24aab819e0f2c81b1"
+        },
+        {
+          "path": "assets/Logos/zenford-wordmark.svg",
+          "id": "7151636468351765cda78fcdafaba85c"
+        }
+      ]
+    },
+    {
+      "name": "Mascot",
+      "tile": "l",
+      "order": [
+        "zen-binh-thuong.svg",
+        "zen-vui.svg",
+        "zen-bat-ngo.svg",
+        "zen-nhay-mat.svg",
+        "zen-suy-nghi.svg",
+        "zen-thich.svg",
+        "zen-buon.svg",
+        "zen-quyet-tam.svg",
+        "zen-tay-dua.svg",
+        "zen-dau-tivi.svg",
+        "zen-lab-nghe.svg",
+        "zen-lab-noi.svg",
+        "zen-lab-doc.svg",
+        "zen-lab-viet.svg"
+      ],
+      "files": [
+        {
+          "path": "assets/Mascot/zen-binh-thuong.svg",
+          "id": "ec0729699720d1960b40c1a287af825f"
+        },
+        {
+          "path": "assets/Mascot/zen-vui.svg",
+          "id": "02b4b6e5db095afaa138ca665c7882fd"
+        },
+        {
+          "path": "assets/Mascot/zen-bat-ngo.svg",
+          "id": "1dc1b132274c824ee94e0262ebb52799"
+        },
+        {
+          "path": "assets/Mascot/zen-nhay-mat.svg",
+          "id": "bc97429572397c34d4dc9bb93f768ed8"
+        },
+        {
+          "path": "assets/Mascot/zen-suy-nghi.svg",
+          "id": "9d12993a6fd0f62d4632695632ee6d30"
+        },
+        {
+          "path": "assets/Mascot/zen-thich.svg",
+          "id": "604b9d2d643bd0ef968b1a61a7cb8a79"
+        },
+        {
+          "path": "assets/Mascot/zen-buon.svg",
+          "id": "72fcc1409bd40bee6eae0b12d633db3b"
+        },
+        {
+          "path": "assets/Mascot/zen-quyet-tam.svg",
+          "id": "ec1f4b67cc29955902c0e5a9a4b09065"
+        },
+        {
+          "path": "assets/Mascot/zen-tay-dua.svg",
+          "id": "7c023de5a4346522bd5424d29d01549a"
+        },
+        {
+          "path": "assets/Mascot/zen-dau-tivi.svg",
+          "id": "637702d9da0524b30a206f4bb90d6ab4"
+        },
+        {
+          "path": "assets/Mascot/zen-lab-nghe.svg",
+          "id": "a8462f7ed4a6b29c9f3c294b25bdcaa3"
+        },
+        {
+          "path": "assets/Mascot/zen-lab-noi.svg",
+          "id": "dfab5d87411b10774d1d67583da3f16d"
+        },
+        {
+          "path": "assets/Mascot/zen-lab-doc.svg",
+          "id": "328b07199ba34be09ed5791cff6d7b47"
+        },
+        {
+          "path": "assets/Mascot/zen-lab-viet.svg",
+          "id": "8a6df3ef2fa66d95421a5d751646bac5"
+        }
+      ]
+    }
+  ],
+  "storage": {
+    "files": {
+      "assets/Logos/zenford-logo-reverse.svg": {
+        "store": "blob",
+        "id": "ec9ccd2701301375d32c6a3d38ea16df",
+        "bytes": 3757,
+        "type": "image/svg+xml"
+      },
+      "assets/Logos/zenford-logo.svg": {
+        "store": "blob",
+        "id": "d0f889c11c32434de611b198781ca74e",
+        "bytes": 3757,
+        "type": "image/svg+xml"
+      },
+      "assets/Logos/zenford-mark-white.svg": {
+        "store": "blob",
+        "id": "971055762eaf67a24aab819e0f2c81b1",
+        "bytes": 568,
+        "type": "image/svg+xml"
+      },
+      "assets/Logos/zenford-mark-yellow.svg": {
+        "store": "blob",
+        "id": "39a6332acd95b23f09c8b7d07c474420",
+        "bytes": 568,
+        "type": "image/svg+xml"
+      },
+      "assets/Logos/zenford-mark.svg": {
+        "store": "blob",
+        "id": "8bd53feaa1f3a1a741908c9187244774",
+        "bytes": 568,
+        "type": "image/svg+xml"
+      },
+      "assets/Logos/zenford-wordmark.svg": {
+        "store": "blob",
+        "id": "7151636468351765cda78fcdafaba85c",
+        "bytes": 3250,
+        "type": "image/svg+xml"
+      },
+      "assets/Mascot/zen-bat-ngo.svg": {
+        "store": "blob",
+        "id": "1dc1b132274c824ee94e0262ebb52799",
+        "bytes": 2456,
+        "type": "image/svg+xml"
+      },
+      "assets/Mascot/zen-binh-thuong.svg": {
+        "store": "blob",
+        "id": "ec0729699720d1960b40c1a287af825f",
+        "bytes": 2510,
+        "type": "image/svg+xml"
+      },
+      "assets/Mascot/zen-buon.svg": {
+        "store": "blob",
+        "id": "72fcc1409bd40bee6eae0b12d633db3b",
+        "bytes": 2482,
+        "type": "image/svg+xml"
+      },
+      "assets/Mascot/zen-dau-tivi.svg": {
+        "store": "blob",
+        "id": "637702d9da0524b30a206f4bb90d6ab4",
+        "bytes": 2620,
+        "type": "image/svg+xml"
+      },
+      "assets/Mascot/zen-lab-doc.svg": {
+        "store": "blob",
+        "id": "328b07199ba34be09ed5791cff6d7b47",
+        "bytes": 2697,
+        "type": "image/svg+xml"
+      },
+      "assets/Mascot/zen-lab-nghe.svg": {
+        "store": "blob",
+        "id": "a8462f7ed4a6b29c9f3c294b25bdcaa3",
+        "bytes": 2825,
+        "type": "image/svg+xml"
+      },
+      "assets/Mascot/zen-lab-noi.svg": {
+        "store": "blob",
+        "id": "dfab5d87411b10774d1d67583da3f16d",
+        "bytes": 2390,
+        "type": "image/svg+xml"
+      },
+      "assets/Mascot/zen-lab-viet.svg": {
+        "store": "blob",
+        "id": "8a6df3ef2fa66d95421a5d751646bac5",
+        "bytes": 2581,
+        "type": "image/svg+xml"
+      },
+      "assets/Mascot/zen-nhay-mat.svg": {
+        "store": "blob",
+        "id": "bc97429572397c34d4dc9bb93f768ed8",
+        "bytes": 2626,
+        "type": "image/svg+xml"
+      },
+      "assets/Mascot/zen-quyet-tam.svg": {
+        "store": "blob",
+        "id": "ec1f4b67cc29955902c0e5a9a4b09065",
+        "bytes": 2635,
+        "type": "image/svg+xml"
+      },
+      "assets/Mascot/zen-suy-nghi.svg": {
+        "store": "blob",
+        "id": "9d12993a6fd0f62d4632695632ee6d30",
+        "bytes": 2490,
+        "type": "image/svg+xml"
+      },
+      "assets/Mascot/zen-tay-dua.svg": {
+        "store": "blob",
+        "id": "7c023de5a4346522bd5424d29d01549a",
+        "bytes": 2204,
+        "type": "image/svg+xml"
+      },
+      "assets/Mascot/zen-thich.svg": {
+        "store": "blob",
+        "id": "604b9d2d643bd0ef968b1a61a7cb8a79",
+        "bytes": 2444,
+        "type": "image/svg+xml"
+      },
+      "assets/Mascot/zen-vui.svg": {
+        "store": "blob",
+        "id": "02b4b6e5db095afaa138ca665c7882fd",
+        "bytes": 2432,
+        "type": "image/svg+xml"
+      }
+    },
+    "blobBytesUsed": 47860
+  }
+}
