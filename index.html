@@ -743,6 +743,30 @@ mark{background:var(--yellow);color:var(--ink)}
 @media(min-width:1100px){.shop-filters{grid-template-columns:repeat(4,minmax(0,1fr))}.shop-filters>label:first-child,.shop-filters>label:last-child{grid-column:span 2}}
 
 </style>
+<style>
+.agent-route .section-title{margin-bottom:20px}
+.agent-map{display:grid;grid-template-columns:minmax(200px,.85fr) minmax(0,1.5fr);grid-template-rows:repeat(7,max-content) 1fr;column-gap:24px;padding:0;margin:0;list-style:none}
+.agent-map>li{display:contents}
+.agent-stop{grid-column:1;grid-row:var(--step-row);position:relative;display:flex;align-items:center;gap:12px;text-align:start;padding:9px 0;min-height:68px;border:0;background:none;color:var(--ink)}
+.agent-stop::before,.agent-stop::after{content:"";position:absolute;left:17px;width:2px;height:50%;background:var(--ink)}
+.agent-stop::before{top:0}.agent-stop::after{bottom:0}
+.agent-map li:first-child .agent-stop::before,.agent-map li:last-child .agent-stop::after{display:none}
+.agent-node{position:relative;z-index:1;display:grid;place-items:center;flex:none;width:36px;height:36px;border:2px solid var(--ink);border-radius:50%;background:var(--paper);font-weight:800}
+.agent-stop-name{display:grid;flex:1;gap:2px;padding:6px 8px;border:2px solid transparent;border-radius:var(--radius-sm)}
+.agent-stop-name strong{font-size:15px;line-height:1.3}.agent-stop-name small{font-size:12px;line-height:1.4}
+.agent-stop:hover .agent-stop-name{background:var(--soft)}.agent-stop[aria-expanded=true] .agent-stop-name{background:var(--butter);border-color:var(--ink)}
+.agent-stop[aria-expanded=true] .agent-node{background:var(--yellow);box-shadow:2px 2px 0 var(--ink)}
+.agent-inspector{grid-column:2;grid-row:1 / 9;align-self:start;min-width:0;display:grid;gap:14px;border:var(--border-w) solid var(--ink);border-radius:var(--radius-lg);padding:clamp(16px,2vw,28px);box-shadow:var(--shadow-sticker-sm)}
+.agent-inspector h3{font-size:clamp(24px,2.4vw,34px);line-height:1.1;margin:0}.agent-counter,.agent-delivery dt{font:var(--text-caption);color:var(--muted)}
+.agent-owner{justify-self:start;border:2px solid var(--ink);border-radius:var(--radius-full);padding:2px 10px;background:var(--sky);font:var(--text-caption);font-weight:800}
+.agent-delivery,.agent-controls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.agent-delivery{margin:0;padding-block:12px;border-block:1px solid var(--line)}.agent-delivery dd{margin:3px 0 0;font-weight:600;overflow-wrap:anywhere}
+.agent-handoff{padding:10px 14px;border-inline-start:3px solid var(--ink);background:var(--soft)}.agent-handoff p{margin:4px 0 0}
+.production-fork{border-top:1px solid var(--line);padding-top:14px}.production-fork h4{margin:0 0 12px}.production-fork ul{margin:0 0 0 6px;padding:0;list-style:none;border-left:2px solid var(--ink)}.production-fork li{display:grid;gap:6px;position:relative;padding:0 0 14px 16px}.production-fork li:last-child{padding-bottom:0}.production-fork li::before{content:"";position:absolute;top:10px;left:0;width:12px;border-top:2px solid var(--ink)}
+@media(max-width:980px){.agent-map{column-gap:14px;grid-template-columns:minmax(180px,.8fr) minmax(0,1.4fr)}.agent-stop{gap:5px}}
+@media(max-width:720px){.agent-map,.agent-map>li{display:block}.agent-stop{width:100%;min-height:58px}.agent-inspector{margin:0 0 8px 17px}.agent-stop[aria-expanded=true]::after{display:none}}
+@media(max-width:450px){.agent-controls,.agent-delivery{grid-template-columns:minmax(0,1fr)}.agent-inspector{padding:14px;gap:12px}}
+</style>
 </head>
 <body>
 <svg width="0" height="0" aria-hidden="true" style="position:absolute"><defs>
@@ -3491,16 +3515,66 @@ function academicBrief(screen) {
     </div><div class="note red" id="source-warning" hidden>Tài liệu này cần xác minh quyền sử dụng trước khi giao cho pipeline.</div><div class="actions"><button type="submit" class="button primary zf-btn">Giao đề bài cho pipeline</button>${link("SCR-M17-03","Chọn mô hình cho agent")}</div>`)}</form>`);
 }
 
+// The roadmap uses the same stage order and model pairs as the executable pipeline.
+const roadmapTasks = [
+  ["Đề bài học thuật", "Xác định người học, mục tiêu và nguồn học liệu được phép sử dụng.", "Bản tóm tắt nghiên cứu"],
+  ["Bản tóm tắt nghiên cứu", "Chia mục tiêu thành từng khối kiến thức và đặt tiêu chí đạt cho mỗi khối.", "Khung nội dung và tiêu chí đạt"],
+  ["Khung nội dung và tiêu chí đạt", "Viết lời thoại, chỉ dẫn hoạt động và lời đọc cho từng phần của bài.", "Kịch bản sản xuất"],
+  ["Kịch bản sản xuất", "Điều phối bốn nhánh chạy song song rồi tập hợp các bản nháp để kiểm định.", "Bộ học liệu bản nháp"],
+  ["Bộ học liệu bản nháp", "Đối chiếu nội dung, đáp án và âm thanh với kịch bản đã duyệt.", "Báo cáo kiểm định AI"],
+  ["Bộ học liệu và báo cáo kiểm định AI", "Chuyên gia kiểm tra mẫu, đối chiếu tiêu chí ngôn ngữ và ghi nhận kết quả.", "Biên bản kiểm định thủ công"],
+  ["Học liệu đã qua kiểm định thủ công", "Trưởng Học thuật xem kết quả kiểm định và quyết định phát hành.", "Học liệu trong kho"]
+];
+const productionAssignments = [
+  ["Agent biên soạn học liệu","Viết bài đọc và bài tập theo khung nội dung."],
+  ["Agent khảo thí","Soạn câu hỏi, đáp án và tiêu chí chấm."],
+  ["Agent âm thanh","Tạo bản thu theo lời thoại trong kịch bản."],
+  ["Agent hình ảnh","Dựng hình minh họa, slide và video cho bài học."]
+];
+const roadmapStages = [...pipelineSteps.map(([title, owner])=>({title, owner})),
+  {title:"Phê duyệt và phát hành", owner:"Trưởng Học thuật"}];
+let inspectedAcademicStep = null;
+
 function providerControl(key, modelPair, name) {
-  return `<div class="grid2"><label>Nhà cung cấp · ${escape(name)}<select data-provider="${key}">${options(Object.keys(providerModels),modelPair[0])}</select></label>
-    <label>Mô hình · ${escape(name)}<select data-model="${key}">${options(providerModels[modelPair[0]],modelPair[1])}</select></label></div>`;
+  return `<div class="agent-controls">
+    <label>Nhà cung cấp<select data-provider="${key}" aria-label="Nhà cung cấp · ${escape(name)}">${options(Object.keys(providerModels),modelPair[0])}</select></label>
+    <label>Mô hình<select data-model="${key}" aria-label="Mô hình · ${escape(name)}">${options(providerModels[modelPair[0]],modelPair[1])}</select></label>
+  </div>`;
+}
+
+function roadmapPanel(index) {
+  const stage = roadmapStages[index];
+  const [input, task, output] = roadmapTasks[index];
+  const [state,tone] = index < pipelineSteps.length ? pipelineState(index)
+    : academic.approved ? ["Đã phát hành","mint"] : academic.reviewed ? ["Chờ phê duyệt","warn"] : ["Chờ đến lượt","gray"];
+  const next = roadmapStages[index+1];
+  const owner = index===5 ? `${stage.owner} · ${escape(academic.language)}` : stage.owner;
+  const branches = index===3 ? `<section class="production-fork"><h4>Bốn nhánh song song</h4>
+    <ul>${productionBranches.map((branch,i)=>`<li><strong>${branch}</strong><p><b>${productionAssignments[i][0]}</b> · ${productionAssignments[i][1]}</p>${providerControl("branch-"+i,academic.branchModels[i],branch)}</li>`).join("")}</ul></section>` : "";
+  const handoff = index < 3 ? `Chuyên gia duyệt ${output.toLowerCase()} trước khi chuyển sang bước ${index+2}.`
+    : index===3 ? "Khi đủ sản phẩm của cả bốn nhánh, chuyển toàn bộ sang bước 5."
+    : index===4 ? "Đạt yêu cầu thì chuyển chuyên gia ở bước 6. Nếu cần sửa, trả về bước 4 rồi kiểm định lại."
+    : index===5 ? "Chuyên gia xác nhận để chuyển bước 7 hoặc trả về bước 4 kèm lý do."
+    : "Sau khi được duyệt, học liệu xuất hiện trong kho để giáo viên sử dụng.";
+  return `<section class="agent-inspector" aria-labelledby="agent-task-title">
+    <div class="row"><span class="agent-counter">Bước ${index+1} / ${roadmapStages.length}</span>${pill(state,tone)}</div>
+    <h3 id="agent-task-title" tabindex="-1">${stage.title}</h3><div class="agent-owner">${owner}</div><p>${task}</p>
+    <dl class="agent-delivery"><div><dt>Đầu vào</dt><dd>${input}</dd></div><div><dt>Đầu ra</dt><dd>${output}</dd></div></dl>
+    ${index<academic.models.length ? providerControl(String(index),academic.models[index],stage.owner) : ""}
+    ${branches}<div class="agent-handoff"><strong>Bàn giao</strong><p>${handoff}</p></div>
+    <div class="actions">${next?`<button type="button" class="zf-btn zf-btn--white zf-btn--sm" data-action="inspect-agent-step" data-id="${index+1}">Xem bước ${index+2} · ${next.title} <span aria-hidden="true">→</span></button>`:link("SCR-M16-12","Mở phê duyệt cuối","small")}</div>
+  </section>`;
 }
 
 function agentSettings(screen) {
-  return workspace(screen,pageHeading(screen,"Cấu hình agent học thuật","Chọn Claude, ChatGPT hoặc Gemini và mô hình phù hợp cho từng vai trò.",link("SCR-M17-04","Về pipeline","primary"))
-    + card(`<h2>AI Trưởng phòng</h2>${table(["Nhóm","Vai trò"],[["Nghiên cứu","Chân dung, năng lực và khung chương trình"],["Sản xuất","Kịch bản, sách, đề, audio và hình ảnh"],["Kiểm định","Kiểm tra độc lập, đề nghị sửa hoặc chuyển duyệt"],["Vận hành","Theo dõi hàng đợi, phiên bản và chi phí"]])}`)
-    + card(`<h2>Các bước chính</h2>${pipelineSteps.slice(0,-1).map((step,i)=>providerControl(String(i),academic.models[i],step[1])).join("")}`)
-    + card(`<h2>Các nhánh sản xuất</h2>${productionBranches.map((branch,i)=>providerControl(`branch-${i}`,academic.branchModels[i],branch)).join("")}`));
+  const selected = inspectedAcademicStep ?? (academic.reviewed ? roadmapStages.length-1 : academic.active);
+  const stages = roadmapStages.map(({title,owner},i)=>`<li style="--step-row:${i+1}">
+    <button class="agent-stop" type="button" data-action="inspect-agent-step" data-id="${i}" aria-expanded="${i===selected}" aria-label="Bước ${i+1} · ${title} · ${owner}">
+      <span class="agent-node" aria-hidden="true">${i+1}</span><span class="agent-stop-name"><strong>${title}</strong><small>${owner}</small></span>
+    </button>${i===selected?roadmapPanel(i):""}</li>`).join("");
+  return workspace(screen,pageHeading(screen,"Cấu hình agent học thuật","Chọn một bước để xem người phụ trách, đầu ra và cách bàn giao.",link("SCR-M17-04","Mở pipeline","primary"))
+    + `<section class="card agent-route"><header class="section-title"><h2>Lộ trình sản xuất học liệu</h2></header><ol class="agent-map" role="list">${stages}</ol></section>`
+    + card(`<details><summary>Vai trò điều phối của AI Trưởng phòng</summary>${table(["Nhóm","Vai trò"],[["Nghiên cứu","Chân dung, năng lực và khung chương trình"],["Sản xuất","Kịch bản, sách, đề, audio và hình ảnh"],["Kiểm định","Kiểm tra độc lập, đề nghị sửa hoặc chuyển duyệt"],["Vận hành","Theo dõi hàng đợi, phiên bản và chi phí"]])}</details>`));
 }
 
 function pipelineState(index) {
@@ -3752,6 +3826,12 @@ function updateView(control) {
   render();
   const replacement = [...main.querySelectorAll("[data-action]")].find(item =>
     item.dataset.action === action && item.dataset.id === control.dataset.id);
+  if (action === "inspect-agent-step") {
+    const destination = control.closest(".agent-inspector") ? document.getElementById("agent-task-title") : replacement;
+    destination.focus({preventScroll:true});
+    destination.scrollIntoView({block:"nearest"});
+    return;
+  }
   (replacement || main).focus({preventScroll:true});
 }
 
@@ -3781,6 +3861,10 @@ function openDecision(title, label, callback, {score = false, hint = ""} = {}) {
 }
 
 const actions = {
+  "inspect-agent-step":control=>{
+    inspectedAcademicStep=Number(control.dataset.id);
+    return true;
+  },
   "program-filter":control=>{programFilter=control.dataset.id;return true},
   "close-dialog":()=>dialog.close(),
   "pre-reset":()=>{Object.assign(preState,{question:0,answer:"",results:[],responded:false,complete:false,spoken:false,practiced:false,teacherFlag:false,explanation:"",alternate:false,transcript:false});return true},

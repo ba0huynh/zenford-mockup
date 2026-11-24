@@ -1,0 +1,1153 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cổng học viên Zenford</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&display=swap" rel="stylesheet">
+<style>:root{
+  --ink:#141414;--paper:#FFFFFF;--soft:#F6F7F9;--line:#E4E7EE;--muted:#555B68;
+  --mint:#BDEFD8;--lav:#D8CCFF;--peach:#FFD2B8;--sky:#BFE4FF;--butter:#FFF1A8;--yel:#FDE047;--yelp:#EFD33A;
+  --good:#167A53;--goodbg:#DDF5EA;--bad:#B4382F;--badbg:#FDE3E0;
+  --f-d:"Bricolage Grotesque","Be Vietnam Pro",system-ui,sans-serif;
+  --f-b:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --rail:76px;--open:256px;--spring:cubic-bezier(.3,1.45,.5,1);
+  --st:4px 4px 0 #141414;--st-sm:3px 3px 0 #141414;
+  color-scheme:light;
+}
+:root[data-night],:root[data-theme="dark"]{--paper:#15171C;--soft:#1D2027;--line:#2C303A;--ink:#F2F3F5;--muted:#A6ABB8;--goodbg:#1C3A2E;--good:#7FD9AE;--badbg:#3D2220;--bad:#F2A097;color-scheme:dark}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#15171C;--soft:#1D2027;--line:#2C303A;--ink:#F2F3F5;--muted:#A6ABB8;--goodbg:#1C3A2E;--good:#7FD9AE;--badbg:#3D2220;--bad:#F2A097;color-scheme:dark}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--f-b);font-size:15.5px;line-height:1.5;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s}
+button,input,textarea,select{font:inherit;color:inherit}
+button{cursor:pointer;background:none;border:0;padding:0}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:3px solid var(--ink);outline-offset:2px;border-radius:8px}
+h1,h2,h3,h4{font-family:var(--f-d);letter-spacing:-.025em;margin:0;line-height:1.12}
+p{margin:0}
+.muted{color:var(--muted)}
+.i{width:20px;height:20px;flex:none;fill:none;stroke:currentColor;stroke-width:2.3;stroke-linecap:round;stroke-linejoin:round}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+/* ---------- demo bar (only for review) ---------- */
+.demo{position:fixed;top:0;left:0;right:0;z-index:60;height:34px;background:#141414;color:#fff;display:flex;align-items:center;gap:12px;padding:0 12px 0 calc(var(--rail) + 12px);font-size:12.5px;font-weight:600}
+.demo b{color:var(--yel)}
+.demo .sp{flex:1}
+.demo button{color:#fff;border:1.5px solid #555;border-radius:8px;padding:3px 10px;font-weight:700;font-size:12px}
+.demo button:hover{border-color:var(--yel);color:var(--yel)}
+.demo .scr{font-family:ui-monospace,Menlo,monospace;color:#BDEFD8}
+@media (max-width:760px){.demo{padding-left:12px;gap:8px}.demo .hide-m{display:none}.demo button{padding:2px 7px;white-space:nowrap}}
+
+/* ---------- rail ---------- */
+.app{display:grid;grid-template-columns:var(--rail) 1fr;min-height:100vh;padding-top:34px}
+.rail{position:fixed;top:34px;bottom:0;left:0;width:var(--rail);z-index:40;background:var(--paper);border-right:2.5px solid var(--ink);display:flex;flex-direction:column;gap:4px;padding:12px 12px 12px;transition:width .42s var(--spring),box-shadow .3s,background .3s;overflow:hidden}
+.rail:hover,.rail.pinned{width:var(--open);box-shadow:6px 0 0 var(--ink)}
+.rtop{display:flex;align-items:center;justify-content:space-between;min-height:44px}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--f-d);font-weight:800;font-size:22px;letter-spacing:-.03em;padding-left:7px;white-space:nowrap}
+.pin{width:30px;height:30px;border-radius:9px;border:2px solid var(--ink);display:grid;place-items:center;flex:none;opacity:0;transition:opacity .2s}
+.pin svg{width:16px;height:16px;fill:none;stroke:var(--ink);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.pin[aria-pressed="true"]{background:var(--yel)}.pin[aria-pressed="true"] svg{stroke:#141414}
+.rail:hover .pin,.rail.pinned .pin{opacity:1}
+.lbl{white-space:nowrap;opacity:0;transform:translateX(-8px);transition:opacity .2s,transform .3s var(--spring)}
+.rail:hover .lbl,.rail.pinned .lbl{opacity:1;transform:none;transition-delay:calc(var(--i,0) * 22ms + 70ms)}
+.who{display:flex;align-items:center;gap:10px;padding:6px 3px;margin:2px 0 4px;border-radius:14px;width:100%;text-align:left}
+.who:hover{background:var(--soft)}
+.av{width:42px;height:42px;border-radius:50%;border:2.5px solid var(--ink);background:var(--sky);color:#141414;display:grid;place-items:center;font-weight:800;font-size:13px;flex:none;position:relative}
+.av .fl{position:absolute;right:-5px;bottom:-5px;width:20px;height:20px;border-radius:50%;background:var(--paper);border:2px solid var(--ink);font-size:10px;display:grid;place-items:center;font-weight:800;color:var(--ink)}
+.who b{display:block;font-size:14px}.who small{color:var(--muted);font-size:12px;display:block}
+nav.nav{position:relative;display:grid;gap:2px}
+.grp{font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);padding:8px 12px 0;height:24px}
+.it{position:relative;z-index:1;display:flex;align-items:center;gap:13px;height:44px;padding:0 12px;border-radius:14px;border:2px solid transparent;font-weight:700;font-size:14.5px;width:100%;text-align:left;transition:transform .25s var(--spring),background .2s,border-color .2s,box-shadow .2s}
+.it.on{background:var(--yel);border-color:#141414;color:#141414;box-shadow:var(--st-sm)}
+.it:not(.on):hover{transform:translateY(-2px);border-color:var(--ink);box-shadow:var(--st-sm);background:var(--lab,var(--butter));color:#141414}
+.it:not(.on):hover .ic svg{stroke:#141414}
+.it:active{transform:translate(2px,2px)!important;box-shadow:none!important}
+.badge{margin-left:auto;font-style:normal;font-size:11px;font-weight:800;background:var(--ink);color:var(--paper);border-radius:999px;padding:1px 8px;opacity:0;transition:opacity .2s}
+.rail:hover .badge,.rail.pinned .badge{opacity:1}
+.it .dot{position:absolute;top:-2px;right:-4px;width:10px;height:10px;border-radius:50%;background:var(--yel);border:2px solid var(--ink);animation:ping 2.4s infinite}
+@keyframes ping{0%,70%,100%{transform:scale(1)}80%{transform:scale(1.45)}90%{transform:scale(.9)}}
+.tip{position:fixed;z-index:70;background:#141414;color:#fff;font-weight:800;font-size:13px;padding:6px 11px;border-radius:10px;pointer-events:none;opacity:0;transform:translateX(-6px) scale(.9);transition:opacity .15s,transform .25s var(--spring);white-space:nowrap}
+.tip.show{opacity:1;transform:none}
+.peek{margin-top:auto;height:70px;position:relative;overflow:hidden;flex:none}
+.peek .zz{position:absolute;left:2px;bottom:-120px;width:62px;transition:bottom .5s var(--spring)}
+.rail:hover .peek .zz,.rail.pinned .peek .zz{bottom:-6px}
+.rfoot{border-top:2px dashed var(--line);padding-top:6px;display:grid;gap:2px}
+.ic{width:26px;height:26px;flex:none;display:grid;place-items:center;position:relative}
+.ic svg{width:25px;height:25px;fill:none;stroke:var(--ink);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;overflow:visible}
+.it.on .ic svg{stroke:#141414}
+.ic svg *{transform-box:fill-box;transform-origin:center}
+.rail:not(:hover):not(.pinned) .it .ic{animation:floaty 3.4s ease-in-out infinite;animation-delay:calc(var(--i,0) * -.45s)}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-2.5px)}}
+.it:hover [data-a="roof"]{animation:hop .5s var(--spring)}
+@keyframes hop{0%{transform:translateY(0)}40%{transform:translateY(-4px)}100%{transform:translateY(0)}}
+.it:hover [data-a="tick"]{animation:draw .5s ease forwards}
+[data-a="tick"]{stroke-dasharray:20}
+@keyframes draw{from{stroke-dashoffset:20}to{stroke-dashoffset:0}}
+.it:hover [data-a="wave"]{animation:wave .6s ease-in-out infinite alternate}
+@keyframes wave{from{opacity:.2;transform:scale(.8)}to{opacity:1;transform:scale(1.1)}}
+.it:hover [data-a="mic"],.it:hover [data-a="bell"]{animation:shake .35s ease-in-out 2}
+@keyframes shake{0%,100%{transform:rotate(0)}25%{transform:rotate(-12deg)}75%{transform:rotate(12deg)}}
+.it:hover [data-a="page"]{animation:flip .7s ease-in-out}
+[data-a="page"]{transform-origin:left center!important}
+@keyframes flip{0%,100%{transform:scaleX(1)}50%{transform:scaleX(-1)}}
+.it:hover [data-a="flag"]{animation:flutter .5s ease-in-out 3 alternate}
+[data-a="flag"]{transform-origin:left center!important}
+@keyframes flutter{to{transform:skewY(-8deg) scaleX(.85)}}
+.it:hover [data-a="d"]{animation:hop .5s var(--spring) infinite}
+.it:hover [data-a="d"]:nth-of-type(3){animation-delay:.12s}.it:hover [data-a="d"]:nth-of-type(4){animation-delay:.24s}
+.it:hover [data-a="spin"]{animation:spin .8s var(--spring)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.it:hover [data-a="bar"]{animation:grow .5s var(--spring)}
+.it:hover [data-a="bar"]:nth-of-type(2){animation-delay:.08s}.it:hover [data-a="bar"]:nth-of-type(3){animation-delay:.16s}
+[data-a="bar"]{transform-origin:bottom center!important}
+@keyframes grow{0%{transform:scaleY(.2)}100%{transform:scaleY(1)}}
+
+/* ---------- main ---------- */
+.main{grid-column:2;min-width:0}
+.top{position:sticky;top:34px;z-index:30;background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:blur(8px);display:flex;align-items:center;gap:10px;padding:14px max(16px,3vw);border-bottom:2px solid var(--line)}
+.crumb{font-size:13px;font-weight:700;color:var(--muted);display:flex;gap:6px;align-items:center;min-width:0}
+.crumb b{color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.top .sp{flex:1}
+.chip{display:inline-flex;align-items:center;gap:7px;border:2px solid var(--ink);border-radius:999px;padding:5px 12px;font-weight:800;font-size:13px;background:var(--paper);white-space:nowrap}
+.chip svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round}
+.ibtn{width:38px;height:38px;border-radius:12px;border:2px solid var(--ink);display:grid;place-items:center;position:relative;background:var(--paper);flex:none}
+.ibtn svg{width:19px;height:19px;fill:none;stroke:var(--ink);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.ibtn .n{position:absolute;top:-6px;right:-6px;min-width:18px;height:18px;border-radius:9px;background:var(--yel);border:2px solid #141414;color:#141414;font-size:10px;font-weight:800;display:grid;place-items:center;padding:0 3px}
+.ibtn:hover{background:var(--butter)}.ibtn:hover svg{stroke:#141414}
+.page{padding:26px max(16px,3vw) 120px;max-width:1180px;display:grid;gap:26px;align-content:start;animation:pin .45s var(--spring)}
+@keyframes pin{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.ph{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap}
+.ey{font-size:12px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+.ph h1{font-size:clamp(28px,3.4vw,40px);font-weight:800;margin-top:6px;max-width:24ch}
+.ph p{color:var(--muted);margin-top:8px;max-width:60ch}
+.g{display:grid;gap:18px}
+.g2{grid-template-columns:minmax(0,1.55fr) minmax(0,1fr)}
+.g2e{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:1020px){.g2,.g4{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:760px){.g2,.g2e,.g3{grid-template-columns:1fr}.g4{grid-template-columns:repeat(2,minmax(0,1fr))}#tlist .li{flex-wrap:wrap}#tlist .li .bd{flex:1 1 55%}#tlist .li .tag,.grip,.demo .scr{display:none}.num{font-size:28px}}
+.col{display:grid;gap:18px;align-content:start}
+
+/* cards */
+.c{border:2px solid var(--line);border-radius:20px;padding:20px;background:var(--paper);display:grid;gap:12px;align-content:start;min-width:0}
+.c h2{font-size:21px}.c h3{font-size:17px}
+.c.k{border:2.5px solid var(--ink);box-shadow:var(--st)}
+.c.fill{border:2.5px solid #141414;box-shadow:var(--st);color:#141414}
+.c.fill .muted,.c.fill .ey{color:#3F4350}
+.bg-mint{background:var(--mint)}.bg-sky{background:var(--sky)}.bg-lav{background:var(--lav)}.bg-peach{background:var(--peach)}.bg-butter{background:var(--butter)}.bg-yel{background:var(--yel)}.bg-soft{background:var(--soft)}
+.ch{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.lk{font-weight:800;font-size:13.5px;border-bottom:3px solid var(--yel);padding-bottom:1px;white-space:nowrap}
+.lk:hover{background:var(--yel);color:#141414}
+.lift{transition:transform .25s var(--spring),box-shadow .25s}
+.lift:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--ink)}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:800;font-size:14.5px;padding:11px 18px;border-radius:14px;border:2.5px solid #141414;background:var(--yel);color:#141414;box-shadow:var(--st-sm);transition:transform .1s,box-shadow .1s,background .15s;white-space:nowrap}
+.btn:hover{background:var(--yelp)}
+.btn:active{transform:translate(3px,3px);box-shadow:none}
+.btn.o{background:var(--paper);color:var(--ink);border-color:var(--ink);box-shadow:none}
+.btn.o:hover{background:var(--soft)}
+.btn.sm{padding:7px 12px;font-size:13px;border-radius:11px}
+.btn.big{padding:14px 24px;font-size:16px}
+.btn[disabled]{opacity:.45;pointer-events:none}
+.btn svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.tag{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:800;border-radius:999px;padding:3px 10px;background:var(--soft);color:var(--ink);white-space:nowrap}
+.tag.ink{background:var(--ink);color:var(--paper)}
+.tag.ok{background:var(--goodbg);color:var(--good)}
+.tag.warn{background:var(--butter);color:#5A4A00}
+.tag.bad{background:var(--badbg);color:var(--bad)}
+.tag.line{background:none;border:1.5px solid var(--ink)}
+.tag.mint{background:var(--mint);color:#141414}.tag.sky{background:var(--sky);color:#141414}.tag.lav{background:var(--lav);color:#141414}.tag.peach{background:var(--peach);color:#141414}
+.bar{height:10px;border-radius:99px;background:var(--soft);border:1.5px solid var(--line);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--ink);border-radius:99px;transition:width .9s var(--spring)}
+.bar.g i{background:var(--good)}
+.num{font-family:var(--f-d);font-weight:800;font-size:34px;letter-spacing:-.03em;line-height:1}
+.stat{display:grid;gap:4px}
+.stat small{color:var(--muted);font-size:13px}
+
+/* list rows */
+.li{display:flex;gap:14px;align-items:center;padding:14px;border:2px solid var(--line);border-radius:16px;background:var(--paper);transition:border-color .2s,transform .25s var(--spring),box-shadow .25s;min-width:0}
+a.li:hover,button.li:hover{border-color:var(--ink);transform:translate(-2px,-2px);box-shadow:var(--st-sm)}
+.li .bd{flex:1;min-width:0}
+.li b{display:block;font-size:15px}
+.li small{color:var(--muted);font-size:13px;display:block}
+.sq{width:44px;height:44px;border-radius:13px;border:2px solid #141414;display:grid;place-items:center;flex:none;color:#141414;font-weight:800}
+.sq svg{width:22px;height:22px;fill:none;stroke:#141414;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.li.done{opacity:.55}.li.done b{text-decoration:line-through}
+.grip{color:var(--muted);cursor:grab;font-size:18px;line-height:1;user-select:none}
+
+/* Zen say */
+.zs{display:flex;gap:14px;align-items:flex-start}
+.zs .zz{width:64px;flex:none}
+.bub{position:relative;background:var(--paper);border:2.5px solid var(--ink);border-radius:18px;padding:12px 16px;font-weight:600;box-shadow:var(--st-sm)}
+.bub::before{content:"";position:absolute;left:-10px;top:18px;width:14px;height:14px;background:inherit;border-left:2.5px solid var(--ink);border-bottom:2.5px solid var(--ink);transform:rotate(45deg)}
+.zz svg{display:block;width:100%;height:auto}
+
+/* notch card */
+.notchwrap{position:relative;display:grid}
+.notch{-webkit-mask:radial-gradient(circle 36px at calc(100% - 12px) calc(100% - 12px),transparent 35px,#000 36px);mask:radial-gradient(circle 36px at calc(100% - 12px) calc(100% - 12px),transparent 35px,#000 36px);box-shadow:none!important;padding-bottom:34px}
+.round{position:absolute;right:-14px;bottom:-14px;width:54px;height:54px;border-radius:50%;border:2.5px solid #141414;background:var(--yel);font-weight:800;font-size:22px;color:#141414;box-shadow:var(--st-sm);transition:transform .3s var(--spring);display:grid;place-items:center}
+.round:hover{transform:rotate(-45deg) scale(1.08)}
+
+/* segmented */
+.seg{justify-self:start;display:inline-flex;border:2px solid var(--ink);border-radius:14px;padding:3px;gap:3px;background:var(--paper);flex-wrap:wrap}
+.seg button{padding:7px 14px;border-radius:10px;font-weight:800;font-size:13.5px;white-space:nowrap}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.seg button:not([aria-pressed="true"]):hover{background:var(--soft)}
+
+/* ring */
+.ring{position:relative;width:112px;height:112px;flex:none}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:10}
+.ring .bgc{stroke:var(--soft)}
+.ring .fg{stroke:var(--ink);stroke-linecap:round;transition:stroke-dashoffset 1s var(--spring)}
+.ring b{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--f-d);font-size:24px;text-align:center;line-height:1;align-content:center}
+.ring b small{display:block;font-family:var(--f-b);font-size:10.5px;margin-top:3px;color:var(--muted);font-weight:700}
+
+/* blocks (khối năng lực) */
+.kgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+@media (max-width:560px){.kgrid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.kb{border:2px solid var(--line);border-radius:16px;padding:12px;display:grid;gap:6px;text-align:left;min-height:118px;align-content:start;transition:transform .25s var(--spring),box-shadow .25s,border-color .2s;background:var(--paper)}
+.kb:hover{transform:translate(-2px,-2px);border-color:var(--ink);box-shadow:var(--st-sm)}
+.kb .kn{font-family:var(--f-d);font-weight:800;font-size:22px;line-height:1}
+.kb b{font-size:13px;line-height:1.3}
+.kb.dat{background:var(--mint);border-color:#141414;color:#141414}
+.kb.luyen{background:var(--yel);border-color:#141414;color:#141414;box-shadow:var(--st-sm)}
+.kb.giup{background:var(--peach);border-color:#141414;color:#141414}
+.kb.khoa{opacity:.55}
+.kb[aria-pressed="true"]{outline:3px solid var(--ink);outline-offset:3px}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12.5px;font-weight:700;color:var(--muted)}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:4px;border:1.5px solid #141414;vertical-align:-1px;margin-right:5px}
+
+/* week calendar */
+.week{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px}
+.day{border:2px solid var(--line);border-radius:16px;padding:10px;min-height:220px;display:grid;gap:6px;align-content:start}
+.day.today{border-color:var(--ink);box-shadow:var(--st-sm)}
+.day h4{font-size:14px;font-family:var(--f-b);font-weight:800;display:flex;justify-content:space-between}
+.ev{border-radius:11px;padding:7px 8px;font-size:12px;font-weight:700;line-height:1.3;border:1.5px solid #141414;color:#141414;text-align:left}
+.ev b{display:block;font-size:11px;opacity:.75}
+.ev.cls{background:var(--sky)}.ev.pre{background:var(--mint)}.ev.due{background:var(--butter)}.ev.free{background:none;border-style:dashed;color:var(--muted);border-color:var(--muted)}
+@media (max-width:900px){.week{grid-template-columns:repeat(2,minmax(0,1fr))}.day{min-height:0}}
+
+/* exercise */
+.qbox{border:2.5px solid var(--ink);border-radius:24px;padding:clamp(18px,3vw,34px);box-shadow:var(--st);display:grid;gap:20px;background:var(--paper)}
+.qtxt{font-family:var(--f-d);font-weight:800;font-size:clamp(22px,2.6vw,32px);line-height:1.35;letter-spacing:-.02em}
+.blank{display:inline-block;min-width:120px;border-bottom:4px dashed var(--ink);text-align:center;color:var(--muted);transition:background .2s}
+.blank.fillx{border-bottom-style:solid;color:var(--ink);background:var(--butter);border-radius:8px 8px 0 0;padding:0 10px}
+.opts{display:flex;gap:12px;flex-wrap:wrap}
+.opt{border:2.5px solid var(--ink);border-radius:14px;padding:11px 20px;font-weight:800;font-size:17px;background:var(--paper);box-shadow:var(--st-sm);transition:transform .2s var(--spring),background .2s}
+.opt:hover{transform:translateY(-3px) rotate(-1deg)}
+.opt[aria-pressed="true"]{background:var(--yel);color:#141414}
+.opt.right{background:var(--mint);color:#141414}.opt.wrong{background:var(--peach);color:#141414;animation:shake .3s 2}
+.fb{border-radius:16px;padding:14px 16px;font-weight:600;display:flex;gap:12px;align-items:flex-start}
+.fb.hint{background:var(--soft)}
+.fb.ok{background:var(--goodbg);color:var(--good)}
+.fb.no{background:var(--badbg);color:var(--bad)}
+.steps{display:flex;gap:6px}
+.steps i{flex:1;height:8px;border-radius:9px;background:var(--soft);border:1.5px solid var(--line)}
+.steps i.on{background:var(--ink);border-color:var(--ink)}.steps i.done{background:var(--good);border-color:var(--good)}
+
+/* chat */
+.chat{display:grid;gap:14px;align-content:start}
+.msg{max-width:76%;padding:12px 16px;border-radius:18px;font-weight:500;line-height:1.5;animation:pin .35s var(--spring)}
+.msg.z{background:var(--soft);border-top-left-radius:6px}
+.msg.me{background:var(--ink);color:var(--paper);justify-self:end;border-top-right-radius:6px}
+.msg .hl{background:var(--yel);color:#141414;border-radius:5px;padding:0 4px;font-weight:700}
+.zrow{display:flex;gap:10px;align-items:flex-start}
+.zrow .zz{width:42px;flex:none}
+.sugg{display:flex;gap:8px;flex-wrap:wrap}
+.sugg button{border:2px solid var(--ink);border-radius:999px;padding:7px 14px;font-weight:700;font-size:13.5px;background:var(--paper);transition:background .15s,transform .2s var(--spring)}
+.sugg button:hover{background:var(--butter);color:#141414;transform:translateY(-2px)}
+.typing i{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--muted);margin:0 2px;animation:hop .9s infinite}
+.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+.inp{display:flex;gap:8px;border:2.5px solid var(--ink);border-radius:16px;padding:6px 6px 6px 14px;background:var(--paper)}
+.inp input{flex:1;border:0;outline:none;background:none;min-width:0}
+
+/* lab */
+.labs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+@media (max-width:1020px){.labs{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.labs{grid-template-columns:1fr}}
+.lab{border:2.5px solid #141414;border-radius:22px;padding:18px;display:grid;gap:10px;align-content:start;color:#141414;box-shadow:var(--st);transition:transform .25s var(--spring),box-shadow .25s;text-align:left;min-height:250px}
+.lab:hover{transform:translate(-3px,-3px) rotate(-.6deg);box-shadow:8px 8px 0 #141414}
+.lab .lic{width:52px;height:52px;border-radius:15px;background:#fff;border:2.5px solid #141414;display:grid;place-items:center}
+.lab .lic svg{width:28px;height:28px;fill:none;stroke:#141414;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.lab h3{font-size:22px}
+.lab .sug{background:rgba(255,255,255,.65);border-radius:12px;padding:9px 11px;font-size:13px;font-weight:600}
+.lab .sug b{display:block;font-size:11px;letter-spacing:.06em;text-transform:uppercase;opacity:.7}
+.clock{position:fixed;right:22px;bottom:22px;z-index:45;display:flex;align-items:center;gap:10px;background:#141414;color:#fff;border-radius:999px;padding:8px 10px 8px 16px;box-shadow:4px 4px 0 var(--yel);font-weight:800;animation:bob 3s ease-in-out infinite}
+.clock b{font-variant-numeric:tabular-nums;font-size:18px;color:var(--yel)}
+.clock button{background:var(--yel);color:#141414;border-radius:999px;padding:6px 12px;font-weight:800;font-size:13px}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+.wave{display:flex;gap:4px;align-items:center;height:56px}
+.wave i{width:6px;border-radius:4px;background:var(--ink);height:20%;transition:height .12s}
+.rec{width:76px;height:76px;border-radius:50%;border:3px solid #141414;background:var(--peach);display:grid;place-items:center;box-shadow:var(--st);transition:transform .2s var(--spring);flex:none}
+.rec svg{width:32px;height:32px;fill:none;stroke:#141414;stroke-width:2.4;stroke-linecap:round}
+.rec.on{background:var(--yel);animation:pulse 1.2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(253,224,71,.8),var(--st)}100%{box-shadow:0 0 0 18px rgba(253,224,71,0),var(--st)}}
+.w{display:inline-block;padding:2px 6px;border-radius:8px;margin:2px 1px;font-weight:700}
+.w.g{background:var(--goodbg);color:var(--good)}.w.m{background:var(--butter);color:#5A4A00}.w.b{background:var(--badbg);color:var(--bad);text-decoration:underline wavy}
+.tr{display:grid;gap:4px}
+.tr button{text-align:left;padding:8px 12px;border-radius:12px;display:flex;gap:12px;font-weight:500}
+.tr button:hover{background:var(--soft)}
+.tr button.on{background:var(--yel);color:#141414;font-weight:700}
+.tr time{font-family:ui-monospace,Menlo,monospace;font-size:12px;color:var(--muted);padding-top:3px}
+.tr button.on time{color:#141414}
+.video{aspect-ratio:16/9;border-radius:20px;border:2.5px solid #141414;background:#141414;position:relative;overflow:hidden;display:grid;place-items:center;color:#fff}
+.video .play{width:72px;height:72px;border-radius:50%;background:var(--yel);border:3px solid #fff;display:grid;place-items:center;transition:transform .25s var(--spring)}
+.video .play:hover{transform:scale(1.1)}
+.video .play svg{width:28px;height:28px;fill:#141414}
+.video .cap{position:absolute;left:50%;bottom:54px;transform:translateX(-50%);background:rgba(0,0,0,.75);padding:6px 14px;border-radius:10px;font-weight:600;max-width:90%;text-align:center}
+.video .vb{position:absolute;left:14px;right:14px;bottom:14px;display:flex;gap:10px;align-items:center;font-size:12px;font-weight:700}
+.video .vb .bar{flex:1;background:#333;border-color:#333}.video .vb .bar i{background:var(--yel)}
+textarea.wr{width:100%;min-height:180px;border:2.5px solid var(--ink);border-radius:18px;padding:16px;font-size:17px;line-height:1.7;resize:vertical;background:var(--paper)}
+.mark{background:var(--butter);color:#141414;border-bottom:3px solid #D4A900;border-radius:4px;padding:0 2px;cursor:pointer}
+.mark.fixed{background:var(--goodbg);color:var(--good);border-color:var(--good)}
+
+/* plan / pricing */
+.plan{border:2px solid var(--line);border-radius:18px;padding:16px;display:grid;gap:6px;text-align:left;transition:transform .25s var(--spring),border-color .2s,box-shadow .25s;background:var(--paper)}
+.plan:hover{border-color:var(--ink)}
+.plan[aria-pressed="true"]{border:2.5px solid #141414;background:var(--butter);color:#141414;box-shadow:var(--st-sm)}
+.plan[aria-pressed="true"] .muted{color:#4A4A3A}
+.plan .pr{font-family:var(--f-d);font-weight:800;font-size:22px}
+.tbl{width:100%;border-collapse:collapse;font-size:14px}
+.tbl th{text-align:left;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:8px 10px;border-bottom:2px solid var(--line)}
+.tbl td{padding:12px 10px;border-bottom:1.5px solid var(--line)}
+.tbl td.r,.tbl th.r{text-align:right}
+.sumrow{display:flex;justify-content:space-between;padding:6px 0;font-size:14.5px}
+.sumrow.t{border-top:2px dashed var(--line);margin-top:6px;padding-top:12px;font-weight:800;font-size:17px}
+
+/* toggles */
+.sw{flex:none;width:46px;height:28px;border-radius:999px;border:2.5px solid var(--ink);position:relative;background:var(--paper);transition:background .2s}
+.sw::after{content:"";position:absolute;top:3px;left:3px;width:17px;height:17px;border-radius:50%;background:var(--ink);transition:transform .25s var(--spring)}
+.sw[aria-checked="true"]{background:var(--mint)}
+.sw[aria-checked="true"]::after{transform:translateX(18px);background:#141414}
+.set{display:flex;gap:14px;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1.5px solid var(--line)}
+.set b{display:block}.set small{color:var(--muted);font-size:13px}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chips button{border:2px solid var(--ink);border-radius:999px;padding:6px 13px;font-weight:700;font-size:13.5px}
+.chips button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.slots{display:grid;grid-template-columns:auto repeat(7,1fr);gap:4px;font-size:12px;font-weight:700}
+.slots span{display:grid;place-items:center;color:var(--muted)}
+.slots button{height:28px;border-radius:7px;border:1.5px solid var(--line)}
+.slots button[aria-pressed="true"]{background:var(--mint);border-color:#141414}
+
+/* sheets / modal */
+.scrim{position:fixed;inset:0;background:rgba(20,20,20,.45);z-index:80;display:none;align-items:center;justify-content:center;padding:16px}
+.scrim.show{display:flex;animation:fade .2s}
+@keyframes fade{from{opacity:0}}
+.modal{background:var(--paper);border:3px solid #141414;border-radius:26px;box-shadow:6px 6px 0 #141414;max-width:560px;width:100%;padding:26px;display:grid;gap:16px;max-height:88vh;overflow:auto;animation:pop .4s var(--spring)}
+@keyframes pop{from{transform:scale(.9) translateY(14px);opacity:0}}
+.side{position:fixed;top:34px;right:0;bottom:0;width:min(420px,100%);background:var(--paper);border-left:3px solid #141414;z-index:85;transform:translateX(105%);transition:transform .4s var(--spring);display:grid;grid-template-rows:auto 1fr;box-shadow:-6px 0 0 #141414}
+.side.show{transform:none}
+.side header{display:flex;justify-content:space-between;align-items:center;padding:16px 18px;border-bottom:2px solid var(--line)}
+.side .sb{overflow:auto;padding:16px 18px 40px;display:grid;gap:12px;align-content:start}
+.note{border-left:4px solid var(--yel);background:var(--soft);border-radius:0 12px 12px 0;padding:10px 12px;font-size:14px}
+.note b{display:block;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
+.note.fix{border-left-color:var(--bad)}.note.new{border-left-color:var(--good)}
+.map{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.map a{border:2px solid var(--line);border-radius:14px;padding:10px 12px;display:grid;gap:2px;font-size:13px}
+.map a:hover{border-color:var(--ink);background:var(--butter);color:#141414}
+.map a b{font-size:14px}.map code{font-size:11px;color:var(--muted)}
+.toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,30px);opacity:0;background:#141414;color:#fff;font-weight:700;padding:11px 18px;border-radius:14px;z-index:95;transition:all .35s var(--spring);box-shadow:4px 4px 0 var(--yel);max-width:90vw;text-align:center}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.confetti{position:fixed;inset:0;pointer-events:none;z-index:90}
+.emo{display:flex;gap:10px;flex-wrap:wrap}
+.emo button{border:2.5px solid var(--ink);border-radius:18px;padding:12px 14px;display:grid;justify-items:center;gap:4px;font-weight:700;font-size:13px;min-width:96px;transition:transform .2s var(--spring)}
+.emo button:hover{transform:translateY(-3px)}
+.emo button[aria-pressed="true"]{background:var(--yel);color:#141414;box-shadow:var(--st-sm)}
+.emo .zz{width:46px}
+.heat{display:grid;grid-template-columns:repeat(5,1fr);gap:4px}
+.heat i{aspect-ratio:1;border-radius:6px}
+.empty{border:2px dashed var(--line);border-radius:18px;padding:22px;text-align:center;color:var(--muted)}
+.page-reader{display:grid;grid-template-columns:220px minmax(0,1fr) 260px;gap:18px}
+@media (max-width:1020px){.page-reader{grid-template-columns:1fr}}
+.paper{border:2px solid var(--line);border-radius:18px;padding:clamp(18px,3vw,40px);font-size:17px;line-height:1.8;position:relative}
+.paper .wm{position:absolute;right:16px;bottom:12px;font-size:11px;color:var(--muted)}
+.paper .hlw{background:var(--yel);color:#141414;border-radius:4px;padding:0 3px;cursor:pointer}
+
+/* phone */
+.tabbar{display:none}
+@media (max-width:760px){
+  .app{grid-template-columns:1fr}.rail{display:none}.main{grid-column:1}
+  .top{padding:10px 14px}.top .hide-m{display:none}
+  .page{padding:18px 16px 110px}
+  .tabbar{display:grid;grid-template-columns:repeat(5,1fr);position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(--paper);border-top:2.5px solid var(--ink);padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px))}
+  .tabbar a{display:grid;justify-items:center;gap:1px;font-size:11px;font-weight:800;padding:6px 0;border-radius:12px;transition:transform .25s var(--spring)}
+  .tabbar a.on{background:var(--yel);color:#141414}.tabbar a.on .ic svg{stroke:#141414}
+  .tabbar .ic svg{width:22px;height:22px}
+  .clock{right:12px;bottom:80px}
+  .msg{max-width:92%}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition-duration:.01ms!important}}
+</style></head><body>
+<script>/* @ds-bundle: {"format": 4, "namespace": "ZenfordNP", "components": [{"name": "Button"}, {"name": "Card"}, {"name": "Overline"}, {"name": "Tag"}, {"name": "Pill"}, {"name": "Switch"}, {"name": "ProgressBar"}, {"name": "AnswerOption"}, {"name": "LangTile"}, {"name": "ZenSay"}]} */
+(function(){
+/* ===== Zen: SVG mascot with LED states, cursor-follow eyes and blinking ===== */
+const K='#141414',Y='#FDE047';
+const ZEYES={
+ normal:`<rect x="68" y="88" width="18" height="12" rx="6" fill="${Y}"/><rect x="114" y="88" width="18" height="12" rx="6" fill="${Y}"/>`,
+ happy:`<path d="M68 98q9-13 18 0M114 98q9-13 18 0" stroke="${Y}" stroke-width="5" fill="none" stroke-linecap="round"/>`,
+ wow:`<circle cx="77" cy="93" r="8" fill="${Y}"/><circle cx="123" cy="93" r="8" fill="${Y}"/>`,
+ wink:`<path d="M68 97q9-12 18 0" stroke="${Y}" stroke-width="5" fill="none" stroke-linecap="round"/><rect x="114" y="88" width="18" height="12" rx="6" fill="${Y}"/>`,
+ think:`<rect x="76" y="82" width="14" height="10" rx="5" fill="${Y}"/><rect x="120" y="82" width="14" height="10" rx="5" fill="${Y}"/>`,
+ love:`<path d="M77 101l-8-8a4.6 4.6 0 0 1 8-5 4.6 4.6 0 0 1 8 5z M123 101l-8-8a4.6 4.6 0 0 1 8-5 4.6 4.6 0 0 1 8 5z" fill="${Y}"/>`,
+ sad:`<path d="M68 90q9 10 18 0M114 90q9 10 18 0" stroke="${Y}" stroke-width="5" fill="none" stroke-linecap="round"/>`,
+ blink:`<path d="M68 96h18M114 96h18" stroke="${Y}" stroke-width="5" stroke-linecap="round"/>`,
+ fierce:`<path d="M66 86l22 6v8H66z M134 86l-22 6v8h22z" fill="${Y}"/>`
+};
+const ZMOUTH={normal:'smile',happy:'grin',wow:'o',wink:'tongue',think:'flat',love:'grin',sad:'down',blink:'smile',fierce:'grin'};
+const MOUTHS={smile:`<path d="M90 112q10 8 20 0" stroke="${Y}" stroke-width="4" fill="none" stroke-linecap="round"/>`,
+ grin:`<path d="M86 110q14 13 28 0z" fill="${Y}"/>`,o:`<circle cx="100" cy="114" r="5" stroke="${Y}" stroke-width="3.5" fill="none"/>`,
+ flat:`<path d="M92 114h16" stroke="${Y}" stroke-width="4" stroke-linecap="round"/>`,down:`<path d="M90 117q10-7 20 0" stroke="${Y}" stroke-width="4" fill="none" stroke-linecap="round"/>`,
+ tongue:`<path d="M90 110q10 8 20 0" stroke="${Y}" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M100 114q0 8 5 8t4-8" fill="#FF9F8A" stroke="${K}" stroke-width="2"/>`};
+const ZACC={
+ cape:{back:`<path d="M60 150h80l30 64q-70 14-140 0z" fill="#2F4BD8" stroke="${K}" stroke-width="5" stroke-linejoin="round"/><path d="M92 196h16l-16 12h16" stroke="${Y}" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`},
+ phones:{mid:`<path d="M36 96Q36 22 100 22T164 96" stroke="${K}" stroke-width="9" fill="none"/><path d="M36 96Q36 22 100 22T164 96" stroke="#D8CCFF" stroke-width="4" fill="none"/>`,front:`<rect x="20" y="78" width="22" height="40" rx="9" fill="#D8CCFF" stroke="${K}" stroke-width="5"/><rect x="158" y="78" width="22" height="40" rx="9" fill="#D8CCFF" stroke="${K}" stroke-width="5"/>`},
+ tv:{mid:`<path d="M100 48L78 16M100 48L122 16" stroke="${K}" stroke-width="5" stroke-linecap="round"/><circle cx="78" cy="14" r="7" fill="${Y}" stroke="${K}" stroke-width="4"/><circle cx="122" cy="14" r="10" fill="${Y}" stroke="${K}" stroke-width="4"/><path d="M118 10h8l-8 8h8" stroke="${K}" stroke-width="2.5" fill="none"/>`,noAnt:true},
+ pencil:{holdR:true,front:`<g transform="rotate(-35 168 168)"><rect x="160" y="120" width="14" height="62" rx="3" fill="${Y}" stroke="${K}" stroke-width="4"/><path d="M160 182l7 16 7-16z" fill="#FFD2B8" stroke="${K}" stroke-width="4" stroke-linejoin="round"/></g>`},
+ mic:{holdR:true,front:`<path d="M166 196L172 150" stroke="${K}" stroke-width="6" stroke-linecap="round"/><circle cx="173" cy="140" r="13" fill="#BDEFD8" stroke="${K}" stroke-width="5"/>`},
+ book:{front:`<path d="M58 170q21-8 42 0q21-8 42 0v34q-21-8-42 0q-21-8-42 0z" fill="#FFF1A8" stroke="${K}" stroke-width="5" stroke-linejoin="round"/><path d="M100 170v34" stroke="${K}" stroke-width="4"/>`},
+ helmet:{mid:`<path d="M30 92Q30 30 100 28T170 92z" fill="#FFFFFF" stroke="${K}" stroke-width="5.5" stroke-linejoin="round"/><path d="M92 30h16v58H92z" fill="${Y}" stroke="${K}" stroke-width="3"/>`,noEars:true,noAnt:true}
+};
+function zenSVG(state,hood,acc,label){
+  const a=ZACC[acc]||{},hd=hood||'#BFE4FF';
+  const ears=a.noEars?'':`<path d="M42 66 48 20 86 50Z M158 66 152 20 114 50Z" fill="#FFFFFF" stroke="${K}" stroke-width="5" stroke-linejoin="round"/><path d="M50 56 52 34 70 48Z M150 56 148 34 130 48Z" fill="${Y}"/>`;
+  const ant=a.noAnt?'':`<path d="M100 28v18" stroke="${K}" stroke-width="5" stroke-linecap="round"/><circle cx="100" cy="24" r="7" fill="${Y}" stroke="${K}" stroke-width="4"/>`;
+  const tail=`<path d="M146 192q30 4 30-22q0-14-12-12" stroke="${K}" stroke-width="11" fill="none" stroke-linecap="round"/><path d="M146 192q30 4 30-22q0-14-12-12" stroke="${hd}" stroke-width="5" fill="none" stroke-linecap="round"/>`;
+  const legs=`<rect x="70" y="196" width="22" height="20" rx="8" fill="#FFFFFF" stroke="${K}" stroke-width="5"/><rect x="108" y="196" width="22" height="20" rx="8" fill="#FFFFFF" stroke="${K}" stroke-width="5"/>`;
+  const armL=a.waveL?'':`<path d="M58 162q-16 8-14 26" stroke="${K}" stroke-width="12" fill="none" stroke-linecap="round"/><path d="M58 162q-16 8-14 26" stroke="${hd}" stroke-width="6" fill="none" stroke-linecap="round"/><circle cx="44" cy="190" r="8" fill="#fff" stroke="${K}" stroke-width="4.5"/>`;
+  const armR=a.holdR?'':`<path d="M142 162q16 8 14 26" stroke="${K}" stroke-width="12" fill="none" stroke-linecap="round"/><path d="M142 162q16 8 14 26" stroke="${hd}" stroke-width="6" fill="none" stroke-linecap="round"/><circle cx="156" cy="190" r="8" fill="#fff" stroke="${K}" stroke-width="4.5"/>`;
+  return `<svg class="zen" viewBox="0 0 200 222" role="img" aria-label="${label||'Zen, mèo robot của Zenford'}">${a.back||''}${tail}${legs}${ant}${ears}
+   <path d="M60 148h80a14 14 0 0 1 14 14v26a12 12 0 0 1-12 12H58a12 12 0 0 1-12-12v-26a14 14 0 0 1 14-14z" fill="${hd}" stroke="${K}" stroke-width="5.5"/>
+   <path d="M88 160h24l-24 18h24" stroke="${K}" stroke-width="4.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+   ${armL}${armR}
+   <rect x="34" y="48" width="132" height="98" rx="30" fill="#FFFFFF" stroke="${K}" stroke-width="5.5"/>${a.mid||''}
+   <rect x="50" y="64" width="100" height="64" rx="18" fill="#111111"/>
+   <circle cx="58" cy="118" r="5" fill="#FF9F8A" opacity=".85"/><circle cx="142" cy="118" r="5" fill="#FF9F8A" opacity=".85"/>
+   <g class="zface" data-state="${state||'normal'}"><g class="zeyes">${ZEYES[state]||ZEYES.normal}</g><g class="zmouth">${MOUTHS[ZMOUTH[state]||'smile']}</g></g>${a.front||''}</svg>`;
+}
+function setZen(host,state){const f=host.querySelector('.zface');if(!f)return;f.dataset.state=state;f.querySelector('.zeyes').innerHTML=ZEYES[state]||ZEYES.normal;f.querySelector('.zmouth').innerHTML=MOUTHS[ZMOUTH[state]||'smile'];}
+function mountZens(root){root.querySelectorAll('[data-zen]').forEach(el=>{const [s,h,a]=el.dataset.zen.split('|');el.innerHTML=zenSVG(s,h,a==='follow'?'':a);if(a==='follow')el.classList.add('zfollow');});}
+function logoSVG(fill,size){return `<svg width="${size}" height="${size}" viewBox="0 0 48 48" aria-hidden="true" style="transform:rotate(-8deg);flex:none"><path d="M10 15 12 4 20 11Z M38 15 36 4 28 11Z" fill="${fill}" stroke="${K}" stroke-width="2.4" stroke-linejoin="round"/><path d="M12 9h24a8 8 0 0 1 8 8v13a8 8 0 0 1-8 8H22l-8 7v-7h-2a8 8 0 0 1-8-8V17a8 8 0 0 1 8-8z" fill="${fill}" stroke="${K}" stroke-width="2.6" stroke-linejoin="round"/><path d="M17 17h14L17 31h14" stroke="${fill==='#2F4BD8'?Y:K}" stroke-width="3.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>`;}
+function mountLogos(root){root.querySelectorAll('[data-logo]').forEach(el=>{if(el.querySelector('svg'))return;el.insertAdjacentHTML('afterbegin',logoSVG(el.dataset.logo,el.classList.contains('brand')?34:22));});}
+
+
+var REDUCE=typeof matchMedia==='function'&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+function mount(root){root=root||document;mountLogos(root);mountZens(root);}
+var following=false;
+function followEyes(){if(following)return;following=true;addEventListener('pointermove',function(e){
+  document.querySelectorAll('.zfollow .zeyes').forEach(function(g){var svg=g.ownerSVGElement,r=svg.getBoundingClientRect();if(!r.width)return;
+    var cx=r.left+r.width/2,cy=r.top+r.height*.42,dx=e.clientX-cx,dy=e.clientY-cy,d=Math.hypot(dx,dy)||1,m=Math.min(7,d/40);
+    g.setAttribute('transform','translate('+(dx/d*m).toFixed(1)+' '+(dy/d*m*.7).toFixed(1)+')');});},{passive:true});}
+var blinking=false;
+function blink(){if(blinking||REDUCE)return;blinking=true;setInterval(function(){document.querySelectorAll('.zface').forEach(function(f){var s=f.dataset.state;if(s!=='normal'&&s!=='happy'&&s!=='fierce')return;if(Math.random()<.35){var e=f.querySelector('.zeyes');e.innerHTML=ZEYES.blink;setTimeout(function(){if(f.dataset.state===s)e.innerHTML=ZEYES[s];},140);}});},2600);}
+window.ZenfordNP={zenSVG:zenSVG,setZen:setZen,logoSVG:logoSVG,mount:mount,followEyes:followEyes,blink:blink,
+  states:Object.keys(ZEYES).filter(function(k){return k!=='blink'}),outfits:Object.keys(ZACC)};
+})();
+</script>
+<script>/* ===== Zenford · Cổng học viên · bản mẫu ===== */
+const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
+const REDUCE=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const Z=(st='normal',hood='#BFE4FF',acc='')=>`<div class="zz">${ZenfordNP.zenSVG(st,hood,acc)}</div>`;
+const fmt=n=>n.toLocaleString('vi-VN')+'đ';
+function toast(t){const el=$('#toast');el.textContent=t;el.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>el.classList.remove('show'),2600);}
+
+/* ---------- icons ---------- */
+const IC={
+ home:'<path data-a="roof" d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-5h4v5"/>',
+ cal:'<rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/><path data-a="tick" d="M8.5 15l2.5 2.5 4.5-4.5"/>',
+ flag:'<path d="M5 21V3"/><path data-a="flag" d="M5 4h12l-2 4 2 4H5"/>',
+ flask:'<path d="M9 3h6M10 3v6L4.5 19a1.5 1.5 0 0 0 1.3 2h12.4a1.5 1.5 0 0 0 1.3-2L14 9V3"/><path data-a="wave" d="M8 15h8"/>',
+ chat:'<path d="M4 5h16v11H9l-5 4z"/><circle data-a="d" cx="8.5" cy="10.5" r=".7"/><circle data-a="d" cx="12" cy="10.5" r=".7"/><circle data-a="d" cx="15.5" cy="10.5" r=".7"/>',
+ note:'<path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4"/><path data-a="tick" d="M9 13h6M9 17h4"/>',
+ chart:'<path d="M4 20h16"/><path data-a="bar" d="M7 20v-6"/><path data-a="bar" d="M12 20V8"/><path data-a="bar" d="M17 20v-10"/>',
+ book:'<path d="M3 5h7a2 2 0 0 1 2 2v13a2 2 0 0 0-2-2H3z"/><path data-a="page" d="M12 7a2 2 0 0 1 2-2h7v13h-7a2 2 0 0 0-2 2z"/>',
+ card:'<rect x="3" y="5" width="18" height="14" rx="3"/><path d="M3 10h18"/><path data-a="tick" d="M7 15h4"/>',
+ bell:'<g data-a="bell"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 20a2 2 0 0 0 4 0"/></g>',
+ gear:'<g data-a="spin"><circle cx="12" cy="12" r="3.2"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/></g>',
+ moon:'<path data-a="spin" d="M20 14A8 8 0 0 1 10 4a8 8 0 1 0 10 10z"/>',
+ phones:'<path d="M4 15v-3a8 8 0 0 1 16 0v3"/><rect x="3" y="14" width="4" height="6" rx="1.5"/><rect x="17" y="14" width="4" height="6" rx="1.5"/>',
+ mic:'<g data-a="mic"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M6 11a6 6 0 0 0 12 0"/><path d="M12 17v4"/></g>',
+ read:'<path d="M2 6c3-1.5 7-1.5 10 1 3-2.5 7-2.5 10-1v13c-3-1.5-7-1.5-10 1-3-2.5-7-2.5-10-1z"/><path d="M12 7v13"/>',
+ pen:'<path d="M4 21h9"/><path d="M15 4l5 5L9 20H4v-5z"/>',
+ play:'<path d="M8 5v14l11-7z"/>',
+ arrow:'<path d="M5 12h14M13 6l6 6-6 6"/>',
+ back:'<path d="M19 12H5M11 6l-6 6 6 6"/>',
+ clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+ check:'<path d="M5 12.5l4.5 4.5L19 7"/>',
+ lock:'<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
+ x:'<path d="M6 6l12 12M18 6L6 18"/>',
+ video:'<rect x="3" y="6" width="13" height="12" rx="2"/><path d="M16 10l5-3v10l-5-3z"/>',
+ user:'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',
+ spark:'<path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5L18 18M6 18l2.5-2.5M15.5 8.5L18 6"/>',
+ grid:'<rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/>',
+ search:'<circle cx="11" cy="11" r="6"/><path d="M20 20l-4.5-4.5"/>',
+ dl:'<path d="M12 4v11M7 10l5 5 5-5M5 20h14"/>',
+ vol:'<path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M16 9a4 4 0 0 1 0 6M18.5 6.5a8 8 0 0 1 0 11"/>',
+ key:'<circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M17 6l3 3"/>',
+ qr:'<rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h3v3M20 14v7h-6"/>',
+ more:'<circle cx="5" cy="12" r="1.3"/><circle cx="12" cy="12" r="1.3"/><circle cx="19" cy="12" r="1.3"/>'
+};
+const svg=(k,cls='')=>`<svg viewBox="0 0 24 24" aria-hidden="true" class="i ${cls}">${IC[k]||''}</svg>`;
+
+/* ---------- one source of truth for every screen ---------- */
+const D={
+ me:{name:'Minh Anh',ini:'MA'},
+ date:'Thứ Ba, 24/11/2026',
+ lang:'en',
+ langs:{
+  en:{name:'Tiếng Anh',code:'EN',now:'A2',goal:'B1',plan:'Kết hợp',col:'var(--sky)',hood:'#BFE4FF'},
+  ja:{name:'Tiếng Nhật',code:'JA',now:'N5',goal:'N4',plan:'Học với AI',col:'var(--lav)',hood:'#D8CCFF'}},
+ week:{done:186,plan:210},
+ blocks:[
+  ['Giới thiệu bản thân','dat','Đạt 12/10 · bài nói 0:41, cô Lan xác nhận'],
+  ['Gia đình, bạn bè','dat','Đạt 20/10 · bài kiểm chứng 9/10'],
+  ['Thói quen hằng ngày','dat','Đạt 03/11 · bài viết 70 từ, cô Lan xác nhận'],
+  ['Kể chuyện đã qua','giup','Sai 2 lần kiểm chứng (thì quá khứ đơn). Cô Lan đã nhận kèm 10 phút cuối buổi tối nay.'],
+  ['Kế hoạch, dự định','luyen','Đang luyện · 3/5 bài · kiểm chứng dự kiến 01/12'],
+  ['So sánh, mô tả','khoa','Mở khi đạt Khối 5'],
+  ['Hỏi đường, chỉ dẫn','khoa',''],['Kể trải nghiệm','khoa',''],['Đưa lời khuyên','khoa',''],
+  ['Nêu ý kiến','khoa',''],['Kể chuyện nối tiếp','khoa',''],['Thuyết trình 2 phút','khoa','']],
+ cls:{when:'Tối nay · 19:30–20:30',day:'Thứ Ba 24/11',t:'Lớp nhóm · Khối 5 · buổi 2',teacher:'Cô Lan',size:'5 bạn',goal:'Nói kế hoạch cuối tuần bằng "be going to"',due:'19:15'},
+ period:{from:'10/11',to:'09/12/2026',sessions:8,used:5,ai:600,aiUsed:372},
+ tasks:[
+  {id:'t1',ic:'check',bg:'var(--butter)',t:'Check-in trước buổi tối nay',s:'Zen hỏi lại bài trước, cho bạn biết tối nay học gì',min:6,tag:['Hạn 19:15','warn'],go:'#check-in'},
+  {id:'t2',ic:'mic',bg:'var(--peach)',t:'Lab Nói · kể kế hoạch cuối tuần',s:'Luyện đúng phần tối nay vào lớp',min:10,tag:['Khối 5',''],go:'#lab-noi'},
+  {id:'t3',ic:'pen',bg:'var(--lav)',t:'Làm lại 2 câu sai · Khối 4',s:'Quá khứ đơn: động từ bất quy tắc',min:8,tag:['Cần giúp','bad'],go:'#bai-tap'},
+  {id:'t4',ic:'note',bg:'var(--mint)',t:'Ôn 12 từ sắp quên',s:'Từ trong Vở AI, đến hạn hôm nay',min:4,tag:['Ôn tập',''],go:'#vo-ai'},
+  {id:'t0',ic:'phones',bg:'var(--sky)',t:'Lab Nghe · "My weekend plans"',s:'Xong lúc 7:10 sáng',min:8,tag:['Xong','ok'],go:'#lab-nghe',done:true}]
+};
+const L=()=>D.langs[D.lang];
+const ST={done:new Set(['t0']),checkin:false,notes:[]};
+
+/* ---------- screens ---------- */
+const SCR=[
+ ['hom-nay','HV-01','Hôm nay','home','Gộp "Trang chủ" + "Việc hôm nay" của bản CIT'],
+ ['check-in','HV-02','Check-in trước buổi','check','Mới'],
+ ['vao-lop','HV-03','Vào lớp','video','Mới'],
+ ['sau-buoi','HV-04','Sau buổi (Check-out)','spark','Mới'],
+ ['lich','HV-05','Lịch học và đặt lớp','cal','Gộp "Lịch học" + "Tìm và đặt lớp"'],
+ ['lo-trinh','HV-06','Lộ trình và khối năng lực','flag','Gộp "Lộ trình" + "Hồ sơ năng lực"'],
+ ['tien-bo','HV-07','Tiến bộ','chart','Làm lại "Bảng tiến bộ"'],
+ ['lab','HV-08','Bốn Lab','flask','Làm lại "Phòng luyện Lab"'],
+ ['lab-nghe','HV-09','Lab Nghe','phones','Mới · video YouTube + phụ đề'],
+ ['lab-noi','HV-10','Lab Nói','mic','Mới · nói chuyện với Zen'],
+ ['lab-doc','HV-11','Lab Đọc','read','Mới'],
+ ['lab-viet','HV-12','Lab Viết','pen','Mới · Zen chỉ chỗ, bạn tự sửa'],
+ ['hoi-zen','HV-13','Hỏi Zen','chat','Mới'],
+ ['vo-ai','HV-14','Vở AI','note','Làm lại "Vở học AI"'],
+ ['thu-vien','HV-15','Thư viện của bạn','book','Làm lại "Khóa học và tài liệu"'],
+ ['bai-hoc','HV-16','Bài học video','play','Làm lại "Màn học khóa tự học"'],
+ ['bai-tap','HV-17','Làm bài và kết quả','check','Gộp "Màn làm bài" + "Kết quả"'],
+ ['tai-lieu','HV-18','Đọc tài liệu','read','Làm lại "Trình đọc tài liệu"'],
+ ['goi','HV-19','Gói và học phí','card','Mới · phí theo tháng từng ngôn ngữ'],
+ ['thong-bao','HV-20','Thông báo','bell','Mới'],
+ ['ho-so','HV-21','Hồ sơ và cài đặt','gear','Mới'],
+ ['bat-dau','HV-22','Lần đầu vào học','spark','Làm lại "Hướng dẫn lần đầu"'],
+ ['danh-gia','HV-23','Bài đánh giá đầu vào','flag','Làm lại "Bài đánh giá đầu vào"']];
+const SC=Object.fromEntries(SCR.map(s=>[s[0],s]));
+
+/* ---------- notes for CIT ---------- */
+const COMMON=[['rule','Xưng "bạn" với mọi người học (trẻ em, người đi làm, người lớn tuổi). Không dùng "em".'],
+ ['rule','Chỉ một linh vật: Zen (mèo robot, mặt màn hình đen, mắt LED vàng, viền mực dày). Không thêm nhân vật khác.'],
+ ['rule','Khu học nền trắng, chữ đen. Màu pastel chỉ dùng làm điểm nhấn nhỏ. Nút hành động chính màu vàng #FDE047. Xanh cobalt chỉ có trong logo.'],
+ ['rule','Không chuỗi ngày (streak), không huy hiệu, không xu, không bảng xếp hạng. Thay bằng "Đồng hồ học": phút học tuần này so với kế hoạch.'],
+ ['rule','Không bán hàng trong khu học: không nhãn giảm giá, không banner "gia hạn kẻo mất". Mọi chuyện tiền nằm ở HV-19.'],
+ ['rule','"Khối năng lực" (12 khối, đơn vị kiến thức) KHÁC "gói học phí" (theo tháng). Không dùng chữ "khối" cho gói tiền.'],
+ ['rule','Mọi con số mẫu trên các màn phải khớp nhau. Bản mẫu này lấy từ một nguồn dữ liệu chung: 3/12 khối đạt, đang luyện Khối 5, Khối 4 cần giúp.']];
+const NOTES={
+ 'hom-nay':[['fix','Bản CIT có 2 màn "Trang chủ" và "Việc hôm nay" lặp nhau. Gộp làm một.'],['new','Zen tự xếp việc theo lịch lớp, khối đang luyện, lỗi lặp lại và thẻ đến hạn. Việc nào cũng ghi lý do.'],['new','Kéo để đổi thứ tự. "Hoãn" dời sang ngày mai. Quá nhiều việc thì Zen tự dời bớt và báo.'],['fix','Bỏ "🔥 12 ngày", bỏ "Giữ chuỗi". Dùng đồng hồ học theo tuần.'],['new','Thẻ "Lớp tối nay" kiểu khoét góc, bấm nút tròn để vào màn Vào lớp.']],
+ 'check-in':[['new','Đủ 4 việc: (1) hỏi cảm xúc, (2) Zen giảng lại bài trước, (3) cho biết hôm nay học gì, (4) khởi động để phân loại điểm yếu.'],['new','Kết quả chảy về 2 nơi: (a) giáo viên nhận Readiness từng bạn và Heatmap cả lớp trước giờ học; (b) điểm Check-in là mốc "trước" để tính tiến bộ (Check-out trừ Check-in).'],['rule','Hạn xong trước giờ học 15 phút. Chưa xong vẫn vào lớp được, nhưng giáo viên thấy "chưa check-in".']],
+ 'vao-lop':[['new','Một chỗ cho mọi thứ trước giờ học: link phòng, mục tiêu buổi, bạn cùng lớp, tài liệu, kiểm tra micro.'],['rule','Đổi hoặc hủy trước 24 giờ không mất buổi. Báo vắng sau mốc này tính 1 buổi.'],['rule','Link phòng học hiện ở đây 15 phút trước giờ học, đồng thời gửi Zalo.']],
+ 'sau-buoi':[['new','Check-out = bài kiểm ngắn cuối buổi. Tiến bộ của buổi = Check-out − Check-in.'],['new','Check-out buổi này trở thành Check-in của buổi sau (vòng lặp liên tục).'],['new','Zen giải thích lại câu sai theo kiểu gợi mở: hỏi trước, không đưa đáp án ngay.']],
+ 'lich':[['fix','Gộp "Lịch học" và "Tìm và đặt lớp" thành 3 thẻ: Tuần này, Đặt lớp, Giờ rảnh.'],['rule','Số buổi tính theo kỳ phí tháng (8 buổi mỗi kỳ cho gói Kết hợp), không tính theo "khối".'],['rule','Lớp mở khi đủ bạn và có giáo viên nhận. Lớp bị hủy thì hoàn buổi và gợi ý ca khác.']],
+ 'lo-trinh':[['fix','Gộp "Lộ trình của tôi" + "Hồ sơ năng lực". Bản CIT 2 màn này có số liệu mâu thuẫn nhau.'],['new','Bấm từng khối để xem bằng chứng (bài nói, bài viết, điểm kiểm chứng, ai xác nhận).'],['new','Ngày dự kiến đạt mục tiêu tự tính lại theo tốc độ học, và nói rõ vì sao sớm hay trễ.'],['rule','Cam kết ghi đúng chữ: "học lại một lần".']],
+ 'tien-bo':[['fix','Bỏ "Chuỗi ngày học", "Kỷ lục". Thay bằng đồng hồ học theo tuần.'],['new','So sánh trước/sau theo từng kỹ năng, lấy từ Check-in và Check-out của các buổi.'],['rule','Học viên dưới 18 tuổi: báo cáo tuần gửi phụ huynh mỗi Chủ nhật (bật/tắt ở HV-21).']],
+ 'lab':[['new','4 Lab gắn với khối đang luyện. Gợi ý hôm nay lấy từ lỗi của bạn.'],['new','Hiện số phút Zen còn lại trong kỳ. Hết phút thì mua thêm ở HV-19, không bật quảng cáo trong Lab.'],['new','Mở Lab là hiện đồng hồ học nổi. Thoát Lab thì Zen khen hoặc mời học thêm 5 phút.']],
+ 'lab-nghe':[['new','Nguồn bài nghe: video YouTube có phụ đề (Zenford lấy phụ đề làm bài). Cần làm trong giai đoạn 1.'],['new','3 chế độ: Xem có phụ đề, Nghe chép, Nói theo. Bấm câu nào phát lại câu đó.']],
+ 'lab-noi':[['new','Phòng Nói với AI, cần có trong giai đoạn 1. Zen đóng vai, bạn trả lời bằng giọng nói.'],['new','Chấm từng từ (xanh: tốt, vàng: tạm, đỏ: sai). Zen không nói lại câu đúng ngay mà gợi ý để bạn tự nói lại.'],['rule','Mỗi lượt Nói trừ phút Zen của kỳ.']],
+ 'lab-doc':[['new','Bắt buộc chọn câu làm bằng chứng trong bài trước khi chọn đáp án, để biết bạn hiểu hay đoán.']],
+ 'lab-viet':[['new','Zen đánh dấu chỗ sai và hỏi gợi ý. Bạn tự sửa, Zen chỉ xác nhận. Gợi ý có 3 mức, mở dần.'],['rule','Không có nút "sửa hộ". Đây là điểm khác biệt của Zenford.']],
+ 'hoi-zen':[['new','Trợ lý học kiểu Socratic: hỏi ngược để bạn tự nghĩ ra, gợi ý 3 mức, mức cuối mới đưa đáp án.'],['new','Zen biết bạn đang luyện khối nào và hay sai gì, nên trả lời theo đúng bối cảnh đó.'],['new','Nút "Gửi câu này cho cô thầy" khi Zen chưa giải thích được.']],
+ 'vo-ai':[['fix','Giữ ý tưởng hay của CIT, sửa: thêm chế độ ôn thẻ lật, lịch ôn theo mức nhớ.'],['new','Mọi Lab, buổi học, Hỏi Zen đều tự ghi vào đây.']],
+ 'thu-vien':[['fix','Bỏ banner gia hạn màu vàng và nhãn giảm giá. Hết hạn chỉ hiện chữ nhỏ và link sang HV-19.'],['rule','Thư viện chứa khóa tự học, tài liệu số, sách kèm QR đã có. Mua mới ở website, không bán trong khu học.']],
+ 'bai-hoc':[['fix','Bỏ nhãn "−25%" trên video. Hỏi đáp: ẩn họ tên người học (chỉ hiện "Bạn H."), nhất là trẻ em.'],['new','Nút "Hỏi Zen về bài này" mở Hỏi Zen kèm bối cảnh bài.']],
+ 'bai-tap':[['fix','Gộp màn làm bài + kết quả. Kết quả từng câu giải thích ngắn.'],['rule','Làm lại câu sai có giới hạn số lần. Câu Nói/Viết chờ giáo viên chấm, có hạn trả kết quả.'],['rule','Mất mạng vẫn làm tiếp, tự đồng bộ khi có mạng.']],
+ 'tai-lieu':[['new','Bấm vào từ để tra nghĩa và lưu vào Vở AI. Tài liệu in tên người mua để chống chia sẻ.']],
+ 'goi':[['new','Học phí theo tháng cho từng ngôn ngữ. 4 hình thức: Học với AI 390.000đ, Nhóm 1.590.000đ, Kết hợp 2.290.000đ, 1 kèm 1 3.990.000đ mỗi tháng. Trả trước 3 tháng giảm 5%, 6 tháng giảm 10% (giá mẫu, chốt sau).'],['rule','KHÔNG tự trừ tiền mặc định. Nhắc gia hạn trước 7 ngày qua Zalo/email, trả bằng link/QR. Tự gia hạn bằng thẻ chỉ là lựa chọn, mặc định tắt.'],['new','Đổi hình thức giữa kỳ: tính chênh lệch theo số ngày còn lại.'],['new','Một người trả tiền cho nhiều người học (phụ huynh nhiều con): chọn người học ở góc trên.'],['rule','Cam kết "học lại một lần". Đạt mục tiêu sớm thì hoàn phần học phí trả trước chưa dùng, cần nộp chứng chỉ (chi tiết đang chốt).']],
+ 'thong-bao':[['new','Thông báo gom theo ngày. Nhắc gia hạn chỉ xuất hiện ở đây và HV-19, không chen vào màn học.']],
+ 'ho-so':[['new','Ngôn ngữ giao diện theo quốc gia (Việt, English, 日本語, 한국어, 中文, ไทย…).'],['new','Học viên dưới 18 tuổi: có mục phụ huynh/người giám hộ. Người lớn thì ẩn mục này.'],['new','Quyền riêng tư: ẩn tên trong hỏi đáp, ai được xem tiến bộ.']],
+ 'bat-dau':[['fix','Bản CIT là popup đè lên trang chủ. Làm thành luồng riêng 4 bước, có Zen dẫn.'],['new','Hỏi mục tiêu và giờ rảnh ngay từ đầu để Zen xếp lịch và tính ngày dự kiến.']],
+ 'danh-gia':[['rule','Khoảng 35 phút, 4 phần, có thể dừng giữa chừng và làm tiếp. Nói và Viết: AI chấm theo tiêu chí, giáo viên xác nhận.'],['new','Kết quả xếp thẳng vào khối năng lực: khối nào đạt sẵn, bắt đầu luyện từ khối nào.']]
+};
+
+/* ---------- small builders ---------- */
+const PH=(ey,h,p='',right='')=>`<header class="ph"><div><span class="ey">${ey}</span><h1>${h}</h1>${p?`<p>${p}</p>`:''}</div>${right}</header>`;
+const ring=(v,max,top,sub)=>{const C=264,off=C*(1-Math.min(1,v/max));return `<div class="ring"><svg viewBox="0 0 100 100"><circle class="bgc" cx="50" cy="50" r="42"/><circle class="fg" cx="50" cy="50" r="42" stroke-dasharray="${C}" stroke-dashoffset="${C}" data-off="${off}"/></svg><b>${top}<small>${sub}</small></b></div>`;};
+const dat=()=>D.blocks.filter(b=>b[1]==='dat').length;
+const luyen=()=>D.blocks.findIndex(b=>b[1]==='luyen')+1;
+const giup=()=>D.blocks.findIndex(b=>b[1]==='giup')+1;
+const segBar=()=>`<div style="display:grid;grid-template-columns:repeat(12,1fr);gap:4px">${D.blocks.map(b=>`<i style="height:10px;border-radius:5px;border:1.5px solid ${b[1]==='khoa'?'var(--line)':'#141414'};background:${{dat:'var(--mint)',luyen:'var(--yel)',giup:'var(--peach)',khoa:'var(--soft)'}[b[1]]}"></i>`).join('')}</div>`;
+const zsay=(t,st='normal',hood)=>`<div class="zs">${Z(st,hood||L().hood)}<div class="bub">${t}</div></div>`;
+const back=(h,t)=>`<a class="lk" href="${h}" style="justify-self:start;border:0;display:inline-flex;gap:6px;align-items:center">${svg('back')}<span style="border-bottom:3px solid var(--yel)">${t}</span></a>`;
+
+const V={};
+
+/* ===== HV-01 Hôm nay ===== */
+V['hom-nay']=()=>{
+ const todo=D.tasks.filter(t=>!ST.done.has(t.id)),mins=todo.reduce((a,t)=>a+t.min,0);
+ return `${PH(D.date+' · tối nay có lớp 19:30',`Chào ${D.me.name}, hôm nay còn ${todo.length} việc, khoảng ${mins} phút`)}
+ <div class="g g2">
+  <section class="c">
+   <div class="ch"><h2>Việc hôm nay</h2><span class="tag">${D.tasks.length-todo.length}/${D.tasks.length} xong</span></div>
+   <div class="fb hint" style="align-items:center">${Z('think',L().hood).replace('class="zz"','class="zz" style="width:40px;flex:none"')}<span>Hôm nay bạn có lớp nên Zen dời <b>Lab Đọc</b> sang thứ Năm. Mỗi việc dưới đây đều giúp cho buổi tối nay.</span></div>
+   <div id="tlist" class="g" style="gap:10px">${D.tasks.map(taskRow).join('')}</div>
+   <p class="muted" style="font-size:13px">Kéo ⋮⋮ để đổi thứ tự · Hoãn thì việc dời sang ngày mai.</p>
+  </section>
+  <div class="col">
+   <div class="notchwrap"><a href="#vao-lop" class="c fill bg-sky notch">
+     <span class="ey">${D.cls.when}</span><h2 style="font-size:24px">${D.cls.t}</h2>
+     <p>${D.cls.teacher} · ${D.cls.size}<br>Mục tiêu: ${D.cls.goal}</p>
+     <span class="tag ${ST.checkin?'ok':'warn'}" style="justify-self:start">${ST.checkin?'✓ Đã check-in · sẵn sàng 75%':'Chưa check-in · hạn '+D.cls.due}</span>
+   </a><a class="round" href="#vao-lop" aria-label="Xem buổi học">→</a></div>
+   <section class="c">
+    <div class="ch"><h3>Đồng hồ học tuần này</h3><a class="lk" href="#tien-bo">Chi tiết</a></div>
+    <div class="row" style="flex-wrap:nowrap">${ring(D.week.done,D.week.plan,D.week.done,'/'+D.week.plan+' phút')}<p class="muted" style="font-size:14px">Còn <b style="color:var(--ink)">${D.week.plan-D.week.done} phút</b> là đủ kế hoạch tuần. Đủ đều thì bạn giữ được ngày dự kiến đạt ${L().goal}.</p></div>
+   </section>
+   <a class="c lift" href="#lo-trinh" style="border-color:var(--ink)">
+    <div class="ch"><h3>Lộ trình ${L().name} · ${L().now} → ${L().goal}</h3><span class="tag ok">${dat()}/12 khối đạt</span></div>
+    ${segBar()}
+    <p class="muted" style="font-size:14px">Đang luyện <b style="color:var(--ink)">Khối ${luyen()}</b>. Khối ${giup()} cần giúp, cô Lan kèm tối nay. Dự kiến đạt ${L().goal}: <b style="color:var(--ink)">08/2027</b>.</p>
+   </a>
+  </div>
+ </div>
+ <section class="c">
+  <div class="ch"><h3>Đang học dở trong Thư viện</h3><a class="lk" href="#thu-vien">Thư viện</a></div>
+  <a class="li" href="#bai-hoc"><span class="sq" style="background:var(--sky)">${svg('play')}</span><span class="bd"><b>Tiếng Anh giao tiếp hằng ngày · Bài 9</b><small>Khóa tự học · đang ở 02:48 / 08:10</small></span><span class="btn sm">Học tiếp</span></a>
+ </section>`;};
+function taskRow(t){const done=ST.done.has(t.id);
+ return `<div class="li ${done?'done':''}" draggable="${!done}" data-id="${t.id}">
+  <span class="grip" aria-hidden="true">⋮⋮</span>
+  <button class="sq" style="background:${done?'var(--mint)':t.bg}" data-done="${t.id}" aria-label="${done?'Đã xong':'Đánh dấu xong'}">${svg(done?'check':t.ic)}</button>
+  <span class="bd"><b>${t.t}</b><small>${t.s} · ${t.min} phút</small></span>
+  ${t.tag[0]?`<span class="tag ${t.tag[1]}">${t.tag[0]}</span>`:''}
+  ${done?'':`<a class="btn sm" href="${t.go}">Bắt đầu</a><button class="btn sm o hide-m" data-later="${t.id}" title="Dời sang ngày mai">Hoãn</button>`}
+ </div>`;}
+V['hom-nay'].after=()=>{
+ const box=$('#tlist');
+ box.onclick=e=>{const d=e.target.closest('[data-done]'),l=e.target.closest('[data-later]');
+  if(d){ST.done.has(d.dataset.done)?ST.done.delete(d.dataset.done):ST.done.add(d.dataset.done);render();if(ST.done.size===D.tasks.length)confetti();}
+  if(l){const row=l.closest('.li');row.style.transition='all .4s';row.style.opacity='0';row.style.transform='translateX(40px)';setTimeout(()=>row.remove(),400);toast('Đã dời sang ngày mai. Zen sẽ nhắc lại sáng mai.');}};
+ let drag;box.addEventListener('dragstart',e=>{drag=e.target.closest('.li');drag.style.opacity='.4';});
+ box.addEventListener('dragend',()=>{if(drag)drag.style.opacity='';});
+ box.addEventListener('dragover',e=>{e.preventDefault();const o=e.target.closest('.li');if(!o||o===drag)return;const r=o.getBoundingClientRect();box.insertBefore(drag,e.clientY<r.top+r.height/2?o:o.nextSibling);});
+};
+
+/* ===== HV-02 Check-in ===== */
+const CK={step:0,emo:null,ans:{}};
+const WARM=[['Yesterday I ___ to the cinema.',['go','went','gone'],1,'Quá khứ đơn'],['Next Saturday we ___ visit my grandma.',['are going to','going to','will to'],0,'Be going to'],['She ___ like coffee.',["don't","doesn't","isn't"],1,'Hiện tại đơn'],['Look at the clouds! It ___ rain.',['is going to','goes to','is go'],0,'Be going to']];
+V['check-in']=()=>{const s=CK.step;
+ const steps=`<div class="steps">${[0,1,2,3].map(i=>`<i class="${i<s?'done':i===s?'on':''}"></i>`).join('')}</div>`;
+ let body='';
+ if(s===0)body=`${zsay('Chào bạn! Trước khi vào lớp, mình hỏi nhanh: hôm nay bạn thấy thế nào?','happy')}
+  <div class="emo">${[['happy','Sẵn sàng'],['normal','Bình thường'],['think','Hơi mệt'],['sad','Chưa hiểu bài trước']].map(([e,t])=>`<button data-emo="${e}" aria-pressed="${CK.emo===e}">${Z(e,L().hood)}${t}</button>`).join('')}</div>
+  <div class="row"><button class="btn" data-next ${CK.emo?'':'disabled'}>Tiếp ${svg('arrow')}</button></div>`;
+ if(s===1)body=`${zsay(CK.emo==='sad'?'Không sao, mình giảng lại kỹ hơn một chút nhé.':'Mình giảng lại bài trước trong 90 giây nha.','normal')}
+  <div class="c k"><span class="ey">Khối 4 · Kể chuyện đã qua</span><h2>Quá khứ đơn: việc đã xong, có thời gian rõ</h2>
+   <p>Dấu hiệu: <b>yesterday, last week, 2 years ago</b>. Động từ có quy tắc thêm <b>-ed</b>, bất quy tắc phải nhớ.</p>
+   <div class="g g3" style="gap:10px">${[['go','went'],['see','saw'],['eat','ate']].map(([a,b])=>`<div class="c bg-soft" style="padding:12px;text-align:center"><b style="font-size:20px">${a} → <span style="background:var(--yel);color:#141414;padding:0 6px;border-radius:6px">${b}</span></b></div>`).join('')}</div>
+   <p class="muted">Tuần trước bạn hay viết <s>"I go to school yesterday"</s>. Đúng là: <b>I went to school yesterday.</b></p></div>
+  <div class="row"><button class="btn" data-next>Mình hiểu rồi ${svg('arrow')}</button><button class="btn o" onclick="toast('Zen giảng lại bằng ví dụ khác: kể lại hôm qua bạn ăn gì.')">Giảng cách khác</button></div>`;
+ if(s===2)body=`${zsay('Tối nay cô Lan dạy phần này. Biết trước thì vào lớp nói được nhiều hơn.','wow')}
+  <div class="c k bg-sky fill"><span class="ey">${D.cls.when} · ${D.cls.teacher}</span><h2>${D.cls.goal}</h2>
+   <div class="g" style="gap:8px">${['Khởi động 5 phút: kể lại cuối tuần trước (quá khứ đơn)','Học mẫu câu: I\'m going to + động từ','Nói theo cặp: lên kế hoạch cuối tuần cho cả nhóm','10 phút cuối: cô Lan kèm riêng Khối 4 cho bạn nào cần'].map((t,i)=>`<div class="li" style="background:#fff;color:#141414;border-color:#141414"><span class="sq" style="background:var(--butter)">${i+1}</span><span class="bd"><b>${t}</b></span></div>`).join('')}</div></div>
+  <div class="row"><button class="btn" data-next>Khởi động 4 câu ${svg('arrow')}</button></div>`;
+ if(s===3){const done=Object.keys(CK.ans).length===WARM.length;
+  body=`${zsay('4 câu khởi động. Không tính điểm, chỉ để cô biết bạn đang chắc phần nào.','think')}
+  <div class="g" style="gap:12px">${WARM.map((q,i)=>`<div class="c"><b>${i+1}. ${q[0].replace('___','<span class="blank '+(CK.ans[i]!=null?'fillx':'')+'">'+(CK.ans[i]!=null?q[1][CK.ans[i]]:'&nbsp;')+'</span>')}</b>
+   <div class="opts">${q[1].map((o,j)=>`<button class="opt ${CK.ans[i]===j?(j===q[2]?'right':'wrong'):''}" data-q="${i}" data-o="${j}" style="font-size:15px;padding:8px 14px" ${CK.ans[i]!=null?'disabled':''}>${o}</button>`).join('')}</div></div>`).join('')}</div>
+  <div class="row"><button class="btn" data-finish ${done?'':'disabled'}>Gửi cho cô Lan ${svg('arrow')}</button></div>`;}
+ if(s===4){const right=WARM.filter((q,i)=>CK.ans[i]===q[2]).length,weak=WARM.filter((q,i)=>CK.ans[i]!==q[2]).map(q=>q[3]);
+  body=`<div class="g g2"><div class="c k bg-mint fill" style="text-align:center;justify-items:center">${Z('happy',L().hood,'cape').replace('class="zz"','class="zz" style="width:120px"')}<h2 style="font-size:28px">Check-in xong! Sẵn sàng ${Math.round(50+right*12.5)}%</h2><p>Khởi động đúng ${right}/4. Đây là mốc "trước" của buổi tối nay. Cuối buổi bạn làm Check-out để thấy mình tiến bộ bao nhiêu.</p></div>
+   <div class="c"><h3>Đã gửi cho cô Lan</h3><div class="li"><span class="sq bg-sky">${svg('user')}</span><span class="bd"><b>Cảm xúc: ${{happy:'Sẵn sàng',normal:'Bình thường',think:'Hơi mệt',sad:'Chưa hiểu bài trước'}[CK.emo]}</b><small>Cô biết để hỏi han đầu giờ</small></span></div>
+    <div class="li"><span class="sq bg-peach">${svg('flag')}</span><span class="bd"><b>Điểm cần giúp</b><small>${weak.length?weak.join(' · '):'Không có, bạn chắc cả 4 phần'}</small></span></div>
+    <p class="muted" style="font-size:13.5px">Cô Lan nhìn bảng nhiệt cả lớp trước giờ học để dạy đúng chỗ yếu.</p>
+    <div class="row"><a class="btn" href="#vao-lop">Xem buổi học</a><a class="btn o" href="#hom-nay">Về Hôm nay</a></div></div></div>`;}
+ return `${PH('Trước buổi tối nay · khoảng 6 phút','Check-in với Zen',s<4?['Bước 1/4 · Cảm xúc','Bước 2/4 · Giảng lại bài trước','Bước 3/4 · Tối nay học gì','Bước 4/4 · Khởi động'][s]:'')}${s<4?steps:''}<div class="g" style="max-width:860px">${body}</div>`;};
+V['check-in'].after=()=>{const p=$('.page');
+ p.onclick=e=>{const em=e.target.closest('[data-emo]'),nx=e.target.closest('[data-next]'),o=e.target.closest('[data-q]'),fin=e.target.closest('[data-finish]');
+  if(em){CK.emo=em.dataset.emo;render(false);}
+  if(nx){CK.step++;render();}
+  if(o&&!o.disabled){CK.ans[+o.dataset.q]=+o.dataset.o;render(false);}
+  if(fin){CK.step=4;ST.checkin=true;ST.done.add('t1');render();confetti();}};};
+
+/* ===== HV-03 Vào lớp ===== */
+V['vao-lop']=()=>`${PH(D.cls.day+' · 19:30–20:30',D.cls.t,'Link phòng học mở lúc 19:15 và gửi qua Zalo. Đổi hoặc hủy trước 24 giờ không mất buổi.')}
+ <div class="g g2">
+  <div class="col">
+   <section class="c k" style="gap:16px">
+    <div class="row" style="justify-content:space-between"><div><span class="ey">Lớp bắt đầu sau</span><div class="num" id="cd">2:14:08</div></div><button class="btn big" onclick="toast('Phòng học mở lúc 19:15. Zenford cũng gửi link qua Zalo.')">${svg('video')} Vào phòng học</button></div>
+    <div class="row">${ST.checkin?'<span class="tag ok">✓ Check-in xong · sẵn sàng 75%</span>':'<a class="tag warn" href="#check-in">Chưa check-in · làm ngay (6 phút) →</a>'}<span class="tag">Phòng: Google Meet</span><span class="tag">Giờ Việt Nam (GMT+7)</span></div>
+   </section>
+   <section class="c"><h3>Mục tiêu buổi</h3><p style="font-size:18px;font-weight:700">${D.cls.goal}</p>
+    <div class="g g2e" style="gap:10px">
+     <a class="li" href="#tai-lieu"><span class="sq bg-mint">${svg('read')}</span><span class="bd"><b>Tài liệu</b><small>Unit 5, trang 31–34</small></span></a>
+     <a class="li" href="#lab-noi"><span class="sq bg-peach">${svg('mic')}</span><span class="bd"><b>Luyện trước</b><small>Lab Nói · 10 phút</small></span></a></div></section>
+  </div>
+  <div class="col">
+   <section class="c"><h3>Cô thầy và bạn cùng lớp</h3>
+    <div class="li"><span class="av" style="background:var(--lav)">L</span><span class="bd"><b>Cô Lan</b><small>Tiếng Anh · IELTS 8.0 · 6 năm dạy</small></span></div>
+    <div class="row">${['H','T','K','M'].map((x,i)=>`<span class="av" style="width:38px;height:38px;background:${['var(--mint)','var(--peach)','var(--butter)','var(--sky)'][i]}">${x}</span>`).join('')}<span class="muted" style="font-size:13px">+ bạn · nhóm 5 bạn cùng Khối 5</span></div></section>
+   <section class="c"><h3>Kiểm tra nhanh</h3>
+    <div class="row" style="flex-wrap:nowrap"><span class="sq bg-soft" style="border-color:var(--line)">${svg('mic')}</span><div class="wave" id="lvl" style="height:30px;flex:1">${'<i></i>'.repeat(16)}</div><span class="tag ok">Micro tốt</span></div>
+    <button class="btn o sm" onclick="toast('Đang phát âm thanh thử…')">${svg('vol')} Phát thử loa</button></section>
+   <section class="c"><h3>Không đi được?</h3><p class="muted" style="font-size:14px">Còn hơn 24 giờ thì đổi miễn phí. Hôm nay báo vắng sẽ tính 1 buổi của kỳ.</p>
+    <div class="row"><a class="btn o sm" href="#lich">Đổi buổi</a><button class="btn o sm" onclick="toast('Đã báo vắng. Buổi này tính 1 buổi vì dưới 24 giờ.')">Báo vắng</button></div></section>
+   <a class="btn" href="#sau-buoi" style="justify-self:start">Xem trước: màn sau buổi ${svg('arrow')}</a>
+  </div></div>`;
+V['vao-lop'].after=()=>{let s=2*3600+14*60+8;ST.timers.push(setInterval(()=>{s--;const e=$('#cd');if(e)e.textContent=`${Math.floor(s/3600)}:${String(Math.floor(s%3600/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`;},1000));
+ ST.timers.push(setInterval(()=>$$('#lvl i').forEach(i=>i.style.height=(15+Math.random()*85)+'%'),140));};
+
+/* ===== HV-04 Sau buổi ===== */
+const SKB=[['Nói',4,7],['Nghe',5,6],['Ngữ pháp',2,4],['Từ vựng',6,7]];
+V['sau-buoi']=()=>`${PH('Buổi 2 · Khối 5 · cô Lan · 24/11','Buổi tối nay bạn tiến bộ <span style="background:var(--yel);color:#141414;padding:0 8px;border-radius:8px">+2 câu</span>','Check-out cuối buổi đúng 4/4, Check-in đầu buổi đúng 2/4. Check-out này sẽ là mốc Check-in của buổi sau.')}
+ <div class="g g2">
+  <section class="c k"><div class="ch"><h2>Trước và sau buổi</h2><span class="legend"><span><i style="background:var(--soft)"></i>Check-in</span><span><i style="background:var(--mint)"></i>Check-out</span></span></div>
+   ${SKB.map(([k,a,b])=>`<div style="display:grid;grid-template-columns:90px 1fr 70px;gap:12px;align-items:center"><b>${k}</b><div style="display:grid;gap:4px"><div class="bar"><i style="width:${a*10}%;background:var(--muted)"></i></div><div class="bar g"><i style="width:${b*10}%"></i></div></div><b style="text-align:right">${a} → ${b}</b></div>`).join('')}
+   <div class="fb ok">${svg('check')}<span>Khối 5 · Kế hoạch, dự định: còn 1 bài kiểm chứng là đạt.</span></div></section>
+  <div class="col">
+   <section class="c bg-lav fill"><span class="ey">Cô Lan nhận xét</span><p style="font-size:17px;font-weight:600">"Hôm nay nói 'going to' tự nhiên hơn nhiều. Còn nuốt âm cuối ở 'visited'. Thử luyện Lab Nói 5 phút nhé."</p></section>
+   <section class="c"><h3>Zen giảng lại câu bạn sai</h3>
+    ${zsay('Câu "Last Sunday I visit my grandma": chữ nào cho bạn biết việc này đã xong rồi?','think')}
+    <div class="sugg"><button onclick="toast('Đúng rồi! Có \\'Last Sunday\\' thì động từ chia quá khứ: visited.')">Last Sunday</button><button onclick="toast('Chưa đúng. Gợi ý: tìm chữ chỉ thời gian.')">grandma</button><a class="btn sm o" href="#hoi-zen">Hỏi thêm Zen</a></div></section>
+   <section class="c"><h3>Bài sau buổi · 8 phút</h3><a class="li" href="#bai-tap"><span class="sq bg-butter">${svg('pen')}</span><span class="bd"><b>Làm lại 2 câu sai + 3 câu mới</b><small>Hạn: trước 21:00 mai</small></span><span class="btn sm">Làm</span></a></section>
+  </div></div>`;
+
+/* ===== HV-05 Lịch ===== */
+const CAL={tab:'tuan',sel:1,slot:null,free:new Set(['T2-19','T3-19','T5-19','T7-9','T7-15','CN-9'])};
+const WK=[['T2','23/11',[['pre','18:00','Lab Nói · 10 phút']]],['T3','24/11',[['pre','đến 19:15','Check-in'],['cls','19:30','Lớp nhóm · Khối 5 · cô Lan']],1],['T4','25/11',[['due','21:00','Hạn bài sau buổi']]],['T5','26/11',[['pre','18:00','Lab Đọc (dời từ T3)'],['cls','19:30','Nói 1-1 · cô Lan']]],['T6','27/11',[]],['T7','28/11',[['cls','09:00','Lớp nhóm · Khối 5 · thầy Khang']]],['CN','29/11',[['free','—','Báo cáo tuần']]]];
+V['lich']=()=>{const p=D.period;
+ const tabs=`<div class="seg" role="tablist">${[['tuan','Tuần này'],['dat','Đặt lớp'],['ranh','Giờ rảnh']].map(([k,t])=>`<button data-tab="${k}" aria-pressed="${CAL.tab===k}">${t}</button>`).join('')}</div>`;
+ const stats=`<div class="g g4">${[[`${p.used}/${p.sessions}`,'buổi đã học trong kỳ'],[p.sessions-p.used,'buổi còn lại'],[p.to,'kỳ phí kết thúc'],['3 buổi/tuần','đặt tối đa']].map(([n,s])=>`<div class="c stat"><span class="num" style="font-size:28px">${n}</span><small>${s}</small></div>`).join('')}</div>`;
+ let body='';
+ if(CAL.tab==='tuan'){const d=WK[CAL.sel];
+  body=`<div class="g" style="grid-template-columns:minmax(0,1fr) 320px"><div class="week">${WK.map((w,i)=>`<div class="day ${w[3]?'today':''}"><h4>${w[0]} <span class="muted">${w[1]}</span></h4>${w[2].map(e=>`<button class="ev ${e[0]}" data-day="${i}"><b>${e[1]}</b>${e[2]}</button>`).join('')}</div>`).join('')}</div>
+  <section class="c k"><span class="ey">${d[0]} ${d[1]}</span>${d[2].length?d[2].map(e=>`<div class="li"><span class="sq" style="background:${{cls:'var(--sky)',pre:'var(--mint)',due:'var(--butter)',free:'var(--soft)'}[e[0]]}">${svg({cls:'video',pre:'check',due:'pen',free:'chart'}[e[0]])}</span><span class="bd"><b>${e[2]}</b><small>${e[1]}</small></span></div>`).join(''):'<p class="empty">Ngày trống. Zen không xếp việc.</p>'}
+   ${d[2].some(e=>e[0]==='cls')?`<a class="btn" href="#vao-lop">Xem buổi học</a>`:''}</section></div>
+  <div class="legend"><span><i style="background:var(--sky)"></i>Lớp với cô thầy</span><span><i style="background:var(--mint)"></i>Trước buổi</span><span><i style="background:var(--butter)"></i>Hạn bài</span></div>`;}
+ if(CAL.tab==='dat'){const SL=[['T2 30/11','19:30–20:30','Cô Lan','5/6 bạn',''],['T4 02/12','18:00–19:00','Chờ xếp cô thầy','3/6 bạn · cần thêm 1 bạn để mở','hold'],['T5 03/12','19:30–20:30','Thầy Khang','6/6 · đã đủ','wait'],['T7 05/12','09:00–10:00','Cô Mai','Khối 6 · mở khi bạn đạt Khối 5','lock']];
+  body=`<div class="g g2"><section class="c"><div class="ch"><h3>Ca hợp giờ rảnh của bạn · Khối ${luyen()}</h3><a class="lk" href="#" data-tab="ranh">Sửa giờ rảnh</a></div>
+   ${SL.map((s,i)=>`<div class="li"><span class="sq" style="background:${s[4]==='lock'?'var(--soft)':'var(--sky)'};${s[4]==='lock'?'border-color:var(--line)':''}">${s[0].split(' ')[0]}</span><span class="bd"><b>${s[0]} · ${s[1]}</b><small>${s[2]} · ${s[3]}</small></span>${s[4]==='lock'?'<span class="tag">Chưa mở</span>':s[4]==='wait'?`<button class="btn sm o" data-slot="${i}">Danh sách chờ</button>`:`<button class="btn sm ${s[4]?'o':''}" data-slot="${i}">${s[4]?'Giữ chỗ':'Đặt chỗ'}</button>`}</div>`).join('')}</section>
+   <section class="c k">${CAL.slot==null?`${zsay('Chọn một ca bên trái. Zen chỉ hiện ca đúng khối bạn đang luyện.','normal')}`:`<span class="ey">Xác nhận</span><h2>${SL[CAL.slot][0]} · ${SL[CAL.slot][1]}</h2><p class="muted">${SL[CAL.slot][2]} · Khối ${luyen()}</p>`}
+    <div class="g" style="gap:8px;font-size:14px"><div class="row">${svg('check')}Trừ 1 buổi của kỳ khi lớp diễn ra</div><div class="row">${svg('check')}Cần Check-in trước giờ học</div><div class="row">${svg('clock')}Đổi, hủy trước 24 giờ không mất buổi</div><div class="row">${svg('check')}Lớp không đủ bạn bị hủy: hoàn buổi, gợi ý ca khác</div></div>
+    <button class="btn" ${CAL.slot==null?'disabled':''} onclick="toast('Đã đặt chỗ. Zenford nhắc qua Zalo trước 1 ngày.')">Xác nhận đặt chỗ</button></section></div>`;}
+ if(CAL.tab==='ranh'){const days=['T2','T3','T4','T5','T6','T7','CN'],hrs=[7,9,12,15,18,19,20];
+  body=`<div class="g g2"><section class="c"><h3>Giờ rảnh trong tuần</h3><p class="muted" style="font-size:14px">Bấm để bật/tắt. Zen dùng giờ rảnh để gợi ý ca học và xếp việc tự luyện.</p>
+   <div class="slots"><span></span>${days.map(d=>`<span>${d}</span>`).join('')}${hrs.map(h=>`<span>${h}:00</span>${days.map(d=>`<button aria-label="${d} ${h} giờ" aria-pressed="${CAL.free.has(d+'-'+h)}" data-free="${d}-${h}"></button>`).join('')}`).join('')}</div></section>
+   <section class="c bg-butter fill">${zsay(`Bạn đang rảnh ${CAL.free.size} khung/tuần. Với kế hoạch ${D.week.plan} phút/tuần, Zen gợi ý 3 buổi lớp + 4 lần tự luyện 15 phút.`,'wow')}</section></div>`;}
+ return `${PH('Kỳ phí '+p.from+' – '+p.to,'Lịch học','Lớp đã đặt, việc trước buổi và hạn bài. Lớp học linh hoạt theo giờ rảnh, không khóa cứng 2-4-6.',`<a class="btn" href="#" data-tab="dat">Đặt thêm lớp</a>`)}${stats}${tabs}${body}`;};
+V['lich'].after=()=>{$('.page').onclick=e=>{const t=e.target.closest('[data-tab]'),d=e.target.closest('[data-day]'),s=e.target.closest('[data-slot]'),f=e.target.closest('[data-free]');
+ if(t){e.preventDefault();CAL.tab=t.dataset.tab;render(false);}
+ if(d){CAL.sel=+d.dataset.day;render(false);}
+ if(s){CAL.slot=+s.dataset.slot;render(false);}
+ if(f){const k=f.dataset.free;CAL.free.has(k)?CAL.free.delete(k):CAL.free.add(k);render(false);}};};
+
+/* ===== HV-06 Lộ trình ===== */
+let KSEL=luyen()-1;
+V['lo-trinh']=()=>{const b=D.blocks[KSEL],st={dat:['Đã đạt','ok'],luyen:['Đang luyện','warn'],giup:['Cần giúp','bad'],khoa:['Chưa mở','']}[b[1]];
+ return `${PH(L().name+' · '+L().now+' → '+L().goal,'Lộ trình và khối năng lực','Mỗi khối là một việc bạn làm được bằng ngôn ngữ. Đạt khối phải có bằng chứng: bài làm và người xác nhận.')}
+ <div class="g g4">
+  <div class="c stat"><span class="num">${dat()}/12</span><small>khối đã đạt, có bằng chứng</small></div>
+  <div class="c stat"><span class="num">${L().now}</span><small>trình độ đầu vào · cô thầy xác nhận 05/10</small></div>
+  <div class="c stat"><span class="num">${L().goal}</span><small>mục tiêu · <a class="lk" href="#ho-so">đổi mục tiêu</a></small></div>
+  <div class="c stat fill bg-butter"><span class="num">08/2027</span><small style="color:#3F4350">dự kiến đạt ${L().goal} · lúc đầu 06/2027</small></div>
+ </div>
+ <div class="g g2">
+  <section class="c"><div class="ch"><h2>12 khối</h2><div class="legend"><span><i style="background:var(--mint)"></i>Đạt</span><span><i style="background:var(--yel)"></i>Đang luyện</span><span><i style="background:var(--peach)"></i>Cần giúp</span><span><i style="background:var(--soft);border-color:var(--line)"></i>Chưa mở</span></div></div>
+   <div class="kgrid">${D.blocks.map((k,i)=>`<button class="kb ${k[1]}" data-k="${i}" aria-pressed="${i===KSEL}"><span class="kn">${i+1}</span><b>${k[0]}</b>${k[1]==='dat'?`<span class="tag" style="background:#fff">✓ Đạt</span>`:k[1]==='khoa'?svg('lock','').replace('<svg','<svg style="width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2"'):''}</button>`).join('')}</div></section>
+  <div class="col">
+   <section class="c k"><div class="ch"><span class="ey">Khối ${KSEL+1}</span><span class="tag ${st[1]}">${st[0]}</span></div><h2>${b[0]}</h2><p class="muted">${b[2]||'Khối mở theo thứ tự lộ trình.'}</p>
+    ${b[1]==='dat'?`<div class="li"><button class="sq bg-yel" onclick="toast('Đang phát bài nói 0:41…')">${svg('play')}</button><span class="bd"><b>Bằng chứng</b><small>Bài nói giới thiệu · cô Lan xác nhận</small></span></div>`:''}
+    ${b[1]==='luyen'?`<div class="bar"><i style="width:60%"></i></div><a class="btn" href="#lab">Luyện tiếp trong Lab</a>`:''}
+    ${b[1]==='giup'?`<div class="fb no">${svg('flag')}<span>Zen đã báo cô Lan. Tối nay cô kèm 10 phút cuối buổi, sau đó bạn làm lại bài kiểm chứng.</span></div><a class="btn" href="#bai-tap">Làm lại 2 câu sai</a>`:''}</section>
+   <section class="c bg-lav fill"><h3>Vì sao trễ 2 tháng?</h3><p>3 tuần gần đây bạn học khoảng 140 phút/tuần, ít hơn kế hoạch 210 phút. Học đủ kế hoạch thì ngày dự kiến sẽ sớm lại.</p><a class="lk" href="#lich" style="justify-self:start">Sửa giờ rảnh</a></section>
+   <section class="c"><h3>Cam kết của Zenford</h3><p class="muted" style="font-size:14px">Đi đủ lộ trình mà chưa đạt ${L().goal}, bạn được <b style="color:var(--ink)">học lại một lần</b>. Đạt sớm hơn dự kiến thì Zenford hoàn phần học phí trả trước chưa dùng (cần nộp chứng chỉ).</p></section>
+  </div></div>`;};
+V['lo-trinh'].after=()=>{$('.kgrid').onclick=e=>{const k=e.target.closest('[data-k]');if(k){KSEL=+k.dataset.k;render(false);}};};
+
+/* ===== HV-07 Tiến bộ ===== */
+V['tien-bo']=()=>{const wk=[120,150,210,195,140,130,150,186],mx=230;
+ return `${PH('8 tuần gần đây','Tiến bộ của bạn','Tính từ bài Check-in và Check-out của từng buổi, cùng độ khó, so trước với sau.')}
+ <div class="g g4">
+  <div class="c stat"><span class="num">${dat()}/12</span><small>khối đạt</small></div>
+  <div class="c stat"><span class="num">${D.week.done}'</span><small>phút học tuần này / kế hoạch ${D.week.plan}'</small></div>
+  <div class="c stat"><span class="num">+2,1</span><small>câu đúng mỗi buổi (trung bình 4 buổi)</small></div>
+  <div class="c stat"><span class="num">08/2027</span><small>dự kiến đạt ${L().goal}</small></div></div>
+ <div class="g g2">
+  <section class="c k"><h2>Đầu tháng so với bây giờ</h2>
+   ${[['Nghe',5,7],['Nói',4,6],['Đọc',6,7],['Viết',5,5]].map(([k,a,b])=>`<div style="display:grid;grid-template-columns:60px 1fr 80px;gap:12px;align-items:center"><b>${k}</b><div style="display:grid;gap:4px"><div class="bar"><i style="width:${a*10}%;background:var(--muted)"></i></div><div class="bar g"><i style="width:${b*10}%"></i></div></div><b style="text-align:right">${a}/10 → ${b}/10</b></div>`).join('')}
+   <div class="fb hint">${svg('flag')}<span><b>Viết chưa tăng sau 2 tuần.</b> Zen thêm 1 bài Lab Viết 10 phút vào Hôm nay, 3 ngày/tuần.</span></div></section>
+  <section class="c"><div class="ch"><h3>Đồng hồ học · phút mỗi tuần</h3><span class="tag">kế hoạch ${D.week.plan}'</span></div>
+   <div style="display:grid;grid-template-columns:repeat(8,1fr);gap:8px;align-items:end;height:180px;position:relative;border-bottom:2px solid var(--line)">
+    <i style="position:absolute;left:0;right:0;bottom:${D.week.plan/mx*100}%;border-top:2px dashed var(--muted)"></i>
+    ${wk.map((v,i)=>`<div style="display:grid;justify-items:center;gap:4px;height:100%;align-content:end"><small style="font-size:11px;font-weight:700">${v}</small><i style="width:100%;height:${v/mx*150}px;border-radius:8px 8px 0 0;background:${i===7?'var(--yel)':v>=D.week.plan?'var(--mint)':'var(--soft)'};border:1.5px solid ${i===7||v>=D.week.plan?'#141414':'var(--line)'}"></i></div>`).join('')}</div>
+   <div style="display:grid;grid-template-columns:repeat(8,1fr);font-size:11px;color:var(--muted);text-align:center">${['T40','T41','T42','T43','T44','T45','T46','Nay'].map(x=>`<span>${x}</span>`).join('')}</div>
+   <p class="muted" style="font-size:13px">Không đếm chuỗi ngày. Bận vài hôm không sao, chỉ cần đủ phút trong tuần.</p></section></div>
+ <section class="c"><div class="ch"><h3>Nhận xét gần đây</h3><a class="lk" href="#vo-ai">Xem trong Vở AI</a></div>
+  ${[['Cô Lan','24/11','Nói "going to" tự nhiên hơn. Còn nuốt âm cuối "-ed".'],['Zen','22/11','Lab Nghe: nghe chi tiết số đếm tốt hơn tuần trước (6/8 → 8/8).'],['Cô Lan','19/11','Khối 4: còn nhầm động từ bất quy tắc. Cô sẽ kèm thêm.']].map(([w,d,t])=>`<div class="li"><span class="av" style="width:38px;height:38px;background:${w==='Zen'?'var(--sky)':'var(--lav)'}">${w==='Zen'?'Z':'L'}</span><span class="bd"><b>${t}</b><small>${w} · ${d}</small></span></div>`).join('')}</section>`;};
+
+/* ===== HV-08 Bốn Lab ===== */
+const LABS=[['lab-nghe','Lab Nghe','phones','var(--sky)','Nghe video có phụ đề, nghe chép, nói theo','Video "My weekend plans" · câu hỏi về kế hoạch',8],
+ ['lab-noi','Lab Nói','mic','var(--peach)','Nói chuyện với Zen, chấm từng từ','Kể kế hoạch cuối tuần với "going to"',6],
+ ['lab-doc','Lab Đọc','read','var(--mint)','Tìm bằng chứng trong bài rồi mới trả lời','Đọc lịch đi chơi của nhóm Nam',5],
+ ['lab-viet','Lab Viết','pen','var(--lav)','Zen chỉ chỗ sai, bạn tự sửa','Viết 4 câu về kế hoạch cuối tuần',4]];
+V['lab']=()=>{const p=D.period;return `${PH('Khối '+luyen()+' · '+D.blocks[luyen()-1][0],'Bốn Lab','Mỗi Lab chỉ gợi ý bài thuộc khối bạn đang luyện. Kết quả tự ghi vào Vở AI, Lộ trình và Hôm nay.',`<div class="c" style="padding:12px 16px;gap:6px;min-width:260px"><div class="ch"><b style="font-size:13px">Phút Zen trong kỳ</b><b style="font-size:13px">${p.aiUsed}/${p.ai}</b></div><div class="bar"><i style="width:${p.aiUsed/p.ai*100}%"></i></div></div>`)}
+ <div class="labs">${LABS.map(([r,t,ic,c,d,s,n],i)=>`<a class="lab" href="#${r}" style="background:${c};--i:${i}"><span class="lic">${svg(ic)}</span><h3>${t}</h3><p style="font-size:14px">${d}</p><div class="sug"><b>Gợi ý hôm nay</b>${s}</div><span class="row" style="margin-top:auto;justify-content:space-between"><small style="font-weight:700">${n} bài trong khối</small><span class="btn sm">Vào Lab ${svg('arrow')}</span></span></a>`).join('')}</div>
+ ${zsay('Gợi ý của Zen: trước giờ lớp tối nay, vào <b>Lab Nói</b> 10 phút. Đó đúng là phần cô Lan dạy.','wow')}`;};
+
+/* lab clock (floating) */
+function labClock(name){if(ST.extra.some(e=>e.classList.contains('clock')))return;const el=document.createElement('div');el.className='clock';el.innerHTML=`${svg('clock').replace('<svg','<svg style="width:20px;height:20px;fill:none;stroke:#FDE047;stroke-width:2.4"')}<span style="font-size:13px">${name}</span><b id="lc">00:00</b><button>Xong</button>`;document.body.append(el);ST.extra.push(el);
+ const t0=Date.now();ST.timers.push(setInterval(()=>{const s=Math.floor((Date.now()-t0)/1000);$('#lc').textContent=String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');},1000));
+ el.querySelector('button').onclick=()=>{const s=Math.max(1,Math.round((Date.now()-t0)/60000));
+  modal(`<div style="text-align:center;display:grid;justify-items:center;gap:12px">${Z('love',L().hood,'cape').replace('class="zz"','class="zz" style="width:130px"')}<h2>Giỏi lắm! ${s} phút ${name}</h2><p class="muted">Tuần này bạn đã học ${D.week.done+s}/${D.week.plan} phút. Thêm 5 phút nữa là xong phần gợi ý hôm nay.</p><div class="row" style="justify-content:center"><button class="btn" data-close>Học thêm 5 phút</button><a class="btn o" href="#hom-nay" data-close>Về Hôm nay</a></div></div>`);};}
+
+/* ===== HV-09 Lab Nghe ===== */
+const TR=[['0:02',"Hi everyone, it's Friday again!"],['0:05',"So, what are you going to do this weekend?"],['0:09',"I'm going to visit my grandparents on Saturday."],['0:14',"They live in a small town near the sea."],['0:19',"On Sunday, I'm going to clean my room. Boring, I know!"],['0:25',"What about you? Tell me in the comments."]];
+const LN={mode:'xem',cur:2,play:false,dict:''};
+V['lab-nghe']=()=>`${back('#lab','Bốn Lab')}${PH('Lab Nghe · Khối 5','My weekend plans','Video YouTube 0:30 · Zenford lấy phụ đề để làm bài. Bấm câu nào nghe lại câu đó.')}
+ <div class="seg">${[['xem','Xem có phụ đề'],['chep','Nghe chép'],['noi','Nói theo']].map(([k,t])=>`<button data-mode="${k}" aria-pressed="${LN.mode===k}">${t}</button>`).join('')}</div>
+ <div class="g g2">
+  <div class="col"><div class="video"><button class="play" id="vp" aria-label="Phát">${LN.play?'<svg viewBox="0 0 24 24"><rect x="6" y="5" width="4" height="14"/><rect x="14" y="5" width="4" height="14"/></svg>':'<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>'}</button>
+   ${LN.mode==='xem'?`<div class="cap">${TR[LN.cur][1]}</div>`:''}<div class="vb"><span>${TR[LN.cur][0]}</span><div class="bar"><i style="width:${(LN.cur+1)/TR.length*100}%"></i></div><span>0:30</span><span>0.75x</span></div></div>
+   ${LN.mode==='chep'?`<section class="c k"><span class="ey">Câu ${LN.cur+1} · nghe rồi gõ lại</span><div class="inp"><input id="dict" placeholder="Gõ câu bạn nghe được…" value="${LN.dict}"><button class="btn sm" id="dchk">Kiểm tra</button></div><div id="dres"></div></section>`:''}
+   ${LN.mode==='noi'?`<section class="c k" style="justify-items:center;text-align:center"><span class="ey">Nói theo câu ${LN.cur+1}</span><p class="qtxt" style="font-size:22px">${TR[LN.cur][1]}</p><button class="rec" id="shadow" aria-label="Ghi âm">${svg('mic')}</button><div id="sres"></div></section>`:''}
+  </div>
+  <section class="c"><div class="ch"><h3>Phụ đề</h3><span class="tag sky">Nguồn: YouTube</span></div>
+   <div class="tr">${TR.map((l,i)=>`<button data-l="${i}" class="${i===LN.cur?'on':''}"><time>${l[0]}</time><span>${LN.mode==='chep'&&i===LN.cur?'· · · · · ·':l[1].replace(/going to/g,'<u>going to</u>')}</span></button>`).join('')}</div>
+   <button class="btn o sm" onclick="addNote('going to + động từ','Kế hoạch đã định: I\\'m going to visit…','Lab Nghe');toast('Đã lưu vào Vở AI')">${svg('note')} Lưu mẫu câu vào Vở AI</button></section></div>`;
+V['lab-nghe'].after=()=>{labClock('Lab Nghe');
+ $('.page').onclick=e=>{const m=e.target.closest('[data-mode]'),l=e.target.closest('[data-l]');
+  if(m){LN.mode=m.dataset.mode;render(false);}
+  if(l){LN.cur=+l.dataset.l;LN.dict='';render(false);}
+  if(e.target.closest('#vp')){LN.play=!LN.play;render(false);if(LN.play){clearInterval(LN.t);LN.t=setInterval(()=>{if(!LN.play||location.hash!=='#lab-nghe'){clearInterval(LN.t);return;}LN.cur=(LN.cur+1)%TR.length;render(false);},2400);}}
+  if(e.target.closest('#dchk')){const v=$('#dict').value.trim().toLowerCase().replace(/[.,!?']/g,''),a=TR[LN.cur][1].toLowerCase().replace(/[.,!?']/g,'');LN.dict=$('#dict').value;
+   const aw=a.split(/\s+/),vw=v.split(/\s+/);$('#dres').innerHTML=`<p style="font-size:17px;line-height:2">${aw.map((w,i)=>`<span class="w ${vw[i]===w?'g':'b'}">${w}</span>`).join(' ')}</p><p class="muted" style="font-size:13.5px">Xanh: đúng. Đỏ: thiếu hoặc sai. Bấm lại câu ở bên phải để nghe lần nữa.</p>`;}
+  if(e.target.closest('#shadow')){const b=$('#shadow');b.classList.add('on');setTimeout(()=>{b.classList.remove('on');$('#sres').innerHTML=`<p style="font-size:18px">${TR[LN.cur][1].split(' ').map((w,i)=>`<span class="w ${i===3?'m':'g'}">${w}</span>`).join(' ')}</p><span class="tag ok">Giống 88% · chú ý nối âm "going to"</span>`;},2000);}};};
+
+/* ===== HV-10 Lab Nói ===== */
+const LNO={turn:0,try:0,rec:false};
+const TURNS=[{z:"Hi! It's almost the weekend. What are you going to do on Saturday?",bad:['On','Saturday','I','go','to','visit','my','grandma'],badIdx:[3,4],fb:'Bạn nói "I <span class="hl">go to</span> visit". Đây là kế hoạch đã định sẵn. Mẫu câu tối nay cô Lan dạy là gì nhỉ?',good:['On','Saturday',"I'm",'going','to','visit','my','grandma']},
+ {z:"Nice! How are you going to get there?",bad:['I','going','to','take','the','bus'],badIdx:[1],fb:'Câu này thiếu một chữ nhỏ trước "going". Bạn thử nghe lại chính mình?',good:["I'm",'going','to','take','the','bus']},
+ {z:"Sounds fun. What are you going to eat with your grandma?",bad:null,good:["We're",'going','to','cook','fish','soup','together']}];
+V['lab-noi']=()=>{const T=TURNS[Math.min(LNO.turn,2)],fin=LNO.turn>2;
+ const hist=TURNS.slice(0,Math.min(LNO.turn,3)).map(t=>`<div class="zrow">${Z('normal',L().hood)}<div class="msg z">${t.z}</div></div><div class="msg me">${t.good.join(' ')}</div>`).join('');
+ return `${back('#lab','Bốn Lab')}${PH('Lab Nói · Khối 5 · đóng vai','Kể kế hoạch cuối tuần với Zen','Zen hỏi, bạn trả lời bằng giọng nói. Zen chấm từng từ, gợi ý để bạn tự nói lại, không nói hộ.')}
+ <div class="g g2">
+  <section class="c k" style="gap:16px">
+   <div class="chat">${hist}${fin?`<div class="zrow">${Z('happy',L().hood)}<div class="msg z">Tuyệt! Bạn dùng "going to" đúng cả 3 câu. Zen lưu vào Vở AI rồi nhé.</div></div>`:`<div class="zrow">${Z(LNO.try?'think':'normal',L().hood)}<div class="msg z">${T.z} <button class="lk" style="border:0" onclick="toast('🔊 Đang đọc câu hỏi…')">🔊</button></div></div>`}
+   <div id="said"></div></div>
+   ${fin?`<div class="row"><button class="btn" onclick="LNO.turn=0;LNO.try=0;render()">Làm lượt mới</button><a class="btn o" href="#vo-ai">Xem Vở AI</a></div>`:`<div class="row" style="justify-content:center;flex-direction:column"><div class="wave" id="wv" style="justify-content:center">${'<i></i>'.repeat(24)}</div><button class="rec" id="rec" aria-label="Bấm để nói">${svg('mic')}</button><small class="muted">Bấm để nói · bấm lần nữa để dừng</small></div>`}
+  </section>
+  <div class="col">
+   <section class="c"><h3>Điểm lượt này</h3>${[['Phát âm',78],['Trôi chảy',70],['Đúng mẫu câu',LNO.turn>0?92:60]].map(([k,v])=>`<div><div class="ch" style="font-size:14px"><b>${k}</b><b>${v}</b></div><div class="bar g"><i style="width:${v}%"></i></div></div>`).join('')}
+    <div class="legend"><span><span class="w g">xanh</span> tốt</span><span><span class="w m">vàng</span> tạm</span><span><span class="w b">đỏ</span> cần sửa</span></div></section>
+   <section class="c bg-soft" style="border-color:var(--line)"><h3>Mẫu câu của khối</h3><p><b>I'm / We're going to</b> + động từ</p><p class="muted" style="font-size:14px">Dùng cho kế hoạch đã định trước khi nói.</p></section>
+   <p class="muted" style="font-size:13px">Mỗi lượt nói dùng khoảng 1 phút Zen. Kỳ này còn ${D.period.ai-D.period.aiUsed} phút.</p>
+  </div></div>`;};
+V['lab-noi'].after=()=>{labClock('Lab Nói');const r=$('#rec');if(!r)return;let anim;
+ r.onclick=()=>{if(!LNO.rec){LNO.rec=true;r.classList.add('on');anim=setInterval(()=>$$('#wv i').forEach(i=>i.style.height=(10+Math.random()*90)+'%'),110);ST.timers.push(anim);setTimeout(()=>{if(LNO.rec)r.click();},2600);}
+  else{LNO.rec=false;r.classList.remove('on');clearInterval(anim);$$('#wv i').forEach(i=>i.style.height='20%');
+   const T=TURNS[LNO.turn];
+   if(T.bad&&LNO.try===0){LNO.try=1;$('#said').innerHTML=`<div class="msg me" style="background:var(--soft);color:var(--ink)">${T.bad.map((w,i)=>`<span class="w ${T.badIdx.includes(i)?'b':'g'}">${w}</span>`).join(' ')}</div><div class="zrow">${Z('think',L().hood)}<div class="msg z">${T.fb}<div class="sugg" style="margin-top:8px"><button onclick="toast('Gợi ý 2: I\\'m ___ to + động từ')">Gợi ý thêm</button></div></div></div><p class="muted" style="font-size:13px;text-align:center">Bấm micro để nói lại.</p>`;}
+   else{$('#said').innerHTML=`<div class="msg me" style="background:var(--soft);color:var(--ink)">${T.good.map(w=>`<span class="w g">${w}</span>`).join(' ')}</div>`;LNO.try=0;setTimeout(()=>{LNO.turn++;if(LNO.turn>2){addNote("I'm going to + V","Nói kế hoạch: I'm going to visit my grandma.",'Lab Nói');confetti();}render(false);},1100);}}};};
+
+/* ===== HV-11 Lab Đọc ===== */
+const RD={ev:null,ans:null};
+const PSG=["Nam's group is planning a trip for Saturday.","They are going to meet at the bus station at 7 a.m.","Lan is going to bring sandwiches because Nam's mum is busy.","In the afternoon, they are going to swim if the weather is nice."];
+V['lab-doc']=()=>`${back('#lab','Bốn Lab')}${PH('Lab Đọc · Khối 5','Kế hoạch đi chơi của nhóm Nam','Chọn câu làm bằng chứng trước, rồi mới chọn đáp án. Zen biết bạn hiểu hay đang đoán.')}
+ <div class="g g2"><section class="paper">${PSG.map((s,i)=>`<span class="${RD.ev===i?'hlw':''}" data-ev="${i}" style="cursor:pointer;border-radius:6px" role="button" tabindex="0">${s}</span> `).join('')}<span class="wm">Bước 1: bấm vào câu làm bằng chứng</span></section>
+ <section class="c k"><span class="ey">Câu hỏi</span><h2>Why is Lan going to bring sandwiches?</h2>
+  ${RD.ev==null?`<p class="muted">Bấm vào câu trong bài trước đã.</p>`:`<div class="opts" style="flex-direction:column">${["Because she likes cooking.","Because Nam's mum is busy.","Because they are going to swim."].map((o,i)=>`<button class="opt ${RD.ans===i?(i===1?'right':'wrong'):''}" data-ans="${i}" style="text-align:left;font-size:15px">${o}</button>`).join('')}</div>`}
+  ${RD.ans===1?`<div class="fb ok">${svg('check')}<span>${RD.ev===2?'Đúng, và bằng chứng cũng đúng câu 3. Bạn hiểu thật chứ không đoán.':'Đáp án đúng, nhưng bằng chứng chưa đúng. Đọc lại câu có chữ "because".'}</span></div>`:RD.ans!=null?`<div class="fb no">${svg('x')}<span>Chưa đúng. Câu bằng chứng bạn chọn nói gì về Lan?</span></div>`:''}
+ </section></div>`;
+V['lab-doc'].after=()=>{labClock('Lab Đọc');$('.page').onclick=e=>{const v=e.target.closest('[data-ev]'),a=e.target.closest('[data-ans]');if(v){RD.ev=+v.dataset.ev;RD.ans=null;render(false);}if(a){RD.ans=+a.dataset.ans;render(false);}};};
+
+/* ===== HV-12 Lab Viết ===== */
+const WR={sel:0,lvl:0,fixed:{}};
+const MK=[['goes','I am going to go','Sau "going to" động từ ở dạng nào?','Dạng nguyên mẫu, giống sau "will".','go'],['with my friend and I','with my friend and me','Sau "with" dùng "I" hay "me"?','Sau giới từ dùng đại từ tân ngữ.','with my friend and me'],['cooks','is going to cook','Mẹ bạn đã định nấu từ trước chưa?','Kế hoạch đã định: is going to + động từ.','is going to cook']];
+V['lab-viet']=()=>{const m=MK[WR.sel];
+ const txt=`This weekend I am going to <M0>goes</M0> to the zoo <M1>with my friend and I</M1>. We are going to see the elephants. In the evening my mum <M2>cooks</M2> pizza for us.`
+  .replace(/<M(\d)>(.*?)<\/M\d>/g,(_,i,w)=>`<span class="mark ${WR.fixed[i]?'fixed':''}" data-m="${i}" role="button" tabindex="0">${WR.fixed[i]?MK[i][4]:w}</span>`);
+ const n=Object.keys(WR.fixed).length;
+ return `${back('#lab','Bốn Lab')}${PH('Lab Viết · Khối 5','Viết về kế hoạch cuối tuần','Zen đánh dấu chỗ cần xem lại và hỏi gợi ý. Bạn tự sửa. Zen không có nút "sửa hộ".')}
+ <div class="g g2"><section class="paper" style="font-size:19px;line-height:2.1">${txt}<span class="wm">${n}/3 chỗ đã sửa · 34 từ</span></section>
+ <section class="c k">${n===3?`<div style="text-align:center;display:grid;justify-items:center;gap:10px">${Z('love',L().hood)}<h2>Bạn tự sửa được cả 3 chỗ!</h2><p class="muted">Bài đã gửi cô Lan xem. 3 lỗi đã lưu vào Vở AI để ôn.</p><a class="btn" href="#vo-ai">Xem Vở AI</a></div>`:
+  `<span class="ey">Chỗ ${WR.sel+1}/3 · "${m[0]}"</span>${zsay(m[2],'think')}
+   ${WR.lvl>=1?`<div class="fb hint">${svg('spark')}<span>Gợi ý 2: ${m[3]}</span></div>`:''}
+   ${WR.lvl>=2?`<div class="fb hint">${svg('spark')}<span>Gợi ý 3: bắt đầu bằng "${m[4].slice(0,4)}…"</span></div>`:''}
+   <div class="inp"><input id="fx" placeholder="Gõ phần bạn sửa…"><button class="btn sm" id="fxb">Kiểm tra</button></div><div id="fxr"></div>
+   <button class="lk" style="justify-self:start;border-bottom:3px solid var(--yel)" id="more" ${WR.lvl>=2?'disabled':''}>Gợi ý thêm (${2-WR.lvl} lần)</button>`}</section></div>`;};
+V['lab-viet'].after=()=>{labClock('Lab Viết');$('.page').onclick=e=>{const k=e.target.closest('[data-m]');if(k&&!WR.fixed[k.dataset.m]){WR.sel=+k.dataset.m;WR.lvl=0;render(false);}
+ if(e.target.closest('#more')){WR.lvl++;render(false);}
+ if(e.target.closest('#fxb')){const v=$('#fx').value.trim().toLowerCase(),m=MK[WR.sel];
+  if(v===m[4]||v===m[1].toLowerCase()){WR.fixed[WR.sel]=1;addNote(m[1],m[3],'Lab Viết');const nx=MK.findIndex((_,i)=>!WR.fixed[i]);if(nx>=0)WR.sel=nx;WR.lvl=0;render(false);if(Object.keys(WR.fixed).length===3)confetti();}
+  else $('#fxr').innerHTML=`<div class="fb no">${svg('x')}<span>Chưa đúng. Đọc lại câu hỏi của Zen nhé.</span></div>`;}};
+ const f=$('#fx');if(f)f.onkeydown=e=>{if(e.key==='Enter')$('#fxb').click();};};
+
+/* ===== HV-13 Hỏi Zen ===== */
+const HZ={log:[],stage:0};
+const HZFLOW=[
+ {q:'Khi nào dùng "going to", khi nào dùng "will"?',a:'Câu hỏi hay! Mình hỏi ngược bạn nhé: câu "I\'m going to visit my grandma" — bạn đã định đi từ trước, hay vừa mới nghĩ ra lúc nói?',s:['Đã định từ trước','Vừa nghĩ ra','Không chắc']},
+ {q:'Đã định từ trước',a:'Đúng rồi. Vậy nếu bạn đang nói chuyện, chợt nghe trời sắp mưa và quyết định ngay "Tớ mang ô cho" thì đó là kế hoạch có sẵn hay quyết định tức thì?',s:['Quyết định tức thì','Kế hoạch có sẵn']},
+ {q:'Quyết định tức thì',a:'Chính xác! Bạn vừa tự tìm ra quy tắc: <span class="hl">going to</span> = kế hoạch đã định, <span class="hl">will</span> = quyết định ngay lúc nói. Thử đặt 1 câu với "will" xem?',s:['I will help you!','I will going to help']},
+ {q:'I will help you!',a:'Chuẩn! Zen đã lưu quy tắc này vào Vở AI của bạn. Muốn luyện thêm 3 câu trong Lab Nói không?',s:['Vào Lab Nói','Gửi câu hỏi cho cô Lan']}];
+V['hoi-zen']=()=>`${PH('Zen biết bạn đang luyện Khối '+luyen()+' và hay nhầm "go/went"','Hỏi Zen','Zen hỏi lại để bạn tự nghĩ ra. Bí quá thì Zen gợi ý dần, cuối cùng mới nói đáp án.')}
+ <div class="g g2"><section class="c k" style="min-height:520px;grid-template-rows:1fr auto">
+  <div class="chat" id="hz">${HZ.log.length?'':`<div class="zrow">${Z('happy',L().hood)}<div class="msg z">Chào ${D.me.name}! Bạn đang thắc mắc gì? Hỏi bằng tiếng Việt cũng được.</div></div>`}${HZ.log.join('')}</div>
+  <div class="g" style="gap:10px"><div class="sugg" id="hzs">${(HZ.stage<HZFLOW.length?(HZ.stage===0?[HZFLOW[0].q,'Sao "visited" đọc có âm /id/?','Giải thích lại câu sai buổi tối nay']:HZFLOW[HZ.stage-1].s):[]).map(s=>`<button data-s="${s.replace(/"/g,'&quot;')}">${s}</button>`).join('')}</div>
+   <form class="inp" id="hzf"><input id="hzi" placeholder="Hỏi Zen điều bạn chưa hiểu…" autocomplete="off"><button class="btn sm">Gửi</button></form></div></section>
+ <div class="col"><section class="c"><h3>Zen đang dựa vào</h3>
+   <div class="li"><span class="sq bg-yel">5</span><span class="bd"><b>Khối 5 · Kế hoạch, dự định</b><small>Đang luyện · 3/5 bài</small></span></div>
+   <div class="li"><span class="sq bg-peach">!</span><span class="bd"><b>Lỗi hay gặp</b><small>go → went · thiếu "am/is/are" trước going</small></span></div></section>
+  <section class="c bg-soft" style="border-color:var(--line)"><h3>Cách Zen trả lời</h3><p class="muted" style="font-size:14px">1. Hỏi ngược để bạn tự nghĩ.<br>2. Gợi ý một phần.<br>3. Nói đáp án và lý do.<br>Zen chưa giúp được thì gửi câu hỏi cho cô Lan, cô trả lời trong 24 giờ.</p></section></div></div>`;
+function hzSay(q){const L0=L();HZ.log.push(`<div class="msg me">${q}</div>`);
+ let step=HZFLOW.findIndex((f,i)=>i>=HZ.stage&&f.q===q);
+ if(q==='Vào Lab Nói'){location.hash='#lab-noi';return;}
+ if(q==='Gửi câu hỏi cho cô Lan'){HZ.log.push(`<div class="zrow">${Z('wow',L0.hood)}<div class="msg z">Đã gửi cô Lan kèm đoạn chat này. Cô trả lời trong 24 giờ, bạn sẽ nhận thông báo.</div></div>`);HZ.stage=99;render(false);return;}
+ render(false);const box=$('#hz');box.insertAdjacentHTML('beforeend',`<div class="zrow" id="ty">${Z('think',L0.hood)}<div class="msg z typing"><i></i><i></i><i></i></div></div>`);
+ setTimeout(()=>{if(step<0){HZ.log.push(`<div class="zrow">${Z('think',L0.hood)}<div class="msg z">Mình hỏi lại một chút nhé: trong câu của bạn, việc đó <b>đã xảy ra</b>, <b>đang diễn ra</b> hay <b>sắp tới</b>? Trả lời được câu này là bạn gần ra đáp án rồi.</div></div>`);HZ.stage=Math.max(HZ.stage,1);}
+  else{HZ.log.push(`<div class="zrow">${Z(step===2?'happy':'normal',L0.hood)}<div class="msg z">${HZFLOW[step].a}</div></div>`);HZ.stage=step+1;if(step===3)addNote('going to vs will','going to = kế hoạch đã định; will = quyết định ngay lúc nói','Hỏi Zen');}
+  render(false);},REDUCE?0:900);}
+V['hoi-zen'].after=()=>{const b=$('#hz');b.parentElement.scrollTop=1e5;
+ $('#hzs').onclick=e=>{const s=e.target.closest('[data-s]');if(s)hzSay(s.dataset.s);};
+ $('#hzf').onsubmit=e=>{e.preventDefault();const v=$('#hzi').value.trim();if(v)hzSay(v);};};
+
+/* ===== HV-14 Vở AI ===== */
+const VO={tab:'all',q:''};
+const NOTES0=[['tu','grandparents',"/ˈɡrænpeərənts/ · ông bà",'Lab Nghe · 22/11'],['sai','I go to school yesterday → I went to school yesterday','Quá khứ đơn: có "yesterday" thì chia quá khứ','Khối 4 · 19/11'],['zen','Nối âm "going to" → /ˈɡʌnə/','Nói nhanh thì đọc gần như "gonna"','Lab Nói · 21/11'],['co','Phát âm rõ âm cuối "-ed"','"visited" đọc /ˈvɪzɪtɪd/, đừng nuốt âm','Cô Lan · 24/11'],['tu','sandwich','/ˈsænwɪtʃ/ · bánh mì kẹp','Lab Đọc · 20/11'],['sai','with my friend and I → with my friend and me','Sau giới từ dùng đại từ tân ngữ','Lab Viết · 18/11']];
+function addNote(t,s,src){ST.notes.unshift(['zen',t,s,src+' · vừa xong']);}
+V['vo-ai']=()=>{const all=[...ST.notes,...NOTES0],TB={all:'Tất cả',tu:'Từ mới',sai:'Câu sai',zen:'Zen giảng',co:'Cô thầy nhận xét'},col={tu:'mint',sai:'peach',zen:'sky',co:'lav'};
+ const list=all.filter(n=>(VO.tab==='all'||n[0]===VO.tab)&&(n[1]+n[2]).toLowerCase().includes(VO.q.toLowerCase()));
+ return `${PH('Tự ghi từ mọi Lab, buổi học và Hỏi Zen','Vở AI','Zenford tự ghi từ mới, câu sai, lời giảng và nhận xét. Bạn thêm ghi chú của mình, rồi ôn theo thẻ.',`<div class="row"><button class="btn" id="flash">${svg('spark')} Ôn 12 thẻ đến hạn</button><button class="btn o" onclick="toast('Đang xuất PDF Vở AI…')">${svg('dl')} Xuất PDF</button></div>`)}
+ <div class="row" style="justify-content:space-between"><div class="seg">${Object.entries(TB).map(([k,t])=>`<button data-vt="${k}" aria-pressed="${VO.tab===k}">${t} · ${k==='all'?all.length:all.filter(n=>n[0]===k).length}</button>`).join('')}</div>
+  <label class="inp" style="min-width:260px">${svg('search').replace('<svg','<svg style="width:18px;fill:none;stroke:var(--ink);stroke-width:2.4"')}<input id="vq" placeholder="Tìm trong vở…" value="${VO.q}"></label></div>
+ <div class="g g2e">${list.map(n=>`<article class="c"><div class="ch"><span class="tag ${col[n[0]]}">${TB[n[0]]}</span><small class="muted">${n[3]}</small></div><h3 style="font-size:19px">${n[1]}</h3><p class="muted">${n[2]}</p><div class="row"><button class="lk" style="border-bottom:3px solid var(--yel)" onclick="toast('Đã thêm vào lịch ôn ngày mai')">Ôn thẻ này</button><button class="lk" style="border-bottom:3px solid var(--yel)" onclick="toast('Mở ô ghi chú của bạn')">Thêm ghi chú</button></div></article>`).join('')||'<p class="empty">Không có mục nào khớp.</p>'}</div>`;};
+V['vo-ai'].after=()=>{$('.page').onclick=e=>{const t=e.target.closest('[data-vt]');if(t){VO.tab=t.dataset.vt;render(false);}if(e.target.closest('#flash'))flash();};
+ $('#vq').oninput=e=>{VO.q=e.target.value;const p=e.target.selectionStart;render(false);const i=$('#vq');i.focus();i.setSelectionRange(p,p);};};
+function flash(){const C=[['went','quá khứ của go'],['grandparents','ông bà'],['be going to','kế hoạch đã định'],['sandwich','bánh mì kẹp']];let i=0,f=false;
+ const draw=()=>{$('#fc').innerHTML=`<button class="c k ${f?'bg-mint':'bg-butter'} fill" id="card" style="min-height:200px;place-items:center;text-align:center;width:100%;transition:transform .4s var(--spring);${f?'transform:rotateY(360deg)':''}"><span class="ey">Thẻ ${i+1}/${C.length} · bấm để lật</span><h2 style="font-size:34px">${f?C[i][1]:C[i][0]}</h2></button>${f?`<div class="row" style="justify-content:center"><button class="btn o" data-r="0">Chưa nhớ</button><button class="btn o" data-r="1">Hơi nhớ</button><button class="btn" data-r="2">Nhớ rồi</button></div>`:''}`;};
+ modal(`<div class="ch"><h2>Ôn thẻ</h2><button class="ibtn" data-close aria-label="Đóng">${svg('x')}</button></div><div id="fc" class="g"></div><p class="muted" style="font-size:13px">"Chưa nhớ" thì thẻ quay lại sau 10 phút, "Nhớ rồi" thì 3 ngày sau mới gặp lại.</p>`);
+ draw();$('#fc').onclick=e=>{if(e.target.closest('#card')){f=!f;draw();}const r=e.target.closest('[data-r]');if(r){i++;f=false;if(i>=C.length){$('#fc').innerHTML=`<div style="text-align:center;display:grid;justify-items:center;gap:8px">${Z('happy',L().hood)}<h3>Xong 4 thẻ! Hẹn gặp lại các thẻ khó sau 10 phút.</h3></div>`;ST.done.add('t4');}else draw();}};}
+
+/* ===== HV-15 Thư viện ===== */
+const LIB=[['Khóa tự học','Tiếng Anh giao tiếp hằng ngày','32 bài video · bài 9/32',28,'Dùng đến 18/10/2027','#bai-hoc','play','var(--sky)'],
+ ['Tài liệu số','Bộ thẻ 1.000 từ A1–A2','Đã thuộc 640 từ',64,'Hết hạn sau 15 ngày','#vo-ai','note','var(--mint)'],
+ ['Sách kèm QR','Giáo trình Tiếng Anh · Quyển 1','Trang 24/120',20,'Dùng vĩnh viễn','#tai-lieu','read','var(--butter)'],
+ ['Khóa tự học','Hiragana và Katakana 30 ngày','Tiếng Nhật · ngày 6/30',20,'Dùng đến 01/11/2027','#bai-hoc','play','var(--lav)']];
+V['thu-vien']=()=>`${PH('Những gì bạn đã có','Thư viện của bạn','Khóa tự học, tài liệu số và sách kèm QR. Mua thêm ở website Zenford, không bán trong khu học.',`<button class="btn o" id="code">${svg('key')} Nhập mã kích hoạt</button>`)}
+ <div class="g g2e">${LIB.map(l=>`<a class="c lift" href="${l[5]}" style="grid-template-columns:96px 1fr;align-items:center;border-color:var(--ink)"><span style="aspect-ratio:1;border-radius:16px;border:2px solid #141414;background:${l[7]};display:grid;place-items:center">${svg(l[6]).replace('<svg','<svg style="width:36px;fill:none;stroke:#141414;stroke-width:2"')}</span>
+  <span class="g" style="gap:6px"><span class="tag" style="justify-self:start">${l[0]}</span><b style="font-size:17px">${l[1]}</b><small class="muted">${l[2]}</small><div class="bar g"><i style="width:${l[3]}%"></i></div><small class="muted">${l[4]}${l[4].includes('15 ngày')?' · <span class="lk" onclick="event.preventDefault();location.hash=\'#goi\'">gia hạn</span>':''}</small></span></a>`).join('')}</div>`;
+
+V['thu-vien'].after=()=>{$('#code').onclick=()=>{modal(`<div class="ch"><h2>Nhập mã kích hoạt</h2><button class="ibtn" data-close aria-label="Đóng">${svg('x')}</button></div><p class="muted">Mã in trong sách, hoặc do trường, công ty cấp.</p><div class="inp"><input placeholder="ZF-XXXX-XXXX"><button class="btn sm" data-close id="act">Kích hoạt</button></div>`);$('#act').addEventListener('click',()=>toast('Đã kích hoạt. Tài liệu mới có trong Thư viện.'));};};
+/* ===== HV-16 Bài học ===== */
+V['bai-hoc']=()=>`${back('#thu-vien','Thư viện')}${PH('Tiếng Anh giao tiếp hằng ngày · Chương 2','Bài 9 · Con vật bạn thích','Video 8 phút · 5 câu bài tập · mở sau khi xong Bài 8')}
+ <div class="g g2"><div class="col"><div class="video"><button class="play" onclick="toast('Đang phát video bài 9')" aria-label="Phát"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button><div class="cap">The rabbit is small and very fast.</div><div class="vb"><span>02:48</span><div class="bar"><i style="width:34%"></i></div><span>08:10</span><span>Phụ đề</span><span>1x</span></div></div>
+  <div class="row"><a class="btn" href="#bai-tap">Làm bài tập ${svg('arrow')}</a><a class="btn o" href="#hoi-zen">${svg('chat')} Hỏi Zen về bài này</a></div>
+  <section class="c"><div class="ch"><h3>Hỏi đáp của bài · 6</h3><span class="tag">Tên người học được ẩn</span></div>
+   <div class="li" style="align-items:flex-start"><span class="av" style="width:36px;height:36px;background:var(--mint)">H</span><span class="bd"><b>Bạn H. · 2 ngày trước</b><small style="font-size:14px;color:var(--ink)">Con cáo tiếng Anh là "fox" hay "fog"?</small><div class="fb ok" style="margin-top:8px;font-size:14px"><b>Cô Lan:</b>&nbsp;Là "fox". "Fog" nghĩa là sương mù.</div></span></div></section></div>
+ <section class="c"><h3>Chương 2 · Ở trường</h3>${[['7','Đồ chơi của bạn','ok'],['8','Màu sắc','ok'],['9','Con vật bạn thích','on'],['10','Đếm đến 20','lock'],['11','Ôn chương 2','lock']].map(([n,t,s])=>`<div class="li" style="${s==='on'?'border-color:var(--ink);background:var(--yel);color:#141414':''}"><span class="sq" style="background:${s==='ok'?'var(--mint)':s==='on'?'#fff':'var(--soft)'};${s==='lock'?'border-color:var(--line)':''}">${svg(s==='ok'?'check':s==='on'?'play':'lock')}</span><span class="bd"><b>Bài ${n} · ${t}</b></span></div>`).join('')}</section></div>`;
+
+/* ===== HV-17 Bài tập + kết quả ===== */
+const BT={i:0,a:{},done:false,retry:2};
+const BQ=[{t:'Chọn từ đúng',q:'The elephant is big. The ___ is small and very fast.',o:['rabbit','turtle','lion'],c:0,why:'rabbit (thỏ) nhỏ và chạy nhanh; turtle (rùa) bò chậm.'},
+ {t:'Quá khứ đơn · Khối 4',q:'Last Sunday I ___ my grandma.',o:['visit','visited','visiting'],c:1,why:'Có "Last Sunday" thì chia quá khứ: visited.'},
+ {t:'Quá khứ đơn · Khối 4',q:'Yesterday we ___ fish soup.',o:['eat','eated','ate'],c:2,why:'eat là động từ bất quy tắc: eat → ate.'},
+ {t:'Kế hoạch · Khối 5',q:'Next week they ___ visit the zoo.',o:['are going to','going to','go to'],c:0,why:'Kế hoạch đã định: are going to + động từ.'},
+ {t:'Nói · cô thầy chấm',q:'Nói 2–3 câu: What is your favourite animal? Why?',o:null}];
+V['bai-tap']=()=>{
+ if(BT.done){const auto=BQ.filter(q=>q.o),right=auto.filter((q,i)=>BT.a[i]===q.c).length;
+  return `${back('#hom-nay','Hôm nay')}${PH('Bài 9 · nộp lúc '+new Date().toLocaleTimeString('vi-VN',{hour:'2-digit',minute:'2-digit'}),`Bạn đúng ${right}/${auto.length} câu chấm ngay`,'Câu Nói đang chờ cô Lan chấm, trả kết quả trước 21:00 mai. Bạn sẽ nhận thông báo.')}
+  <div class="g g2"><section class="c">${BQ.map((q,i)=>{const ok=q.o?BT.a[i]===q.c:null;return `<div class="li" style="align-items:flex-start;${ok===false?'background:var(--badbg);border-color:var(--bad)':''}"><span class="sq" style="background:${ok==null?'var(--lav)':ok?'var(--mint)':'var(--peach)'}">${ok==null?svg('mic'):ok?svg('check'):svg('x')}</span><span class="bd"><b>${q.q}</b><small>${q.o?'Bạn chọn: '+(q.o[BT.a[i]]||'—')+(ok?'':' · '+q.why):'Bài nói 0:24 · chờ cô thầy chấm'}</small></span><span class="tag ${ok==null?'lav':ok?'ok':'bad'}">${ok==null?'Chờ chấm':ok?'Đúng':'Chưa đúng'}</span></div>`;}).join('')}</section>
+  <div class="col"><section class="c k">${zsay(right===auto.length?'Đúng hết rồi! Khối 4 có thêm bằng chứng.':'Câu sai Zen đã lưu vào Vở AI. Làm lại ngay khi còn nhớ nhé.',right===auto.length?'happy':'normal')}
+   <div class="row">${right<auto.length?`<button class="btn" id="retry" ${BT.retry?'':'disabled'}>Làm lại câu sai · còn ${BT.retry} lần</button>`:''}<a class="btn o" href="#hom-nay">Về Hôm nay</a></div></section>
+   <section class="c"><h3>Được tính vào đâu?</h3><p class="muted" style="font-size:14px">Câu 2, 3: bằng chứng Khối 4. Câu 4: Khối 5. Kết quả cập nhật Lộ trình và Tiến bộ.</p></section></div></div>`;}
+ const q=BQ[BT.i],a=BT.a[BT.i];
+ return `<div class="row" style="justify-content:space-between">${back('#hom-nay','Thoát (đã lưu)')}<span class="tag ok">✓ Tự lưu · mất mạng vẫn làm được</span></div>
+ <div class="steps">${BQ.map((_,i)=>`<i class="${i<BT.i?'done':i===BT.i?'on':''}"></i>`).join('')}</div>
+ <div class="qbox" style="max-width:900px"><span class="ey">Câu ${BT.i+1}/${BQ.length} · ${q.t}</span>
+  ${q.o?`<p class="qtxt">${q.q.replace('___',`<span class="blank ${a!=null?'fillx':''}">${a!=null?q.o[a]:'&nbsp;'}</span>`)}</p><div class="opts">${q.o.map((o,j)=>`<button class="opt" data-o="${j}" aria-pressed="${a===j}">${o}</button>`).join('')}</div>`
+  :`<p class="qtxt">${q.q}</p><div class="row"><button class="rec" id="brec">${svg('mic')}</button><span class="muted" id="bst">Bấm để ghi âm (tối đa 60 giây)</span></div>`}
+  <div class="fb hint">${Z('think',L().hood).replace('class="zz"','class="zz" style="width:36px;flex:none"')}<span>Cần gợi ý? Bấm vào từ để nghe phát âm. Zen không chọn hộ.</span></div></div>
+ <div class="row" style="justify-content:space-between;max-width:900px"><button class="btn o" id="prev" ${BT.i?'':'disabled'}>${svg('back')} Câu trước</button><button class="btn" id="nxt" ${q.o&&a==null?'disabled':''}>${BT.i===BQ.length-1?'Nộp bài':'Câu tiếp'} ${svg('arrow')}</button></div>`;};
+V['bai-tap'].after=()=>{$('.page').onclick=e=>{const o=e.target.closest('[data-o]');if(o){BT.a[BT.i]=+o.dataset.o;render(false);}
+ if(e.target.closest('#nxt')){if(BT.i<BQ.length-1){BT.i++;render(false);}else{BT.done=true;ST.done.add('t3');render();}}
+ if(e.target.closest('#prev')){BT.i--;render(false);}
+ if(e.target.closest('#retry')){BT.retry--;BT.done=false;const w=BQ.findIndex((q,i)=>q.o&&BT.a[i]!==q.c);BQ.forEach((q,i)=>{if(q.o&&BT.a[i]!==q.c)delete BT.a[i];});BT.i=w;render();}
+ if(e.target.closest('#brec')){const b=$('#brec');b.classList.add('on');$('#bst').textContent='Đang ghi… 0:03';setTimeout(()=>{b.classList.remove('on');$('#bst').textContent='Đã ghi 0:24 ✓ · bấm để ghi lại';},1800);}};};
+
+/* ===== HV-18 Tài liệu ===== */
+V['tai-lieu']=()=>`${back('#thu-vien','Thư viện')}${PH('Sách kèm QR · trang 24/120','Giáo trình Tiếng Anh · Quyển 1')}
+ <div class="page-reader"><nav class="c" style="align-content:start;gap:4px"><span class="ey">Mục lục</span>${['Unit 1 · Hello','Unit 2 · My school','Unit 3 · My family','Unit 4 · Free time','Unit 5 · Weekend plans'].map((u,i)=>`<button class="li" style="padding:9px 12px;${i===2?'background:var(--yel);color:#141414;border-color:#141414':''}"><b style="font-size:14px">${u}</b></button>`).join('')}<span class="ey" style="margin-top:10px">Đi kèm</span><button class="li" style="padding:9px 12px" onclick="toast('Phát audio Unit 3')">${svg('vol').replace('<svg','<svg style="width:18px;fill:none;stroke:currentColor;stroke-width:2.2"')}<b style="font-size:14px">Audio Unit 3</b></button></nav>
+ <article class="paper"><h2 style="margin-bottom:12px">Unit 3 · My family</h2><p class="muted" style="margin-bottom:12px">Look at the picture. Who is in Lan's family?</p><div style="aspect-ratio:16/7;border-radius:16px;background:linear-gradient(120deg,var(--mint),var(--sky));margin-bottom:16px"></div>
+  <p>Lan has a big family. She lives with her <span class="hlw" data-w="grandparents">grandparents</span>, her parents and her little brother. Every Sunday they have lunch together. Her grandfather likes <span class="hlw" data-w="gardening">gardening</span>. Her grandmother cooks very well.</p>
+  <span class="wm">Bản của Minh Anh · ZF240118 · không chia sẻ</span></article>
+ <aside class="c" style="align-content:start"><span class="ey">Ghi chú của bạn</span><div id="wd" class="g" style="gap:10px"><div class="c bg-soft" style="padding:12px;border-color:var(--line)"><b>grandparents</b><small class="muted">ông bà · /ˈɡrænpeərənts/ · trang 24</small></div></div><p class="muted" style="font-size:13px">Bấm vào từ được tô vàng để tra nghĩa và lưu vào Vở AI.</p><button class="btn o sm" onclick="toast('Tải PDF: còn 2/3 lượt')">${svg('dl')} Tải PDF · còn 2/3 lượt</button></aside></div>`;
+V['tai-lieu'].after=()=>{$('.paper').onclick=e=>{const w=e.target.closest('[data-w]');if(w){$('#wd').insertAdjacentHTML('afterbegin',`<div class="c bg-butter" style="padding:12px;border-color:#141414;color:#141414;animation:pop .4s var(--spring)"><b>${w.dataset.w}</b><small>${w.dataset.w==='gardening'?'làm vườn · /ˈɡɑːdnɪŋ/':'ông bà'} · đã lưu Vở AI</small></div>`);addNote(w.dataset.w,'Từ trong Giáo trình Quyển 1','Tài liệu');}};};
+
+/* ===== HV-19 Gói và học phí ===== */
+const MODES=[['ai','Học với AI',390000,'Zen kèm 4 Lab · 600 phút/tháng'],['nhom','Nhóm',1590000,'8 buổi nhóm/tháng · Zen 600 phút'],['hyb','Kết hợp',2290000,'4 buổi nhóm + 4 buổi Nói 1-1 · Zen 600 phút'],['one','1 kèm 1',3990000,'8 buổi 1-1/tháng · Zen 900 phút']];
+const PER=[[1,0],[3,.05],[6,.10]];
+const PAY={lang:'ja',mode:'ai',per:1,auto:false};
+V['goi']=()=>{const subs=[['en','hyb','10/11 – 09/12/2026','Còn 15 ngày','5/8 buổi · Zen 372/600 phút'],['ja','ai','01/11 – 30/11/2026','Còn 6 ngày','Zen 210/600 phút']];
+ const m=MODES.find(x=>x[0]===PAY.mode),pr=PER.find(p=>p[0]===PAY.per),total=Math.round(m[2]*pr[0]*(1-pr[1]));
+ return `${PH('Người trả: Nguyễn Thu Hà · cho Minh Anh','Gói và học phí','Học phí theo tháng cho từng ngôn ngữ. Zenford không tự trừ tiền: trước 7 ngày sẽ nhắc qua Zalo và email, bạn bấm link hoặc quét QR để gia hạn.')}
+ <div class="g g2e">${subs.map(([lg,md,per,left,use])=>{const M=MODES.find(x=>x[0]===md),Lg=D.langs[lg];return `<section class="c ${lg==='ja'?'k':''}"><div class="ch"><div class="row"><span class="sq" style="background:${Lg.col}">${Lg.code}</span><div><b style="font-size:17px">${Lg.name} · ${M[1]}</b><br><small class="muted">${fmt(M[2])}/tháng</small></div></div><span class="tag ${lg==='ja'?'warn':'ok'}">${left}</span></div>
+  <p class="muted" style="font-size:14px">Kỳ ${per} · ${use}</p><div class="row"><button class="btn ${lg==='ja'?'':'o'} sm" data-renew="${lg}">Gia hạn</button><button class="btn o sm" data-renew="${lg}" data-chg="1">Đổi hình thức</button></div></section>`;}).join('')}</div>
+ <div class="g g2"><section class="c k" id="pay"><div class="ch"><h2>Gia hạn ${D.langs[PAY.lang].name}</h2><span class="tag">Kỳ mới từ 01/12</span></div>
+  <span class="ey">Hình thức học</span><div class="g g2e" style="gap:10px">${MODES.map(x=>`<button class="plan" data-mode="${x[0]}" aria-pressed="${PAY.mode===x[0]}"><b>${x[1]}</b><span class="pr">${fmt(x[2])}<small style="font-size:13px;font-family:var(--f-b)">/tháng</small></span><small class="muted">${x[3]}</small></button>`).join('')}</div>
+  <span class="ey">Trả trước</span><div class="seg">${PER.map(p=>`<button data-per="${p[0]}" aria-pressed="${PAY.per===p[0]}">${p[0]} tháng${p[1]?' · giảm '+p[1]*100+'%':''}</button>`).join('')}</div>
+  <div><div class="sumrow"><span>${m[1]} × ${PAY.per} tháng</span><span>${fmt(m[2]*PAY.per)}</span></div>${pr[1]?`<div class="sumrow"><span>Giảm trả trước ${pr[1]*100}%</span><span>−${fmt(Math.round(m[2]*PAY.per*pr[1]))}</span></div>`:''}<div class="sumrow t"><span>Tổng</span><span>${fmt(total)}</span></div></div>
+  <div class="row"><button class="btn big" id="paynow">${svg('qr')} Thanh toán bằng QR</button><button class="btn o" onclick="toast('Mở VNPay / 9Pay')">VNPay · 9Pay</button></div>
+  <div class="set" style="border:0;padding:0"><div><b>Tự gia hạn bằng thẻ</b><small>Tùy chọn. Mặc định tắt. Bật thì trước mỗi kỳ vẫn nhắc trước 3 ngày.</small></div><button class="sw" role="switch" aria-checked="${PAY.auto}" id="auto" aria-label="Tự gia hạn"></button></div></section>
+ <div class="col"><section class="c bg-mint fill"><h3>Cam kết của Zenford</h3><p>Đi đủ lộ trình mà chưa đạt mục tiêu: <b>học lại một lần</b>.</p><p>Đạt mục tiêu sớm: hoàn phần học phí trả trước chưa dùng, cần nộp chứng chỉ.</p></section>
+  <section class="c"><h3>Đổi hình thức giữa kỳ</h3><p class="muted" style="font-size:14px">Tính chênh lệch theo số ngày còn lại của kỳ. Ví dụ: từ Học với AI lên Kết hợp còn 6 ngày thì trả thêm ${fmt(Math.round((2290000-390000)*6/30))}.</p></section>
+  <section class="c"><h3>Thêm phút Zen</h3><p class="muted" style="font-size:14px">Hết phút trước cuối kỳ thì mua thêm 300 phút: 99.000đ. Không bật quảng cáo trong Lab.</p><button class="btn o sm" onclick="toast('Đã thêm vào đơn gia hạn')">Mua thêm 300 phút</button></section></div></div>
+ <section class="c"><div class="ch"><h3>Lịch sử thanh toán</h3><span class="tag">Hóa đơn điện tử gửi email trong 24 giờ</span></div>
+  <table class="tbl"><thead><tr><th>Ngày</th><th>Nội dung</th><th>Cách trả</th><th class="r">Số tiền</th><th class="r">Hóa đơn</th></tr></thead><tbody>
+  ${[['10/11/2026','Tiếng Anh · Kết hợp · 1 tháng','VietQR',2290000],['01/11/2026','Tiếng Nhật · Học với AI · 1 tháng','VNPay',390000],['10/10/2026','Tiếng Anh · Kết hợp · 1 tháng','VietQR',2290000]].map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td class="r"><b>${fmt(r[3])}</b></td><td class="r"><button class="lk" onclick="toast('Tải hóa đơn PDF')">Tải</button></td></tr>`).join('')}</tbody></table></section>`;};
+V['goi'].after=()=>{$('.page').onclick=e=>{const r=e.target.closest('[data-renew]'),m=e.target.closest('[data-mode]'),p=e.target.closest('[data-per]');
+ if(r){PAY.lang=r.dataset.renew;PAY.mode=r.dataset.renew==='en'?'hyb':'ai';render(false);$('#pay').scrollIntoView({behavior:'smooth',block:'center'});}
+ if(m){PAY.mode=m.dataset.mode;render(false);}if(p){PAY.per=+p.dataset.per;render(false);}
+ if(e.target.closest('#auto')){PAY.auto=!PAY.auto;render(false);toast(PAY.auto?'Đã bật tự gia hạn. Zenford vẫn nhắc trước 3 ngày.':'Đã tắt tự gia hạn.');}
+ if(e.target.closest('#paynow')){const M=MODES.find(x=>x[0]===PAY.mode),P=PER.find(x=>x[0]===PAY.per),t=Math.round(M[2]*P[0]*(1-P[1]));
+  modal(`<div class="ch"><h2>Quét QR để thanh toán</h2><button class="ibtn" data-close aria-label="Đóng">${svg('x')}</button></div><div class="row" style="flex-wrap:nowrap;align-items:flex-start"><div style="width:170px;aspect-ratio:1;border:3px solid #141414;border-radius:16px;background:repeating-conic-gradient(#141414 0 25%,#fff 0 50%) 0 0/18px 18px;flex:none"></div><div class="g" style="gap:6px"><b style="font-size:22px">${fmt(t)}</b><small class="muted">${D.langs[PAY.lang].name} · ${M[1]} · ${PAY.per} tháng</small><small class="muted">Nội dung: ZF ${PAY.lang.toUpperCase()} 240118</small><span class="tag warn" style="justify-self:start">Chờ tiền về… tự xác nhận</span></div></div><button class="btn" data-close onclick="toast('Đã nhận tiền. Kỳ mới bắt đầu 01/12. Hóa đơn gửi email trong 24 giờ.');confetti()">Giả lập: tiền đã về</button>`);}};};
+
+/* ===== HV-20 Thông báo ===== */
+V['thong-bao']=()=>`${PH('3 chưa đọc','Thông báo')}
+ <section class="c" style="max-width:820px">${[['Hôm nay',[['chat','var(--lav)','Cô Lan đã chấm bài nói Bài 8','8/10 · "Phát âm rõ, nhớ đọc to hơn"','#tien-bo',1],['cal','var(--sky)','Lớp tối nay 19:30 · nhớ Check-in trước 19:15','Link phòng học gửi qua Zalo lúc 19:15','#check-in',1],['card','var(--butter)','Tiếng Nhật còn 6 ngày','Gia hạn bằng link hoặc QR. Zenford không tự trừ tiền.','#goi',1]]],['Hôm qua',[['flag','var(--mint)','Lớp thứ Bảy 28/11 đã đủ bạn','Thầy Khang nhận lớp','#lich',0],['note','var(--soft)','Zen thêm 6 từ vào Vở AI','Từ Lab Nghe "My weekend plans"','#vo-ai',0]]]].map(([d,l])=>`<span class="ey">${d}</span>${l.map(n=>`<a class="li" href="${n[4]}" style="${n[5]?'border-color:var(--ink)':''}"><span class="sq" style="background:${n[1]}">${svg(n[0])}</span><span class="bd"><b>${n[2]}</b><small>${n[3]}</small></span>${n[5]?'<i style="width:10px;height:10px;border-radius:50%;background:var(--yel);border:2px solid #141414"></i>':''}</a>`).join('')}`).join('')}</section>`;
+
+/* ===== HV-21 Hồ sơ ===== */
+const PF={ui:'vi',kid:true,rep:true,hide:true,zalo:true,mail:true};
+V['ho-so']=()=>{const sw=(k,t,s)=>`<div class="set"><div><b>${t}</b><small>${s}</small></div><button class="sw" role="switch" aria-checked="${PF[k]}" data-sw="${k}" aria-label="${t}"></button></div>`;
+ return `${PH('Tài khoản của Minh Anh','Hồ sơ và cài đặt')}
+ <div class="g g2e"><section class="c"><h3>Ngôn ngữ giao diện</h3><p class="muted" style="font-size:14px">Tự chọn theo quốc gia. Bạn đổi được bất cứ lúc nào.</p>
+  <div class="chips">${[['vi','Tiếng Việt'],['en','English'],['ja','日本語'],['ko','한국어'],['zh','中文'],['th','ไทย']].map(([k,t])=>`<button data-ui="${k}" aria-pressed="${PF.ui===k}">${t}</button>`).join('')}</div>
+  <h3 style="margin-top:8px">Ngôn ngữ đang học</h3>${Object.entries(D.langs).map(([k,l])=>`<div class="li"><span class="sq" style="background:${l.col}">${l.code}</span><span class="bd"><b>${l.name} · ${l.now} → ${l.goal}</b><small>Hình thức: ${l.plan}</small></span><a class="lk" href="#lo-trinh">Mục tiêu</a></div>`).join('')}<a class="btn o sm" href="#goi" style="justify-self:start">+ Học thêm ngôn ngữ</a></section>
+ <section class="c"><h3>Thông báo</h3>${sw('zalo','Zalo','Nhắc lớp, link phòng học, nhắc gia hạn')}${sw('mail','Email','Hóa đơn, báo cáo tuần')}
+  <h3 style="margin-top:8px">Quyền riêng tư</h3>${sw('hide','Ẩn họ tên trong hỏi đáp','Người khác chỉ thấy "Bạn M."')}
+  ${PF.kid?`<h3 style="margin-top:8px">Phụ huynh, người giám hộ</h3><p class="muted" style="font-size:13px">Chỉ hiện với học viên dưới 18 tuổi.</p><div class="li"><span class="av" style="width:38px;height:38px;background:var(--butter)">H</span><span class="bd"><b>Nguyễn Thu Hà · mẹ</b><small>Người trả học phí</small></span></div>${sw('rep','Gửi báo cáo tuần cho phụ huynh','Mỗi Chủ nhật, một trang: học gì, tiến bộ, cần giúp gì')}`:''}
+  <div class="set"><div><b>Học buổi tối</b><small>Nền tối, đỡ chói mắt</small></div><button class="sw" role="switch" aria-checked="${isDark()}" id="nightsw" aria-label="Học buổi tối"></button></div></section></div>`;};
+V['ho-so'].after=()=>{$('.page').onclick=e=>{const s=e.target.closest('[data-sw]'),u=e.target.closest('[data-ui]');if(s){PF[s.dataset.sw]=!PF[s.dataset.sw];render(false);}if(u){PF.ui=u.dataset.ui;render(false);toast('Bản mẫu chỉ có tiếng Việt. Bản thật đổi toàn bộ chữ theo ngôn ngữ này.');}if(e.target.closest('#nightsw')){night();render(false);}};};
+
+/* ===== HV-22 Lần đầu ===== */
+const BD={s:0,lang:'en',goal:'B1',mic:false,spk:false};
+V['bat-dau']=()=>{const s=BD.s,steps=`<div class="steps" style="max-width:720px">${[0,1,2,3].map(i=>`<i class="${i<s?'done':i===s?'on':''}"></i>`).join('')}</div>`;let b='';
+ if(s===0)b=`<div class="g g2" style="align-items:center"><div class="g">${zsay('Chào bạn! Mình là <b>Zen</b>, bạn đồng hành của bạn ở Zenford. Mình kèm bạn mỗi ngày, cô thầy dạy bạn trên lớp.','happy')}<p class="muted">4 bước, khoảng 3 phút: chọn mục tiêu, giờ rảnh, kiểm tra thiết bị, rồi làm bài đánh giá đầu vào.</p><button class="btn big" data-n style="justify-self:start">Bắt đầu ${svg('arrow')}</button></div><div style="justify-self:center;width:min(280px,70%)">${Z('wow','#FDE047','cape')}</div></div>`;
+ if(s===1)b=`<section class="c k" style="max-width:820px"><h2>Bạn muốn học gì?</h2><div class="chips">${['en','ja'].map(k=>`<button data-bl="${k}" aria-pressed="${BD.lang===k}">${D.langs[k].name}</button>`).join('')}<button disabled style="opacity:.5">Tiếng Trung</button><button disabled style="opacity:.5">Tiếng Hàn</button><button disabled style="opacity:.5">Tiếng Việt</button></div>
+  <h3>Mục tiêu</h3><div class="chips">${['Giao tiếp tự tin','B1','Thi vào lớp 10','IELTS 6.5'].map(g=>`<button data-bg="${g}" aria-pressed="${BD.goal===g}">${g}</button>`).join('')}</div><button class="btn" data-n style="justify-self:start">Tiếp ${svg('arrow')}</button></section>`;
+ if(s===2)b=`<section class="c k" style="max-width:820px"><h2>Bạn rảnh lúc nào?</h2><p class="muted">Zen dùng để gợi ý ca học và xếp việc tự luyện. Đổi được sau.</p>${V['lich'].ranh()}<button class="btn" data-n style="justify-self:start">Tiếp ${svg('arrow')}</button></section>`;
+ if(s===3)b=`<section class="c k" style="max-width:820px"><h2>Thử micro và loa</h2>
+  <div class="li"><span class="sq bg-peach">${svg('mic')}</span><span class="bd"><b>Micro</b><small>Đếm từ 1 đến 5</small></span><div class="wave" id="bmic" style="height:30px;width:160px">${'<i></i>'.repeat(12)}</div>${BD.mic?'<span class="tag ok">Nghe rõ</span>':'<button class="btn sm o" id="tmic">Thử</button>'}</div>
+  <div class="li"><span class="sq bg-sky">${svg('vol')}</span><span class="bd"><b>Loa hoặc tai nghe</b><small>Bấm để nghe Zen chào</small></span>${BD.spk?'<span class="tag ok">Đã nghe</span>':'<button class="btn sm o" id="tspk">Phát thử</button>'}</div>
+  <div class="row"><a class="btn" href="#danh-gia">Làm bài đánh giá đầu vào ${svg('arrow')}</a><a class="lk" href="#hom-nay">Để sau</a></div></section>`;
+ return `${PH('Lần đầu vào học · bước '+(s+1)+'/4','Chào mừng bạn đến Zenford')}${steps}${b}`;};
+V['lich'].ranh=()=>{const days=['T2','T3','T4','T5','T6','T7','CN'],hrs=[7,9,12,15,18,19,20];return `<div class="slots" style="max-width:620px"><span></span>${days.map(d=>`<span>${d}</span>`).join('')}${hrs.map(h=>`<span>${h}:00</span>${days.map(d=>`<button aria-label="${d} ${h} giờ" aria-pressed="${CAL.free.has(d+'-'+h)}" data-free="${d}-${h}"></button>`).join('')}`).join('')}</div>`;};
+V['bat-dau'].after=()=>{$('.page').onclick=e=>{if(e.target.closest('[data-n]')){BD.s++;render();}const l=e.target.closest('[data-bl]'),g=e.target.closest('[data-bg]'),f=e.target.closest('[data-free]');
+ if(l){BD.lang=l.dataset.bl;render(false);}if(g){BD.goal=g.dataset.bg;render(false);}if(f){const k=f.dataset.free;CAL.free.has(k)?CAL.free.delete(k):CAL.free.add(k);render(false);}
+ if(e.target.closest('#tmic')){const t=setInterval(()=>$$('#bmic i').forEach(i=>i.style.height=(10+Math.random()*90)+'%'),110);setTimeout(()=>{clearInterval(t);BD.mic=true;render(false);},1800);}
+ if(e.target.closest('#tspk')){BD.spk=true;render(false);toast('🔊 "Chào bạn, mình là Zen!"');}};};
+
+/* ===== HV-23 Đánh giá đầu vào ===== */
+const DG={part:3,txt:'Last Sunday I went to the park with my family. We played badminton and ate ice cream. My brother was very happy because he won'};
+V['danh-gia']=()=>{const w=DG.txt.trim().split(/\s+/).filter(Boolean).length;
+ return `${PH('Khoảng 35 phút · dừng giữa chừng được','Bài đánh giá đầu vào · Tiếng Anh','Kết quả xếp bạn vào đúng khối: khối nào đạt sẵn, bắt đầu luyện từ khối nào.')}
+ <div class="g g2"><section class="c k"><div class="ch"><span class="ey">Phần 4/4 · Viết</span><span class="tag">Khung A1–B1</span></div><h2>Viết 60–80 từ kể về một ngày cuối tuần của bạn.</h2>
+  <textarea class="wr" id="dgt">${DG.txt}</textarea><div class="ch"><b id="wc" style="color:${w<60?'var(--bad)':'var(--good)'}">${w} từ</b><span class="tag ok">✓ Đã lưu nháp</span></div>
+  <div class="row"><button class="btn o">${svg('back')} Phần Nói</button><button class="btn" id="dgsub">Nộp bài đánh giá ${svg('arrow')}</button></div></section>
+ <div class="col"><section class="c">${[['Từ vựng, ngữ pháp','20 câu',1],['Nghe','10 câu',1],['Nói','3 câu ghi âm',1],['Viết','1 đoạn',0]].map(([t,s,d],i)=>`<div class="li" style="${!d?'border-color:var(--ink)':''}"><span class="sq" style="background:${d?'var(--mint)':'var(--yel)'}">${d?svg('check'):i+1}</span><span class="bd"><b>${t}</b><small>${s} · ${d?'xong':'đang làm'}</small></span></div>`).join('')}</section>
+  <section class="c bg-soft" style="border-color:var(--line)"><h3>Ai chấm?</h3><p class="muted" style="font-size:14px">Trắc nghiệm và Nghe chấm ngay. Nói và Viết: Zen chấm theo tiêu chí, cô thầy xem lại và xác nhận.</p></section></div></div>`;};
+V['danh-gia'].after=()=>{$('#dgsub').onclick=()=>modal(`<div style="text-align:center;display:grid;justify-items:center;gap:10px">${Z('happy',L().hood).replace('class="zz"','class="zz" style="width:120px"')}<h2>Đã nộp! Kết quả trong 24 giờ</h2><p class="muted">Zen chấm phần Nói và Viết theo tiêu chí, cô thầy xác nhận. Bạn được báo khi xong.</p><p><b>Dự kiến:</b> A2 · Khối 1–3 đạt sẵn · bắt đầu luyện từ Khối 4</p><a class="btn" href="#lo-trinh" data-close>Xem lộ trình</a></div>`);$('#dgt').oninput=e=>{DG.txt=e.target.value;const w=DG.txt.trim().split(/\s+/).filter(Boolean).length;const c=$('#wc');c.textContent=w+' từ';c.style.color=w<60?'var(--bad)':'var(--good)';};};
+
+/* ===== shell ===== */
+ST.timers=[];ST.extra=[];
+const NAV=[['hom-nay','home','Hôm nay'],['lich','cal','Lịch học'],['lo-trinh','flag','Lộ trình'],['g','Luyện'],['lab','flask','Bốn Lab','var(--peach)'],['hoi-zen','chat','Hỏi Zen','var(--sky)'],['vo-ai','note','Vở AI','var(--mint)'],['tien-bo','chart','Tiến bộ','var(--lav)'],['g','Của bạn'],['thu-vien','book','Thư viện'],['goi','card','Gói và học phí']];
+const OWN={'check-in':'hom-nay','vao-lop':'hom-nay','sau-buoi':'hom-nay','bai-tap':'hom-nay','lab-nghe':'lab','lab-noi':'lab','lab-doc':'lab','lab-viet':'lab','bai-hoc':'thu-vien','tai-lieu':'thu-vien','bat-dau':'lo-trinh','danh-gia':'lo-trinh'};
+const cur=()=>{const h=location.hash.slice(1);return V[h]?h:'hom-nay';};
+
+function shell(){
+ document.body.insertAdjacentHTML('afterbegin',`
+ <div class="demo" role="note"><span><b>ZENFORD</b> · Bản mẫu Cổng học viên<span class="hide-m"> · ZF-HV-PROTO v1.0 · 24/11/2026 · Bản nháp để trao đổi với CIT</span></span><span class="scr" id="scr"></span><span class="sp"></span><button id="mapb">Tất cả màn<span class="hide-m"> (${SCR.length})</span></button><button id="noteb">Ghi chú<span class="hide-m"> cho CIT</span></button></div>
+ <div class="app">
+  <aside class="rail" id="rail" aria-label="Menu khu học">
+   <div class="rtop"><a class="brand" href="#hom-nay"><span id="logo"></span><span class="lbl">zenford</span></a><button class="pin" id="pin" aria-pressed="false" title="Ghim mở menu"><svg viewBox="0 0 24 24"><path d="M9 4h6l-1 6 3 3H7l3-3z M12 13v7"/></svg></button></div>
+   <button class="who" id="who" title="Đổi ngôn ngữ đang học"><span class="av">${D.me.ini}<span class="fl" id="flag"></span></span><span class="lbl"><b>${D.me.name}</b><small id="wholang"></small></span></button>
+   <nav class="nav" id="nav">${NAV.map((n,i)=>n[0]==='g'?`<span class="grp lbl" style="--i:${i}">${n[1]}</span>`:`<a href="#${n[0]}" class="it" data-r="${n[0]}" data-tip="${n[2]}" style="--i:${i};${n[3]?'--lab:'+n[3]:''}"><i class="ic">${svg(n[1])}</i><span class="lbl">${n[2]}</span>${n[0]==='hom-nay'?'<em class="badge" id="todo"></em>':''}</a>`).join('')}</nav>
+   <div class="peek" aria-hidden="true"><div class="zz" id="peekz"></div></div>
+   <div class="rfoot"><a href="#thong-bao" class="it" data-r="thong-bao" data-tip="Thông báo"><i class="ic">${svg('bell')}<span class="dot"></span></i><span class="lbl">Thông báo</span><em class="badge">3</em></a><a href="#ho-so" class="it" data-r="ho-so" data-tip="Hồ sơ"><i class="ic">${svg('gear')}</i><span class="lbl">Hồ sơ và cài đặt</span></a><button class="it" id="nightb" data-tip="Học buổi tối"><i class="ic">${svg('moon')}</i><span class="lbl">Học buổi tối</span></button></div>
+  </aside>
+  <main class="main"><div class="top"><span class="crumb"><span class="hide-m">Zenford ›</span><b id="crumb"></b></span><span class="sp"></span>
+   <span class="chip hide-m" title="Đồng hồ học: phút học tuần này so với kế hoạch">${svg('clock')}<span id="wk"></span></span>
+   <button class="chip" id="langchip"></button>
+   <a class="ibtn" href="#thong-bao" aria-label="Thông báo">${svg('bell')}<span class="n">3</span></a></div>
+   <div class="page" id="page"></div></main>
+  <nav class="tabbar" aria-label="Menu điện thoại">${[['hom-nay','home','Hôm nay'],['lich','cal','Lịch'],['lab','flask','Lab'],['hoi-zen','chat','Hỏi Zen'],['more','grid','Thêm']].map(t=>`<a href="#${t[0]}" data-r="${t[0]}"><i class="ic">${svg(t[1])}</i><span>${t[2]}</span></a>`).join('')}</nav>
+ </div>
+ <div class="scrim" id="scrim"><div class="modal" id="modal" role="dialog" aria-modal="true"></div></div>
+ <aside class="side" id="side" aria-label="Ghi chú cho CIT"><header><div><span class="ey" id="sidescr"></span><h3>Ghi chú cho đội CIT</h3></div><button class="ibtn" id="sidex" aria-label="Đóng">${svg('x')}</button></header><div class="sb" id="sideb"></div></aside>
+ <div class="tip" id="tip"></div><div class="toast" id="toast" role="status"></div>`);
+ $('#logo').innerHTML=ZenfordNP.logoSVG('#FDE047',34);
+ $('#pin').onclick=()=>{const on=$('#rail').classList.toggle('pinned');$('#pin').setAttribute('aria-pressed',on);};
+ $('#nightb').onclick=night;
+ $('#who').onclick=$('#langchip').onclick=pickLang;
+ $('#mapb').onclick=showMap;
+ $('#noteb').onclick=()=>{$('#side').classList.toggle('show');fillNotes();};
+ $('#sidex').onclick=()=>$('#side').classList.remove('show');
+ $('#scrim').onclick=e=>{if(e.target.id==='scrim'||e.target.closest('[data-close]'))closeModal();};
+ addEventListener('keydown',e=>{if(e.key==='Escape'){closeModal();$('#side').classList.remove('show');}});
+ const tip=$('#tip'),rail=$('#rail');
+ $$('.rail .it').forEach(a=>{a.addEventListener('mouseenter',()=>{if(rail.offsetWidth>120)return;const r=a.getBoundingClientRect();tip.textContent=a.dataset.tip;tip.style.left=(r.right+14)+'px';tip.style.top=(r.top+r.height/2-15)+'px';tip.classList.add('show');});a.addEventListener('mouseleave',()=>tip.classList.remove('show'));});
+ rail.addEventListener('transitionend',()=>{if(rail.offsetWidth>120)tip.classList.remove('show');});
+ $('.tabbar [data-r="more"]').onclick=e=>{e.preventDefault();showMap();};
+}
+function isDark(){return getComputedStyle(document.documentElement).colorScheme==='dark';}
+function night(){document.documentElement.setAttribute('data-theme',isDark()?'light':'dark');}
+function pickLang(){modal(`<div class="ch"><h2>Ngôn ngữ đang học</h2><button class="ibtn" data-close aria-label="Đóng">${svg('x')}</button></div>
+ ${Object.entries(D.langs).map(([k,l])=>`<button class="li" data-lang="${k}" style="${D.lang===k?'border-color:var(--ink);background:var(--butter);color:#141414':''}"><span class="sq" style="background:${l.col}">${l.code}</span><span class="bd" style="text-align:left"><b>${l.name} · ${l.now} → ${l.goal}</b><small>${l.plan}</small></span>${D.lang===k?'<span class="tag ink">Đang chọn</span>':''}</button>`).join('')}
+ <a class="btn o" href="#goi" data-close>+ Học thêm ngôn ngữ</a><p class="muted" style="font-size:13px">Mỗi ngôn ngữ có lộ trình, Lab, Vở AI và gói phí riêng. Bản mẫu chỉ có dữ liệu Tiếng Anh.</p>`);
+ $('#modal').onclick=e=>{const b=e.target.closest('[data-lang]');if(b){D.lang=b.dataset.lang;closeModal();render(false);toast('Đang học '+L().name);}};}
+function modal(h){$('#modal').innerHTML=h;$('#scrim').classList.add('show');ZenfordNP.blink();}
+function closeModal(){$('#scrim').classList.remove('show');}
+function showMap(){modal(`<div class="ch"><h2>Tất cả màn · ${SCR.length}</h2><button class="ibtn" data-close aria-label="Đóng">${svg('x')}</button></div><p class="muted" style="font-size:14px">16 màn CIT gửi được gộp và làm lại. Thêm các màn còn thiếu (ghi "Mới").</p><div class="map">${SCR.map(s=>`<a href="#${s[0]}" data-close><code>${s[1]}</code><b>${s[2]}</b><small class="muted">${s[4]}</small></a>`).join('')}</div>`);$('#modal').style.maxWidth='900px';}
+function fillNotes(){const k=cur(),s=SC[k];$('#sidescr').textContent=s[1]+' · '+s[2];
+ const n=NOTES[k]||[],lab={fix:'Sửa so với bản CIT',new:'Thêm mới',rule:'Quy tắc'};
+ $('#sideb').innerHTML=n.map(([t,x])=>`<div class="note ${t}"><b>${lab[t]}</b>${x}</div>`).join('')+`<details style="margin-top:8px"><summary style="font-weight:800;cursor:pointer">Quy tắc chung cho mọi màn (${COMMON.length})</summary><div class="g" style="gap:8px;margin-top:10px">${COMMON.map(([t,x])=>`<div class="note">${x}</div>`).join('')}</div></details>`;}
+function confetti(){if(REDUCE)return;const c=document.createElement('div');c.className='confetti';const cols=['#FDE047','#BDEFD8','#D8CCFF','#FFD2B8','#BFE4FF'];
+ for(let i=0;i<46;i++){const s=document.createElement('i');const x=Math.random()*100,d=1.4+Math.random()*1.4;s.style.cssText=`position:absolute;left:${x}%;top:-20px;width:${8+Math.random()*8}px;height:${10+Math.random()*10}px;background:${cols[i%5]};border:2px solid #141414;border-radius:${Math.random()<.5?'50%':'3px'};transform:rotate(${Math.random()*360}deg);transition:top ${d}s cubic-bezier(.2,.6,.4,1),transform ${d}s`;c.append(s);}
+ document.body.append(c);requestAnimationFrame(()=>requestAnimationFrame(()=>[...c.children].forEach(s=>{s.style.top='110%';s.style.transform=`rotate(${Math.random()*720}deg)`;})));setTimeout(()=>c.remove(),3000);}
+
+function render(anim=true){const k=cur(),p=$('#page');
+ p.innerHTML=V[k]();
+ if(anim){p.style.animation='none';void p.offsetWidth;p.style.animation='';}
+ ZenfordNP.mount(p);
+ requestAnimationFrame(()=>$$('.ring .fg',p).forEach(c=>c.style.strokeDashoffset=c.dataset.off));
+ if(V[k].after)V[k].after();
+ const own=OWN[k]||k;
+ $$('[data-r]').forEach(a=>{a.classList.toggle('on',a.dataset.r===own);a.toggleAttribute('aria-current',a.dataset.r===own);});
+ $('#crumb').textContent=SC[k][2];$('#scr').textContent=SC[k][1];document.title=SC[k][2]+' · Zenford';
+ const left=D.tasks.filter(t=>!ST.done.has(t.id)).length;$('#todo').textContent=left;
+ $('#wk').textContent=`${D.week.done}/${D.week.plan} phút tuần này`;
+ $('#langchip').innerHTML=`<b style="background:${L().col};color:#141414;border-radius:6px;padding:0 5px">${L().code}</b> ${L().name} <span class="hide-m">· ${L().now}→${L().goal}</span>`;
+ $('#flag').textContent=L().code;$('#wholang').textContent=`${L().name} · đang luyện Khối ${luyen()}`;
+ if($('#side').classList.contains('show'))fillNotes();}
+function route(){ST.timers.forEach(clearInterval);ST.timers=[];ST.extra.forEach(e=>e.remove());ST.extra=[];
+ if(location.hash==='#more'){showMap();return;}
+ closeModal();render(true);scrollTo({top:0,behavior:REDUCE?'auto':'instant'});}
+
+shell();
+$('#peekz').innerHTML=ZenfordNP.zenSVG('happy','#FDE047','');$('#peekz').classList.add('zfollow');
+addEventListener('hashchange',route);route();
+ZenfordNP.followEyes();ZenfordNP.blink();
+</script>
+</body></html>
+</body></html>
