@@ -42,8 +42,8 @@ Open [Đề bài học thuật](index.html#SCR-M16-03), then [Tạo đề bài](
 - [Cấu hình agent](index.html#SCR-M17-03) keeps an independent provider/model pair for each agent and production branch. Providers are Claude, ChatGPT, and Gemini. Changing the provider refreshes the model list for that role. Model labels are demonstration fixtures.
 - [Pipeline](index.html#SCR-M17-04) shows the currently active stage, waiting and completed stages, version, and handoff log. The stage sequence is research, curriculum design, script, production, independent AI QA, manual QA, then final academic approval. Research, curriculum, and script have expert approval gates in the walkthrough.
 - Production runs four parallel branches in the product: books and exercises, assessments and rubrics, audio, visuals/slides/video. The HTML shows the branches and their selected models. Walk through **Chạy bước**, **Hoàn thành bước**, and **Chuyên gia duyệt** where shown.
-- At **Kiểm định**, select **Mô phỏng kiểm định trả về** to send the run back to **Sản xuất**, with a reason and a new version on retry. The demo defect is a missing “please” in audio sentence 3. The log shows the correction and the return to QA. [Báo cáo kiểm định](index.html#SCR-M17-07) and [So sánh lần chạy](index.html#SCR-M17-06) show the review and version fixtures.
-- After passing AI QA, [Kiểm định thủ công](index.html#SCR-M17-08) has separate language-expert confirmation and academic lead approval. The expert can return a step with a reason. AI findings and production outputs are inputs to the human decision. The approved fixture appears in [Kho học liệu](index.html#SCR-M16-08).
+- At **Kiểm định**, select **Mô phỏng kiểm định trả về** to send the run back to **Sản xuất**, with a reason and a new version on retry. The demo defect is a missing phrase at the end of audio sentence 3. The log shows the correction and the return to QA. [Báo cáo kiểm định](index.html#SCR-M17-07) and [So sánh lần chạy](index.html#SCR-M17-06) show the review and version fixtures.
+- After passing AI QA, the language expert confirms [Kiểm định thủ công](index.html#SCR-M17-08). The academic lead approves publication in [Phê duyệt và phát hành](index.html#SCR-M16-12). A return records the affected stage, reason and version. Published material appears in [Kho học liệu](index.html#SCR-M16-08).
 
 Sources: SRS-04 M16/M17, BF-M17-01 to BF-M17-04, UX-02 SCR-M16 and SCR-M17. Shared provider configuration is M04.
 
@@ -67,6 +67,8 @@ Sources: SRS-05 M29, FR-M29-02/03/04/05, BF-M29-01, UX-01 recruitment journey.
 - Keep interface labels in Vietnamese, with native-language lesson examples where appropriate. Put a single clear primary action near the content it affects. Use text as well as color for states such as **Cần chạy lại**, **Chờ người duyệt**, and **Cần xem lại**. Keep focus visible and associate fields with labels.
 
 ## Verification
+
+See [the Phase 1 audit](AUDIT.md) for coverage by portal, fixture assumptions, known gaps and repeatable checks.
 
 Open `index.html` offline and run each walkthrough end to end. Test with a desktop viewport and a phone-width viewport. Check direct links and browser back navigation. For the catalog, search `kiem dinh thu cong`, filter by area, open a result, and check the 614-screen total when filters are clear. For the academic path, change one provider, verify its model choices, trigger a QA return, run the correction, and finish both approvals. For CV review, inspect a flagged CV, edit a score, and confirm the original score stays visible and the human decision appears in the pipeline.
 

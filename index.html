@@ -1015,14 +1015,14 @@ function publicPrograms(screen) {
       `<button type="button" class="button${programFilter===code?" dark":""}" data-action="program-filter" data-id="${code}" aria-pressed="${programFilter===code}">${name}</button>`).join("")}</nav>
     <div class="tiles">${list.map(([name,code,title,summary,detail])=>`
       <a class="tile" href="#SCR-M08-04" data-program="${code}"><span class="tile-icon sky" aria-hidden="true">${code}</span>
-      <h2>${title}</h2><small>${summary}</small><p>${detail}</p><span class="end">Xem chi tiết ${name.toLowerCase()}</span></a>`).join("")}</div>`);
+      <h2>${title}</h2><small>${summary} · Liên hệ tư vấn học phí</small><p>${detail}</p><span class="end">Xem chi tiết ${name.toLowerCase()}</span></a>`).join("")}</div>`);
 }
 
 function publicProgram(screen) {
   const [name,,title,summary,description] = languages.find(([,code])=>code===programCode);
   return workspace(screen,pageHeading(screen,title,`${name} · ${summary}`,link("SCR-M08-03","Tất cả lộ trình"))
     + card(`<h2>Mục tiêu đầu ra</h2><p>${description}</p>
-    <div class="stepbar"><a href="#SCR-M42-01">Chuẩn bị với AI</a><a href="#SCR-M39-05">Học cùng giáo viên</a><a href="#SCR-M44-01">Thực hành sau lớp</a></div>
+    <p>Học phí · Liên hệ tư vấn</p><div class="actions">${link("SCR-M42-01","Xem buổi mẫu tiếng Anh")}${link("SCR-M09-01","Xem thời gian dự kiến")}</div>
     <div class="actions">${link("SCR-M08-05","Kiểm tra trình độ","primary")}${link("SCR-M08-09","Liên hệ tư vấn")}</div>`,"tinted"));
 }
 
@@ -1054,25 +1054,21 @@ function renderCatalogResults() {
 
 const demoValues = {
   "ngôn ngữ":"Tiếng Anh","trình độ":"A2","khối":"Giao tiếp hằng ngày","lớp":"ENG-A2-07","học viên":"Minh Anh",
-  "trạng thái":"Đang xử lý","tên":"Giao tiếp tại quán cà phê","tiêu đề":"Giao tiếp tại quán cà phê","kỹ năng":"Nói",
+  "kỹ năng":"Nói",
   "ngày":"24/11/2026","thời gian":"18:30","email":"minh.anh@example.test","điểm":"82/100","số tiền":"450.000 ₫",
-  "giá":"450.000 ₫","vai trò":"Điều phối","mã":"ZF-024","phiên bản":"v1.0","gói":"Học với AI"
+  "giá":"450.000 ₫","vai trò":"Điều phối","mã":"ZF-024","phiên bản":"v1.0"
 };
-const examplesByPortal = {
-  "Website công khai":"Tiếng Anh giao tiếp A2",
-  "Cổng học viên":"Minh Anh · ENG-A2-07",
-  "Màn học AI":"Ordering at a café",
-  "Cổng phụ huynh":"Minh Anh · Tiếng Anh A2",
-  "Cổng giáo viên":"ENG-A2-07 · Buổi 05",
-  "Cổng CTV":"Mã giới thiệu ZF-CTV-024",
-  "Admin CRM":"Hồ sơ ZF-024",
-  "Email/PDF mẫu":"Zenford · ENG-A2-07"
-};
-const fieldsFrom = (heading, limit = 5) => (heading.split(":").slice(1).join(":") || "")
-  .split(/[,;]|\s+\/\s+/).map(item=>item.trim()).filter(Boolean).slice(0,limit);
-const sampleFor = (fieldName, screen) => {
-  const key = Object.keys(demoValues).find(label => fold(fieldName).includes(fold(label)));
-  return key ? demoValues[key] : examplesByPortal[screen.portal] || "Zenford · ZF-024";
+const fieldsFrom = heading => (heading.split(":").slice(1).join(":") || "")
+  .split(/[,;]|\s+\/\s+/).map(item=>item.trim()).filter(Boolean);
+const sampleFor = fieldName => {
+  const key = fold(fieldName.trim());
+  const specific = {
+    "ten hoc vien":"Minh Anh","ho ten":"Nguyễn Minh Anh","giao vien":"Cô Hà",
+    "trong so":"25%","han":"24/11/2026","gio hoc":"18:30","so luong":"3",
+    "ma lop":"ENG-A2-07","ma hoc vien":"HV-024","hoc phi":"450.000 ₫"
+  };
+  if (specific[key]) return specific[key];
+  return Object.entries(demoValues).find(([label])=>fold(label)===key)?.[1] ?? "—";
 };
 
 function screenNeighbors(screen) {
@@ -1082,7 +1078,7 @@ function screenNeighbors(screen) {
   return ids.map(id => screens.get(id));
 }
 
-function genericComponent(item, screen, neighbors) {
+function genericComponent(item, neighbors) {
   const normalized = fold(item);
   const kind = item.split(":")[0];
   const description = item.slice(kind.length + 1).trim();
@@ -1098,26 +1094,30 @@ function genericComponent(item, screen, neighbors) {
     }).join("")}</div>`;
   }
   if (/^(bang|danh sach|luoi)/.test(normalized) && fields.length > 1) {
-    return card(`<h3>${escape(kind)}</h3>${table(fields,[fields.map(f=>escape(sampleFor(f,screen)))])}`);
+    return card(`<h3>${escape(kind)}</h3>${table(fields,[fields.map(f=>escape(sampleFor(f)))])}`);
   }
   if (/^(truong|form|bo loc|loc|chon|tim kiem|o tim)/.test(normalized)) {
     const labels = fields.length ? fields : [item.replace(/^(Trường|Form|Bộ lọc|Lọc|Chọn|Tìm kiếm|Ô tìm)\s*/i,"") || kind];
     return card(`<div class="grid2">${labels.map(name => /^(bo loc|loc|chon)/.test(normalized)
-      ? field(name, ["Chọn…",sampleFor(name,screen)])
-      : `<label>${escape(name)}<input placeholder="${escape(sampleFor(name,screen))}"></label>`).join("")}</div>`);
+      ? field(name, sampleFor(name)==="—" ? ["Tất cả"] : ["Chọn…",sampleFor(name)])
+      : `<label>${escape(name)}<input placeholder="${escape(sampleFor(name))}"></label>`).join("")}</div>`);
   }
-  return card(`<h3>${escape(description ? kind : item)}</h3>${description ? `<p>${escape(description)}</p>` : ""}<small>${escape(examplesByPortal[screen.portal] || "Dữ liệu mẫu Zenford")}</small>`);
+  return card(`<h3>${escape(description ? kind : item)}</h3>${description ? `<p>${escape(description)}</p>` : ""}`);
 }
 
 function genericScreen(screen) {
   const neighbors = screenNeighbors(screen);
-  const components = screen.el.map(item => genericComponent(item,screen,neighbors)).join("");
+  const components = screen.el.map(item => genericComponent(item,neighbors)).join("");
   const context = card(`<h3>Màn hình liên quan</h3><ul class="linklist">${neighbors.slice(0,10).map(s=>`<li><a href="#${s.id}">${escape(s.name)}</a></li>`).join("") || '<li><a href="#danh-muc">Danh mục màn hình</a></li>'}</ul>
     <details><summary>Thông tin màn hình</summary><p class="subtle">${screen.id} · ${escape(screen.modName)} · ${screen.doc}</p><p class="subtle">${escape(screen.users)}</p></details>`);
   return workspace(screen, pageHeading(screen) + `<div class="split"><div class="stack">${components}</div>${context}</div>`);
 }
 const preSteps = [["SCR-M42-02","Chẩn đoán"],["SCR-M42-03","Dạy nền"],["SCR-M42-04","Luyện tập"]];
-const preState = { question:0, answer:"", responded:false, alternate:false, explanation:"", spoken:false, transcript:false, complete:false, resume:"SCR-M42-02", teacherFlag:false };
+const preState = { question:0, answer:"", responded:false, alternate:false, explanation:"", spoken:false, practiced:false, transcript:false, complete:false, resume:"SCR-M42-02", teacherFlag:false, started:false, results:[] };
+const concepts = ["Mẫu câu I’d like…", "Câu hỏi Could I have…?", "Trọng âm của “chocolate”"];
+const knownConcepts = () => concepts.filter((_,i)=>preState.results[i]===true);
+const weakConcepts = () => concepts.filter((_,i)=>preState.results[i]===false);
+const speechOnly = () => weakConcepts().length===1 && preState.results[2]===false;
 const quiz = [
   { type:"Trắc nghiệm", prompt:"Em muốn gọi một ly trà. Em sẽ nói câu nào?",
     choices:["I want that tea.","I’d like a cup of tea, please.","Give me a tea."], feedback:"“I’d like…” là cách gọi món lịch sự." },
@@ -1131,12 +1131,12 @@ function preBar(active, done = false) {
 }
 
 function preHome(screen) {
-  const ongoing = preState.question || preState.responded || preState.answer || preState.resume!=="SCR-M42-02";
+  const ongoing = preState.started;
   const next = preState.complete ? "pre-done" : preState.resume;
   return workspace(screen,pageHeading(screen,"Việc hôm nay","Tiếng Anh A2 · ENG-A2-07")
-    + card(`<div class="row">${pill("Pre-class","mint")}${preState.complete ? pill("Đã hoàn thành","mint") : pill("Đến hạn hôm nay","warn")}</div>
+    + card(`<div class="row">${pill("Pre-class","mint")}${preState.complete ? pill("Đã hoàn thành","mint") : pill("Quá hạn · tiếp tục đến 18:30","warn")}</div>
       <h2>Ordering at a café</h2><p>Buổi 05 · Giao tiếp hằng ngày</p>
-      <div class="chips">${pill("Hạn hoàn thành 17:30","gray")}${pill("Lớp bắt đầu 18:30","gray")}${pill("Khoảng 12 phút","gray")}</div>
+      <div class="chips">${pill("Đồng hồ mẫu 17:40","gray")}${pill("Hạn hoàn thành 17:30","gray")}${pill("Lớp bắt đầu 18:30","gray")}${pill("Khoảng 12 phút","gray")}</div>
       ${preBar("",preState.complete)}
       <div class="actions">${link(next,preState.complete ? "Xem bài đã hoàn thành" : ongoing ? "Tiếp tục Pre-class" : "Bắt đầu Pre-class","primary")}${link("SCR-M39-05","Xem buổi học")}</div>`,"tinted")
     + `<div class="grid2">${card(`<h3>Lịch học</h3><p>Thứ Ba, 24/11 · 18:30–19:15</p>${link("SCR-M39-05","Xem lịch học","small")}`)}
@@ -1146,9 +1146,9 @@ function preHome(screen) {
 function diagnose() {
   if (preState.question === quiz.length) {
     return card(`<h2>Kết quả chẩn đoán</h2><div class="grid2">
-      ${note("<strong>Đã vững</strong><br>Từ vựng đồ uống và mẫu gọi món quen thuộc.","mint")}
-      ${note("<strong>Cần luyện thêm</strong><br>Cách nói lịch sự và trọng âm của “chocolate”.","warn")}
-      </div><div class="actions">${link("SCR-M42-03","Học phần chưa vững","primary")}${button("pre-reset","Làm lại chẩn đoán")}</div>`);
+      ${note("<strong>Đã vững</strong><br>"+(knownConcepts().join(" · ") || "Chưa ghi nhận"),"mint")}
+      ${note("<strong>Cần luyện thêm</strong><br>"+(weakConcepts().join(" · ") || "Không có điểm cần dạy lại."),"warn")}
+      </div><div class="actions">${weakConcepts().length ? link("SCR-M42-03","Học phần chưa vững","primary") : link("SCR-M42-04","Vào luyện tập","primary")}${button("pre-reset","Làm lại chẩn đoán")}</div>`);
   }
   const item = quiz[preState.question];
   const input = item.choices
@@ -1156,20 +1156,21 @@ function diagnose() {
        `<label class="option"><input type="radio" name="quiz-option" value="${i}"${preState.answer===String(i)?" checked":""}${preState.responded?" disabled":""}>${escape(choice)}</label>`).join("")}</fieldset>`
     : item.type === "Viết ngắn"
       ? `<label>Câu trả lời<input id="pre-answer" value="${escape(preState.answer)}" placeholder="Nhập câu trả lời" ${preState.responded?"disabled":""}></label>`
-      : `<div class="actions">${button("pre-record","Dùng bản ghi mẫu")}</div>${preState.answer ? note("Bản ghi mẫu · “I’d like a hot chocolate, please.”") : ""}`;
+      : `<div class="actions">${button("pre-record","Dùng bản ghi mẫu")}${button("pre-clear-record","Dùng bản đọc đúng trọng âm")}</div>${preState.answer ? note("Bản ghi mẫu · “I’d like a hot chocolate, please.”") : ""}`;
   return card(`<div class="row">${pill(item.type,"gray")}<small>Câu ${preState.question+1} / ${quiz.length}</small></div>
     <h2>${item.prompt}</h2>${input}
-    ${preState.responded ? note(item.feedback,"mint") : ""}
+    ${preState.responded ? note(preState.results[preState.question] ? "Đã vững · "+concepts[preState.question] : "Cần luyện thêm · "+item.feedback,preState.results[preState.question]?"mint":"warn") : ""}
     <div class="actions">${preState.responded ? button("pre-next",preState.question===quiz.length-1 ? "Xem kết quả" : "Câu tiếp theo","primary") : button("pre-check","Kiểm tra câu trả lời","primary")}</div>`);
 }
 
 function teach() {
   return card(`<div class="row">${pill("Agent dạy nền")}${pill("Tiếng Việt · Giải thích","gray")}</div>
-    <h2>Gọi món một cách lịch sự</h2>
-    <p>${preState.alternate ? "Hãy tưởng tượng em đang nói với nhân viên. Bắt đầu bằng “Could I have…?”, thêm món em muốn và kết thúc bằng “please”." : "Em dùng “I’d like…” để nói mình muốn gì. Thêm “please” ở cuối để lời gọi món lịch sự hơn."}</p>
-    <div class="dialogue"><strong>${preState.alternate ? "Could I have a hot chocolate, please?" : "I’d like a cup of tea, please."}</strong><br><small>${preState.alternate ? "Cho em một ly sô-cô-la nóng được không ạ?" : "Cho em một ly trà ạ."}</small></div>
+    <h2>${speechOnly()?"Luyện trọng âm":"Gọi món một cách lịch sự"}</h2>
+    <p>${speechOnly() ? (preState.alternate?"Vỗ tay ở âm đầu, sau đó đọc nhẹ phần còn lại.":"Đọc mạnh âm đầu của “chocolate” rồi ghép từ vào câu gọi món.") : preState.alternate ? "Hãy tưởng tượng em đang nói với nhân viên. Bắt đầu bằng “Could I have…?”, thêm món em muốn và kết thúc bằng “please”." : "Em dùng “I’d like…” để nói mình muốn gì. Thêm “please” ở cuối để lời gọi món lịch sự hơn."}</p>
+    <div class="dialogue"><strong>I’d like a hot chocolate, please.</strong><br><small>Cho em một ly sô-cô-la nóng ạ.</small></div>
+    <audio controls preload="none" aria-label="Nghe ví dụ" src="${lessonAudio}"></audio>
     <div class="actions">${button("pre-transcript",preState.transcript ? "Ẩn lời đọc mẫu" : "Xem lời đọc mẫu")}${button("pre-alternate",preState.alternate ? "Xem cách giải thích ban đầu" : "Em chưa hiểu · Giải thích cách khác")}</div>
-    ${preState.transcript ? note("Đọc theo nhịp · I’d LIKE / a CUP of TEA / PLEASE.") : ""}
+    ${preState.transcript ? note("Đọc theo nhịp · I’d LIKE / a hot CHOC-lət / PLEASE.") : ""}
     <label>Thử giải thích lại bằng lời của em<textarea id="pre-explanation" rows="2" placeholder="Em sẽ nói gì khi gọi một ly cà phê?">${escape(preState.explanation)}</textarea></label>
     <div class="actions">${link("SCR-M42-04","Sang luyện tập","primary")}${button("pre-teacher-flag","Ghi chú cần giáo viên")}</div>`);
 }
@@ -1181,17 +1182,18 @@ function practice() {
     ${preState.spoken ? '<div class="dialogue you"><strong>Em · Bản ghi mẫu</strong><br>I’d like a hot chocolate, please.</div><div class="dialogue"><strong>AI Tutor · Nhân viên</strong><br>Of course! Would you like that to go?</div>' : ""}
     <div class="actions">${button("pre-practice",preState.spoken ? "Thử lại" : "Dùng bản ghi mẫu","primary")}${button("pre-transcript",preState.transcript ? "Ẩn câu mẫu" : "Xem câu mẫu")}</div>
     ${preState.transcript ? note(`<div class="stack compact"><span>Câu mẫu · I’d like a hot chocolate, please.</span>${lessonAudio ? `<audio controls preload="none" aria-label="Nghe câu mẫu tiếng Anh" src="${lessonAudio}"></audio>` : ""}</div>`) : ""}
-    ${preState.spoken ? `<div class="sheet stack compact"><div class="row"><h3>Phản hồi phát âm mẫu</h3>${pill("82/100","mint")}</div><p>Nhấn âm đầu trong <mark>CHOC</mark>olate. Đọc theo nhịp “hot CHOC-lət”.</p><small>Lỗi mẫu sẽ xuất hiện trong Vở học khi em hoàn thành.</small></div>
+    ${preState.spoken ? `<div class="sheet stack compact"><div class="row"><h3>Phản hồi phát âm mẫu</h3>${pill("82/100","mint")}</div><p>Nhấn âm đầu trong <mark>CHOC</mark>olate. Đọc theo nhịp “hot CHOC-lət”.</p><small>Đã ghi lỗi mẫu vào Vở học AI · Pre-class, buổi 05.</small></div>
     <div class="actions">${button("pre-complete","Hoàn thành Pre-class","primary")}</div>` : ""}`);
 }
 
 function preLesson(screen) {
   const stage = preSteps.findIndex(([id]) => id === screen.id);
   preState.resume = screen.id;
+  preState.started = true;
   const lesson = [diagnose,teach,practice][stage]();
   const panel = card(`<div class="row start"><span class="avatar" aria-hidden="true">AI</span><div><h3>AI Tutor</h3><small>Tiếng Anh A2 · Buổi 05</small></div></div>
     <hr class="rule"><h3>Mục tiêu buổi học</h3><p>Gọi đồ uống, dùng “I’d like…” và luyện trọng âm.</p>
-    ${stage === 1 ? note("Cần luyện thêm · Cách gọi món lịch sự và trọng âm của “chocolate”.","warn") : ""}
+    ${stage === 1 ? note("Cần luyện thêm · "+(weakConcepts().join(" · ") || "Bài mẫu về gọi món"),"warn") : ""}
     <div class="actions">${link("SCR-M42-01","Về việc hôm nay","small")}</div>`);
   return workspace(screen,pageHeading(screen,preSteps[stage][1],"Pre-class · Ordering at a café") + preBar(screen.id) + `<div class="split">${lesson}${panel}</div>`);
 }
@@ -1199,6 +1201,7 @@ function preLesson(screen) {
 const doneScreen = {id:"pre-done",portal:"Màn học AI",name:"Đã hoàn thành Pre-class",purpose:"Ordering at a café · Tiếng Anh A2"};
 
 function preDone() {
+  if (!preState.complete) return preHome(screens.get("SCR-M42-01"));
   return workspace(doneScreen,pageHeading(doneScreen) + preBar("",true) + card(`<div>${pill("Hoàn thành","mint")}</div><h2>Em đã sẵn sàng cho buổi học</h2>
     <p>Em đã luyện gọi món và phát âm. Giáo viên có thể xem báo cáo mẫu trước buổi học.</p>
     ${note("Vở học · Nhấn âm đầu trong “chocolate”.","mint")}
@@ -1206,16 +1209,17 @@ function preDone() {
 }
 
 function preTeacher(screen) {
-  const status = preState.complete ? "Xong" : "Làm dở";
+  const status = preState.complete ? "Xong" : preState.started ? "Làm dở" : "Chưa làm";
   const roster = [
-    ["Minh Anh",pill(status,preState.complete?"mint":"warn"),preState.complete?"12 phút":"6 phút",preState.complete?"Luyện tập":"Dạy nền"],
+    ["Minh Anh",pill(status,preState.complete?"mint":"warn"),preState.complete?"12 phút":preState.started?"Đang học":"—",preState.complete?"Luyện tập":preState.started?preSteps.find(([id])=>id===preState.resume)[1]:"Chưa bắt đầu"],
     ["Khánh Linh",pill("Xong","mint"),"11 phút","Luyện tập"],
     ["Quang Huy",pill("Chưa làm","gray"),"—","Chưa bắt đầu"]
   ];
+  roster.forEach((row,i)=>row.push(i===1 || (i===0 && preState.complete) ? "—" : pill("Quá hạn","warn")));
   return workspace(screen,pageHeading(screen,"Tiến độ Pre-class của lớp","ENG-A2-07 · Ordering at a café · 24/11 lúc 18:30")
-    + `<div class="grid3">${metric(preState.complete?"2":"1","Xong")}${metric(preState.complete?"0":"1","Làm dở")}${metric("1","Chưa làm")}</div>`
+    + `<div class="grid3">${metric(preState.complete?"2":"1","Xong")}${metric(status==="Làm dở"?"1":"0","Làm dở")}${metric(status==="Chưa làm"?"2":"1","Chưa làm")}</div>`
     + card(`<div class="row"><h2>Học viên</h2><label>Trạng thái<select id="pre-roster">${options(["Tất cả","Xong","Làm dở","Chưa làm"])}</select></label></div>
-    <div id="pre-roster-table">${table(["Học viên","Trạng thái","Thời lượng","Bước gần nhất"],roster)}</div>
+    <div id="pre-roster-table">${table(["Học viên","Trạng thái","Thời lượng","Bước gần nhất","Hạn hoàn thành"],roster)}</div>
     <div class="actions">${link("SCR-M42-07","Báo cáo Pre-class","primary")}${link("SCR-M42-06","Theo dõi và nhắc học viên")}</div>`));
 }
 
@@ -1223,10 +1227,11 @@ function preReport(screen) {
   const email = screen.id === "SCR-M42-08";
   return workspace(screen,pageHeading(screen,email?"Email báo cáo Pre-class":"Báo cáo Pre-class","ENG-A2-07 · Ordering at a café")
     + card(`<div class="row">${pill(email?"Bản xem trước email":"Báo cáo lớp","mint")}<small>Cập nhật lúc 17:40 · 24/11/2026</small></div><h2>Cả lớp</h2>
-    <p><strong>Lỗi thường gặp.</strong> Dùng “I want…” khi gọi món và nhấn sai trọng âm của “chocolate”.</p>
+    <p><strong>Dữ liệu lớp.</strong> ${preState.complete?2:1}/3 học viên hoàn thành. Khánh Linh cần luyện câu hỏi mang đi.${preState.complete?" Minh Anh đã luyện trọng âm của “chocolate”.":""}</p>
     ${note("<strong>Gợi ý trên lớp</strong><br>Ghép Minh Anh với Khánh Linh để tập hội thoại khách và nhân viên.")}
+    <p class="subtle">Chưa làm · ${preState.started?1:2} học viên. Làm dở · ${preState.started && !preState.complete?1:0} học viên.</p>
     <h3>Theo từng em</h3>${table(["Học viên","Đã vững","Cần luyện hoặc hỗ trợ"],[
-      ["Minh Anh","Từ vựng đồ uống",preState.teacherFlag ? "Cần giáo viên · Cách gọi món lịch sự" : "Trọng âm của “chocolate”"],["Khánh Linh","Gọi món lịch sự","Câu hỏi mang đi"],
+      ["Minh Anh",preState.complete ? knownConcepts().join(" · ") || "Chưa ghi nhận" : "—",preState.complete ? (preState.teacherFlag ? "Cần giáo viên · "+(weakConcepts().join(" · ") || "Bài luyện nói") : "Đã luyện trọng âm của “chocolate”") : pill("Chưa đủ dữ liệu","warn")],["Khánh Linh","Gọi món lịch sự","Câu hỏi mang đi"],
       ["Quang Huy","—",pill("Chưa đủ dữ liệu","warn")]
     ])}<div class="actions">${link("SCR-M43-01","Chuẩn bị lớp","primary")}${link(email?"SCR-M42-07":"SCR-M42-08",email?"Báo cáo đầy đủ":"Xem email mẫu")}</div>`));
 }
@@ -1234,7 +1239,7 @@ function preReport(screen) {
 function preNotebook(screen) {
   return workspace(screen,pageHeading(screen,"Vở học AI","Tiếng Anh A2 · Ghi chú để ôn lại")
     + card(`<h2>Ordering at a café</h2><div class="chips">${pill("Nói")}${pill("Gọi món","gray")}</div>
-    ${preState.complete ? note("<strong>Trọng âm</strong><br>Nhấn âm đầu trong “chocolate”.","mint") : note("Hoàn thành Pre-class để xem ghi chú phát âm mẫu.")}
+    ${preState.practiced ? note("<strong>Trọng âm</strong><br>Nhấn âm đầu trong “chocolate”.","mint") : note("Luyện nói để xem ghi chú phát âm mẫu.")}
     <div class="actions">${link("SCR-M42-01","Về việc hôm nay","primary")}${link("SCR-M42-04","Luyện lại câu mẫu")}</div>`));
 }
 const providerModels = {
@@ -1249,21 +1254,25 @@ const pipelineSteps = [
   ["Kịch bản","Agent viết kịch bản","Kịch bản vai khách và nhân viên với mẫu “I’d like…” và “Could I have…?”.","ChatGPT","GPT-5"],
   ["Sản xuất","Nhóm sản xuất","Bài tập, đề, audio và slide đã có bản nháp để kiểm định.","Gemini","Gemini Flash"],
   ["Kiểm định","Agent kiểm định","Đối chiếu mẫu câu, độ khó A2, đáp án, audio và quyền sử dụng.","Claude","Sonnet"],
-  ["Kiểm định thủ công","Chuyên gia tiếng Anh","Chuyên gia kiểm tra bản audio đã sửa và danh sách kiểm tra trước khi chuyển duyệt.","",""]
+  ["Kiểm định thủ công","Chuyên gia ngôn ngữ","Đối chiếu sản phẩm được chọn mẫu với danh sách kiểm tra của ngôn ngữ đề bài.","",""]
 ];
 const academic = {
   topic:"Giao tiếp tại quán cà phê", language:"Tiếng Anh", level:"A2", output:"Kịch bản, bài tập, audio và slide",
   active:0, mode:"ready", revision:1, returnReason:"", reviewed:false, approved:false,
-  history:[], branchModels:productionBranches.map((_, i) => [
+  history:[], corrections:[], branchModels:productionBranches.map((_, i) => [
     ["Claude","Sonnet"],["ChatGPT","GPT-5 mini"],["Gemini","Gemini Flash"],["Gemini","Gemini Pro"]
   ][i]),
   models:pipelineSteps.slice(0,-1).map(step=>step.slice(3))
 };
 const academicTitle = () => escape(academic.topic);
+const levelsByLanguage = {
+  "Tiếng Anh":["A1","A2","B1","B2"], "Tiếng Trung":["HSK 1","HSK 2","HSK 3"],
+  "Tiếng Nhật":["N5","N4","N3"], "Tiếng Hàn":["Sơ cấp","Trung cấp"], "Tiếng Việt":["A1","A2","B1","B2"]
+};
 
 function academicList(screen) {
   const list = table(["Đề bài","Ngôn ngữ","Cập nhật","Trạng thái"],[
-    [`<a href="#SCR-M17-04">${academicTitle()}</a>`,escape(`${academic.language} · ${academic.level}`),"24/11/2026",pill(academic.approved?"Đã duyệt":academic.reviewed?"Chờ phê duyệt":academic.returnReason?"Cần chạy lại":"Đang sản xuất",academic.approved?"mint":"warn")],
+    [`<a href="#SCR-M17-04">${academicTitle()}</a>`,escape(`${academic.language} · ${academic.level}`),"24/11/2026",pill(academic.approved?"Đã phát hành":academic.reviewed?"Chờ phê duyệt":academic.mode==="revise"?"Cần chạy lại":pipelineSteps[academic.active][0],academic.approved?"mint":"warn")],
     ["Giới thiệu bản thân và sở thích","Tiếng Nhật · N5","22/11/2026",pill("Nháp","gray")],
     ["Hỏi đường ở ga tàu","Tiếng Hàn · Sơ cấp","20/11/2026",pill("Đã phát hành","mint")]
   ]);
@@ -1277,7 +1286,11 @@ function academicBrief(screen) {
     + `<form id="brief-form" class="stack">${card(`<h2>Nội dung đề bài</h2>
       <label>Chủ đề<input name="topic" required maxlength="100" value="${academicTitle()}"></label>
       <div class="grid2"><label>Ngôn ngữ<select name="language">${options(["Tiếng Anh","Tiếng Trung","Tiếng Nhật","Tiếng Hàn","Tiếng Việt"],academic.language)}</select></label>
-      <label>Trình độ<select name="level">${options(["A1","A2","B1","B2","N5","Sơ cấp"],academic.level)}</select></label></div>
+      <label>Trình độ<select name="level">${options(levelsByLanguage[academic.language],academic.level)}</select></label></div>
+      <div class="grid2"><label>Chương trình<input name="program" value="${escape(academic.program || "Giao tiếp hằng ngày")}" required></label>
+      <label>Khối năng lực<input name="block" value="${escape(academic.block || "Tương tác nói")}" required></label>
+      <label>Loại học liệu<select name="material">${options(["Bộ học liệu","Giáo án","Bài tập"],academic.material)}</select></label>
+      <label>Hạn bàn giao<input type="date" name="due" required value="${escape(academic.due || "2026-11-28")}"></label></div>
       <label>Đầu ra và yêu cầu<textarea name="output" rows="3" required maxlength="300">${escape(academic.output)}</textarea></label>`)}
     ${card(`<h2>Quyền sử dụng và kiểm định</h2><div class="grid2">
     <label>Tài liệu nguồn<select name="source">${options(["Tài liệu nội bộ Zenford · Đã xác nhận quyền","Tài liệu bên ngoài · Chờ xác minh"])}</select></label>
@@ -1294,6 +1307,7 @@ function providerControl(key, modelPair, name) {
 
 function agentSettings(screen) {
   return workspace(screen,pageHeading(screen,"Cấu hình agent học thuật","Chọn Claude, ChatGPT hoặc Gemini và mô hình phù hợp cho từng vai trò.",link("SCR-M17-04","Về pipeline","primary"))
+    + card(`<h2>AI Trưởng phòng</h2>${table(["Nhóm","Vai trò"],[["Nghiên cứu","Chân dung, năng lực và khung chương trình"],["Sản xuất","Kịch bản, sách, đề, audio và hình ảnh"],["Kiểm định","Kiểm tra độc lập, đề nghị sửa hoặc chuyển duyệt"],["Vận hành","Theo dõi hàng đợi, phiên bản và chi phí"]])}`)
     + card(`<h2>Các bước chính</h2>${pipelineSteps.slice(0,-1).map((step,i)=>providerControl(String(i),academic.models[i],step[1])).join("")}`)
     + card(`<h2>Các nhánh sản xuất</h2>${productionBranches.map((branch,i)=>providerControl(`branch-${i}`,academic.branchModels[i],branch)).join("")}`));
 }
@@ -1318,11 +1332,11 @@ function academicPipeline(screen) {
     : "<li>Đề bài đã sẵn sàng cho Agent nghiên cứu.</li>";
   const steps = `<ol class="timeline">${pipelineSteps.map(([title,agent],i)=>{
     const [label,tone] = pipelineState(i);
-    return `<li class="${i===index?"active":""}"${i===index?' aria-current="step"':""}><span class="avatar${i<index || academic.reviewed?" mint":""}" aria-hidden="true">${i<index || academic.reviewed?"✓":i+1}</span><div><strong>${title}</strong><p class="subtle">${agent}</p></div>${pill(label,tone)}</li>`;
+    return `<li class="${i===index?"active":""}"${i===index?' aria-current="step"':""}><span class="avatar${i<index || academic.reviewed?" mint":""}" aria-hidden="true">${i<index || academic.reviewed?"✓":i+1}</span><div><strong>${title}</strong><p class="subtle">${i===5 ? "Chuyên gia · "+escape(academic.language) : agent}</p></div>${pill(label,tone)}</li>`;
   }).join("")}</ol>`;
   let actions;
   if (academic.approved) actions = link("SCR-M16-08","Xem kho học liệu","primary");
-  else if (academic.reviewed) actions = link("SCR-M17-08","Mở phê duyệt cuối","primary");
+  else if (academic.reviewed) actions = link("SCR-M16-12","Mở phê duyệt cuối","primary");
   else if (index === 5) actions = link("SCR-M17-08","Mở kiểm định thủ công","primary");
   else if (academic.mode === "gate") actions = button("academic-approve-gate","Chuyên gia duyệt","primary") + button("academic-return-human","Trả về");
   else if (academic.mode === "running") actions = button("academic-next",index===4?"Đạt kiểm định · Chuyển chuyên gia":"Hoàn thành bước","primary")
@@ -1334,40 +1348,54 @@ function academicPipeline(screen) {
     ${card(`<details${academic.history.length<=8?" open":""}><summary>Nhật ký bàn giao ${academic.history.length?`<small>· ${academic.history.length} sự kiện</small>`:""}</summary><ul class="history">${activities}</ul></details>
       ${academic.history.length>8?`<p class="subtle">${escape(academic.history.at(-1))}</p>`:""}`)}</div>
     <div class="stack">${card(`<div class="row">${pill(state,tone)}<small>${escape(academic.language)} · ${escape(academic.level)}</small></div>
-      <h2>${step[0]}</h2><p>${step[1]}</p>
+      <h2>${step[0]}</h2><p>${index===5?"Chuyên gia · "+escape(academic.language):step[1]}</p>
       ${index<5?`<div class="chips">${academic.models[index].map(model=>pill(model,"gray")).join("")}</div>`:""}
       ${index===3 ? `<ul>${productionBranches.map((branch,i)=>`<li>${branch} <small>· ${academic.branchModels[i].join(" / ")}</small></li>`).join("")}</ul>` : ""}
-      ${academic.returnReason && (academic.mode==="revise" || [3,4].includes(index)) ? note(`<strong>Ghi chú chỉnh sửa</strong><br>${escape(academic.returnReason)}`,"red") : ""}
-      ${result ? note(`<strong>Đầu ra mẫu</strong><br>${academic.topic==="Giao tiếp tại quán cà phê" ? step[2] : `${academicTitle()} · ${escape(academic.output)}`}`) : ""}
+      ${academic.returnReason && academic.mode==="revise" ? note(`<strong>Ghi chú chỉnh sửa</strong><br>${escape(academic.returnReason)}`,"red") : ""}
+      ${result ? note(`<strong>Đầu ra mẫu</strong><br>${academic.topic==="Giao tiếp tại quán cà phê" && academic.language==="Tiếng Anh" && academic.level==="A2" ? step[2] : `${academicTitle()} · ${escape(academic.output)}`}`) : ""}
       <div class="actions">${actions}</div>`,"tinted")}
       ${card(`<h3>Tài liệu của lần chạy</h3><div class="actions">${link("SCR-M17-07","Báo cáo kiểm định","small")}${link("SCR-M17-06","So sánh lần chạy","small")}${link("SCR-M17-05","Kết quả nghiên cứu","small")}</div>`)}</div></div>`);
 }
 
 function reviewAcademic(screen) {
   const manual = screen.id === "SCR-M17-08";
-  const returned = academic.returnReason;
+  const defect = academic.corrections.at(-1);
+  const needsFix = academic.mode==="revise";
+  const inspected = academic.active >= 5;
+  const check = inspected ? pill("Đạt","mint") : pill("Chờ kiểm định","gray");
   const eligible = academic.active === 5 && !academic.approved;
-  const title = manual ? academic.reviewed ? "Phê duyệt cuối" : "Kiểm định thủ công" : "Báo cáo kiểm định";
+  const title = manual ? "Kiểm định thủ công" : "Báo cáo kiểm định";
   return workspace(screen,pageHeading(screen,title,academic.topic,link("SCR-M17-04","Về pipeline"))
-    + card(`<div class="row">${pill(manual?"Chuyên gia ngôn ngữ":"Agent kiểm định")}${academic.approved?pill("Đã phê duyệt","mint"):returned&&academic.revision===1?pill("Đề nghị sửa","warn"):pill(`Bản xem trước · v${academic.revision}`,"gray")}</div>
+    + card(`<div class="row">${pill(manual?"Chuyên gia ngôn ngữ":"Agent kiểm định")}${academic.approved?pill("Đã phê duyệt","mint"):needsFix?pill("Đề nghị sửa","warn"):pill(`Bản xem trước · v${academic.revision}`,"gray")}</div>
     <h2>Danh sách kiểm tra học liệu</h2>
     ${table(["Hạng mục","Kết quả mẫu","Ghi chú"],[
-      ["Ngôn ngữ và độ khó",pill("Đạt","mint"),"Mẫu câu và từ vựng phù hợp trình độ bài."],
-      ["Câu hỏi và đáp án",pill("Đạt","mint"),"Đáp án khớp bài luyện tập."],
-      ["Audio",returned&&academic.revision===1?pill("Cần sửa","red"):pill("Mẫu kiểm tra","gray"),returned?escape(returned):"Đối chiếu lời đọc với kịch bản."],
+      ["Ngôn ngữ và độ khó",check,"Mẫu câu và từ vựng phù hợp trình độ bài."],
+      ["Câu hỏi và đáp án",check,"Đáp án khớp bài luyện tập."],
+      ["Audio",needsFix && defect?.item==="Audio · Câu 3" ? pill("Cần sửa","red") : check,"Đối chiếu lời đọc với kịch bản."],
       ["Quyền sử dụng",pill("Đạt","mint"),"Nguồn nội bộ đã xác nhận."]
     ])}
+    ${defect ? note(escape(defect.item)+" · "+escape(defect.reason),needsFix?"warn":"gray") : ""}
     <div class="actions">${manual && eligible ? (
-      academic.reviewed ? button("academic-final","Trưởng Học thuật phê duyệt","primary") : button("academic-manual","Xác nhận kiểm định thủ công","primary")
+      academic.reviewed ? link("SCR-M16-12","Mở phê duyệt cuối","primary") : button("academic-manual","Xác nhận kiểm định thủ công","primary")
     ) + button("academic-return-human","Trả về sản xuất","danger") : link(manual?"SCR-M17-04":"SCR-M17-08",manual?"Xem tiến độ pipeline":"Mở kiểm định thủ công","primary")}</div>`));
 }
 
 function academicComparison(screen) {
   return workspace(screen,pageHeading(screen,"So sánh lần chạy",academic.topic,link("SCR-M17-04","Về pipeline"))
     + card(`<h2>Phiên bản đầu ra</h2>${table(["Phiên bản","Hạng mục","Kết quả"],[
-      ["v1","Audio · Câu 3",academic.returnReason?escape(academic.returnReason):"Bản nháp được tạo cho kiểm định."],
-      ...(academic.revision>1?[[`v${academic.revision}`,"Audio · Câu 3","Đã tạo lại câu 3; bản nháp khác được giữ lại."]]:[])
+      ["v1","Đề bài",academicTitle()],
+      ...academic.corrections.map(change=>[change.to ? `v${change.from} → v${change.to}` : `v${change.from} · Chờ chạy lại`,escape(change.item),escape(change.reason)])
     ])}`));
+}
+
+function academicRelease(screen) {
+  const pending = academic.reviewed && !academic.approved;
+  return workspace(screen,pageHeading(screen,"Phê duyệt cuối",academic.topic)
+    + card(`<h2>${academicTitle()}</h2><p>${escape(academic.language)} · v${academic.revision}</p>
+      ${pill(academic.approved?"Đã phát hành":pending?"Chờ phê duyệt":"Chờ kiểm định thủ công",pending?"warn":"gray")}
+      <p>Nơi phát hành mẫu · Kho học liệu của chương trình ${escape(academic.level)}.</p>
+      <div class="actions">${link("SCR-M17-07","Báo cáo kiểm định")}${link("SCR-M17-06","So sánh lần chạy")}
+      ${pending ? button("academic-final","Trưởng Học thuật phê duyệt","primary")+button("academic-return-human","Trả về sản xuất") : link("SCR-M17-04","Về pipeline")}</div>`));
 }
 
 function academicResearch(screen) {
@@ -1385,16 +1413,16 @@ function academicResearch(screen) {
 function academicLibrary(screen) {
   return workspace(screen,pageHeading(screen,"Kho học liệu","Học liệu và phiên bản đang sử dụng.",link("SCR-M16-03","Về xưởng học thuật"))
     + card(`<h2>Danh sách học liệu</h2>${table(["Mã","Học liệu","Phiên bản","Trạng thái","Quyền nguồn"],[
-      ["HL-024",`<a href="#SCR-M17-04">${academicTitle()}</a>`,`v${academic.revision}`,pill(academic.approved?"Đã phê duyệt":academic.reviewed?"Chờ phê duyệt":"Đang sản xuất",academic.approved?"mint":"warn"),"Nội bộ Zenford"],
+      ["HL-024",`<a href="#SCR-M17-04">${academicTitle()}</a>`,`v${academic.revision}`,pill(academic.approved?"Đã phát hành":academic.reviewed?"Chờ phê duyệt":pipelineSteps[academic.active][0],academic.approved?"mint":"warn"),"Nội bộ Zenford"],
       ["HL-020","Hỏi đường ở ga tàu","v2",pill("Đã phát hành","mint"),"Nội bộ Zenford"]
     ])}`));
 }
 const candidates = [
-  {id:"CV-024",name:"Nguyễn An",initial:"NA",file:"CV-024.pdf",score:86,flag:"",skills:["Giảng dạy tiếng Anh","Soạn giáo án","Phản hồi học viên"],experience:"3 năm giảng dạy tiếng Anh A2–B1 trực tuyến.",degree:"Cử nhân Ngôn ngữ Anh · TESOL 120 giờ.",scores:[36,24,16,10],
+  {id:"CV-024",name:"Nguyễn An",initial:"NA",file:"CV-024.pdf",score:86,flag:"",scores:[36,24,16,10],
     evidence:["“Giảng dạy A2–B1 trực tuyến trong 3 năm.”","“TESOL 120 giờ.”","“Soạn giáo án giao tiếp và bài tập theo lớp.”","“Cử nhân Ngôn ngữ Anh.”"]},
-  {id:"CV-025",name:"Trần Bình",initial:"TB",file:"CV-025.docx",score:73,flag:"Sát ngưỡng",skills:["Trợ giảng","Chữa bài","Điều phối lớp"],experience:"18 tháng trợ giảng lớp tiếng Anh thiếu niên.",degree:"Cử nhân Sư phạm Anh · Chứng chỉ B2.",scores:[27,18,18,10],
+  {id:"CV-025",name:"Trần Bình",initial:"TB",file:"CV-025.docx",score:73,flag:"Sát ngưỡng",scores:[27,18,18,10],
     evidence:["“18 tháng trợ giảng nhóm thiếu niên.”","“Chứng chỉ tiếng Anh B2.”","“Chuẩn bị bài tập và chữa bài theo nhóm.”","“Cử nhân Sư phạm Anh.”"]},
-  {id:"CV-026",name:"Lê Chi",initial:"LC",file:"CV-026.pdf",score:null,flag:"Tệp khó đọc",skills:[],experience:"Chưa trích xuất được dữ liệu.",degree:"Chưa xác minh.",scores:[null,null,null,null],
+  {id:"CV-026",name:"Lê Chi",initial:"LC",file:"CV-026.pdf",score:null,flag:"Tệp khó đọc",scores:[null,null,null,null],
     evidence:["Không có dữ liệu","Không có dữ liệu","Không có dữ liệu","Không có dữ liệu"]}
 ];
 const criteria = [
@@ -1403,11 +1431,19 @@ const criteria = [
   ["Kỹ năng sư phạm",20,"Có bằng chứng soạn bài và phản hồi."],
   ["Học vấn",10,"Chuyên ngành phù hợp."]
 ];
-const cv = {selected:"CV-024",filter:"Tất cả",edits:{},decisions:{}};
+const cv = {selected:"CV-024",filter:"Tất cả",band:"Mọi điểm",edits:{},decisions:{}};
 const selectedCandidate = () => candidates.find(person=>person.id===cv.selected);
 
+function visibleCandidates() {
+  return candidates.filter(person => {
+    const statusMatches = cv.filter==="Tất cả" || (cv.filter==="Cần xem lại" ? Boolean(person.flag) : !person.flag);
+    const scoreMatches = cv.band==="Mọi điểm" || (person.score!==null && (cv.band==="Từ 75 điểm" ? person.score>=75 : person.score<75));
+    return statusMatches && scoreMatches;
+  });
+}
+
 function cvRankTable() {
-  const rows = candidates.filter(person => cv.filter === "Tất cả" || (cv.filter === "Cần xem lại" ? person.flag : !person.flag)).map(person=>{
+  const rows = visibleCandidates().map(person=>{
     const rank = person.score === null ? "—" : candidates.indexOf(person)+1;
     const row = [String(rank),`<button class="button small" type="button" data-action="cv-select" data-id="${person.id}" aria-pressed="${cv.selected===person.id}">${person.name}</button>`,
       person.score===null?"—":String(person.score),person.flag?pill(person.flag,"warn"):pill("Đã chấm","mint")];
@@ -1418,22 +1454,25 @@ function cvRankTable() {
 }
 
 function cvReview(screen) {
+  const matches = visibleCandidates();
+  if (matches.length && !matches.some(person=>person.id===cv.selected)) cv.selected=matches[0].id;
   const person = selectedCandidate();
   const edit = cv.edits[person.id];
   const decision = cv.decisions[person.id];
-  const evidence = criteria.map(([title,max,desc],i) => {
+  const reasons = person.id==="CV-024" ? ["Ba năm dạy trực tuyến đúng cấp độ. Chưa nêu quy mô lớp.","Có chứng chỉ TESOL. Chưa ghi mức ngoại ngữ theo CEFR.","Có soạn giáo án. Chưa nêu cách theo dõi tiến bộ.","Chuyên ngành khớp vị trí."] : ["Có kinh nghiệm trợ giảng. Chưa ghi thời gian đứng lớp độc lập.","Có chứng chỉ B2. Chưa ghi chứng chỉ đào tạo giáo viên.","Có chuẩn bị và chữa bài theo nhóm.","Chuyên ngành sư phạm phù hợp."];
+  const evidence = criteria.map(([title,max],i) => {
     const score = person.scores[i];
     return `<div class="stack compact"><div class="row"><h3>${title}</h3>${pill(score===null?"Chưa có điểm":`${score}/${max}`,score===null?"warn":"gray")}</div>
-      <small>${score===null?"Cần đối chiếu tệp gốc.":desc}</small><blockquote>${person.evidence[i]}</blockquote></div>`;
+      <small>${score===null?"Cần đối chiếu tệp gốc.":reasons[i]}</small><blockquote>${person.evidence[i]}</blockquote></div>`;
   }).join('<hr class="rule">');
   const original = card(`<div class="row"><h3>CV gốc</h3>${pill("Tệp mẫu","gray")}</div>
     <div class="sheet stack compact"><small>${person.file}</small><h3>${person.name}</h3><p>Ứng tuyển · Giáo viên tiếng Anh</p>
-    <hr class="rule"><strong>Kinh nghiệm</strong><p>${person.experience}</p><strong>Học vấn &amp; chứng chỉ</strong><p>${person.degree}</p>
-    <strong>Kỹ năng</strong><p>${person.skills.join(" · ") || "Chưa xác minh."}</p></div>`);
-  return workspace(screen,pageHeading(screen,"AI review CV","Tuyển dụng · Giáo viên tiếng Anh trực tuyến",link("SCR-M29-03","Tiêu chí lọc CV"))
-    + card(`<div class="row"><h2>Bảng xếp hạng</h2><label>Hiển thị<select id="cv-filter">${options(["Tất cả","Cần xem lại","Đã chấm"],cv.filter)}</select></label></div>
-    <div id="cv-table">${cvRankTable()}</div><small>Rubric GV-ENG v1.2 · Ngưỡng mời mẫu 75/100 · Sát ngưỡng ±5 điểm</small>`)
-    + card(`<div class="row"><div class="row start"><span class="avatar">${person.initial}</span><div><h2>${person.name}</h2><small>${person.id} · Giáo viên tiếng Anh</small></div></div>
+    <hr class="rule">${person.score===null ? "<p>Tệp mẫu khó đọc · Chờ Nhân sự xác minh.</p>" : ["Kinh nghiệm","Chứng chỉ","Kỹ năng","Học vấn"].map((label,i)=>`<strong>${label}</strong><p>${escape(person.evidence[i].slice(1,-1))}</p>`).join("")}</div>`);
+  const header = pageHeading(screen,"AI review CV","Tuyển dụng · Giáo viên tiếng Anh trực tuyến",link("SCR-M29-03","Tiêu chí lọc CV"));
+  const list = card(`<div class="row"><h2>Bảng xếp hạng</h2><label>Hiển thị<select id="cv-filter">${options(["Tất cả","Cần xem lại","Đã chấm"],cv.filter)}</select></label><label>Khoảng điểm<select id="cv-band">${options(["Mọi điểm","Từ 75 điểm","Dưới 75 điểm"],cv.band)}</select></label></div>
+    <div id="cv-table">${cvRankTable()}</div><small>Rubric GV-ENG v1.2 · Ngưỡng mời mẫu 75/100 · Sát ngưỡng ±5 điểm</small>`);
+  if (!matches.length) return workspace(screen,header+list+note("Không có hồ sơ phù hợp bộ lọc."));
+  return workspace(screen,header + list + card(`<div class="row"><div class="row start"><span class="avatar">${person.initial}</span><div><h2>${person.name}</h2><small>${person.id} · Giáo viên tiếng Anh</small></div></div>
     ${pill(decision?.status || (person.flag?"Cần xem lại":"AI đã chấm CV"),decision?.tone || (person.flag?"warn":"mint"))}</div>
     <div class="grid2">${metric(person.score===null?"—":`${person.score}/100`,"Điểm AI theo rubric")}${metric(edit?`${edit.score}/100`:"—","Điểm Nhân sự điều chỉnh")}</div>
     ${edit?note(`<strong>Lý do điều chỉnh</strong><br>${escape(edit.reason)}`):""}
@@ -1459,8 +1498,8 @@ function cvJobs(screen) {
 function cvApplication(screen) {
   return workspace(screen,pageHeading(screen,"Ứng tuyển giáo viên tiếng Anh","Dạy trực tuyến · Chương trình giao tiếp A2")
     + `<form id="application-form">${card(`<h2>Hồ sơ ứng tuyển</h2><div class="grid2">
-    <label>Họ và tên<input required autocomplete="off" placeholder="Nguyễn An"></label>
-    <label>Email<input required type="email" autocomplete="off" placeholder="nguyen.an@example.test"></label></div>
+    <label>Họ và tên<input required autocomplete="off" readonly value="Nguyễn An"></label>
+    <label>Email<input required type="email" autocomplete="off" readonly value="nguyen.an@example.test"></label></div>
     <p class="note">Biểu mẫu trình diễn dùng CV-024.pdf mẫu.</p>
     <label class="inline"><input type="checkbox" required>Tôi đồng ý với bước xử lý dữ liệu minh họa trong bản mẫu.</label>
     <div class="actions"><button class="button primary" type="submit">Gửi hồ sơ mẫu</button>${link("SCR-M29-04","Xem kết quả mẫu")}</div>`)}</form>`);
@@ -1478,7 +1517,7 @@ const custom = {
   "SCR-M08-01":home, "SCR-M08-03":publicPrograms, "SCR-M08-04":publicProgram,
   "SCR-M42-01":preHome, "SCR-M42-02":preLesson, "SCR-M42-03":preLesson, "SCR-M42-04":preLesson,
   "SCR-M42-05":preTeacher, "SCR-M42-07":preReport, "SCR-M42-08":preReport, "SCR-M45-07":preNotebook,
-  "SCR-M16-01":academicList, "SCR-M16-03":academicList, "SCR-M16-04":academicBrief, "SCR-M16-08":academicLibrary,
+  "SCR-M16-01":academicList, "SCR-M16-03":academicList, "SCR-M16-04":academicBrief, "SCR-M16-08":academicLibrary, "SCR-M16-12":academicRelease,
   "SCR-M17-03":agentSettings, "SCR-M17-04":academicPipeline, "SCR-M17-05":academicResearch,
   "SCR-M17-06":academicComparison, "SCR-M17-07":reviewAcademic, "SCR-M17-08":reviewAcademic,
   "SCR-M29-01":cvApplication, "SCR-M29-02":cvJobs, "SCR-M29-03":cvRubric, "SCR-M29-04":cvReview, "SCR-M29-07":cvPipeline
@@ -1549,20 +1588,28 @@ const actions = {
   "generic":()=>flash("Đây là thao tác minh họa. Xem màn hình liên quan để tiếp tục."),
   "program-filter":control=>{programFilter=control.dataset.id;return true},
   "close-dialog":()=>dialog.close(),
-  "pre-reset":()=>{preState.question=0;preState.answer="";preState.responded=false;return true},
-  "pre-record":()=>{preState.answer="sample";return true},
+  "pre-reset":()=>{Object.assign(preState,{question:0,answer:"",results:[],responded:false,complete:false,spoken:false,practiced:false,teacherFlag:false,explanation:"",alternate:false,transcript:false});return true},
+  "pre-record":()=>{if (!preState.responded) preState.answer="sample";return true},
+  "pre-clear-record":()=>{if (!preState.responded) preState.answer="clear";return true},
   "pre-check":()=>{
     if (!preState.answer.trim()) return flash("Em hãy trả lời câu hỏi trước.");
+    preState.results[preState.question] = [preState.answer==="1", /^(could|can|may)$/i.test(preState.answer.trim()), preState.answer==="clear"][preState.question];
     preState.responded=true;return true;
   },
   "pre-next":()=>{preState.question++;preState.answer="";preState.responded=false;return true},
   "pre-alternate":()=>{preState.alternate=!preState.alternate;return true},
   "pre-transcript":()=>{preState.transcript=!preState.transcript;return true},
   "pre-teacher-flag":()=>{preState.teacherFlag=true;flash("Đã ghi chú mẫu Cần giáo viên.")},
-  "pre-practice":()=>{preState.spoken=!preState.spoken;return true},
-  "pre-complete":()=>{preState.complete=true;go("pre-done")},
+  "pre-practice":()=>{preState.spoken=!preState.spoken;preState.practiced=true;return true},
+  "pre-complete":()=>{
+    if (preState.question!==quiz.length) {
+      go("SCR-M42-02");
+      return;
+    }
+    preState.complete=true;go("pre-done");
+  },
   "academic-run":()=>{
-    if (academic.mode==="revise") academic.revision++;
+    if (academic.mode==="revise") academic.corrections.at(-1).to = ++academic.revision;
     academic.mode="running";
     pipelineEvent(`${pipelineSteps[academic.active][1]} bắt đầu bản v${academic.revision}.`);
     return true;
@@ -1578,8 +1625,9 @@ const actions = {
   "academic-return-ai":()=>{
     const from = academic.active;
     const to = from === 4 ? 3 : from;
-    academic.returnReason = from===4 ? "Audio câu 3 thiếu từ “please” so với kịch bản. Tạo lại riêng câu này." :
+    academic.returnReason = from===4 ? "Audio câu 3 thiếu cụm từ cuối so với kịch bản. Tạo lại riêng câu này." :
       from===2 ? "Bổ sung một lượt thoại cho vai khách để đủ mục tiêu luyện nói." : "Bổ sung tiêu chí đạt cho khối luyện nói.";
+    academic.corrections.push({from:academic.revision,item:from===4?"Audio · Câu 3":pipelineSteps[to][0],reason:academic.returnReason});
     academic.active=to;
     academic.mode="revise";
     pipelineEvent(`AI kiểm định trả về ${pipelineSteps[to][0]}. ${academic.returnReason}`);
@@ -1589,14 +1637,15 @@ const actions = {
     openDecision("Trả về để chỉnh sửa","Lý do trả về",({reason})=>{
       const from=academic.active;
       academic.active=from===5?3:from;
+      academic.corrections.push({from:academic.revision,item:pipelineSteps[academic.active][0],reason});
       academic.reviewed=false;
       academic.mode="revise";academic.returnReason=reason;
       pipelineEvent(`Chuyên gia trả về ${pipelineSteps[academic.active][0]}. ${reason}`);
       go("SCR-M17-04");
     });
   },
-  "academic-manual":()=>{academic.reviewed=true;pipelineEvent("Chuyên gia hoàn tất kiểm định thủ công. Chờ Trưởng Học thuật phê duyệt.");return true},
-  "academic-final":()=>{academic.approved=true;pipelineEvent("Trưởng Học thuật phê duyệt học liệu.");go("SCR-M17-04")},
+  "academic-manual":()=>{academic.reviewed=true;pipelineEvent("Chuyên gia hoàn tất kiểm định thủ công. Chờ Trưởng Học thuật phê duyệt.");go("SCR-M16-12")},
+  "academic-final":()=>{academic.approved=true;pipelineEvent("Trưởng Học thuật phê duyệt và phát hành học liệu.");go("SCR-M17-04")},
   "cv-select":control=>{cv.selected=control.dataset.id;return true},
   "cv-edit":()=>{
     const person=selectedCandidate();
@@ -1625,7 +1674,7 @@ document.addEventListener("click",event=>{
     return;
   }
   const candidate = event.target.closest("[data-candidate]");
-  if (candidate) cv.selected = candidate.dataset.candidate;
+  if (candidate) Object.assign(cv,{selected:candidate.dataset.candidate,filter:"Tất cả",band:"Mọi điểm"});
   const language = event.target.closest("[data-language]");
   if (language) programFilter = language.dataset.language;
   const program = event.target.closest("[data-program]");
@@ -1643,15 +1692,19 @@ document.addEventListener("input",({target})=>{
 const modelPair = key => key.startsWith("branch-") ? academic.branchModels[Number(key.slice(7))] : academic.models[Number(key)];
 document.addEventListener("change",({target})=>{
   if (target.id==="catalog-portal") renderCatalogResults();
+  if (target.name==="language" && target.form?.id==="brief-form") {
+    target.form.elements.level.innerHTML=options(levelsByLanguage[target.value]);
+  }
   if (target.name==="source") document.getElementById("source-warning").hidden=target.selectedIndex===0;
   if (target.id==="pre-roster") {
     document.querySelectorAll("#pre-roster-table tbody tr").forEach(row=>{
       row.hidden=target.value!=="Tất cả" && row.cells[1].textContent!==target.value;
     });
   }
-  if (target.id==="cv-filter") {
-    cv.filter=target.value;
-    document.getElementById("cv-table").innerHTML=cvRankTable();
+  if (target.id==="cv-filter" || target.id==="cv-band") {
+    cv[target.id==="cv-filter"?"filter":"band"]=target.value;
+    render();
+    document.getElementById(target.id).focus();
   }
   if (target.dataset.provider!==undefined) {
     const key=target.dataset.provider;
@@ -1681,12 +1734,12 @@ document.addEventListener("submit",event=>{
     values.output=values.output.trim();
     if (!values.topic || !values.output) return flash("Vui lòng nhập chủ đề và đầu ra.");
     if (form.elements.source.selectedIndex!==0) return flash("Chọn nguồn đã xác nhận quyền sử dụng.");
-    Object.assign(academic,values,{active:0,mode:"ready",revision:1,returnReason:"",reviewed:false,approved:false,history:[`Đã giao đề bài “${values.topic}” cho AI Trưởng phòng.`]});
+    Object.assign(academic,values,{active:0,mode:"ready",revision:1,returnReason:"",reviewed:false,approved:false,corrections:[],history:[`Đã giao đề bài “${values.topic}” cho AI Trưởng phòng.`]});
     go("SCR-M17-04");
   }
   if (form.id==="application-form") {
     event.preventDefault();
-    cv.selected="CV-024";
+    Object.assign(cv,{selected:"CV-024",filter:"Tất cả",band:"Mọi điểm"});
     window.addEventListener("hashchange",()=>flash("Đã gửi hồ sơ mẫu."),{once:true});
     go("SCR-M29-04");
   }
