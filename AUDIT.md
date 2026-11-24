@@ -32,8 +32,13 @@ The authored workflows also cover selected cases. Academic QA and version screen
 
 Use the mockup to review navigation, handoffs, selected screen states and fixture consistency. Production acceptance, role-based access enforcement, integrations, and complete business-rule coverage require separate verification against the applicable SRS and KH-03 cases.
 
+## Customer learner update
+
+The customer draft supplies the 23 learner views and their shared November 2026 fixture. The Phase 1 audit above describes the original source inventory. Use the [project guide](AGENT.md) for the current competency blocks, tuition examples and English lesson data. The customer’s archival review annotations are available in the original HTML. Learners see a menu of activities and services.
+
 ## Repeating the checks
 
+- Run `python tests/audit_student.py` to compare the learner inventory with the customer HTML and exercise its bookmarks, check-in, booking, learning evidence, notebook, fees, library and phone navigation offline.
 - Run `python tests/audit_sources.py` from the repository. It compares the original local DOCX, UX-02 and HTML without network access.
 - Run `python tests/audit_mock.py` with Python Playwright and Edge installed. The browser context runs offline. Set `ZENFORD_BROWSER` to another installed Chromium channel if needed. The checks exercise every screen at 390px and 1440px, inspect internal links, and cover the data regressions above with selected interactions.
 - Run `python tests/audit_populated_views.py` to check a two-copy print order, discount and shipping arithmetic, payment history, milestone evidence, a paused course, CRM notes and a submitted support ticket.

@@ -1,45 +1,21 @@
 ---
 name: zenford-neo-pop
-description: Apply the Zenford Neo-Pop Sticker visual system when building, changing, or reviewing Zenford HTML screens, components, mascot use, and Vietnamese UI copy.
+description: Build and review Zenford HTML screens using the customer’s learner portal design, Vietnamese copy, shared learning fixtures and offline navigation. Use for learner flows and for applying Zenford styling to the public site and other portals.
 ---
 
-# Zenford Neo-Pop
+# Zenford interface design
 
-Start with the root project guide for the product, palette, brand voice and walkthrough fixtures. Edit the existing hash route in `index.html`. The `custom` map holds authored screens. `genericScreen` chooses a task view or populated record table. Use `userRoutes` for a dedicated route, `routeRecords` for its rows and `collections` for shared domain data. Keep related actions connected through in-session state. Leave the `ux-data` JSON as the verbatim Phase 1 inventory. [Project guide](../../../AGENT.md)
+Use the customer’s **Cổng học viên Zenford - nháp1.html** as the primary learner design reference. Its `SCR` inventory names HV-01 through HV-23. Its `COMMON` and `NOTES` explain the design decisions. The root guide summarizes the fixtures and routes for everyday edits. The older Neo-Pop kit supplies the logo, Zen, fonts and reusable tokens. [Customer reference](<../../../Cổng học viên Zenford - nháp1.html>) · [Project guide](../../../AGENT.md)
 
-## Compose a screen
+## Compose a learner screen
 
-1. Identify the task, audience and action. For public discovery, use the homepage (`home`) as the example for yellow, ink, section-level pastels and large Zen. For focused learning, use `preLesson` or `labHint` for a white surface, small Zen and immediate feedback. For CRM, use `academicPipeline` and `cvReview` for a readable timeline or comparison table.
-2. Compose with `pageHeading`, `card`, `link`, `button`, `pill`, `metric` and `table` where appropriate. Match the `zf-` component classes already embedded in the file. Preserve hash destinations, native field labels, focus handling and the mock’s in-memory state.
-3. Select colors by purpose. Read the `neo-pop-tokens` style block for exact values. Keep cobalt in the logo, use one strong focal area of yellow, and use ink text on pastel. Use an ink action with a white shadow on the yellow hero. In a workspace reserve color for the action, small hints and meaningful states.
-4. Write the label in the language the person using the screen would use. For instance, “Nghe lại câu mẫu” identifies what plays. For incorrect answers, pair “Chưa đúng” with a clue. Use the Vietnamese forms of address and commercial wording in the project guide.
+1. Find the slug in `studentScreens` in `index.html`. Edit `V[slug]` inside `student-views` and add screen styles to `student-styles`. Reuse `PH` for the heading, `zsay` for hints, `.c` for panels, `.btn` for actions and `.tag` for status. Send internal navigation through the portal bridge. The parent owns bookmarks and back/forward history.
+2. Keep the study canvas paper white, type ink and the primary action yellow `#FDE047`. Use sky for listening, peach for speaking, mint for reading and lavender for writing. Give the yellow, pastel and dark surfaces readable foregrounds. Use Bricolage Grotesque for titles and Be Vietnam Pro for Vietnamese text. Preserve the customer’s compact 76 px rail, 256 px expanded state, clear outlines, short hard shadows and mobile bottom tabs: Hôm nay, Lịch, Lab, Hỏi Zen, Thêm.
+3. Use one mascot identity, Zen the robot cat. Tie its expression to a specific prompt, hint or outcome. Address the learner as **bạn**. Name the action and show its result beside the relevant work. Keep focus visible, label buttons and inputs, provide plain-text status with color, support dark mode and reduced motion, and let a narrow calendar stack above its details.
+4. Use the shared `D` data for minutes, blocks, class time, allowance and language. Derive counts and scores from the learner’s actions. The progress measure is the weekly study clock. A competency block tracks learning, while a monthly plan grants lessons and minutes. Put fees and purchasing controls in **Gói và học phí**. Learning screens can link to owned material. Keep streaks, rankings, coins and sales banners out of the study area.
+5. Preserve the learning loop. Check-in collects mood, recap, preview and warm-up evidence. Check-out compares against that baseline. Reading requires evidence, writing asks the learner to revise, and Hỏi Zen offers increasingly specific hints. Route useful feedback to Vở AI. Use the learner’s language context in every view. Display an explicit sample-data empty state when a language has no lesson.
+6. Test the affected flow from its user entry point and directly by bookmark. Check return navigation, mobile and desktop layouts, repeated actions, session state and an offline reload. The prototype ships as a single `index.html` with embedded assets. Simulate recording, grading, account changes and payments locally.
 
-## Component recipes
+## Other Zenford surfaces
 
-| Need | HTML contract |
-| --- | --- |
-| Action or navigation | Use `button(action, label, style)` or `link(id, label, style)`. `primary` is yellow, `dark` is ink and the default is white. The kit supplies the press/focus states. |
-| Static or linked card | Use `card` for a panel. Use an anchor and `zf-card zf-card--hover` for a linked sticker. Reserve tilt for marketing illustrations. |
-| Status or filter | Use `pill` / `zf-tag` for a read-only state. For a filter use a labeled `button.zf-pill` and update `aria-pressed` with the selection. For a binary setting use a native checkbox or `button.zf-switch[role=switch]` with an accessible name and synchronized `aria-checked`. |
-| Answer or progress | Use `label.zf-answer` with a native radio. After checking, apply `is-ok` or `is-no` and expose the result as text. Use `zf-bar` with a child `i` for a fill. Supply the value and total in the accessible label or native progress semantics. |
-| Language tile | Give the link `zf-lang` and `data-lang`, call `glyph(code)`, and print the full language name. Use the EN/ZH/JA/KO/VI mappings in the guide. CJK glyphs use the system font. |
-| Marketing heading | Use `zf-overline` for a short uppercase label, `zf-kick` for a tilted introductory tag and `zf-hl` for a marker stroke. Keep each heading meaningful when read on its own. |
-| Speaking Zen | Use `zf-say` containing a `zf-zen` and a `zf-bubble`. Use the `labHint` implementation for a small, contextual prompt. |
-| Wordmark and illustration | Preserve the supplied SVG proportions. The normal and reverse wordmarks are embedded in header and footer. `data-zen` takes `state|hood color|outfit`. Use a pastel hex value for the shirt. The bundle mounts placeholders after each route render. |
-
-For example, a listening hint uses this structure:
-
-```html
-<aside class="zf-say">
-  <span class="zf-zen" data-zen="think|#BFE4FF|phones"></span>
-  <p class="zf-bubble"><strong>Zen</strong><br>Nghe lần đầu để nắm ý chính.</p>
-</aside>
-```
-
-Zen’s expressions are `normal`, `happy`, `wow`, `wink`, `think`, `love`, `sad` and `fierce`. Use `phones`, `mic`, `book` or `pencil` for the four Labs. Keep eye tracking and blinking optional for reduced-motion users. Use labeled Lucide symbols for functional icons.
-
-## Verify a change
-
-Open `index.html` directly from disk with network access disabled. Check the changed screen at phone and desktop widths, navigate away and back, and exercise its selected, error or success state with the keyboard. Check Vietnamese accents, explicitly named statuses, visible focus, logo contrast, and reduced motion. Confirm that fonts, Zen, and any relevant audio still work offline. Use `python tests/audit_sources.py` for catalog fidelity and `python tests/audit_mock.py` for route, viewport and fixture checks.
-
-For exact variants, the supplied kit has a README per component, a rendered example, SVG originals, and the CSS/JS bundles. The runtime in this repository uses the standalone `zf-` classes and `ZenfordNP` renderer. [Component guides](<../../../Zenford Neo-pop 1/Zenford Neo-Pop/components/>) · [Asset guides](<../../../Zenford Neo-pop 1/Zenford Neo-Pop/assets/>) · [Token source](<../../../Zenford Neo-pop 1/Zenford Neo-Pop/tokens.css>)
+The customer reference covers the learner portal. For public discovery, use the existing home and shop layouts. For teacher, parent, CRM and recruitment, keep role-specific workflows and reuse `pageHeading`, `card`, `link`, `button`, `pill` and `table`. Read the matching section of the project guide for the academic agent roadmap, approval gates or CV rubric. Preserve the Phase 1 `ux-data` inventory and stable SCR links. [Project guide](../../../AGENT.md)

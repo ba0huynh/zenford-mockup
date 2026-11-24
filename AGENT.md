@@ -11,13 +11,30 @@ Zenford is VENEXUS's online language-learning platform. The initial offerings ar
 - **Role-specific portals.** Learners see their work and schedule. Parents see connected learners, attendance, reports, and fees. Teachers see assigned classes, Pre-class reports, grade work, and track their schedule and earnings. Collaborators (CTV and affiliates) see referrals, commission, and wallet.
 - **Staff operations.** Admin CRM is the workspace for sales, academics, teaching, marketing, customer support, HR and recruitment, finance, and system/AI configuration. Học thuật owns the learning material used by teaching, Basic, and marketing. AI provides drafts, evidence, or recommendations. The relevant human role approves consequential steps.
 
-The Phase 1 package is business analysis and design. This repository's deliverable is a local HTML presentation of that design. The same UI can be demonstrated offline with fictional users, files, scores, and statuses.
+The customer learner draft supplies the current learning experience and fee examples. The Phase 1 package is business analysis and design. This repository's deliverable is a local HTML presentation of that design. The same UI can be demonstrated offline with fictional users, files, scores, and statuses.
+
+## Customer learner portal
+
+The customer’s 24 November 2026 draft is the design and behavior reference for learner-facing work. Start at **Không gian của tôi** on the public site. In the portal, **Mục lục học tập** opens all 23 screens and links to support, orders, activated plans and the café Pre-class exercise. On phones use **Thêm**. The customer’s HTML stays at the repository root as the original reference. [Customer draft](<Cổng học viên Zenford - nháp1.html>) · [Learner portal](index.html#SCR-M14-02) · [Design skill](.agents/skills/zenford-neo-pop/SKILL.md)
+
+| Customer screens | Learner experience |
+| --- | --- |
+| HV-01–04 | Daily tasks with reasons and time estimates, feeling and readiness check, class preparation, and check-out compared with the baseline. |
+| HV-05–07 | Weekly calendar, booking and availability, 12 competency blocks with evidence, before/after progress and the weekly study clock. |
+| HV-08–14 | The Lab hub, listening transcript/dictation, speaking role-play, reading evidence, guided writing corrections, Hỏi Zen and Vở AI with flashcards. |
+| HV-15–18 | Owned library and activation, video lesson with anonymous Q&A, exercise and results, and a watermarked reader with word lookup. |
+| HV-19–21 | Per-language tuition, renewals and mock invoices, dated notifications, privacy, guardian reports and night mode. |
+| HV-22–23 | Four-step onboarding and a resumable placement assessment example opened at the writing section. |
+
+The shared learner fixture is **Minh Anh, Tuesday 24/11/2026**. English A2 → B1 uses Kết hợp. Japanese N5 → N4 uses Học với AI and has billing data. The full lesson fixture teaches English. Gia Hân is the guardian’s second learner, with a paused Japanese course and no current payment due. Start the English study clock at 186/210 minutes this week, with 3/12 blocks passed, block 4 needing help and block 5 in practice. The B1 forecast moved from June to August 2027. Tonight’s class with cô Lan runs 19:30–20:30 with check-in due at 19:15. The English billing period has 5 of 8 sessions used and 372 of 600 Zen minutes used. Monthly illustrative prices are 390,000, 1,590,000, 2,290,000 and 3,990,000 ₫ for AI, group, mixed and 1-to-1 respectively. One month is full price, three months save 5% and six save 10%. Auto-renewal starts off for each language.
+
+In `index.html`, edit `student-styles` and `student-views` for the learner portal. `studentScreens` maps each customer slug, HV identifier and stable SCR bookmark. The outer router owns browser history and mounts one sandboxed `srcdoc` frame that shares the embedded fonts and mascot runtime. Messages synchronize navigation, café practice evidence and purchased books. Keep messages limited to recognized destinations and the active frame. Forms and all simulation data stay local. Use `V[slug]` for a view, `V[slug].after` for its handlers and `D` for shared learner data. Refresh resets the demo. For a focused review, open `index.html#HV-01` through `#HV-23`. Run `python tests/audit_student.py` for the customer portal and the existing audits for other roles.
 
 ## Files and architecture
 
 - Open [index.html](index.html) directly in a current browser. CSS, JavaScript, screen catalog, artwork, and the spoken sample are embedded. There is no install or build step.
 - The `ux-data` JSON block copies the screen metadata and navigation from UX-02. It contains 614 screen IDs across eight areas: public website (38), learner portal (66), AI learning workspace (28), parent portal (25), teacher portal (38), collaborator portal (8), Admin CRM (381), and email/PDF previews (30).
-- `#SCR-Mxx-nn` is a stable URL fragment. `#danh-muc` opens the searchable catalog. `#pre-done` is a prototype-only completion view. Preserve the `SCR` IDs and keep catalog and deep links usable directly from `file://`.
+- `#SCR-Mxx-nn` is a stable URL fragment. `#danh-muc` opens the searchable catalog. `#pre-class-cafe` opens the supplementary café exercise overview and `#pre-done` opens its completion view. Preserve the `SCR` IDs and keep catalog and deep links usable directly from `file://`.
 - `custom` holds the original priority walkthroughs. For other routes, `genericScreen` chooses an authored entry from `userRoutes`, a task renderer via `viewTypes` and `specialViews`, or a populated `recordList`. `routeRecords` contains per-screen fixtures, and `collections` holds reusable domain records. Each dataset starts with column names and follows with rows. Stable hash IDs stay in `ux-data`. Use its requirements as design input. Write the visible interface in end-user language.
 - For a new screen, choose a realistic starting state, provide data with consistent units and dates, and link the result of each primary action to its destination. Test empty and changed states. Forms, filtered tables, conversations, checkouts, and dashboards have separate templates. Rendering a wireframe paragraph as a card leaves the task unfinished.
 - `preState`, `academic`, and `cv` hold temporary demonstration state in memory. Hash navigation preserves it in the current document. A full reload resets it. Helpers such as `pageHeading`, `workspace`, `card`, `table`, `pill`, `link`, and `button` keep repeated UI consistent.
@@ -26,7 +43,7 @@ The Phase 1 package is business analysis and design. This repository's deliverab
 ## Populated site walkthroughs
 
 - **Shop and payment.** Open [Cửa hàng](index.html#SCR-M10-01), search `cafe`, open the title, expand the preview, and add the printed book. The eight products span five languages. Search, four filters, sort order and pagination work together. Digital quantities are one per product. Printed books support multiple copies. `ZEN10` gives a 10% illustrative discount on items, with a 25,000 ₫ delivery charge for an order containing print. Checkout creates one pending order. Confirming simulated payment adds it to [order history](index.html#SCR-M13-04) and grants access in [the library](index.html#SCR-M11-09). The separate [plan selector](index.html#SCR-M13-01) delivers a paid plan to the learner’s entitlements.
-- **Learner forecast.** Open [Lộ trình dự kiến của tôi](index.html#SCR-M46-01). Minh Anh’s 150-minute week against a 180-minute plan moves the B1 forecast from 1–7 to 8–14 February 2027. Milestone links select the matching evidence. History filters include an empty month, and the [study log](index.html#SCR-M46-03) breaks down all 150 minutes by day and activity. Selecting the paused Japanese course hides the forecast. The [parent version](index.html#SCR-M46-04) selects a child.
+- **Learner forecast.** The [competency roadmap](index.html#SCR-M46-01) opens the 12 blocks, evidence and August 2027 target. The [prior-week log](index.html#SCR-M46-03) details 150 minutes for 16–22 November. The [parent forecast](index.html#SCR-M46-04) includes the separate paused learner, Gia Hân.
 - **Other entry points.** Use the learner, parent, teacher and collaborator home pages to reach daily work. Try booking a class, checking a certificate with `ZF-A2-024`, completing the short placement activity in any of five languages, or sending a support request. Contact enquiries become CRM leads. A lead’s detail link carries the selected person and their notes. The browser’s full reload starts a fresh demonstration.
 - **Authoring and checks.** `storeState` connects shopping, totals, payment and entitlements. `road` and `milestones` connect forecast views. `localView` holds page state, while related tasks share their records explicitly. Keep user-entered text escaped and derive totals from the same rows shown in the interface. Run `python tests/audit_populated_views.py` for the populated journeys, alongside the source and all-route audits.
 
@@ -34,7 +51,7 @@ The Phase 1 package is business analysis and design. This repository's deliverab
 
 ### Học với AI · Pre-class
 
-Open [Việc hôm nay](index.html#SCR-M42-01). The fixture is **Ordering at a café**, Tiếng Anh A2, class ENG-A2-07. Show the lesson time, deadline, estimate, and three stages. Learners can re-enter the preview at the last visited stage.
+Open [Check-in](index.html#SCR-M42-01) and choose **Luyện thêm trước buổi**, or open the [café exercise](index.html#SCR-M42-02) directly. This supplementary fixture is **Ordering at a café**, Tiếng Anh A2, class ENG-A2-07. Show the lesson time, deadline, estimate, and three stages. Learners can re-enter the preview at the last visited stage.
 
 1. [Chẩn đoán](index.html#SCR-M42-02). Show the question count, sample multiple-choice, written, and spoken questions, then separate concepts already understood from areas that need practice.
 2. [Dạy nền](index.html#SCR-M42-03). Teach the gaps in the learner's explanation language, show a worked example, offer another explanation, and let the learner explain it back or flag that a teacher should help.
@@ -68,9 +85,9 @@ Sources: SRS-05 M29, FR-M29-02/03/04/05, BF-M29-01, UX-01 recruitment journey.
 
 ## UI skills and visual rules
 
-Use **Zenford Neo-Pop Sticker** for changes to this prototype. Use the Phase 1 wireframe for screens, fields and business behavior. The repo design skill gives HTML examples, component mappings and checks. A normal UI change can start here and proceed directly to the existing renderer. [Zenford Neo-Pop skill](.agents/skills/zenford-neo-pop/SKILL.md)
+Use the customer’s learner portal draft for layout, navigation, copy, study behavior and tuition examples. The Zenford Neo-Pop kit supplies shared brand assets. Use the Phase 1 wireframe for the screen catalog and for workflows outside the customer draft. [Zenford design skill](.agents/skills/zenford-neo-pop/SKILL.md)
 
-### Page treatments
+### Page treatments outside the customer learner portal
 
 - **Public and sales.** Start with white paper. Use one large cyber-yellow area on the homepage, ink text and a dark primary action with a white offset shadow. The learning journey uses a mint section with white cards. The language section uses sky with five labeled language glyphs. Teacher features use peach. An order summary can use ink with white text, a yellow heading and a yellow shadow. Aim for roughly 60% white, 25% pastel, 10% ink and 5% yellow across a sales page. Group up to three adjacent pastel card colors, with the five language glyphs retaining their assigned colors.
 - **Learner, teacher and operations workspaces.** Keep the canvas and large panels white. Use pastel on small hints, the active step, skill markers and status tags. Keep tables upright and dense enough to compare rows. The primary task action is yellow. Put feedback next to the response and identify it in words. A QA return should remain legible in the timeline, and both the original and adjusted CV scores should remain visible.
