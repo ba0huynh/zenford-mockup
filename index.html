@@ -1,0 +1,872 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Bản mẫu giao diện Zenford với hành trình học ngoại ngữ, xưởng học thuật và tuyển dụng.">
+<title>Zenford · Bản mẫu giao diện</title>
+<style>
+:root{
+  --ink:#2b2f6b;--text:#323759;--muted:#555b7c;--line:#e0e2ef;--page:#f8f8fc;
+  --white:#fff;--lav:#f0eaff;--lav-deep:#dfd3ff;--sky:#ddf4ff;--mint:#dcf7e9;
+  --yellow:#ffd50b;--butter:#fff5c9;--peach:#ffebe2;--green:#18634c;--red:#972f43;
+  --r:22px;--shadow:0 9px 25px #2b2f6b0a;
+  font:16px/1.55 "Segoe UI",system-ui,sans-serif;color:var(--text);background:var(--page);
+}
+*,*::before,*::after{box-sizing:border-box}
+body,h1,h2,h3,p{margin:0}
+h1,h2,h3,strong,b{color:var(--ink)}
+h1,h2,h3{line-height:1.14;letter-spacing:-.035em}
+h1{font-size:clamp(2rem,4.1vw,3.25rem);font-weight:800}
+h2{font-size:clamp(1.35rem,2.5vw,1.8rem);font-weight:800}
+h3{font-size:1.13rem}
+a{color:var(--ink);text-decoration:none}
+button,input,textarea,select{font:inherit;color:inherit}
+button{cursor:pointer}
+button:disabled{cursor:default;opacity:.55}
+input:not([type=radio],[type=checkbox]),textarea,select{width:100%;min-width:0;border:1px solid #bdbfda;border-radius:12px;background:white;padding:10px 12px}
+input[type=checkbox],input[type=radio]{accent-color:var(--ink)}
+textarea{resize:vertical}
+select{appearance:none;padding-right:30px;background:linear-gradient(45deg,transparent 50%,var(--ink) 51%) calc(100% - 16px) 50%/5px 5px no-repeat,linear-gradient(135deg,var(--ink) 50%,transparent 51%) calc(100% - 11px) 50%/5px 5px no-repeat,#fff}
+input[type=file]{font-size:.875rem}
+label{display:grid;gap:6px;font-size:.9rem;font-weight:650}
+label.inline{display:flex;align-items:center;gap:8px}
+:focus-visible{outline:3px solid #5846b4;outline-offset:3px}
+[hidden]{display:none!important}
+.skip{position:fixed;top:8px;left:8px;z-index:12;transform:translateY(-150%);background:white;padding:12px}
+.skip:focus{transform:none}
+.wrap{max-width:1320px;margin:auto;padding-inline:32px}
+.top{background:white;border-bottom:1px solid var(--line)}
+.top-inner{min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:22px}
+.brand{display:inline-flex;align-items:center;gap:10px;font-size:1.4rem;font-weight:850;letter-spacing:-.06em;white-space:nowrap}
+.brand-mark{display:grid;place-items:center;width:36px;height:36px;border-radius:12px;transform:rotate(-8deg);background:var(--yellow);border:2px solid var(--ink);box-shadow:2px 2px 0 var(--ink);font-weight:900}
+.nav,.actions,.chips{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.nav{gap:6px}
+.nav a{padding:8px 12px;border-radius:11px;font-weight:700;font-size:.9rem}
+.nav a:hover,.nav a[aria-current]{background:var(--lav)}
+.button{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:42px;padding:8px 16px;border:1px solid #c9cbe0;border-radius:999px;background:white;color:var(--ink);font-size:.9rem;font-weight:750;text-align:center}
+.button:hover{background:var(--lav)}
+.button.primary{background:var(--yellow);border:2px solid var(--ink);box-shadow:3px 3px 0 var(--ink)}
+.button.primary:hover{background:#ffe052}
+.button.dark{color:white;background:var(--ink);border-color:var(--ink)}
+.button.danger{color:var(--red);border-color:#e4a3ae}
+.button.small{min-height:34px;padding:4px 12px}
+.pill{display:inline-flex;align-items:center;word-break:normal;gap:5px;padding:3px 9px;font-size:.8125rem;border-radius:99px;background:var(--lav);color:var(--ink);font-weight:750}
+.pill.mint,.note.mint{background:var(--mint);color:var(--green)}
+.pill.warn,.note.warn{background:var(--butter);color:#6b4600}
+.pill.red,.note.red{background:#fde9ed;color:var(--red)}
+.pill.gray{background:#eeeff5;color:var(--muted)}
+.muted{color:var(--muted)}
+.subtle,small{font-size:.875rem;color:var(--muted)}
+.eyebrow{font-size:.78rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:#514485}
+.hero{display:grid;grid-template-columns:1.12fr .88fr;align-items:center;gap:30px;background:var(--lav);border:1px solid var(--lav-deep);border-radius:34px;padding:clamp(24px,5vw,70px);min-height:390px;overflow:hidden}
+.hero h1{font-size:clamp(2.75rem,6.3vw,5.4rem);line-height:.99;letter-spacing:-.069em;margin:12px 0 18px}
+.highlight{background:linear-gradient(transparent 73%,#ffe77b 0);box-decoration-break:clone}
+.hero p{max-width:54ch;margin-bottom:24px}
+.visual{min-height:300px;position:relative;isolation:isolate;display:grid;align-items:center}
+.visual-art{display:block;width:100%;height:100%;object-fit:cover;border-radius:26px;position:absolute;inset:0;z-index:-1}
+.visual-board{background:white;border:1.5px solid var(--ink);box-shadow:6px 7px 0 #bbaae8;border-radius:20px;padding:18px;margin:auto;width:min(290px,88%);transform:rotate(4deg)}
+.visual.has-art .visual-board{align-self:end;margin:0 0 0 auto;width:min(240px,72%);padding:13px;transform:rotate(3deg)}
+.fake-progress,progress{width:100%;height:9px;border-radius:999px;background:#e8e3f6;overflow:hidden;border:0;display:block;accent-color:#6652ac}
+.fake-progress>span{display:block;height:100%;background:#8062d1;border-radius:999px}
+.section{margin-top:30px}
+.section-title{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+.tiles,.grid2,.grid3,.grid4{display:grid;gap:16px;align-items:start}
+.tiles,.grid3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.grid2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.grid4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.tiles{align-items:stretch}
+.tile{display:flex;flex-direction:column;align-items:flex-start;gap:11px;min-height:200px;padding:22px;border:1px solid var(--line);border-radius:var(--r);background:white;box-shadow:var(--shadow)}
+.tile:hover{border-color:#8878bf;box-shadow:0 8px 24px #2b2f6b16}
+.tile .end{margin-top:auto;font-size:.875rem;font-weight:800;color:var(--ink)}
+.tile-icon,.avatar{display:inline-grid;place-items:center;width:42px;height:42px;border-radius:13px;background:var(--lav);color:var(--ink);font-weight:850;flex:none}
+.tile-icon.mint,.avatar.mint{background:var(--mint)}
+.tile-icon.sky{background:var(--sky)}
+.tile-icon.yellow,.avatar.yellow{background:var(--butter)}
+.home{padding-top:28px;padding-bottom:48px}
+.workspace{display:grid;grid-template-columns:236px minmax(0,1fr);gap:25px;padding-top:25px;padding-bottom:40px}
+.side{border:1px solid var(--line);background:white;border-radius:var(--r);padding:14px;position:sticky;top:16px;max-height:calc(100vh - 35px);overflow:auto}
+.side-title{padding:8px 8px 13px;border-bottom:1px solid var(--line);margin-bottom:8px}
+.side a{display:block;border-radius:10px;padding:9px 10px;font-size:.875rem;font-weight:700}
+.side a:hover,.side a[aria-current]{background:var(--lav)}
+.side .divider{margin:10px 0;border-top:1px solid var(--line)}
+.stack{display:grid;gap:16px;align-content:start;min-width:0}
+.compact{gap:9px}
+.head{display:flex;justify-content:space-between;align-items:end;gap:15px;flex-wrap:wrap;margin-bottom:6px}
+.head h1{margin:5px 0 6px}
+.bread{font-size:.875rem;font-weight:700;color:var(--muted);display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.card{padding:20px;border:1px solid var(--line);border-radius:var(--r);background:white;box-shadow:var(--shadow);min-width:0}
+.card.tinted{background:var(--lav);border-color:var(--lav-deep)}
+.card.sky{background:var(--sky)}
+.card.mint{background:var(--mint)}
+.card p + p{margin-top:8px}
+.split{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(235px,1fr);gap:16px;align-items:start}
+.note{border-radius:13px;padding:11px 13px;background:var(--lav);font-size:.9rem}
+.note strong{color:inherit}
+.stepbar{display:flex;flex-wrap:wrap;gap:8px}
+.stepbar a{flex:1 1 135px;padding:10px 12px;background:white;border:1px solid var(--line);border-radius:13px;font-size:.9rem;font-weight:750}
+.stepbar a[aria-current]{border-color:#8774ca;background:var(--lav)}
+.stepbar .done{background:var(--mint)}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.row.start{justify-content:flex-start}
+.rule{border:0;border-top:1px solid var(--line);margin:0}
+.option{display:flex;align-items:center;gap:10px;border:1px solid var(--line);padding:12px;border-radius:12px}
+.option:has(input:checked){background:var(--lav);border-color:#8c79c9}
+.dialogue{background:var(--lav);border-radius:18px 18px 18px 4px;padding:13px}
+.dialogue.you{background:var(--sky);border-radius:18px 18px 4px 18px;margin-left:13%}
+.table-scroll{overflow:auto}
+table{width:100%;border-collapse:collapse;text-align:left;font-size:.9rem}
+th,td{padding:10px 9px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:750;color:var(--ink);background:#f8f7fc}
+td a,details a,.text-link{font-weight:750;text-decoration:underline;text-underline-offset:3px}
+tr.selected td{background:var(--lav)}
+th:first-child,td:first-child{padding-left:12px}
+.metric{background:#f8f7fc;border:1px solid var(--line);border-radius:14px;padding:12px;min-width:0}
+.metric b{display:block;font-size:1.65rem;line-height:1.15}
+.timeline{list-style:none;margin:0;padding:0;display:grid;gap:9px}
+.timeline li{display:grid;grid-template-columns:34px minmax(0,1fr) auto;align-items:center;gap:9px;padding:9px;border:1px solid var(--line);border-radius:13px}
+.timeline li.active{background:var(--lav);border-color:#9b88d9}
+.timeline .avatar{width:32px;height:32px;border-radius:10px;font-size:.875rem}
+.timeline li p{line-height:1.25}
+.history{border-left:2px solid #d9d0f6;margin:0 0 0 6px;padding-left:17px}
+.history li{margin:7px 0}
+.sheet{padding:18px;background:#faf9ff;border:1px solid var(--line);border-radius:13px}
+blockquote{margin:3px 0 0;border-left:3px solid #c6b9ee;padding-left:11px;color:var(--muted);font-size:.9rem}
+fieldset{margin:0;border:0;padding:0;min-width:0}
+legend{margin-bottom:8px;font-weight:700;color:var(--ink)}
+details summary{cursor:pointer;font-weight:760;color:var(--ink)}
+details[open]>summary{margin-bottom:9px}
+.linklist{list-style:none;padding:0;margin:0;display:grid;gap:5px}
+.linklist a{display:block;border-radius:9px;padding:7px 8px;font-size:.875rem;background:#f8f7fc}
+.linklist a:hover{background:var(--lav)}
+.footer{background:white;border-top:1px solid var(--line)}
+.foot-inner{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;min-height:64px}
+.toast{position:fixed;z-index:10;bottom:16px;right:16px;background:var(--ink);color:white;border-radius:14px;padding:11px 16px;max-width:min(430px,calc(100% - 32px));box-shadow:var(--shadow)}
+dialog{width:min(460px,calc(100% - 28px));padding:22px;border:1px solid var(--line);border-radius:var(--r);color:var(--text);box-shadow:var(--shadow)}
+dialog::backdrop{background:#201d48a3}
+@media(max-width:1050px){.workspace{grid-template-columns:190px minmax(0,1fr);gap:16px}.wrap{padding-inline:22px}.hero{min-height:360px}.split{grid-template-columns:minmax(0,1.4fr) minmax(205px,1fr)}}
+@media(max-width:790px){.top-inner{padding-block:10px;flex-wrap:wrap;gap:8px}.nav{order:3;width:100%;flex-wrap:nowrap;overflow:auto}.nav a{white-space:nowrap}.workspace{grid-template-columns:minmax(0,1fr)}.side{position:static;max-height:none;display:flex;gap:2px;overflow:auto;padding:8px}.side-title,.side .divider{display:none}.side a{white-space:nowrap}.hero{padding:26px;gap:12px}.visual{min-height:216px}.tiles,.grid3{grid-template-columns:repeat(2,minmax(0,1fr))}.grid4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:550px){.wrap{padding-inline:14px}.hero,.split,.grid2,.tiles,.grid3{grid-template-columns:minmax(0,1fr)}.hero h1{font-size:clamp(2.4rem,10vw,3.6rem)}.visual{min-height:200px}.tile{min-height:auto}.card{padding:14px}.section{margin-top:22px}.timeline li{grid-template-columns:30px minmax(0,1fr)}.timeline li>.pill{grid-column:2;justify-self:start}.head{align-items:start}}
+@media print{.top,.side,.footer,.skip,.actions,.toast{display:none!important}.workspace{display:block;padding:0}.card{box-shadow:none}.wrap{max-width:none}.page{background:white}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Đến nội dung chính</a>
+<header class="top"><div class="wrap top-inner">
+  <a class="brand" href="#SCR-M08-01"><span class="brand-mark" aria-hidden="true">Z</span>Zenford</a>
+  <nav class="nav" id="top-nav" aria-label="Hành trình chính"></nav>
+  <a class="button" href="#danh-muc">Danh mục màn hình</a>
+</div></header>
+<main id="main" tabindex="-1"></main>
+<footer class="footer"><div class="wrap foot-inner"><a class="brand" href="#SCR-M08-01">Zenford</a><span class="subtle">Bản mẫu giao diện · Dữ liệu minh họa</span><a class="text-link subtle" href="#danh-muc">Tra cứu màn hình</a></div></footer>
+<div id="toast" class="toast" role="status" hidden></div>
+<dialog id="decision"><form id="decision-form" class="stack"><h2 id="decision-title"></h2><div id="decision-fields" class="stack compact"></div><div class="actions"><button type="button" class="button" data-action="close-dialog">Hủy</button><button class="button primary" type="submit">Xác nhận</button></div></form></dialog>
+<noscript><p class="wrap">Vui lòng bật JavaScript để mở danh mục và chuyển giữa các màn hình mẫu.</p></noscript>
+<!-- UX-02 DATA -->
+<script>
+"use strict";
+const data = JSON.parse(document.getElementById("ux-data").textContent);
+const screens = new Map(data.screens.map(screen => [screen.id, screen]));
+const main = document.getElementById("main");
+const toast = document.getElementById("toast");
+const dialog = document.getElementById("decision");
+const shortcuts = [
+  ["SCR-M42-01", "Học với AI", "A", "yellow", "Chuẩn bị trước buổi học", "Chẩn đoán nhanh, học phần còn yếu và luyện nói cùng AI Tutor.", "Mở Pre-class"],
+  ["SCR-M16-03", "Xưởng học thuật", "✦", "mint", "Sản xuất học liệu", "Giao đề bài, chọn mô hình cho từng agent và xem cách bản nháp được sửa qua kiểm định.", "Mở xưởng học thuật"],
+  ["SCR-M29-04", "AI review CV", "CV", "sky", "Đánh giá hồ sơ ứng viên", "Đối chiếu điểm AI với bằng chứng trong CV và ghi nhận quyết định của Nhân sự.", "Mở bảng xếp hạng"]
+];
+const featuredPortals = {
+  "Website công khai":"SCR-M08-01", "Cổng học viên":"SCR-M42-01", "Màn học AI":"SCR-M42-02",
+  "Cổng giáo viên":"SCR-M42-05", "Admin CRM":"SCR-M16-03"
+};
+const groupEntries = {
+  "Học liệu":"SCR-M16-03","Nhân sự":"SCR-M29-04","Cấu hình AI":"SCR-M17-01",
+  "Lịch dạy":"SCR-M42-05","Pre-class":"SCR-M42-02"
+};
+const escape = value => String(value ?? "").replace(/[&<>"']/g, char => ({
+  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+})[char]);
+const fold = value => String(value ?? "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replaceAll("đ", "d");
+const link = (id, label, style = "") => `<a class="button ${style}" href="#${id}">${escape(label)}</a>`;
+const button = (action, label, style = "") => `<button type="button" class="button ${style}" data-action="${action}">${escape(label)}</button>`;
+const pill = (label, style = "") => `<span class="pill ${style}">${escape(label)}</span>`;
+const note = (content, style = "") => `<div class="note ${style}">${content}</div>`;
+const card = (content, style = "") => `<section class="card stack ${style}">${content}</section>`;
+const table = (columns, rows) => `<div class="table-scroll" tabindex="0" role="region" aria-label="Bảng dữ liệu mẫu"><table><thead><tr>${columns.map(c => `<th scope="col">${escape(c)}</th>`).join("")}</tr></thead><tbody>${rows.map(row => `<tr${row.selected ? ' class="selected"' : ""}>${row.map(cell => `<td>${cell}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+const options = (items, selected) => items.map(item => `<option${item === selected ? " selected" : ""}>${escape(item)}</option>`).join("");
+const field = (label, values, selected) => `<label>${escape(label)}<select>${options(values, selected)}</select></label>`;
+const metric = (value,label) => `<div class="metric"><b>${escape(value)}</b><span class="subtle">${escape(label)}</span></div>`;
+const routeFamily = id => {
+  if (/^SCR-M42-|^pre-done$/.test(id)) return "pre";
+  if (/^SCR-M1[67]-/.test(id)) return "academic";
+  if (/^SCR-M29-/.test(id)) return "cv";
+  return "";
+};
+
+function pageHeading(screen, title = screen.name, summary = screen.purpose, actions = "") {
+  return `<header class="head"><div><div class="bread"><a href="#danh-muc">Danh mục</a><span aria-hidden="true">/</span><span>${escape(screen.portal)}</span></div><h1>${escape(title)}</h1><p class="muted">${escape(summary)}</p></div>${actions ? `<div class="actions">${actions}</div>` : ""}</header>`;
+}
+
+const familyMenus = {
+  pre: [["SCR-M42-01","Việc hôm nay"],["SCR-M42-02","Chẩn đoán"],["SCR-M42-03","Dạy nền"],["SCR-M42-04","Luyện tập"],["SCR-M42-05","Tiến độ của lớp"],["SCR-M42-07","Báo cáo giáo viên"]],
+  academic: [["SCR-M16-03","Đề bài học thuật"],["SCR-M16-04","Tạo đề bài"],["SCR-M17-04","Pipeline AI"],["SCR-M17-03","Cấu hình agent"],["SCR-M17-07","Báo cáo kiểm định"],["SCR-M17-08","Duyệt thủ công"]],
+  cv: [["SCR-M29-02","Tin tuyển dụng"],["SCR-M29-01","Trang ứng tuyển"],["SCR-M29-03","Tiêu chí lọc CV"],["SCR-M29-04","Xếp hạng CV"],["SCR-M29-07","Pipeline ứng viên"]]
+};
+
+function workspace(screen, content, additional = []) {
+  const portal = data.nav.find(entry => entry.portal === screen.portal);
+  const family = routeFamily(screen.id);
+  const items = familyMenus[family] || (portal?.groups || []).map(group => {
+    const target = group.codes.includes(screen.id) ? screen.id : groupEntries[group.name] || group.codes[0];
+    return [target,group.name];
+  });
+  const links = [...items, ...additional].map(([id, label]) =>
+    `<a href="#${id}"${screen.id === id ? ' aria-current="page"' : ""}>${escape(label)}</a>`).join("");
+  return `<div class="wrap workspace"><aside><nav class="side" aria-label="Điều hướng khu vực"><div class="side-title"><strong>${escape(screen.portal)}</strong></div>${links}<div class="divider"></div><a href="#danh-muc">Danh mục màn hình</a></nav></aside><div class="stack">${content}</div></div>`;
+}
+
+function home() {
+  return `<div class="wrap home">
+    <section class="hero"><div><div class="eyebrow">Học ngoại ngữ trực tuyến</div><h1>Mỗi buổi học,<br><span class="highlight">một bước tiến.</span></h1>
+    <p>Chuẩn bị với AI, thực hành cùng giáo viên và ôn lại theo tiến độ của em.</p>
+    <div class="actions">${link("SCR-M42-01","Học với AI","primary")}${link("SCR-M08-03","Xem lộ trình")}</div></div>
+    <div class="visual" id="home-visual"><div class="visual-board stack compact"><div class="row">${pill("Pre-class","mint")}<small>Tiếng Anh · A2</small></div>
+    <h3>Ordering at a café</h3><div class="fake-progress" role="img" aria-label="Tiến độ minh họa, một trong ba phần"><span style="width:33%"></span></div><small>Chẩn đoán · Dạy nền · Luyện tập</small></div></div></section>
+    <section class="section"><div class="section-title"><h2>Khám phá các hành trình</h2><a class="text-link subtle" href="#danh-muc">Xem toàn bộ màn hình</a></div>
+    <div class="tiles">${shortcuts.map(([id,name,icon,tone,title,desc,cta]) => `<a class="tile" href="#${id}"><span class="tile-icon ${tone}" aria-hidden="true">${icon}</span><div class="eyebrow">${name}</div><h3>${title}</h3><p class="subtle">${desc}</p><span class="end">${cta}</span></a>`).join("")}</div></section>
+    <section class="section"><div class="section-title"><h2>Lộ trình theo ngôn ngữ</h2></div><div class="actions">${["Tiếng Anh","Tiếng Trung","Tiếng Nhật","Tiếng Hàn","Tiếng Việt"].map(name=>link("SCR-M08-03",name)).join("")}${link("SCR-M08-05","Kiểm tra trình độ","dark")}</div></section>
+  </div>`;
+}
+
+function catalog() {
+  return `<div class="wrap home stack"><header class="head"><div><div class="bread"><a href="#SCR-M08-01">Trang chủ</a></div><h1>Danh mục màn hình</h1><p class="muted">Tìm theo tên, mã hoặc khu vực trong wireframe UX-02.</p></div></header>
+  <div class="card grid2"><label>Tìm màn hình<input id="catalog-query" type="search" placeholder="Ví dụ: Pre-class, SCR-M17-04"></label><label>Khu vực<select id="catalog-portal">${options(["Tất cả khu vực", ...data.nav.map(p=>p.portal)])}</select></label></div>
+  <div id="catalog-results" class="stack"></div></div>`;
+}
+
+function renderCatalogResults() {
+  const query = fold(document.getElementById("catalog-query").value.trim());
+  const portalFilter = document.getElementById("catalog-portal").value;
+  let count = 0;
+  const entries = data.nav.map(portal => {
+    if (portalFilter !== "Tất cả khu vực" && portal.portal !== portalFilter) return "";
+    let portalCount = 0;
+    const groups = portal.groups.map(group => {
+      const matches = group.codes.map(id => screens.get(id)).filter(screen =>
+        fold([screen.id, screen.name, screen.menu, screen.modName, portal.portal].join(" ")).includes(query));
+      count += matches.length;
+      portalCount += matches.length;
+      return matches.length ? `<details${query ? " open" : ""}><summary>${escape(group.name)} <small>· ${matches.length}</small></summary>
+        <ul class="linklist">${matches.map(s => `<li><a href="#${s.id}">${escape(s.name)} <small>· ${s.id}</small></a></li>`).join("")}</ul></details>` : "";
+    }).join("");
+    return portalCount ? card(`<div class="row"><h2>${escape(portal.portal)}</h2>${link(featuredPortals[portal.portal] || portal.groups[0].codes[0],"Mở khu vực","small")}</div><div class="grid2">${groups}</div>`) : "";
+  }).join("");
+  document.getElementById("catalog-results").innerHTML = `<p role="status" class="subtle">${count} màn hình</p>${entries || card("<p>Không tìm thấy màn hình phù hợp.</p>")}`;
+}
+
+const demoValues = {
+  "ngôn ngữ":"Tiếng Anh","trình độ":"A2","khối":"Giao tiếp hằng ngày","lớp":"ENG-A2-07","học viên":"Minh Anh",
+  "trạng thái":"Đang xử lý","tên":"Giao tiếp tại quán cà phê","tiêu đề":"Giao tiếp tại quán cà phê","kỹ năng":"Nói",
+  "ngày":"24/11/2026","thời gian":"18:30","email":"minh.anh@example.test","điểm":"82/100","số tiền":"450.000 ₫",
+  "giá":"450.000 ₫","vai trò":"Điều phối","mã":"ZF-024","phiên bản":"v1.0","gói":"Học với AI"
+};
+const examplesByPortal = {
+  "Website công khai":"Tiếng Anh giao tiếp A2",
+  "Cổng học viên":"Minh Anh · ENG-A2-07",
+  "Màn học AI":"Ordering at a café",
+  "Cổng phụ huynh":"Minh Anh · Tiếng Anh A2",
+  "Cổng giáo viên":"ENG-A2-07 · Buổi 05",
+  "Cổng CTV":"Mã giới thiệu ZF-CTV-024",
+  "Admin CRM":"Hồ sơ ZF-024",
+  "Email/PDF mẫu":"Zenford · ENG-A2-07"
+};
+const fieldsFrom = (heading, limit = 5) => (heading.split(":").slice(1).join(":") || "")
+  .split(/[,;]|\s+\/\s+/).map(item=>item.trim()).filter(Boolean).slice(0,limit);
+const sampleFor = (fieldName, screen) => {
+  const key = Object.keys(demoValues).find(label => fold(fieldName).includes(fold(label)));
+  return key ? demoValues[key] : examplesByPortal[screen.portal] || "Zenford · ZF-024";
+};
+
+function screenNeighbors(screen) {
+  const group = data.nav.find(p=>p.portal === screen.portal)?.groups.find(g=>g.codes.includes(screen.id));
+  const related = data.screens.filter(s => s.id !== screen.id && s.mod === screen.mod);
+  const ids = [...new Set([...(group?.codes || []), ...related.map(s => s.id)])].filter(id=>id !== screen.id);
+  return ids.map(id => screens.get(id));
+}
+
+function genericComponent(item, screen, neighbors) {
+  const normalized = fold(item);
+  const kind = item.split(":")[0];
+  const description = item.slice(kind.length + 1).trim();
+  const fields = fieldsFrom(item);
+  if (/^(nut|cac nut|thanh nut)/.test(normalized)) {
+    const labels = (fields.length ? fields : [item.replace(/^(Các nút|Thanh nút|Nút)\s*/i,"")]).filter(Boolean);
+    return `<div class="actions">${labels.map(label => {
+      const key = fold(label);
+      const exact = neighbors.find(screen => fold(screen.name) === key);
+      const begins = key.length >= 4 && neighbors.find(screen => fold(screen.name).startsWith(key + " "));
+      const target = exact || begins;
+      return target ? link(target.id,label) : button("generic", label);
+    }).join("")}</div>`;
+  }
+  if (/^(bang|danh sach|luoi)/.test(normalized) && fields.length > 1) {
+    return card(`<h3>${escape(kind)}</h3>${table(fields,[fields.map(f=>escape(sampleFor(f,screen)))])}`);
+  }
+  if (/^(truong|form|bo loc|loc|chon|tim kiem|o tim)/.test(normalized)) {
+    const labels = fields.length ? fields : [item.replace(/^(Trường|Form|Bộ lọc|Lọc|Chọn|Tìm kiếm|Ô tìm)\s*/i,"") || kind];
+    return card(`<div class="grid2">${labels.map(name => /^(bo loc|loc|chon)/.test(normalized)
+      ? field(name, ["Chọn…",sampleFor(name,screen)])
+      : `<label>${escape(name)}<input placeholder="${escape(sampleFor(name,screen))}"></label>`).join("")}</div>`);
+  }
+  return card(`<h3>${escape(description ? kind : item)}</h3>${description ? `<p>${escape(description)}</p>` : ""}<small>${escape(examplesByPortal[screen.portal] || "Dữ liệu mẫu Zenford")}</small>`);
+}
+
+function genericScreen(screen) {
+  const neighbors = screenNeighbors(screen);
+  const components = screen.el.map(item => genericComponent(item,screen,neighbors)).join("");
+  const context = card(`<h3>Màn hình liên quan</h3><ul class="linklist">${neighbors.slice(0,10).map(s=>`<li><a href="#${s.id}">${escape(s.name)}</a></li>`).join("") || '<li><a href="#danh-muc">Danh mục màn hình</a></li>'}</ul>
+    <details><summary>Thông tin màn hình</summary><p class="subtle">${screen.id} · ${escape(screen.modName)} · ${screen.doc}</p><p class="subtle">${escape(screen.users)}</p></details>`);
+  return workspace(screen, pageHeading(screen) + `<div class="split"><div class="stack">${components}</div>${context}</div>`);
+}
+const preSteps = [["SCR-M42-02","Chẩn đoán"],["SCR-M42-03","Dạy nền"],["SCR-M42-04","Luyện tập"]];
+const preState = { question:0, answer:"", responded:false, alternate:false, explanation:"", spoken:false, transcript:false, complete:false };
+const quiz = [
+  { type:"Trắc nghiệm", prompt:"Em muốn gọi một ly trà. Em sẽ nói câu nào?",
+    choices:["I want that tea.","I’d like a cup of tea, please.","Give me a tea."], feedback:"“I’d like…” là cách gọi món lịch sự." },
+  { type:"Viết ngắn", prompt:"Điền phần còn thiếu. “_____ I have a coffee, please?”", feedback:"“Could I have…?” là một cách khác để gọi món." },
+  { type:"Nói", prompt:"Nói câu “I’d like a hot chocolate, please.”", feedback:"Kết quả minh họa · Em nhận biết được mẫu câu, cần luyện trọng âm trong “chocolate”." }
+];
+
+function preBar(active, done = false) {
+  const index = preSteps.findIndex(([id]) => id === active);
+  return `<nav class="stepbar" aria-label="Tiến độ Pre-class">${preSteps.map(([id,label],i)=>`<a href="#${id}"${id===active?' aria-current="step"':""} class="${done || (index >= 0 && i < index) ? "done":""}">${i+1}. ${label}</a>`).join("")}</nav>`;
+}
+
+function preHome(screen) {
+  const ongoing = preState.question || preState.responded || preState.answer;
+  const next = preState.complete ? "pre-done" : "SCR-M42-02";
+  return workspace(screen,pageHeading(screen,"Việc hôm nay","Tiếng Anh A2 · ENG-A2-07")
+    + card(`<div class="row">${pill("Pre-class","mint")}${preState.complete ? pill("Đã hoàn thành","mint") : pill("Đến hạn hôm nay","warn")}</div>
+      <h2>Ordering at a café</h2><p>Buổi 05 · Giao tiếp hằng ngày</p>
+      <div class="chips">${pill("Hạn hoàn thành 17:30","gray")}${pill("Lớp bắt đầu 18:30","gray")}${pill("Khoảng 12 phút","gray")}</div>
+      ${preBar("",preState.complete)}
+      <div class="actions">${link(next,preState.complete ? "Xem bài đã hoàn thành" : ongoing ? "Tiếp tục Pre-class" : "Bắt đầu Pre-class","primary")}${link("SCR-M43-01","Xem buổi học")}</div>`,"tinted")
+    + `<div class="grid2">${card(`<h3>Lịch học</h3><p>Thứ Ba, 24/11 · 18:30–19:15</p>${link("SCR-M39-07","Xem lịch học","small")}`)}
+      ${card(`<h3>Vở học</h3><p>Lưu cấu trúc câu và lỗi phát âm để ôn lại.</p>${link("SCR-M48-01","Mở vở học","small")}`)}</div>`);
+}
+
+function diagnose() {
+  if (preState.question === quiz.length) {
+    return card(`<h2>Kết quả chẩn đoán</h2><div class="grid2">
+      ${note("<strong>Đã vững</strong><br>Từ vựng đồ uống và mẫu gọi món quen thuộc.","mint")}
+      ${note("<strong>Cần luyện thêm</strong><br>Cách nói lịch sự và trọng âm của “chocolate”.","warn")}
+      </div><div class="actions">${link("SCR-M42-03","Học phần chưa vững","primary")}${button("pre-reset","Làm lại chẩn đoán")}</div>`);
+  }
+  const item = quiz[preState.question];
+  const input = item.choices
+    ? `<fieldset class="stack compact"><legend>Chọn một đáp án</legend>${item.choices.map((choice,i) =>
+       `<label class="option"><input type="radio" name="quiz-option" value="${i}"${preState.answer===String(i)?" checked":""}${preState.responded?" disabled":""}>${escape(choice)}</label>`).join("")}</fieldset>`
+    : item.type === "Viết ngắn"
+      ? `<label>Câu trả lời<input id="pre-answer" value="${escape(preState.answer)}" placeholder="Nhập câu trả lời" ${preState.responded?"disabled":""}></label>`
+      : `<div class="actions">${button("pre-record","Dùng bản ghi mẫu")}</div>${preState.answer ? note("Bản ghi mẫu · “I’d like a hot chocolate, please.”") : ""}`;
+  return card(`<div class="row">${pill(item.type,"gray")}<small>Câu ${preState.question+1} / ${quiz.length}</small></div>
+    <h2>${item.prompt}</h2>${input}
+    ${preState.responded ? note(item.feedback,"mint") : ""}
+    <div class="actions">${preState.responded ? button("pre-next",preState.question===quiz.length-1 ? "Xem kết quả" : "Câu tiếp theo","primary") : button("pre-check","Kiểm tra câu trả lời","primary")}</div>`);
+}
+
+function teach() {
+  return card(`<div class="row">${pill("Agent dạy nền")}${pill("Tiếng Việt · Giải thích","gray")}</div>
+    <h2>Gọi món một cách lịch sự</h2>
+    <p>${preState.alternate ? "Hãy tưởng tượng em đang nói với nhân viên. Bắt đầu bằng “Could I have…?”, thêm món em muốn và kết thúc bằng “please”." : "Em dùng “I’d like…” để nói mình muốn gì. Thêm “please” ở cuối để lời gọi món lịch sự hơn."}</p>
+    <div class="dialogue"><strong>${preState.alternate ? "Could I have a hot chocolate, please?" : "I’d like a cup of tea, please."}</strong><br><small>${preState.alternate ? "Cho em một ly sô-cô-la nóng được không ạ?" : "Cho em một ly trà ạ."}</small></div>
+    <div class="actions">${button("pre-transcript",preState.transcript ? "Ẩn lời đọc mẫu" : "Xem lời đọc mẫu")}${button("pre-alternate",preState.alternate ? "Xem cách giải thích ban đầu" : "Em chưa hiểu · Giải thích cách khác")}</div>
+    ${preState.transcript ? note("Đọc theo nhịp · I’d LIKE / a CUP of TEA / PLEASE.") : ""}
+    <label>Thử giải thích lại bằng lời của em<textarea id="pre-explanation" rows="2" placeholder="Em sẽ nói gì khi gọi một ly cà phê?">${escape(preState.explanation)}</textarea></label>
+    <div class="actions">${link("SCR-M42-04","Sang luyện tập","primary")}${button("pre-teacher-flag","Ghi chú cần giáo viên")}</div>`);
+}
+
+function practice() {
+  return card(`<div class="row">${pill("Agent luyện tập")}${pill("Đóng vai · Nói","gray")}</div>
+    <h2>Em là khách ở quán cà phê</h2><p>Gọi một ly sô-cô-la nóng và trả lời khi nhân viên hỏi thêm.</p>
+    <div class="dialogue"><strong>AI Tutor · Nhân viên</strong><br>Hi there! What can I get for you today?</div>
+    ${preState.spoken ? '<div class="dialogue you"><strong>Em · Bản ghi mẫu</strong><br>I’d like a hot chocolate, please.</div><div class="dialogue"><strong>AI Tutor · Nhân viên</strong><br>Of course! Would you like that to go?</div>' : ""}
+    <div class="actions">${button("pre-practice",preState.spoken ? "Thử lại" : "Dùng bản ghi mẫu","primary")}${button("pre-transcript",preState.transcript ? "Ẩn câu mẫu" : "Xem câu mẫu")}</div>
+    ${preState.transcript ? note("Câu mẫu · I’d like a hot chocolate, please.") : ""}
+    ${preState.spoken ? `<div class="sheet stack compact"><div class="row"><h3>Phản hồi phát âm mẫu</h3>${pill("82/100","mint")}</div><p>Nhấn âm đầu trong <mark>CHOC</mark>olate. Đọc theo nhịp “hot CHOC-lət”.</p><small>Lỗi mẫu sẽ xuất hiện trong Vở học khi em hoàn thành.</small></div>
+    <div class="actions">${button("pre-complete","Hoàn thành Pre-class","primary")}</div>` : ""}`);
+}
+
+function preLesson(screen) {
+  const stage = preSteps.findIndex(([id]) => id === screen.id);
+  const lesson = [diagnose,teach,practice][stage]();
+  const panel = card(`<div class="row start"><span class="avatar" aria-hidden="true">AI</span><div><h3>AI Tutor</h3><small>Tiếng Anh A2 · Buổi 05</small></div></div>
+    <hr class="rule"><h3>Mục tiêu buổi học</h3><p>Gọi đồ uống, dùng “I’d like…” và luyện trọng âm.</p>
+    ${stage === 1 ? note("Cần luyện thêm · Cách gọi món lịch sự và trọng âm của “chocolate”.","warn") : ""}
+    <div class="actions">${link("SCR-M42-01","Về việc hôm nay","small")}</div>`);
+  return workspace(screen,pageHeading(screen,preSteps[stage][1],"Pre-class · Ordering at a café") + preBar(screen.id) + `<div class="split">${lesson}${panel}</div>`);
+}
+
+const doneScreen = {id:"pre-done",portal:"Màn học AI",name:"Đã hoàn thành Pre-class",purpose:"Ordering at a café · Tiếng Anh A2"};
+
+function preDone() {
+  return workspace(doneScreen,pageHeading(doneScreen) + preBar("",true) + card(`<div>${pill("Hoàn thành","mint")}</div><h2>Em đã sẵn sàng cho buổi học</h2>
+    <p>Em đã luyện gọi món và phát âm. Giáo viên có thể xem báo cáo mẫu trước buổi học.</p>
+    ${note("Vở học · Nhấn âm đầu trong “chocolate”.","mint")}
+    <div class="actions">${link("SCR-M42-01","Về việc hôm nay","primary")}${link("SCR-M42-07","Xem báo cáo giáo viên")}</div>`));
+}
+
+function preTeacher(screen) {
+  const status = preState.complete ? "Xong" : "Làm dở";
+  const roster = [
+    ["Minh Anh",pill(status,preState.complete?"mint":"warn"),preState.complete?"12 phút":"6 phút",preState.complete?"Luyện tập":"Dạy nền"],
+    ["Khánh Linh",pill("Xong","mint"),"11 phút","Luyện tập"],
+    ["Quang Huy",pill("Chưa làm","gray"),"—","Chưa bắt đầu"]
+  ];
+  return workspace(screen,pageHeading(screen,"Tiến độ Pre-class của lớp","ENG-A2-07 · Ordering at a café · 24/11 lúc 18:30")
+    + `<div class="grid3">${metric(preState.complete?"2":"1","Xong")}${metric(preState.complete?"0":"1","Làm dở")}${metric("1","Chưa làm")}</div>`
+    + card(`<div class="row"><h2>Học viên</h2><label>Trạng thái<select id="pre-roster">${options(["Tất cả","Xong","Làm dở","Chưa làm"])}</select></label></div>
+    <div id="pre-roster-table">${table(["Học viên","Trạng thái","Thời lượng","Bước gần nhất"],roster)}</div>
+    <div class="actions">${link("SCR-M42-07","Báo cáo Pre-class","primary")}${link("SCR-M42-06","Theo dõi và nhắc học viên")}</div>`));
+}
+
+function preReport(screen) {
+  const email = screen.id === "SCR-M42-08";
+  return workspace(screen,pageHeading(screen,email?"Email báo cáo Pre-class":"Báo cáo Pre-class","ENG-A2-07 · Ordering at a café")
+    + card(`<div class="row">${pill(email?"Bản xem trước email":"Báo cáo lớp","mint")}<small>Cập nhật lúc 17:40 · 24/11/2026</small></div><h2>Cả lớp</h2>
+    <p><strong>Lỗi thường gặp.</strong> Dùng “I want…” khi gọi món và nhấn sai trọng âm của “chocolate”.</p>
+    ${note("<strong>Gợi ý trên lớp</strong><br>Ghép Minh Anh với Khánh Linh để tập hội thoại khách và nhân viên.")}
+    <h3>Theo từng em</h3>${table(["Học viên","Đã vững","Cần luyện hoặc hỗ trợ"],[
+      ["Minh Anh","Từ vựng đồ uống","Trọng âm của “chocolate”"],["Khánh Linh","Gọi món lịch sự","Câu hỏi mang đi"],
+      ["Quang Huy","—",pill("Chưa đủ dữ liệu","warn")]
+    ])}<div class="actions">${link("SCR-M43-01","Chuẩn bị lớp","primary")}${link(email?"SCR-M42-07":"SCR-M42-08",email?"Báo cáo đầy đủ":"Xem email mẫu")}</div>`));
+}
+const providerModels = {
+  Claude:["Opus","Sonnet","Haiku"],
+  ChatGPT:["GPT-5","GPT-5 mini","GPT-4o"],
+  Gemini:["Gemini Pro","Gemini Flash","Gemini Flash-Lite"]
+};
+const productionBranches = ["Sách và bài tập","Đề và tiêu chí chấm","Audio","Hình, slide và video"];
+const pipelineSteps = [
+  ["Nghiên cứu","Agent nghiên cứu","Tóm tắt đối tượng A2, mục tiêu giao tiếp và nguồn được phép sử dụng.","Gemini","Gemini Pro"],
+  ["Thiết kế khung","Agent thiết kế khung","Khung 3 phần: từ vựng đồ uống, mẫu gọi món lịch sự và tình huống mang đi.","Claude","Opus"],
+  ["Kịch bản","Agent viết kịch bản","Kịch bản vai khách và nhân viên với mẫu “I’d like…” và “Could I have…?”.","ChatGPT","GPT-5"],
+  ["Sản xuất","Nhóm sản xuất","Bài tập, đề, audio và slide đã có bản nháp để kiểm định.","Gemini","Gemini Flash"],
+  ["Kiểm định","Agent kiểm định","Đối chiếu mẫu câu, độ khó A2, đáp án, audio và quyền sử dụng.","Claude","Sonnet"],
+  ["Kiểm định thủ công","Chuyên gia tiếng Anh","Chuyên gia kiểm tra bản audio đã sửa và danh sách kiểm tra trước khi chuyển duyệt.","",""]
+];
+const academic = {
+  topic:"Giao tiếp tại quán cà phê", language:"Tiếng Anh", level:"A2", output:"Kịch bản, bài tập, audio và slide",
+  active:0, mode:"ready", revision:1, returnReason:"", reviewed:false, approved:false,
+  history:[], branchModels:productionBranches.map((_, i) => [
+    ["Claude","Sonnet"],["ChatGPT","GPT-5 mini"],["Gemini","Gemini Flash"],["Gemini","Gemini Pro"]
+  ][i]),
+  models:pipelineSteps.slice(0,-1).map(step=>step.slice(3))
+};
+const academicTitle = () => escape(academic.topic);
+
+function academicList(screen) {
+  const list = table(["Đề bài","Ngôn ngữ","Cập nhật","Trạng thái"],[
+    [`<a href="#SCR-M17-04">${academicTitle()}</a>`,escape(`${academic.language} · ${academic.level}`),"24/11/2026",pill(academic.approved?"Đã duyệt":academic.reviewed?"Chờ phê duyệt":academic.returnReason?"Cần chạy lại":"Đang sản xuất",academic.approved?"mint":"warn")],
+    ["Giới thiệu bản thân và sở thích","Tiếng Nhật · N5","22/11/2026",pill("Nháp","gray")],
+    ["Hỏi đường ở ga tàu","Tiếng Hàn · Sơ cấp","20/11/2026",pill("Đã phát hành","mint")]
+  ]);
+  return workspace(screen,pageHeading(screen,"Xưởng học thuật","Quản lý đề bài, tiến độ sản xuất và chất lượng học liệu.",link("SCR-M16-04","Tạo đề bài","primary"))
+    + `<div class="grid3">${metric("3","Đề bài mẫu")}${metric(academic.approved?"0":"1","Đang xử lý")}${metric(academic.approved?"2":"1","Đã duyệt / phát hành")}</div>`
+    + card(`<h2>Đề bài sản xuất</h2>${list}<div class="actions">${link("SCR-M17-04","Mở pipeline AI","primary")}${link("SCR-M17-03","Cấu hình từng agent")}${link("SCR-M16-08","Kho học liệu")}</div>`));
+}
+
+function academicBrief(screen) {
+  return workspace(screen,pageHeading(screen,"Tạo đề bài học thuật","Giao một chủ đề cho nhóm AI và chọn người duyệt cuối.")
+    + `<form id="brief-form" class="stack">${card(`<h2>Nội dung đề bài</h2>
+      <label>Chủ đề<input name="topic" required maxlength="100" value="${academicTitle()}"></label>
+      <div class="grid2"><label>Ngôn ngữ<select name="language">${options(["Tiếng Anh","Tiếng Trung","Tiếng Nhật","Tiếng Hàn","Tiếng Việt"],academic.language)}</select></label>
+      <label>Trình độ<select name="level">${options(["A1","A2","B1","B2","N5","Sơ cấp"],academic.level)}</select></label></div>
+      <label>Đầu ra và yêu cầu<textarea name="output" rows="3" required maxlength="300">${escape(academic.output)}</textarea></label>`)}
+    ${card(`<h2>Quyền sử dụng và kiểm định</h2><div class="grid2">
+    ${field("Tài liệu nguồn",["Tài liệu nội bộ Zenford · Đã xác nhận quyền","Tài liệu bên ngoài · Chờ xác minh"])}
+    ${field("Bộ tiêu chuẩn",["Danh sách kiểm tra ngôn ngữ · v1.2","Checklist nội dung nhập môn · v1.0"])}
+    ${field("Giao cho",["Pipeline AI học thuật"])}
+    ${field("Người duyệt cuối",["Trưởng Học thuật · Theo ngôn ngữ đề bài"])}
+    </div><div class="actions"><button type="submit" class="button primary">Giao đề bài cho pipeline</button>${link("SCR-M17-03","Chọn mô hình cho agent")}</div>`)}</form>`);
+}
+
+function providerControl(key, modelPair, name) {
+  return `<div class="grid2"><label>Nhà cung cấp · ${escape(name)}<select data-provider="${key}">${options(Object.keys(providerModels),modelPair[0])}</select></label>
+    <label>Mô hình · ${escape(name)}<select data-model="${key}">${options(providerModels[modelPair[0]],modelPair[1])}</select></label></div>`;
+}
+
+function agentSettings(screen) {
+  return workspace(screen,pageHeading(screen,"Cấu hình agent học thuật","Chọn Claude, ChatGPT hoặc Gemini và mô hình phù hợp cho từng vai trò.",link("SCR-M17-04","Về pipeline","primary"))
+    + card(`<h2>Các bước chính</h2>${pipelineSteps.slice(0,-1).map((step,i)=>providerControl(String(i),academic.models[i],step[1])).join("")}`)
+    + card(`<h2>Các nhánh sản xuất</h2>${productionBranches.map((branch,i)=>providerControl(`branch-${i}`,academic.branchModels[i],branch)).join("")}`));
+}
+
+function pipelineState(index) {
+  if (academic.approved || academic.reviewed || index < academic.active) return ["Đã hoàn thành","mint"];
+  if (index > academic.active) return ["Chờ đến lượt","gray"];
+  if (academic.mode === "gate" || index === 5) return ["Chờ người duyệt","warn"];
+  if (academic.mode === "revise") return ["Cần chạy lại","red"];
+  if (academic.mode === "running") return ["Đang thực hiện",""];
+  return ["Sẵn sàng",""];
+}
+
+function academicPipeline(screen) {
+  const index = academic.active;
+  const step = pipelineSteps[index];
+  const [state,tone] = pipelineState(index);
+  const result = academic.mode === "running" || academic.mode === "gate" || index === 5;
+  const canReturn = academic.mode === "running" && !academic.returnReason && [1,2,4].includes(index);
+  const activities = academic.history.length
+    ? academic.history.slice().reverse().map(event=>`<li>${escape(event)}</li>`).join("")
+    : "<li>Đề bài đã sẵn sàng cho Agent nghiên cứu.</li>";
+  const steps = `<ol class="timeline">${pipelineSteps.map(([title,agent],i)=>{
+    const [label,tone] = pipelineState(i);
+    return `<li class="${i===index?"active":""}"${i===index?' aria-current="step"':""}><span class="avatar${i<index || academic.reviewed?" mint":""}" aria-hidden="true">${i<index || academic.reviewed?"✓":i+1}</span><div><strong>${title}</strong><p class="subtle">${agent}</p></div>${pill(label,tone)}</li>`;
+  }).join("")}</ol>`;
+  let actions;
+  if (academic.approved) actions = link("SCR-M16-08","Xem kho học liệu","primary");
+  else if (academic.reviewed) actions = link("SCR-M17-08","Mở phê duyệt cuối","primary");
+  else if (index === 5) actions = link("SCR-M17-08","Mở kiểm định thủ công","primary");
+  else if (academic.mode === "gate") actions = button("academic-approve-gate","Chuyên gia duyệt","primary") + button("academic-return-human","Trả về");
+  else if (academic.mode === "running") actions = button("academic-next",index===4?"Đạt kiểm định · Chuyển chuyên gia":"Hoàn thành bước","primary")
+    + (canReturn ? button("academic-return-ai","Mô phỏng kiểm định trả về","danger") : "");
+  else actions = button("academic-run",academic.mode==="revise"?"Chạy lại bước":"Chạy bước","primary");
+
+  return workspace(screen,pageHeading(screen,"Pipeline đề bài",academic.topic,link("SCR-M17-03","Cấu hình agent"))
+    + `<div class="split"><div class="stack">${card(`<div class="row"><div><div class="eyebrow">Tiến trình sản xuất</div><h2>${academicTitle()}</h2></div>${pill(`Bản v${academic.revision}`,"gray")}</div>${steps}`)}
+    ${card(`<h3>Nhật ký bàn giao</h3><ul class="history">${activities}</ul>`)}</div>
+    <div class="stack">${card(`<div class="row">${pill(state,tone)}<small>${escape(academic.language)} · ${escape(academic.level)}</small></div>
+      <h2>${step[0]}</h2><p>${step[1]}</p>
+      ${index<5?`<div class="chips">${academic.models[index].map(model=>pill(model,"gray")).join("")}</div>`:""}
+      ${index===3 ? `<ul>${productionBranches.map((branch,i)=>`<li>${branch} <small>· ${academic.branchModels[i].join(" / ")}</small></li>`).join("")}</ul>` : ""}
+      ${academic.returnReason && [3,4].includes(index) ? note(`<strong>Ghi chú sửa bản v${academic.revision}</strong><br>${escape(academic.returnReason)}`,"red") : ""}
+      ${result ? note(`<strong>Đầu ra mẫu</strong><br>${academic.topic==="Giao tiếp tại quán cà phê" ? step[2] : `${academicTitle()} · ${escape(academic.output)}`}`) : ""}
+      <div class="actions">${actions}</div>`,"tinted")}
+      ${card(`<h3>Tài liệu của lần chạy</h3><div class="actions">${link("SCR-M17-07","Báo cáo kiểm định","small")}${link("SCR-M17-06","So sánh lần chạy","small")}${link("SCR-M17-05","Kết quả nghiên cứu","small")}</div>`)}</div></div>`);
+}
+
+function reviewAcademic(screen) {
+  const manual = screen.id === "SCR-M17-08";
+  const returned = academic.returnReason;
+  const eligible = academic.active === 5 && !academic.approved;
+  const title = manual ? academic.reviewed ? "Phê duyệt cuối" : "Kiểm định thủ công" : "Báo cáo kiểm định";
+  return workspace(screen,pageHeading(screen,title,academic.topic,link("SCR-M17-04","Về pipeline"))
+    + card(`<div class="row">${pill(manual?"Chuyên gia ngôn ngữ":"Agent kiểm định")}${academic.approved?pill("Đã phê duyệt","mint"):returned&&academic.revision===1?pill("Đề nghị sửa","warn"):pill(`Bản xem trước · v${academic.revision}`,"gray")}</div>
+    <h2>Danh sách kiểm tra học liệu</h2>
+    ${table(["Hạng mục","Kết quả mẫu","Ghi chú"],[
+      ["Ngôn ngữ và độ khó",pill("Đạt","mint"),"Mẫu câu và từ vựng phù hợp trình độ bài."],
+      ["Câu hỏi và đáp án",pill("Đạt","mint"),"Đáp án khớp bài luyện tập."],
+      ["Audio",returned&&academic.revision===1?pill("Cần sửa","red"):pill("Mẫu kiểm tra","gray"),returned?escape(returned):"Đối chiếu lời đọc với kịch bản."],
+      ["Quyền sử dụng",pill("Đạt","mint"),"Nguồn nội bộ đã xác nhận."]
+    ])}
+    <div class="actions">${manual && eligible ? (
+      academic.reviewed ? button("academic-final","Trưởng Học thuật phê duyệt","primary") : button("academic-manual","Xác nhận kiểm định thủ công","primary")
+    ) + button("academic-return-human","Trả về sản xuất","danger") : link(manual?"SCR-M17-04":"SCR-M17-08",manual?"Xem tiến độ pipeline":"Mở kiểm định thủ công","primary")}</div>`));
+}
+
+function academicComparison(screen) {
+  return workspace(screen,pageHeading(screen,"So sánh lần chạy",academic.topic,link("SCR-M17-04","Về pipeline"))
+    + card(`<h2>Phiên bản đầu ra</h2>${table(["Phiên bản","Hạng mục","Kết quả"],[
+      ["v1","Audio · Câu 3",academic.returnReason?escape(academic.returnReason):"Bản nháp được tạo cho kiểm định."],
+      ...(academic.revision>1?[[`v${academic.revision}`,"Audio · Câu 3","Đã tạo lại câu 3; bản nháp khác được giữ lại."]]:[])
+    ])}`));
+}
+const candidates = [
+  {id:"CV-024",name:"Nguyễn An",initial:"NA",file:"CV-024.pdf",score:86,flag:"",skills:["Giảng dạy tiếng Anh","Soạn giáo án","Phản hồi học viên"],experience:"3 năm giảng dạy tiếng Anh A2–B1 trực tuyến.",degree:"Cử nhân Ngôn ngữ Anh · TESOL 120 giờ.",scores:[36,24,16,10],
+    evidence:["“Giảng dạy A2–B1 trực tuyến trong 3 năm.”","“TESOL 120 giờ.”","“Soạn giáo án giao tiếp và bài tập theo lớp.”","“Cử nhân Ngôn ngữ Anh.”"]},
+  {id:"CV-025",name:"Trần Bình",initial:"TB",file:"CV-025.docx",score:73,flag:"Sát ngưỡng",skills:["Trợ giảng","Chữa bài","Điều phối lớp"],experience:"18 tháng trợ giảng lớp tiếng Anh thiếu niên.",degree:"Cử nhân Sư phạm Anh · Chứng chỉ B2.",scores:[27,18,18,10],
+    evidence:["“18 tháng trợ giảng nhóm thiếu niên.”","“Chứng chỉ tiếng Anh B2.”","“Chuẩn bị bài tập và chữa bài theo nhóm.”","“Cử nhân Sư phạm Anh.”"]},
+  {id:"CV-026",name:"Lê Chi",initial:"LC",file:"CV-026.pdf",score:null,flag:"Tệp khó đọc",skills:[],experience:"Chưa trích xuất được dữ liệu.",degree:"Chưa xác minh.",scores:[null,null,null,null],
+    evidence:["Không có dữ liệu","Không có dữ liệu","Không có dữ liệu","Không có dữ liệu"]}
+];
+const criteria = [
+  ["Kinh nghiệm giảng dạy",40,"Kinh nghiệm phù hợp với lớp A2 và dạy trực tuyến."],
+  ["Chứng chỉ và ngoại ngữ",30,"Chứng chỉ liên quan đến vị trí."],
+  ["Kỹ năng sư phạm",20,"Có bằng chứng soạn bài và phản hồi."],
+  ["Học vấn",10,"Chuyên ngành phù hợp."]
+];
+const cv = {selected:"CV-024",filter:"Tất cả",edits:{},decisions:{}};
+const selectedCandidate = () => candidates.find(person=>person.id===cv.selected);
+
+function cvRankTable() {
+  const rows = candidates.filter(person => cv.filter === "Tất cả" || (cv.filter === "Cần xem lại" ? person.flag : !person.flag)).map(person=>{
+    const rank = person.score === null ? "—" : candidates.indexOf(person)+1;
+    const row = [String(rank),`<button class="button small" type="button" data-action="cv-select" data-id="${person.id}" aria-pressed="${cv.selected===person.id}">${person.name}</button>`,
+      person.score===null?"—":String(person.score),person.flag?pill(person.flag,"warn"):pill("Đã chấm","mint")];
+    row.selected = person.id === cv.selected;
+    return row;
+  });
+  return table(["Hạng","Ứng viên","Điểm AI","Kết quả"],rows);
+}
+
+function cvReview(screen) {
+  const person = selectedCandidate();
+  const edit = cv.edits[person.id];
+  const decision = cv.decisions[person.id];
+  const evidence = criteria.map(([title,max,desc],i) => {
+    const score = person.scores[i];
+    return `<div class="stack compact"><div class="row"><h3>${title}</h3>${pill(score===null?"Chưa có điểm":`${score}/${max}`,score===null?"warn":"gray")}</div>
+      <small>${score===null?"Cần đối chiếu tệp gốc.":desc}</small><blockquote>${person.evidence[i]}</blockquote></div>`;
+  }).join('<hr class="rule">');
+  const original = card(`<div class="row"><h3>CV gốc</h3>${pill("Tệp mẫu","gray")}</div>
+    <div class="sheet stack compact"><small>${person.file}</small><h3>${person.name}</h3><p>Ứng tuyển · Giáo viên tiếng Anh</p>
+    <hr class="rule"><strong>Kinh nghiệm</strong><p>${person.experience}</p><strong>Học vấn &amp; chứng chỉ</strong><p>${person.degree}</p>
+    <strong>Kỹ năng</strong><p>${person.skills.join(" · ") || "Chưa xác minh."}</p></div>`);
+  return workspace(screen,pageHeading(screen,"AI review CV","Tuyển dụng · Giáo viên tiếng Anh trực tuyến",link("SCR-M29-03","Tiêu chí lọc CV"))
+    + card(`<div class="row"><h2>Bảng xếp hạng</h2><label>Hiển thị<select id="cv-filter">${options(["Tất cả","Cần xem lại","Đã chấm"],cv.filter)}</select></label></div>
+    <div id="cv-table">${cvRankTable()}</div><small>Rubric GV-ENG v1.2 · Ngưỡng mời mẫu 75/100 · Sát ngưỡng ±5 điểm</small>`)
+    + card(`<div class="row"><div class="row start"><span class="avatar">${person.initial}</span><div><h2>${person.name}</h2><small>${person.id} · Giáo viên tiếng Anh</small></div></div>
+    ${pill(decision?.status || (person.flag?"Cần xem lại":"AI đã chấm CV"),decision?.tone || (person.flag?"warn":"mint"))}</div>
+    <div class="grid2">${metric(person.score===null?"—":`${person.score}/100`,"Điểm AI theo rubric")}${metric(edit?`${edit.score}/100`:"—","Điểm Nhân sự điều chỉnh")}</div>
+    ${edit?note(`<strong>Lý do điều chỉnh</strong><br>${escape(edit.reason)}`):""}
+    ${decision?note(`<strong>${escape(decision.status)}</strong><br>${escape(decision.reason)}`,decision.tone):""}
+    <div class="actions">${button("cv-edit","Điều chỉnh điểm")}${button("cv-invite","Mời phỏng vấn AI","primary")}${button("cv-stop","Dừng hồ sơ","danger")}${link("SCR-M29-07","Xem pipeline ứng viên")}</div>`)
+    + `<div class="grid2">${card(`<h2>Điểm và bằng chứng</h2>${evidence}`)}${original}</div>`);
+}
+
+function cvRubric(screen) {
+  return workspace(screen,pageHeading(screen,"Tiêu chí lọc CV","Rubric GV-ENG v1.2 · Giáo viên tiếng Anh trực tuyến",link("SCR-M29-04","Về xếp hạng CV","primary"))
+    + card(`<h2>Bộ tiêu chí đang dùng</h2>${table(["Tiêu chí","Mô tả","Trọng số","Bắt buộc"],criteria.map(([title,max,desc],i)=>[title,desc,`${max}%`,i===0?"Có":"—"]))}
+    <div class="grid3">${metric("100%","Tổng trọng số")}${metric("75/100","Ngưỡng mời mẫu")}${metric("±5","Biên độ sát ngưỡng")}</div>`));
+}
+
+function cvJobs(screen) {
+  return workspace(screen,pageHeading(screen,"Tin tuyển dụng","Nhân sự · Tuyển dụng AI",link("SCR-M29-01","Xem trang ứng tuyển"))
+    + card(`<h2>Vị trí tuyển dụng</h2>${table(["Vị trí","Hồ sơ mẫu","Trạng thái"],[
+      ['<a href="#SCR-M29-04">Giáo viên tiếng Anh trực tuyến</a>',"3 hồ sơ",pill("Đang tuyển","mint")],
+      ["Chuyên viên học thuật","0 hồ sơ",pill("Nháp","gray")]])}
+    <div class="actions">${link("SCR-M29-04","Xem bảng xếp hạng","primary")}${link("SCR-M29-03","Tiêu chí lọc CV")}</div>`));
+}
+
+function cvApplication(screen) {
+  return workspace(screen,pageHeading(screen,"Ứng tuyển giáo viên tiếng Anh","Dạy trực tuyến · Chương trình giao tiếp A2")
+    + `<form id="application-form">${card(`<h2>Hồ sơ ứng tuyển</h2><div class="grid2">
+    <label>Họ và tên<input required autocomplete="off" placeholder="Nguyễn An"></label>
+    <label>Email<input required type="email" autocomplete="off" placeholder="nguyen.an@example.test"></label></div>
+    <p class="note">Biểu mẫu trình diễn dùng CV-024.pdf mẫu.</p>
+    <label class="inline"><input type="checkbox" required>Tôi đồng ý với bước xử lý dữ liệu minh họa trong bản mẫu.</label>
+    <div class="actions"><button class="button primary" type="submit">Gửi hồ sơ mẫu</button>${link("SCR-M29-04","Xem kết quả mẫu")}</div>`)}</form>`);
+}
+
+function cvPipeline(screen) {
+  return workspace(screen,pageHeading(screen,"Pipeline ứng viên","Giáo viên tiếng Anh trực tuyến",link("SCR-M29-04","Về xếp hạng CV","primary"))
+    + card(`<h2>Tiến trình tuyển dụng</h2>${table(["Ứng viên","Trạng thái","Ghi nhận của Nhân sự"],candidates.map(person=>{
+      const record=cv.decisions[person.id];
+      return [`<a href="#SCR-M29-04" data-candidate="${person.id}">${person.name}</a>`,pill(record?.status || "AI đã chấm CV",record?.tone || "gray"),escape(record?.reason || "—")];
+    }))}<div class="actions">${link("SCR-M29-05","Bộ câu hỏi phỏng vấn")}${link("SCR-M29-06","Phiên phỏng vấn AI mẫu")}</div>`));
+}
+
+const custom = {
+  "SCR-M08-01":home, "SCR-M42-01":preHome, "SCR-M42-02":preLesson, "SCR-M42-03":preLesson, "SCR-M42-04":preLesson,
+  "SCR-M42-05":preTeacher, "SCR-M42-07":preReport, "SCR-M42-08":preReport,
+  "SCR-M16-01":academicList, "SCR-M16-03":academicList, "SCR-M16-04":academicBrief, "SCR-M17-03":agentSettings,
+  "SCR-M17-04":academicPipeline, "SCR-M17-06":academicComparison, "SCR-M17-07":reviewAcademic, "SCR-M17-08":reviewAcademic,
+  "SCR-M29-01":cvApplication, "SCR-M29-02":cvJobs, "SCR-M29-03":cvRubric, "SCR-M29-04":cvReview, "SCR-M29-07":cvPipeline
+};
+
+function render(viewChanged = false) {
+  const id = location.hash.slice(1) || "SCR-M08-01";
+  if (id === "main") return;
+  const screen = screens.get(id);
+  const active = routeFamily(id);
+  document.getElementById("top-nav").innerHTML = shortcuts.map(([target,name]) =>
+    `<a href="#${target}"${active && active===routeFamily(target)?' aria-current="location"':""}>${name}</a>`).join("");
+  if (id === "danh-muc") {
+    main.innerHTML = catalog();
+    renderCatalogResults();
+  } else if (id === "pre-done") main.innerHTML = preDone();
+  else if (screen) main.innerHTML = (custom[id] || genericScreen)(screen);
+  else main.innerHTML = `<div class="wrap home">${card(`<h1>Không tìm thấy màn hình</h1>${link("danh-muc","Mở danh mục","primary")}`)}</div>`;
+  document.title = `Zenford · ${main.querySelector("h1")?.textContent || "Bản mẫu giao diện"}`;
+  if (viewChanged) {
+    window.scrollTo({top:0});
+    main.focus({preventScroll:true});
+  }
+}
+
+function flash(text) {
+  toast.textContent = text;
+  toast.hidden = false;
+  clearTimeout(flash.timeout);
+  flash.timeout = setTimeout(()=>{toast.hidden=true},3500);
+}
+
+function updateView(control) {
+  const action = control.dataset.action;
+  render();
+  const replacement = [...main.querySelectorAll("[data-action]")].find(item =>
+    item.dataset.action === action && item.dataset.id === control.dataset.id);
+  (replacement || main).focus({preventScroll:true});
+}
+
+function go(id) {
+  if (location.hash === "#" + id) render();
+  else location.hash = id;
+}
+
+const pipelineEvent = text => academic.history.push(text);
+function advancePipeline() {
+  const previous = academic.active;
+  pipelineEvent(`${pipelineSteps[previous][1]} hoàn thành ${pipelineSteps[previous][0].toLowerCase()}.`);
+  academic.active++;
+  academic.mode = "ready";
+  pipelineEvent(`Bàn giao cho ${pipelineSteps[academic.active][1]}.`);
+}
+
+let decisionHandler;
+function openDecision(title, label, callback, {score = false, hint = ""} = {}) {
+  document.getElementById("decision-title").textContent = title;
+  const person = selectedCandidate();
+  document.getElementById("decision-fields").innerHTML = `${hint ? `<p class="subtle">${escape(hint)}</p>` : ""}
+    ${score ? `<label>Điểm Nhân sự / 100<input type="number" name="score" required min="0" max="100" value="${cv.edits[person.id]?.score ?? person.score ?? ""}"></label>` : ""}
+    <label>${escape(label)}<textarea name="reason" required rows="3" maxlength="300"></textarea></label>`;
+  decisionHandler = callback;
+  dialog.showModal();
+}
+
+const actions = {
+  "generic":()=>flash("Đây là thao tác minh họa. Xem màn hình liên quan để tiếp tục."),
+  "close-dialog":()=>dialog.close(),
+  "pre-reset":()=>{preState.question=0;preState.answer="";preState.responded=false;return true},
+  "pre-record":()=>{preState.answer="sample";return true},
+  "pre-check":()=>{
+    if (!preState.answer.trim()) return flash("Em hãy trả lời câu hỏi trước.");
+    preState.responded=true;return true;
+  },
+  "pre-next":()=>{preState.question++;preState.answer="";preState.responded=false;return true},
+  "pre-alternate":()=>{preState.alternate=!preState.alternate;return true},
+  "pre-transcript":()=>{preState.transcript=!preState.transcript;return true},
+  "pre-teacher-flag":()=>flash("Đã ghi chú mẫu Cần giáo viên."),
+  "pre-practice":()=>{preState.spoken=!preState.spoken;return true},
+  "pre-complete":()=>{preState.complete=true;go("pre-done")},
+  "academic-run":()=>{
+    if (academic.mode==="revise") academic.revision++;
+    academic.mode="running";
+    pipelineEvent(`${pipelineSteps[academic.active][1]} bắt đầu bản v${academic.revision}.`);
+    return true;
+  },
+  "academic-next":()=>{
+    if (academic.active<3) {
+      academic.mode="gate";
+      pipelineEvent(`${pipelineSteps[academic.active][1]} nộp đầu ra cho chuyên gia.`);
+    } else advancePipeline();
+    return true;
+  },
+  "academic-approve-gate":()=>{pipelineEvent("Chuyên gia duyệt đầu ra.");advancePipeline();return true},
+  "academic-return-ai":()=>{
+    const from = academic.active;
+    const to = from === 4 ? 3 : from;
+    academic.returnReason = from===4 ? "Audio câu 3 thiếu từ “please” so với kịch bản. Tạo lại riêng câu này." :
+      from===2 ? "Bổ sung một lượt thoại cho vai khách để đủ mục tiêu luyện nói." : "Bổ sung tiêu chí đạt cho khối luyện nói.";
+    academic.active=to;
+    academic.mode="revise";
+    pipelineEvent(`AI kiểm định trả về ${pipelineSteps[to][0]}. ${academic.returnReason}`);
+    return true;
+  },
+  "academic-return-human":()=>{
+    openDecision("Trả về để chỉnh sửa","Lý do trả về",({reason})=>{
+      const from=academic.active;
+      academic.active=from===5?3:from;
+      academic.reviewed=false;
+      academic.mode="revise";academic.returnReason=reason;
+      pipelineEvent(`Chuyên gia trả về ${pipelineSteps[academic.active][0]}. ${reason}`);
+      go("SCR-M17-04");
+    });
+  },
+  "academic-manual":()=>{academic.reviewed=true;pipelineEvent("Chuyên gia hoàn tất kiểm định thủ công. Chờ Trưởng Học thuật phê duyệt.");return true},
+  "academic-final":()=>{academic.approved=true;pipelineEvent("Trưởng Học thuật phê duyệt học liệu.");go("SCR-M17-04")},
+  "cv-select":control=>{cv.selected=control.dataset.id;return true},
+  "cv-edit":()=>{
+    const person=selectedCandidate();
+    openDecision("Điều chỉnh điểm CV","Lý do điều chỉnh",({score,reason})=>{
+      cv.edits[person.id]={score,reason};render();
+    },{score:true,hint:`Giữ điểm AI gốc của ${person.name} trong hồ sơ mẫu.`});
+  },
+  "cv-invite":()=>{
+    const person=selectedCandidate();
+    openDecision("Mời phỏng vấn AI","Ghi chú của Nhân sự",({reason})=>{
+      cv.decisions[person.id]={status:"Mời phỏng vấn AI",tone:"mint",reason};render();
+    },{hint:"Ghi nhận bước tiếp theo trong pipeline mẫu."});
+  },
+  "cv-stop":()=>{
+    const person=selectedCandidate();
+    openDecision("Dừng hồ sơ","Lý do dừng",({reason})=>{
+      cv.decisions[person.id]={status:"Dừng",tone:"red",reason};render();
+    });
+  }
+};
+
+document.addEventListener("click",event=>{
+  if (event.target.closest(".skip")) {
+    event.preventDefault();
+    main.focus();
+    return;
+  }
+  const candidate = event.target.closest("[data-candidate]");
+  if (candidate) cv.selected = candidate.dataset.candidate;
+  const control = event.target.closest("[data-action]");
+  if (control && actions[control.dataset.action]?.(control)) updateView(control);
+});
+
+document.addEventListener("input",({target})=>{
+  if (target.id==="catalog-query") renderCatalogResults();
+  if (target.id==="pre-answer" || target.name==="quiz-option") preState.answer=target.value;
+  if (target.id==="pre-explanation") preState.explanation=target.value;
+});
+
+const modelPair = key => key.startsWith("branch-") ? academic.branchModels[Number(key.slice(7))] : academic.models[Number(key)];
+document.addEventListener("change",({target})=>{
+  if (target.id==="catalog-portal") renderCatalogResults();
+  if (target.id==="pre-roster") {
+    document.querySelectorAll("#pre-roster-table tbody tr").forEach(row=>{
+      row.hidden=target.value!=="Tất cả" && row.cells[1].textContent!==target.value;
+    });
+  }
+  if (target.id==="cv-filter") {
+    cv.filter=target.value;
+    document.getElementById("cv-table").innerHTML=cvRankTable();
+  }
+  if (target.dataset.provider!==undefined) {
+    const key=target.dataset.provider;
+    const pair=modelPair(key);
+    pair[0]=target.value;
+    const models=providerModels[pair[0]];
+    pair[1]=models[0];
+    document.querySelector(`[data-model="${key}"]`).innerHTML=options(models,pair[1]);
+  }
+  if (target.dataset.model!==undefined) modelPair(target.dataset.model)[1]=target.value;
+});
+
+document.addEventListener("submit",event=>{
+  const form=event.target;
+  if (form.id==="decision-form") {
+    event.preventDefault();
+    const values=Object.fromEntries(new FormData(form));
+    values.reason=values.reason.trim();
+    if (!values.reason) return flash("Vui lòng nhập lý do hoặc ghi chú.");
+    dialog.close();
+    decisionHandler(values);
+  }
+  if (form.id==="brief-form") {
+    event.preventDefault();
+    const values=Object.fromEntries(new FormData(form));
+    values.topic=values.topic.trim();
+    values.output=values.output.trim();
+    if (!values.topic || !values.output) return flash("Vui lòng nhập chủ đề và đầu ra.");
+    Object.assign(academic,values,{active:0,mode:"ready",revision:1,returnReason:"",reviewed:false,approved:false,history:[`Đã giao đề bài “${values.topic}” cho AI Trưởng phòng.`]});
+    go("SCR-M17-04");
+  }
+  if (form.id==="application-form") {
+    event.preventDefault();
+    cv.selected="CV-024";
+    flash("Đã gửi hồ sơ mẫu.");
+    go("SCR-M29-04");
+  }
+});
+
+window.addEventListener("hashchange",()=>render(true));
+render();
+</script>
+</body>
+</html>
