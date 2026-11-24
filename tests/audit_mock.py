@@ -23,6 +23,13 @@ def main():
               for (const screen of data.screens) {
                 history.replaceState(null, "", "#" + screen.id);
                 render();
+                if (innerWidth === 1440) {
+                  const instructions = new Set(screen.el.filter(text => text.length >= 38));
+                  for (const node of main.querySelectorAll("h2,h3,p,button,summary,legend")) {
+                    if (instructions.has(node.textContent.trim()))
+                      issues.push([screen.id, "wireframe instruction displayed as content"]);
+                  }
+                }
                 if (!main.querySelector("h1")) issues.push([screen.id, "missing heading"]);
                 if (document.documentElement.scrollWidth > innerWidth + 1)
                   issues.push([screen.id, "horizontal overflow"]);

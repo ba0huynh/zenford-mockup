@@ -5,7 +5,7 @@ description: Apply the Zenford Neo-Pop Sticker visual system when building, chan
 
 # Zenford Neo-Pop
 
-Start with the root project guide for the product, palette, brand voice and walkthrough fixtures. Edit the existing hash route in `index.html`. The `custom` map holds authored screens. `genericScreen` and `workspace` provide shared coverage. Leave the `ux-data` JSON as the verbatim Phase 1 inventory. [Project guide](../../../AGENT.md)
+Start with the root project guide for the product, palette, brand voice and walkthrough fixtures. Edit the existing hash route in `index.html`. The `custom` map holds authored screens. `genericScreen` chooses a task view or populated record table. Use `userRoutes` for a dedicated route, `routeRecords` for its rows and `collections` for shared domain data. Keep related actions connected through in-session state. Leave the `ux-data` JSON as the verbatim Phase 1 inventory. [Project guide](../../../AGENT.md)
 
 ## Compose a screen
 

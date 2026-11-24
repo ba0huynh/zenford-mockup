@@ -716,6 +716,33 @@ mark{background:var(--yellow);color:var(--ink)}
 @media(max-width:550px){.top .nav{justify-content:space-between;gap:3px}.top .nav a{padding:8px 5px;font-size:13px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}.zeyes{transform:none!important}.tile:hover{transform:none}}
 </style>
+<style>
+.shop-filters,.record-tools{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));align-items:end}
+.shop-filters{padding:20px;border:var(--border-w) solid var(--ink);border-radius:var(--radius-lg)}
+.record-tools input,.shop-filters input{min-height:46px}
+.product-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.product-card{min-width:0;border:var(--border-w) solid var(--ink);border-radius:var(--radius-lg);box-shadow:var(--shadow-sticker);overflow:hidden;background:var(--paper);display:flex;flex-direction:column}
+.product-card>.stack{padding:16px;flex:1}.product-card .price{margin-top:auto}.product-card .button{justify-self:start}.product-card p{font-size:.9rem}.product-card del,.price del{font-size:.82rem;color:var(--muted)}
+.book-art{display:grid;place-items:center;min-height:172px;background:var(--page-color,var(--butter));padding:18px;border-bottom:2px solid var(--ink)}
+.book-face{display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;height:142px;aspect-ratio:0.78;background:var(--cover-color,var(--sky));border:2px solid var(--ink);border-left:7px double var(--ink);border-radius:2px 8px 8px 2px;padding:8px;box-shadow:4px 4px 0 var(--ink);transform:rotate(-3deg);color:var(--ink)}
+.book-face b{font:800 clamp(20px,2.1vw,29px)/1 var(--font-display);letter-spacing:-.045em}.cover-imprint,.cover-foot{font:800 12px/1 var(--font-body)}.book-EN{--page-color:var(--sky);--cover-color:var(--butter)}.book-JA{--page-color:var(--lavender);--cover-color:var(--paper)}.book-KO{--page-color:var(--mint);--cover-color:var(--sky)}.book-ZH{--page-color:var(--peach);--cover-color:var(--paper)}.book-VI{--page-color:var(--butter);--cover-color:var(--mint)}
+.book-art.mini{min-height:85px;border:0;border-radius:var(--radius-sm);padding:5px}.mini .book-face{height:74px}.mini .book-face b{font:800 12px/1 var(--font-body)}.mini .cover-foot,.mini .cover-imprint{display:none}
+.cart-item{display:flex;align-items:center;flex-wrap:wrap;gap:16px}.cart-item .actions{margin-left:auto}
+.bill{background:var(--ink);color:var(--paper);border-radius:var(--radius-lg);padding:22px;box-shadow:var(--shadow-on-ink-yellow)}.bill h3,.bill strong,.bill b,.bill small{color:inherit}.bill h3{color:var(--yellow)}
+.road-summary{border:var(--border-w) solid var(--ink);border-radius:var(--radius-lg);padding:clamp(20px,4vw,38px);display:grid;gap:8px}.road-summary h2{font-size:clamp(28px,4.2vw,52px)}.road-line{list-style:none;margin:0;padding:0}.road-line li{display:grid;grid-template-columns:32px minmax(0,1fr);gap:12px;position:relative;padding-bottom:22px}.road-line li:last-child{padding-bottom:0}.road-line li:not(:last-child)::before{content:"";width:2px;background:var(--line);position:absolute;left:15px;top:30px;bottom:0}.road-dot{border:2px solid var(--ink);width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-weight:800}.road-dot.filled{background:var(--mint)}
+.week-bars{display:grid;gap:9px}.week-bars>div{display:grid;align-items:center;grid-template-columns:74px minmax(0,1fr) 66px;gap:10px}.day-bar{display:flex;height:17px;border:2px solid var(--ink);border-radius:99px;overflow:hidden}.day-bar i{display:block}.record-dl{margin:0}.record-dl div{display:grid;grid-template-columns:minmax(90px,.7fr) 1fr;gap:8px;border-bottom:1px solid var(--line);padding:10px 0}.record-dl dt{color:var(--muted)}.record-dl dd{margin:0;font-weight:600}.record-tools{grid-template-columns:2fr 1fr}
+@media(max-width:1120px){.product-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.shop-filters{grid-template-columns:1fr 1fr;padding:14px}.shop-filters>label:first-child{grid-column:1/-1}.product-grid,.record-tools{grid-template-columns:minmax(0,1fr)}.cart-item .actions{margin-left:0}}
+@media print{dialog{display:none}.book-face{transform:none}}
+
+.certificate{text-align:center;padding:36px 16px;border:4px double var(--ink);display:grid;gap:12px;border-radius:14px;justify-items:center}.certificate h2{font-size:clamp(30px,4vw,52px)}.certificate h3{font-size:30px}.inbox-layout{grid-template-columns:minmax(200px,.8fr) minmax(0,1.4fr)}
+.portal-jump{margin:8px 0}.portal-jump select{font-size:13px}
+@media(max-width:790px){.portal-jump{min-width:160px;margin:0}.portal-jump>span{display:none}}
+@media(max-width:600px){.inbox-layout{grid-template-columns:minmax(0,1fr)}}
+
+@media(min-width:1100px){.shop-filters{grid-template-columns:repeat(4,minmax(0,1fr))}.shop-filters>label:first-child,.shop-filters>label:last-child{grid-column:span 2}}
+
+</style>
 </head>
 <body>
 <svg width="0" height="0" aria-hidden="true" style="position:absolute"><defs>
@@ -737,12 +764,13 @@ mark{background:var(--yellow);color:var(--ink)}
 <header class="top"><div class="wrap top-inner">
   <a class="brand" href="#SCR-M08-01"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNzIgNTgiIHdpZHRoPSI1NDMiIGhlaWdodD0iMTE2Ij48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg0IDQpIHJvdGF0ZSgtOCAyNCAyNikiPjxwYXRoIGQ9Ik0xMCAxNSAxMiA0IDIwIDExWiBNMzggMTUgMzYgNCAyOCAxMVoiIGZpbGw9IiMyRjRCRDgiIHN0cm9rZT0iIzE0MTQxNCIgc3Ryb2tlLXdpZHRoPSIyLjQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjwvcGF0aD48cGF0aCBkPSJNMTIgOWgyNGE4IDggMCAwIDEgOCA4djEzYTggOCAwIDAgMS04IDhIMjJsLTggN3YtN2gtMmE4IDggMCAwIDEtOC04VjE3YTggOCAwIDAgMSA4LTh6IiBmaWxsPSIjMkY0QkQ4IiBzdHJva2U9IiMxNDE0MTQiIHN0cm9rZS13aWR0aD0iMi42IiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48L3BhdGg+PHBhdGggZD0iTTE3IDE3aDE0TDE3IDMxaDE0IiBzdHJva2U9IiNGREUwNDciIHN0cm9rZS13aWR0aD0iMy42IiBmaWxsPSJub25lIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjwvcGF0aD48L2c+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNjYgOSkgc2NhbGUoMC4wNTQ0MjE3Njg3MDc0ODI5OSkgdHJhbnNsYXRlKDAgLTIwOSkiIGZpbGw9IiMxNDE0MTQiPjxwYXRoIGQ9Ik0zNCA5MzBWNzk2TDI5NiA1NDVWNTMwSDQwVjQwMkg1MDBWNTM1TDIzNiA3ODdWODAxSDUwM1Y5MzBaIE04MjAuMCA5NDRRNzU0LjAgOTQ0IDcwMi4wIDkyNi41UTY1MC4wIDkwOSA2MTMuNSA4NzUuMFE1NzcuMCA4NDEgNTU4LjAgNzkxLjBRNTM5LjAgNzQxIDUzOS4wIDY3NlE1MzkuMCA2MTMgNTU3LjUgNTYwLjBRNTc2LjAgNTA3IDYxMC41IDQ2OC41UTY0NS4wIDQzMCA2OTUuNSA0MDkuMFE3NDYuMCAzODggODA5LjAgMzg4UTg3My4wIDM4OCA5MjEuNSA0MDguNVE5NzAuMCA0MjkgMTAwMS41IDQ2OS4wUTEwMzMuMCA1MDkgMTA0OC4wIDU2Ni41UTEwNjMuMCA2MjQgMTA1OC4wIDY5OEw2OTQuMCA3MDFRNjk5LjAgNzYyIDcyOS4wIDc5MlE3NjQuMCA4MjkgODE5LjAgODI5UTg0Ni4wIDgyOSA4NjQuMCA4MjEuNVE4ODIuMCA4MTQgODkzLjUgODAyLjVROTA1LjAgNzkxIDkxMS41IDc3Ny4wUTkxOC4wIDc2MyA5MjIuMCA3NTBMMTA2Mi4wIDc4MFExMDU0LjAgODE3IDEwMzYuNSA4NDcuMFExMDE5LjAgODc3IDk4OS41IDg5OS4wUTk2MC4wIDkyMSA5MTguNSA5MzIuNVE4NzcuMCA5NDQgODIwLjAgOTQ0Wk02OTguMCA2MTcgOTExLjAgNjE1UTkxMS4wIDU5MCA5MDMuMCA1NzFRODkwLjAgNTQwIDg2NS4wIDUyNS41UTg0MC4wIDUxMSA4MTEuMCA1MTFRNzc2LjAgNTExIDc0OS41IDUzMC4wUTcyMy4wIDU0OSA3MDguMCA1ODVRNzAyLjAgNTk5IDY5OC4wIDYxN1ogTTExMjYuMCA5MzBWNDAySDEyNTYuMEwxMjU4LjAgNTU3SDEyNzguMFExMjkxLjAgNTAxIDEzMTUuMCA0NjMuMFExMzM5LjAgNDI1IDEzNzYuMCA0MDYuNVExNDEzLjAgMzg4IDE0NjMuMCAzODhRMTU1Ni4wIDM4OCAxNjA0LjUgNDUzLjBRMTY1My4wIDUxOCAxNjUzLjAgNjYwVjkzMEgxNDkxLjBWNjc4UTE0OTEuMCA1OTYgMTQ2Ny41IDU1OC41UTE0NDQuMCA1MjEgMTM5OC4wIDUyMVExMzYwLjAgNTIxIDEzMzUuNSA1NDQuMFExMzExLjAgNTY3IDEyOTkuMCA2MDUuMFExMjg3LjAgNjQzIDEyODcuMCA2OTBWOTMwWiBNMTc3OS4wIDkzMFY2MDNIMTY5OC4wVjQ4NkwxODQyLjAgNDkyVjQ3M1ExODA0LjAgNDY2IDE3NzkuNSA0NDcuNVExNzU1LjAgNDI5IDE3NDQuMCA0MDQuMFExNzMzLjAgMzc5IDE3MzMuMCAzNTBRMTczMy4wIDMwNiAxNzU2LjAgMjc0LjVRMTc3OS4wIDI0MyAxODIxLjAgMjI2LjBRMTg2My4wIDIwOSAxOTE5LjAgMjA5UTE5NjguMCAyMDkgMjAwOC4wIDIyMC41UTIwNDguMCAyMzIgMjA3Mi4wIDI0OUwyMDYzLjAgMzk0UTIwMzguMCAzNzcgMjAwNi41IDM2Ni4wUTE5NzUuMCAzNTUgMTk0OC4wIDM1NVExOTIwLjAgMzU1IDE5MDEuMCAzNjkuNVExODgyLjAgMzg0IDE4ODIuMCA0MTdRMTg4Mi4wIDQ0MyAxODkzLjUgNDU2LjBRMTkwNS4wIDQ2OSAxOTIyLjAgNDczLjVRMTkzOS4wIDQ3OCAxOTU2LjAgNDc4SDIwNzIuMFY2MDNIMTkzNi4wVjkzMFogTTIzNjAuMCA5NDRRMjI4MC4wIDk0NCAyMjE4LjUgOTEzLjBRMjE1Ny4wIDg4MiAyMTIyLjAgODIwLjBRMjA4Ny4wIDc1OCAyMDg3LjAgNjY1UTIwODcuMCA1NzIgMjEyMi4wIDUxMC41UTIxNTcuMCA0NDkgMjIxOS4wIDQxOC41UTIyODEuMCAzODggMjM2MS4wIDM4OFEyNDQxLjAgMzg4IDI1MDMuMCA0MTkuMFEyNTY1LjAgNDUwIDI2MDAuMCA1MTEuNVEyNjM1LjAgNTczIDI2MzUuMCA2NjZRMjYzNS4wIDc2MSAyNTk5LjAgODIzLjBRMjU2My4wIDg4NSAyNTAwLjUgOTE0LjVRMjQzOC4wIDk0NCAyMzYwLjAgOTQ0Wk0yMzY1LjAgODI3UTI0MDEuMCA4MjcgMjQyNS4wIDgxMC41UTI0NDkuMCA3OTQgMjQ2MS4wIDc2MC4wUTI0NzMuMCA3MjYgMjQ3My4wIDY3NlEyNDczLjAgNjIzIDI0NjAuMCA1ODYuNVEyNDQ3LjAgNTUwIDI0MjEuNSA1MzAuNVEyMzk2LjAgNTExIDIzNTYuMCA1MTFRMjMyMi4wIDUxMSAyMjk3LjUgNTI3LjVRMjI3My4wIDU0NCAyMjYxLjAgNTc4LjBRMjI0OS4wIDYxMiAyMjQ5LjAgNjYzUTIyNDkuMCA3NDUgMjI3OS41IDc4Ni4wUTIzMTAuMCA4MjcgMjM2NS4wIDgyN1ogTTI2OTkuMCA5MzBWNDAySDI4MzEuMEwyODM0LjAgNTgxSDI4NTQuMFEyODYxLjAgNTExIDI4ODAuNSA0NjkuNVEyOTAwLjAgNDI4IDI5MzYuNSA0MDkuMFEyOTczLjAgMzkwIDMwMjcuMCAzOTBRMzAzNS4wIDM5MCAzMDQ1LjAgMzkwLjVRMzA1NS4wIDM5MSAzMDY4LjAgMzkzTDMwNjIuMCA1NjVRMzA0Ni4wIDU1NyAzMDI3LjUgNTU0LjVRMzAwOS4wIDU1MiAyOTk1LjAgNTUyUTI5NTYuMCA1NTIgMjkyNy41IDU2Ny4wUTI4OTkuMCA1ODIgMjg4Mi41IDYxMy4wUTI4NjYuMCA2NDQgMjg2MS4wIDY5MVY5MzBaIE0zMzA4LjAgOTQ0UTMyNDIuMCA5NDQgMzE5Mi41IDkxMC41UTMxNDMuMCA4NzcgMzExNS4wIDgxNC41UTMwODcuMCA3NTIgMzA4Ny4wIDY2NVEzMDg3LjAgNTg1IDMxMTEuMCA1MjMuMFEzMTM1LjAgNDYxIDMxODIuNSA0MjUuNVEzMjMwLjAgMzkwIDMzMDAuMCAzOTBRMzM1MC4wIDM5MCAzMzg0LjUgNDA4LjBRMzQxOS4wIDQyNiAzNDQyLjAgNDYyLjBRMzQ2NS4wIDQ5OCAzNDc5LjAgNTUzSDM1MDQuMFEzNDk3LjAgNTE5IDM0OTEuMCA0ODguNVEzNDg1LjAgNDU4IDM0ODEuNSA0MzEuNVEzNDc4LjAgNDA1IDM0NzguMCAzODVWMjEwSDM2NDAuMFY5MzBIMzUwOC4wTDM1MDYuMCA3NzRIMzQ4NC4wUTM0NzMuMCA4MzQgMzQ0OS41IDg3MS41UTM0MjYuMCA5MDkgMzM5MC41IDkyNi41UTMzNTUuMCA5NDQgMzMwOC4wIDk0NFpNMzM2Ni4wIDgxNFEzMzk3LjAgODE0IDM0MTguNSA4MDAuNVEzNDQwLjAgNzg3IDM0NTMuMCA3NjYuMFEzNDY2LjAgNzQ1IDM0NzIuMCA3MjEuMFEzNDc4LjAgNjk3IDM0NzguMCA2NzZWNjU1UTM0NzguMCA2MzYgMzQ3My4wIDYxNy4wUTM0NjguMCA1OTggMzQ1OC41IDU4MC4wUTM0NDkuMCA1NjIgMzQzNS4wIDU0OC4wUTM0MjEuMCA1MzQgMzQwMi41IDUyNi4wUTMzODQuMCA1MTggMzM2Mi4wIDUxOFEzMzI5LjAgNTE4IDMzMDUuNSA1MzYuMFEzMjgyLjAgNTU0IDMyNjkuNSA1ODcuMFEzMjU3LjAgNjIwIDMyNTcuMCA2NjUuMFEzMjU3LjAgNzEwIDMyNzAuMCA3NDMuNVEzMjgzLjAgNzc3IDMzMDguMCA3OTUuNVEzMzMzLjAgODE0IDMzNjYuMCA4MTRaIj48L3BhdGg+PC9nPjwvc3ZnPg==" alt="Zenford"></a>
   <nav class="nav" id="top-nav" aria-label="Hành trình chính"></nav>
-  <a class="button zf-btn zf-btn--white" href="#danh-muc">Danh mục màn hình</a>
+  <a class="button zf-btn zf-btn--white" href="#SCR-M14-02">Không gian của tôi</a>
 </div></header>
 <main id="main" tabindex="-1"></main>
 <footer class="footer"><div class="wrap foot-inner"><a class="brand" href="#SCR-M08-01"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNzIgNTgiIHdpZHRoPSI1NDMiIGhlaWdodD0iMTE2Ij48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg0IDQpIHJvdGF0ZSgtOCAyNCAyNikiPjxwYXRoIGQ9Ik0xMCAxNSAxMiA0IDIwIDExWiBNMzggMTUgMzYgNCAyOCAxMVoiIGZpbGw9IiNGREUwNDciIHN0cm9rZT0iIzE0MTQxNCIgc3Ryb2tlLXdpZHRoPSIyLjQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjwvcGF0aD48cGF0aCBkPSJNMTIgOWgyNGE4IDggMCAwIDEgOCA4djEzYTggOCAwIDAgMS04IDhIMjJsLTggN3YtN2gtMmE4IDggMCAwIDEtOC04VjE3YTggOCAwIDAgMSA4LTh6IiBmaWxsPSIjRkRFMDQ3IiBzdHJva2U9IiMxNDE0MTQiIHN0cm9rZS13aWR0aD0iMi42IiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48L3BhdGg+PHBhdGggZD0iTTE3IDE3aDE0TDE3IDMxaDE0IiBzdHJva2U9IiMxNDE0MTQiIHN0cm9rZS13aWR0aD0iMy42IiBmaWxsPSJub25lIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjwvcGF0aD48L2c+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNjYgOSkgc2NhbGUoMC4wNTQ0MjE3Njg3MDc0ODI5OSkgdHJhbnNsYXRlKDAgLTIwOSkiIGZpbGw9IiNGRkZGRkYiPjxwYXRoIGQ9Ik0zNCA5MzBWNzk2TDI5NiA1NDVWNTMwSDQwVjQwMkg1MDBWNTM1TDIzNiA3ODdWODAxSDUwM1Y5MzBaIE04MjAuMCA5NDRRNzU0LjAgOTQ0IDcwMi4wIDkyNi41UTY1MC4wIDkwOSA2MTMuNSA4NzUuMFE1NzcuMCA4NDEgNTU4LjAgNzkxLjBRNTM5LjAgNzQxIDUzOS4wIDY3NlE1MzkuMCA2MTMgNTU3LjUgNTYwLjBRNTc2LjAgNTA3IDYxMC41IDQ2OC41UTY0NS4wIDQzMCA2OTUuNSA0MDkuMFE3NDYuMCAzODggODA5LjAgMzg4UTg3My4wIDM4OCA5MjEuNSA0MDguNVE5NzAuMCA0MjkgMTAwMS41IDQ2OS4wUTEwMzMuMCA1MDkgMTA0OC4wIDU2Ni41UTEwNjMuMCA2MjQgMTA1OC4wIDY5OEw2OTQuMCA3MDFRNjk5LjAgNzYyIDcyOS4wIDc5MlE3NjQuMCA4MjkgODE5LjAgODI5UTg0Ni4wIDgyOSA4NjQuMCA4MjEuNVE4ODIuMCA4MTQgODkzLjUgODAyLjVROTA1LjAgNzkxIDkxMS41IDc3Ny4wUTkxOC4wIDc2MyA5MjIuMCA3NTBMMTA2Mi4wIDc4MFExMDU0LjAgODE3IDEwMzYuNSA4NDcuMFExMDE5LjAgODc3IDk4OS41IDg5OS4wUTk2MC4wIDkyMSA5MTguNSA5MzIuNVE4NzcuMCA5NDQgODIwLjAgOTQ0Wk02OTguMCA2MTcgOTExLjAgNjE1UTkxMS4wIDU5MCA5MDMuMCA1NzFRODkwLjAgNTQwIDg2NS4wIDUyNS41UTg0MC4wIDUxMSA4MTEuMCA1MTFRNzc2LjAgNTExIDc0OS41IDUzMC4wUTcyMy4wIDU0OSA3MDguMCA1ODVRNzAyLjAgNTk5IDY5OC4wIDYxN1ogTTExMjYuMCA5MzBWNDAySDEyNTYuMEwxMjU4LjAgNTU3SDEyNzguMFExMjkxLjAgNTAxIDEzMTUuMCA0NjMuMFExMzM5LjAgNDI1IDEzNzYuMCA0MDYuNVExNDEzLjAgMzg4IDE0NjMuMCAzODhRMTU1Ni4wIDM4OCAxNjA0LjUgNDUzLjBRMTY1My4wIDUxOCAxNjUzLjAgNjYwVjkzMEgxNDkxLjBWNjc4UTE0OTEuMCA1OTYgMTQ2Ny41IDU1OC41UTE0NDQuMCA1MjEgMTM5OC4wIDUyMVExMzYwLjAgNTIxIDEzMzUuNSA1NDQuMFExMzExLjAgNTY3IDEyOTkuMCA2MDUuMFExMjg3LjAgNjQzIDEyODcuMCA2OTBWOTMwWiBNMTc3OS4wIDkzMFY2MDNIMTY5OC4wVjQ4NkwxODQyLjAgNDkyVjQ3M1ExODA0LjAgNDY2IDE3NzkuNSA0NDcuNVExNzU1LjAgNDI5IDE3NDQuMCA0MDQuMFExNzMzLjAgMzc5IDE3MzMuMCAzNTBRMTczMy4wIDMwNiAxNzU2LjAgMjc0LjVRMTc3OS4wIDI0MyAxODIxLjAgMjI2LjBRMTg2My4wIDIwOSAxOTE5LjAgMjA5UTE5NjguMCAyMDkgMjAwOC4wIDIyMC41UTIwNDguMCAyMzIgMjA3Mi4wIDI0OUwyMDYzLjAgMzk0UTIwMzguMCAzNzcgMjAwNi41IDM2Ni4wUTE5NzUuMCAzNTUgMTk0OC4wIDM1NVExOTIwLjAgMzU1IDE5MDEuMCAzNjkuNVExODgyLjAgMzg0IDE4ODIuMCA0MTdRMTg4Mi4wIDQ0MyAxODkzLjUgNDU2LjBRMTkwNS4wIDQ2OSAxOTIyLjAgNDczLjVRMTkzOS4wIDQ3OCAxOTU2LjAgNDc4SDIwNzIuMFY2MDNIMTkzNi4wVjkzMFogTTIzNjAuMCA5NDRRMjI4MC4wIDk0NCAyMjE4LjUgOTEzLjBRMjE1Ny4wIDg4MiAyMTIyLjAgODIwLjBRMjA4Ny4wIDc1OCAyMDg3LjAgNjY1UTIwODcuMCA1NzIgMjEyMi4wIDUxMC41UTIxNTcuMCA0NDkgMjIxOS4wIDQxOC41UTIyODEuMCAzODggMjM2MS4wIDM4OFEyNDQxLjAgMzg4IDI1MDMuMCA0MTkuMFEyNTY1LjAgNDUwIDI2MDAuMCA1MTEuNVEyNjM1LjAgNTczIDI2MzUuMCA2NjZRMjYzNS4wIDc2MSAyNTk5LjAgODIzLjBRMjU2My4wIDg4NSAyNTAwLjUgOTE0LjVRMjQzOC4wIDk0NCAyMzYwLjAgOTQ0Wk0yMzY1LjAgODI3UTI0MDEuMCA4MjcgMjQyNS4wIDgxMC41UTI0NDkuMCA3OTQgMjQ2MS4wIDc2MC4wUTI0NzMuMCA3MjYgMjQ3My4wIDY3NlEyNDczLjAgNjIzIDI0NjAuMCA1ODYuNVEyNDQ3LjAgNTUwIDI0MjEuNSA1MzAuNVEyMzk2LjAgNTExIDIzNTYuMCA1MTFRMjMyMi4wIDUxMSAyMjk3LjUgNTI3LjVRMjI3My4wIDU0NCAyMjYxLjAgNTc4LjBRMjI0OS4wIDYxMiAyMjQ5LjAgNjYzUTIyNDkuMCA3NDUgMjI3OS41IDc4Ni4wUTIzMTAuMCA4MjcgMjM2NS4wIDgyN1ogTTI2OTkuMCA5MzBWNDAySDI4MzEuMEwyODM0LjAgNTgxSDI4NTQuMFEyODYxLjAgNTExIDI4ODAuNSA0NjkuNVEyOTAwLjAgNDI4IDI5MzYuNSA0MDkuMFEyOTczLjAgMzkwIDMwMjcuMCAzOTBRMzAzNS4wIDM5MCAzMDQ1LjAgMzkwLjVRMzA1NS4wIDM5MSAzMDY4LjAgMzkzTDMwNjIuMCA1NjVRMzA0Ni4wIDU1NyAzMDI3LjUgNTU0LjVRMzAwOS4wIDU1MiAyOTk1LjAgNTUyUTI5NTYuMCA1NTIgMjkyNy41IDU2Ny4wUTI4OTkuMCA1ODIgMjg4Mi41IDYxMy4wUTI4NjYuMCA2NDQgMjg2MS4wIDY5MVY5MzBaIE0zMzA4LjAgOTQ0UTMyNDIuMCA5NDQgMzE5Mi41IDkxMC41UTMxNDMuMCA4NzcgMzExNS4wIDgxNC41UTMwODcuMCA3NTIgMzA4Ny4wIDY2NVEzMDg3LjAgNTg1IDMxMTEuMCA1MjMuMFEzMTM1LjAgNDYxIDMxODIuNSA0MjUuNVEzMjMwLjAgMzkwIDMzMDAuMCAzOTBRMzM1MC4wIDM5MCAzMzg0LjUgNDA4LjBRMzQxOS4wIDQyNiAzNDQyLjAgNDYyLjBRMzQ2NS4wIDQ5OCAzNDc5LjAgNTUzSDM1MDQuMFEzNDk3LjAgNTE5IDM0OTEuMCA0ODguNVEzNDg1LjAgNDU4IDM0ODEuNSA0MzEuNVEzNDc4LjAgNDA1IDM0NzguMCAzODVWMjEwSDM2NDAuMFY5MzBIMzUwOC4wTDM1MDYuMCA3NzRIMzQ4NC4wUTM0NzMuMCA4MzQgMzQ0OS41IDg3MS41UTM0MjYuMCA5MDkgMzM5MC41IDkyNi41UTMzNTUuMCA5NDQgMzMwOC4wIDk0NFpNMzM2Ni4wIDgxNFEzMzk3LjAgODE0IDM0MTguNSA4MDAuNVEzNDQwLjAgNzg3IDM0NTMuMCA3NjYuMFEzNDY2LjAgNzQ1IDM0NzIuMCA3MjEuMFEzNDc4LjAgNjk3IDM0NzguMCA2NzZWNjU1UTM0NzguMCA2MzYgMzQ3My4wIDYxNy4wUTM0NjguMCA1OTggMzQ1OC41IDU4MC4wUTM0NDkuMCA1NjIgMzQzNS4wIDU0OC4wUTM0MjEuMCA1MzQgMzQwMi41IDUyNi4wUTMzODQuMCA1MTggMzM2Mi4wIDUxOFEzMzI5LjAgNTE4IDMzMDUuNSA1MzYuMFEzMjgyLjAgNTU0IDMyNjkuNSA1ODcuMFEzMjU3LjAgNjIwIDMyNTcuMCA2NjUuMFEzMjU3LjAgNzEwIDMyNzAuMCA3NDMuNVEzMjgzLjAgNzc3IDMzMDguMCA3OTUuNVEzMzMzLjAgODE0IDMzNjYuMCA4MTRaIj48L3BhdGg+PC9nPjwvc3ZnPg==" alt="Zenford"></a><span class="subtle">Bản mẫu giao diện · Dữ liệu minh họa</span><a class="text-link subtle" href="#danh-muc">Tra cứu màn hình</a></div></footer>
 <div id="toast" class="toast" role="status" hidden></div>
 <dialog id="decision"><form id="decision-form" class="stack"><h2 id="decision-title"></h2><div id="decision-fields" class="stack compact"></div><div class="actions"><button type="button" class="button zf-btn zf-btn--white" data-action="close-dialog">Hủy</button><button class="button primary zf-btn" type="submit">Xác nhận</button></div></form></dialog>
+<dialog id="item-dialog" aria-label="Chi tiết"></dialog>
 <noscript><p class="wrap">Vui lòng bật JavaScript để mở danh mục và chuyển giữa các màn hình mẫu.</p></noscript>
 <script id="ux-data" type="application/json">
 {"screens":[
@@ -1449,11 +1477,6 @@ const screens = new Map(data.screens.map(screen => [screen.id, screen]));
 const main = document.getElementById("main");
 const toast = document.getElementById("toast");
 const dialog = document.getElementById("decision");
-const shortcuts = [
-  ["SCR-M42-01", "Học với AI", "headphones", "yellow", "Chuẩn bị trước buổi học", "Chẩn đoán nhanh, học phần còn yếu và luyện nói cùng AI Tutor.", "Mở Pre-class"],
-  ["SCR-M16-03", "Xưởng học thuật", "notebook-pen", "mint", "Sản xuất học liệu", "Giao đề bài, chọn mô hình cho từng agent và xem cách bản nháp được sửa qua kiểm định.", "Mở xưởng học thuật"],
-  ["SCR-M29-04", "AI review CV", "file-search", "sky", "Đánh giá hồ sơ ứng viên", "Đối chiếu điểm AI với bằng chứng trong CV và ghi nhận quyết định của Nhân sự.", "Mở bảng xếp hạng"]
-];
 const featuredPortals = {
   "Website công khai":"SCR-M08-01", "Cổng học viên":"SCR-M42-01", "Màn học AI":"SCR-M42-02",
   "Cổng giáo viên":"SCR-M42-05", "Admin CRM":"SCR-M16-03"
@@ -1500,7 +1523,9 @@ const routeFamily = id => {
 };
 
 function pageHeading(screen, title = screen.name, summary = screen.purpose, actions = "") {
-  return `<header class="head"><div><div class="bread"><a href="#danh-muc">Danh mục</a><span aria-hidden="true">/</span><span>${escape(screen.portal)}</span></div><h1>${escape(title)}</h1><p class="muted">${escape(summary)}</p></div>${actions ? `<div class="actions">${actions}</div>` : ""}</header>`;
+  const roots={"Website công khai":"SCR-M08-01","Cổng học viên":"SCR-M14-02","Cổng phụ huynh":"SCR-M15-02","Cổng giáo viên":"SCR-M50-01","Cổng CTV":"SCR-M21-02","Admin CRM":"SCR-M16-01","Màn học AI":"SCR-M45-01"};
+  const root=roots[screen.portal]||"danh-muc";
+  return `<header class="head"><div><div class="bread"><a href="#${root}">Trang chính</a><span aria-hidden="true">/</span><span>${escape(screen.portal)}</span></div><h1>${escape(title)}</h1><p class="muted">${escape(summary)}</p></div>${actions ? `<div class="actions">${actions}</div>` : ""}</header>`;
 }
 
 const familyMenus = {
@@ -1512,26 +1537,30 @@ const familyMenus = {
 function workspace(screen, content, additional = []) {
   const portal = data.nav.find(entry => entry.portal === screen.portal);
   const family = routeFamily(screen.id);
+  const group = portal?.groups.find(g=>g.codes.includes(screen.id));
+  const jump = group && group.codes.length>1 ? `<label class="portal-jump"><span>${escape(group.name)}</span><select aria-label="Chuyển trang trong ${escape(group.name)}" data-choice="portal-page">${group.codes.map(code=>`<option value="${code}"${screen.id===code?" selected":""}>${escape(displayTitle(screens.get(code)))}</option>`).join("")}</select></label>` : "";
   const items = familyMenus[family] || (portal?.groups || []).map(group => {
-    const target = group.codes.includes(screen.id) ? screen.id : groupEntries[group.name] || group.codes[0];
+    const preferred = groupEntries[group.name];
+    const target = group.codes.includes(screen.id) ? screen.id : group.codes.includes(preferred) ? preferred : group.codes[0];
     return [target,group.name];
   });
   const links = [...items, ...additional].map(([id, label]) =>
     `<a href="#${id}"${screen.id === id ? ' aria-current="page"' : ""}>${escape(label)}</a>`).join("");
-  return `<div class="wrap workspace${screen.portal === "Website công khai" ? " public-workspace" : ""}"><aside><nav class="side" aria-label="Điều hướng khu vực"><div class="side-title"><strong>${escape(screen.portal)}</strong></div>${links}<div class="divider"></div><a href="#danh-muc">Danh mục màn hình</a></nav></aside><div class="stack">${content}</div></div>`;
+  return `<div class="wrap workspace${screen.portal === "Website công khai" ? " public-workspace" : ""}"><aside><nav class="side" aria-label="Điều hướng khu vực"><div class="side-title"><strong>${escape(screen.portal)}</strong></div>${jump}${links}<div class="divider"></div><a href="#danh-muc">Danh mục màn hình</a></nav></aside><div class="stack">${content}</div></div>`;
 }
 
 function home() {
   return `<div class="wrap home">
     <section class="hero"><div><div class="zf-kick">Học ngoại ngữ trực tuyến</div><h1>Mỗi buổi học,<br>một bước tiến.</h1>
     <p>Chuẩn bị với AI, thực hành cùng giáo viên và ôn lại theo tiến độ của bạn.</p>
-    <div class="actions">${link("SCR-M42-01","Học với AI","dark")}${link("SCR-M08-03","Xem lộ trình")}</div></div>
+    <div class="actions">${link("SCR-M42-01","Học với AI","dark")}${link("SCR-M08-03","Xem lộ trình")}${link("SCR-M10-01","Cửa hàng")}</div></div>
     <div class="visual zf-grid-bg"><div class="hero-zen zf-zen" data-zen="happy|#BFE4FF|follow"></div><div class="visual-board stack compact"><div class="row">${pill("Pre-class","mint")}<small>Tiếng Anh · A2</small></div>
     <h3>Ordering at a café</h3><div class="zf-bar" role="img" aria-label="Tiến độ minh họa, một trong ba phần"><i style="width:33%"></i></div><small>Chẩn đoán · Dạy nền · Luyện tập</small></div></div></section>
-    <section class="section marketing"><div class="section-title"><h2>Khám phá các hành trình</h2><a class="text-link subtle" href="#danh-muc">Xem toàn bộ màn hình</a></div>
-    <div class="tiles">${shortcuts.map(([id,name,icon,tone,title,desc,cta]) => `<a class="tile" href="#${id}"><span class="tile-icon ${tone}" aria-hidden="true">${routeIcon(icon)}</span><div class="eyebrow">${name}</div><h3>${title}</h3><p class="subtle">${desc}</p><span class="end">${cta} ${routeIcon("arrow-up-right")}</span></a>`).join("")}</div></section>
+    ${homeLearning()}
+    <div class="section actions">${link("SCR-M14-02","Cổng học viên")}${link("SCR-M46-01","Lộ trình của tôi")}${link("SCR-M15-02","Cổng phụ huynh")}${link("SCR-M50-01","Cổng giáo viên")}</div>
     <section class="section marketing language"><div class="section-title"><h2>Lộ trình theo ngôn ngữ</h2>${link("SCR-M08-05","Kiểm tra trình độ","small")}</div>
     <div class="language-list">${languages.map(([name,code])=>`<a class="zf-card zf-card--hover zf-lang" href="#SCR-M08-03" data-language="${code}" data-lang="${code}">${glyph(code)}<strong>${name}</strong></a>`).join("")}</div></section>
+    ${homeCommunity()}
   </div>`;
 }
 
@@ -1554,7 +1583,7 @@ function publicProgram(screen) {
 }
 
 function catalog() {
-  return `<div class="wrap home stack"><header class="head"><div><div class="bread"><a href="#SCR-M08-01">Trang chủ</a></div><h1>Danh mục màn hình</h1><p class="muted">Tìm theo tên, mã hoặc khu vực trong wireframe UX-02.</p></div></header>
+  return `<div class="wrap home stack"><header class="head"><div><div class="bread"><a href="#SCR-M08-01">Trang chủ</a></div><h1>Danh mục màn hình</h1><p class="muted">Tìm theo tên trang, mã hoặc khu vực sử dụng.</p></div></header>
   <div class="card grid2"><label>Tìm màn hình<input id="catalog-query" type="search" placeholder="Ví dụ: Pre-class, SCR-M17-04"></label><label>Khu vực<select id="catalog-portal">${options(["Tất cả khu vực", ...data.nav.map(p=>p.portal)])}</select></label></div>
   <div id="catalog-results" class="stack"></div></div>`;
 }
@@ -1579,59 +1608,6 @@ function renderCatalogResults() {
   document.getElementById("catalog-results").innerHTML = `<p role="status" class="subtle">${count} màn hình</p>${entries || card("<p>Không tìm thấy màn hình phù hợp.</p>")}`;
 }
 
-const demoValues = {
-  "ngôn ngữ":"Tiếng Anh","trình độ":"A2","khối":"Giao tiếp hằng ngày","lớp":"ENG-A2-07","học viên":"Minh Anh",
-  "kỹ năng":"Nói",
-  "ngày":"24/11/2026","thời gian":"18:30","email":"minh.anh@example.test","điểm":"82/100","số tiền":"450.000 ₫ (minh họa)",
-  "giá":"450.000 ₫ (minh họa)","vai trò":"Điều phối","mã":"ZF-024","phiên bản":"v1.0"
-};
-const fieldsFrom = heading => (heading.split(":").slice(1).join(":") || "")
-  .split(/[,;]|\s+\/\s+/).map(item=>item.trim()).filter(Boolean);
-const sampleFor = fieldName => {
-  const key = fold(fieldName.trim());
-  const specific = {
-    "ten hoc vien":"Minh Anh","ho ten":"Nguyễn Minh Anh","giao vien":"Cô Hà",
-    "trong so":"25%","han":"24/11/2026","gio hoc":"18:30","so luong":"3",
-    "ma lop":"ENG-A2-07","ma hoc vien":"HV-024","hoc phi":"450.000 ₫ (minh họa)"
-  };
-  if (specific[key]) return specific[key];
-  return Object.entries(demoValues).find(([label])=>fold(label)===key)?.[1] ?? "—";
-};
-
-function screenNeighbors(screen) {
-  const group = data.nav.find(p=>p.portal === screen.portal)?.groups.find(g=>g.codes.includes(screen.id));
-  const related = data.screens.filter(s => s.id !== screen.id && s.mod === screen.mod);
-  const ids = [...new Set([...(group?.codes || []), ...related.map(s => s.id)])].filter(id=>id !== screen.id);
-  return ids.map(id => screens.get(id));
-}
-
-function genericComponent(item, neighbors) {
-  const normalized = fold(item);
-  const kind = item.split(":")[0];
-  const description = item.slice(kind.length + 1).trim();
-  const fields = fieldsFrom(item);
-  if (/^(nut|cac nut|thanh nut)/.test(normalized)) {
-    const labels = (fields.length ? fields : [item.replace(/^(Các nút|Thanh nút|Nút)\s*/i,"")]).filter(Boolean);
-    return `<div class="actions">${labels.map(label => {
-      const key = fold(label);
-      const exact = neighbors.find(screen => fold(screen.name) === key);
-      const begins = key.length >= 4 && neighbors.find(screen => fold(screen.name).startsWith(key + " "));
-      const target = exact || begins;
-      return target ? link(target.id,label) : button("generic", label);
-    }).join("")}</div>`;
-  }
-  if (/^(bang|danh sach|luoi)/.test(normalized) && fields.length > 1) {
-    return card(`<h3>${escape(kind)}</h3>${table(fields,[fields.map(f=>escape(sampleFor(f)))])}`);
-  }
-  if (/^(truong|form|bo loc|loc|chon|tim kiem|o tim)/.test(normalized)) {
-    const labels = fields.length ? fields : [item.replace(/^(Trường|Form|Bộ lọc|Lọc|Chọn|Tìm kiếm|Ô tìm)\s*/i,"") || kind];
-    return card(`<div class="grid2">${labels.map(name => /^(bo loc|loc|chon)/.test(normalized)
-      ? field(name, sampleFor(name)==="—" ? ["Tất cả"] : ["Chọn…",sampleFor(name)])
-      : `<label>${escape(name)}<input placeholder="${escape(sampleFor(name))}"></label>`).join("")}</div>`);
-  }
-  return card(`<h3>${escape(description ? kind : item)}</h3>${description ? `<p>${escape(description)}</p>` : ""}`);
-}
-
 const labGuides = {
   "SCR-M45-03":["#BFE4FF","phones","Nghe lần đầu để nắm ý chính. Bạn có thể nghe lại từng đoạn."],
   "SCR-M45-04":["#FFD2B8","mic","Đọc thử một lần, rồi ghi âm và nghe lại cách bạn nhấn trọng âm."],
@@ -1644,13 +1620,1687 @@ function labHint(id) {
   return `<aside class="zf-say"><span class="zf-zen" data-zen="think|${hood}|${outfit}"></span><p class="zf-bubble"><strong>Zen</strong><br>${hint}</p></aside>`;
 }
 
-function genericScreen(screen) {
-  const neighbors = screenNeighbors(screen);
-  const components = screen.el.map(item => genericComponent(item,neighbors)).join("");
-  const context = card(`<h3>Màn hình liên quan</h3><ul class="linklist">${neighbors.slice(0,10).map(s=>`<li><a href="#${s.id}">${escape(s.name)}</a></li>`).join("") || '<li><a href="#danh-muc">Danh mục màn hình</a></li>'}</ul>
-    <details><summary>Thông tin màn hình</summary><p class="subtle">${screen.id} · ${escape(screen.modName)} · ${screen.doc}</p><p class="subtle">${escape(screen.users)}</p></details>`);
-  return workspace(screen, pageHeading(screen) + `<div class="split"><div class="stack">${labHint(screen.id)}${components}</div>${context}</div>`);
+const routeRecords = {
+"SCR-M01-02":[["Thông điệp","Nguồn","Lần cuối","Số lần"],["Không tải được audio bài 05","Trình duyệt","09:42","3"],["Xác nhận đơn quá thời gian chờ","Thanh toán","08:21","2"]],
+"SCR-M01-03":[["Sự kiện","Nguồn","Chiều","Kết quả"],["payment.confirmed","VietQR","Nhận","Đã xử lý"],["invoice.created","Hóa đơn","Gửi","Đã xác nhận"]],
+"SCR-M01-04":[["Dịch vụ","Hạn","Phụ trách","Trạng thái"],["Chứng chỉ cổng học","18/12/2026","Quang Duy","Còn hiệu lực"],["Tên miền trung tâm","30/11/2026","Lan Phương","Sắp đến hạn"]],
+"SCR-M01-08":[["Biểu mẫu","Khổ giấy","Phiên bản","Cập nhật"],["Phiếu thu học phí","A5","v2","21/11/2026"],["Chứng nhận tiếng Anh A2","A4 ngang","v3","17/11/2026"]],
+"SCR-M01-09":[["Chứng từ","Tiền tố","Độ dài","Mã gần nhất"],["Phiếu thu","PT","5","PT-2026-00024"],["Phiếu chi","PC","5","PC-2026-00018"]],
+"SCR-M01-10":[["Phiên bản","Người sửa","Thay đổi","Ngày"],["v2.1","Quỳnh Chi","Sửa phụ đề câu 3","23/11/2026"],["v2.0","Thu Hà","Bổ sung bài nghe","18/11/2026"]],
+"SCR-M01-17":[["Từ","Phiên âm","Nghĩa","Ngôn ngữ"],["please","/pliːz/","xin vui lòng","Tiếng Anh"],["menu","/ˈmen.juː/","thực đơn","Tiếng Anh"]],
+"SCR-M01-23":[["Tài nguyên","Phương thức","Mục đích","Phiên bản"],["Lịch học","GET","Xem các buổi đã đặt","v1"],["Phiếu hỗ trợ","POST","Tạo yêu cầu hỗ trợ","v1"]],
+"SCR-M02-08":[["Vai trò","Khu vực","Quyền","Phạm vi"],["Giáo viên","Lớp học","Chấm bài","Lớp được giao"],["Điều phối","Lịch dạy","Sắp lịch","Trung tâm"]],
+"SCR-M03-02":[["Phòng ban","Trưởng nhóm","Nhân sự","Chức năng"],["Học thuật","Quỳnh Chi","8","Phát triển học liệu"],["Vận hành","Lan Phương","6","Điều phối lớp học"]],
+"SCR-M03-04":[["Mẫu","Đối tượng","Phiên bản","Trạng thái"],["Ghi danh lớp trực tuyến","Học viên","v2","Đang áp dụng"],["Cộng tác giảng dạy","Giáo viên","v1","Chờ duyệt"]],
+"SCR-M03-14":[["Ngày","Sự kiện","Loại","Lịch lớp"],["01/01/2027","Tết Dương lịch","Ngày nghỉ","Không xếp lớp"],["02/01/2027","Trực hỗ trợ đầu năm","Ngày làm việc","Theo lịch"]],
+"SCR-M04-03":[["Phân hệ","Đã dùng hôm nay","Hạn mức","Trạng thái"],["AI Tutor","148 lượt","200 lượt","Trong hạn mức"],["Học thuật","94 lượt","100 lượt","Gần ngưỡng"]],
+"SCR-M04-06":[["Kho","Tài liệu","Lần cập nhật","Trạng thái"],["Hoclieu-EN-A2","46","23/11 · 17:00","Sẵn sàng"],["Chinh-sach-hoc-vien","18","22/11 · 09:15","Sẵn sàng"]],
+"SCR-M04-09":[["Prompt","Phiên bản","Mô hình","Trạng thái"],["Tutor giải thích ngữ pháp","v3","Sonnet","Đang sử dụng"],["Đánh giá bài nói A2","v2","GPT-4.1","Chờ duyệt"]],
+"SCR-M05-01":[["Thời điểm","Người thực hiện","Hành động","Đối tượng"],["24/11 · 09:15","Cô Hà","Thêm nhận xét","Bài nói HV-024"],["23/11 · 16:30","Lan Phương","Đổi giờ học","ENG-A2-07"]],
+"SCR-M05-02":[["Thời điểm","Người thực hiện","Hành động","Đối tượng"],["24/11 · 09:15","Cô Hà","Thêm nhận xét","Bài nói HV-024"],["23/11 · 16:30","Lan Phương","Đổi giờ học","ENG-A2-07"]],
+"SCR-M05-03":[["Thời điểm","Người thực hiện","Hành động","Đối tượng"],["24/11 · 09:15","Cô Hà","Thêm nhận xét","Bài nói HV-024"],["23/11 · 16:30","Lan Phương","Đổi giờ học","ENG-A2-07"]],
+"SCR-M06-06":[["Dữ liệu","Thời hạn","Khi hết hạn","Phụ trách"],["Ghi âm bài nói","90 ngày","Xóa bản ghi","Vận hành"],["Hồ sơ đồng ý","24 tháng","Rà soát","Quản trị"]],
+"SCR-M06-10":[["Bản sao","Thời điểm","Dung lượng","Kiểm tra phục hồi"],["Cơ sở dữ liệu học tập","24/11 · 02:00","4,2 GB","Đạt"],["Kho tệp học liệu","23/11 · 03:00","24 GB","Đạt"]],
+"SCR-M06-11":[["Tệp","Loại","Dung lượng","Trạng thái"],["cafe-dialogue-05.mp3","Audio","1,2 MB","Sẵn sàng"],["menu-a2.pdf","Tài liệu","340 KB","Đã lưu"]],
+"SCR-M07-03":[["Tên mẫu","Kênh","Nội dung","Trạng thái"],["Nhắc buổi học","ZNS","Lớp của bạn bắt đầu lúc 18:30.","Đã duyệt"],["Xác nhận ghi danh","SMS","Zenford đã ghi nhận đăng ký.","Chờ duyệt"]],
+"SCR-M07-05":[["Tài liệu","Phiên bản","Phụ trách","Trạng thái"],["Sơ đồ kết nối cổng thanh toán","v2","Quang Duy","Đã rà soát"],["Mô tả luồng nhận tin","v1","Lan Phương","Chờ duyệt"]],
+"SCR-M08-16":[["Trang","Ngôn ngữ","Bản dịch","Trạng thái"],["Giới thiệu Zenford","Tiếng Anh","About Zenford","Đã duyệt"],["Chương trình học","Tiếng Nhật","学習プログラム","Chờ duyệt"]],
+"SCR-M08-17":[["Trang","Tiêu đề tìm kiếm","Lượt xem","Trạng thái"],["Giao tiếp A2","Tiếng Anh giao tiếp A2 cùng Zenford","312","Đã xuất bản"],["Kiểm tra trình độ","Khám phá trình độ tiếng Anh","186","Đã xuất bản"]],
+"SCR-M09-03":[["Chương trình","Khối","Giờ chuẩn","Hiệu lực"],["Tiếng Anh giao tiếp","A2 đến B1","48","01/11/2026"],["Tiếng Nhật nhập môn","Kana","24","01/10/2026"]],
+"SCR-M10-12":[["Sản phẩm","Người nhận","Hạn dùng","Thiết bị"],["Café English","Minh Anh","22/05/2027","1/2"],["Nhật ngữ từ nét đầu","Gia Hân","19/05/2027","1/2"]],
+"SCR-M10-13":[["Lô","Sản phẩm","Đã kích hoạt","Hạn mã"],["CAFE-1126","Café English","18/40","31/03/2027"],["KANA-1126","Nhật ngữ từ nét đầu","12/30","30/04/2027"]],
+"SCR-M10-14":[["SKU","Sách in","Tồn kho","Ngưỡng nhập"],["ZF-CAFE","Café English","28","8"],["ZF-SG","Tiếng Việt quanh tôi","12","5"]],
+"SCR-M10-15":[["Sản phẩm","Học viên","Số sao","Nhận xét"],["Café English","Minh Anh","5","Hội thoại dễ áp dụng."],["Tiếng Việt quanh tôi","Gia Hân","4","Mình thích bài đi chợ."]],
+"SCR-M11-04":[["Phiên bản","Ngày","Thay đổi","Tác giả"],["v2","23/11/2026","Bổ sung phụ đề bài 05","Cô Hà"],["v1","09/11/2026","Phát hành 12 bài hội thoại","Quỳnh Chi"]],
+"SCR-M12-11":[["Bài chấm","Giáo viên","Ngày","Tiền công minh họa"],["Bài nói HV-024","Cô Thu Hà","23/11","30.000 ₫"],["Bài viết HV-047","Cô Mai Linh","21/11","35.000 ₫"]],
+"SCR-M12-15":[["Bài chấm","Giáo viên","Ngày","Tiền công minh họa"],["Bài nói HV-024","Cô Thu Hà","23/11","30.000 ₫"],["Bài viết HV-047","Cô Mai Linh","21/11","35.000 ₫"]],
+"SCR-M13-08":[["Mã ưu đãi","Quyền lợi","Hạn dùng","Trạng thái"],["ZEN10","Giảm 10% đơn học liệu","30/11/2026","Đang áp dụng"],["WELCOME","Giảm 5% gói mới","15/12/2026","Sắp mở"]],
+"SCR-M13-13":[["Mã giao dịch","Mã đơn","Phương thức","Trạng thái"],["TX-2411-01","ZF-2411-024","VietQR","Thành công"],["TX-2411-02","ZF-2411-031","VNPay","Chờ xác nhận"]],
+"SCR-M13-14":[["Yêu cầu","Đơn","Số tiền minh họa","Trạng thái"],["HT-1124-01","ZF-2411-017","99.000 ₫","Chờ duyệt"],["HT-1124-02","ZF-2411-012","149.000 ₫","Đã hoàn"]],
+"SCR-M14-09":[["Người được mời","Ngày giới thiệu","Kết quả","Quyền lợi"],["Hoàng Minh","20/11","Đã ghi danh","1 buổi luyện"],["Bảo Ngọc","22/11","Đã đăng ký","Chờ ghi danh"]],
+"SCR-M21-20":[["Người được mời","Ngày giới thiệu","Kết quả","Quyền lợi"],["Hoàng Minh","20/11","Đã ghi danh","1 buổi luyện"],["Bảo Ngọc","22/11","Đã đăng ký","Chờ ghi danh"]],
+"SCR-M21-21":[["Người được mời","Ngày giới thiệu","Kết quả","Quyền lợi"],["Hoàng Minh","20/11","Đã ghi danh","1 buổi luyện"],["Bảo Ngọc","22/11","Đã đăng ký","Chờ ghi danh"]],
+"SCR-M15-11":[["Người giám hộ","Quan hệ","Học viên","Trạng thái"],["Nguyễn Mai Anh","Mẹ","Minh Anh","Đã liên kết"],["Trần Quốc Huy","Cha","Gia Hân","Đã liên kết"]],
+"SCR-M15-14":[["Người giám hộ","Quan hệ","Học viên","Trạng thái"],["Nguyễn Mai Anh","Mẹ","Minh Anh","Đã liên kết"],["Trần Quốc Huy","Cha","Gia Hân","Đã liên kết"]],
+"SCR-M16-13":[["Nguồn","Tác giả","Phạm vi","Trạng thái"],["Café dialogues","Tổ tiếng Anh","Nội bộ Zenford","Đã xác minh"],["Ảnh thực đơn lớp A2","Thu Hà","Lớp trực tuyến","Đã cho phép"]],
+"SCR-M16-15":[["Âm","Ví dụ","Điểm chú ý","Trình độ"],["/θ/","think","Đầu lưỡi chạm nhẹ giữa hai hàm răng","A2"],["/ʃ/","shop","Môi tròn nhẹ","A2"]],
+"SCR-M17-09":[["Đoạn","Giọng","Tốc độ","Thời lượng"],["Ordering at a café","Emma","0,9×","24 giây"],["Where is the station?","Oliver","1,0×","32 giây"]],
+"SCR-M18-06":[["Cụm chủ đề","Mục tiêu","Lịch","Phụ trách"],["Gọi món tự tin","Thu hút học viên A2","Tuần 4 tháng 11","Mai Linh"],["Mỗi ngày một chữ kana","Giới thiệu kho N5","Tuần 1 tháng 12","Hoàng Nam"]],
+"SCR-M18-07":[["Thông điệp","Phạm vi","Minh chứng","Trạng thái"],["Luyện 15 phút mỗi ngày","Lab tự học","Lịch hoạt động Lab","Đã duyệt"],["Học lại một lần phần chưa đạt","Chương trình có cam kết","Chính sách lớp","Đã duyệt"]],
+"SCR-M18-08":[["Thông điệp","Phạm vi","Minh chứng","Trạng thái"],["Luyện 15 phút mỗi ngày","Lab tự học","Lịch hoạt động Lab","Đã duyệt"],["Học lại một lần phần chưa đạt","Chương trình có cam kết","Chính sách lớp","Đã duyệt"]],
+"SCR-M18-09":[["Thành phần","Quy tắc","Ví dụ","Trạng thái"],["Giọng văn","Gọi người học là bạn","Bạn muốn luyện gì hôm nay?","Đang áp dụng"],["Phản hồi bài tập","Đưa gợi ý","Chưa đúng, hãy nghe lại từ cuối.","Đang áp dụng"]],
+"SCR-M18-11":[["Tài sản","Quyền sử dụng","Hiệu lực","Chủ sở hữu"],["Ảnh lớp ENG-A2-07","Website Zenford","31/12/2026","Tổ nội dung"],["Audio hội thoại tại quán","Đào tạo nội bộ","31/05/2027","Tổ tiếng Anh"]],
+"SCR-M18-18":[["Kênh","Tài khoản","Định dạng","Trạng thái"],["Facebook","Zenford Language Studio","Video ngắn","Đã kết nối"],["Website","Zenford","Bài viết","Đang hoạt động"]],
+"SCR-M18-19":[["Kênh","Tài khoản","Định dạng","Trạng thái"],["Facebook","Zenford Language Studio","Video ngắn","Đã kết nối"],["Website","Zenford","Bài viết","Đang hoạt động"]],
+"SCR-M18-20":[["Kênh","Tài khoản","Định dạng","Trạng thái"],["Facebook","Zenford Language Studio","Video ngắn","Đã kết nối"],["Website","Zenford","Bài viết","Đang hoạt động"]],
+"SCR-M18-28":[["Nhóm quảng cáo","Ngân sách minh họa","Lượt đăng ký","Trạng thái"],["Café English A2","2.400.000 ₫","32","Đang chạy"],["Kana mùa đông","1.800.000 ₫","21","Chờ duyệt"]],
+"SCR-M18-29":[["Nhóm quảng cáo","Ngân sách minh họa","Lượt đăng ký","Trạng thái"],["Café English A2","2.400.000 ₫","32","Đang chạy"],["Kana mùa đông","1.800.000 ₫","21","Chờ duyệt"]],
+"SCR-M18-32":[["Biến thể","Lượt xem","Lượt đăng ký","Tỷ lệ"],["A · Học thử tại quán","800","40","5%"],["B · Gọi món cùng Zen","800","56","7%"]],
+"SCR-M19-05":[["Mẫu trả lời","Tình huống","Nội dung","Kênh"],["Lớp buổi tối","Hỏi lịch","Lớp A2 học thứ Ba và thứ Năm lúc 18:30.","Website"],["Bài đánh giá","Hỏi trình độ","Bạn có thể làm bài đánh giá nhanh trước khi chọn lớp.","Email"]],
+"SCR-M20-03":[["Hồ sơ","Email","Nguồn","Điểm trùng"],["KH-024 · Minh Anh","minh.anh@example.test","Website","Email và họ tên"],["LE-081 · Nguyễn Minh Anh","minh.anh@example.test","Tư vấn","Email và họ tên"]],
+"SCR-M20-10":[["Phụ trách","Chỉ tiêu minh họa","Đã ghi nhận","Kỳ"],["Mai Linh","30.000.000 ₫","24.000.000 ₫","Tháng 11"],["Lan Phương","25.000.000 ₫","21.500.000 ₫","Tháng 11"]],
+"SCR-M21-05":[["Giao dịch ví","Loại","Số tiền minh họa","Trạng thái"],["Ví GT-024","Ghi có hoa hồng","650.000 ₫","Đã đối soát"],["RT-1124","Yêu cầu rút","350.000 ₫","Chờ xử lý"]],
+"SCR-M21-16":[["Giao dịch ví","Loại","Số tiền minh họa","Trạng thái"],["Ví GT-024","Ghi có hoa hồng","650.000 ₫","Đã đối soát"],["RT-1124","Yêu cầu rút","350.000 ₫","Chờ xử lý"]],
+"SCR-M21-06":[["Mã cá nhân","Chương trình","Số lượt mở","Ghi danh"],["ZEN-LINH","Tiếng Anh giao tiếp","48","6"],["ZEN-KANA","Tiếng Nhật nhập môn","32","4"]],
+"SCR-M21-12":[["Chương trình","Mức hoa hồng","Căn cứ","Hiệu lực"],["Basic tự học","10%","Doanh thu thuần đã thu","01/11/2026"],["Lớp giao tiếp","8%","Doanh thu thuần đã thu","01/11/2026"]],
+"SCR-M22-03":[["Quỹ","Loại","Số dư minh họa","Cập nhật"],["Quỹ vận hành","Tiền mặt","12.500.000 ₫","24/11"],["Tài khoản thu học phí","Chuyển khoản","86.400.000 ₫","24/11"]],
+"SCR-M22-04":[["Học viên","Kỳ phí","Còn phải thu minh họa","Hạn"],["Minh Anh","Tháng 12","650.000 ₫","01/12/2026"],["Gia Hân","Tháng 12","350.000 ₫","05/12/2026"]],
+"SCR-M15-04":[["Học viên","Kỳ phí","Còn phải thu minh họa","Hạn"],["Minh Anh","Tháng 12","650.000 ₫","01/12/2026"],["Gia Hân","Tháng 12","350.000 ₫","05/12/2026"]],
+"SCR-M24-01":[["Fanpage","Phụ trách","Hội thoại mới","Trạng thái"],["Zenford Language Studio","Mai Linh","8","Đã kết nối"],["Học tiếng Nhật cùng Zen","Hoàng Nam","3","Đã kết nối"]],
+"SCR-M24-06":[["Sự kiện","Thời điểm","Kênh","Kết quả"],["Lead","24/11 · 09:15","Facebook","Đã nhận"],["CompleteRegistration","24/11 · 08:40","Facebook","Đã nhận"]],
+"SCR-M25-03":[["Kịch bản","Lời mở đầu","Mục tiêu","Trạng thái"],["Lớp buổi tối","Bạn tiện trao đổi hai phút không?","Tìm khung giờ phù hợp","Đã duyệt"],["Sau kiểm tra đầu vào","Bạn thấy bài đánh giá thế nào?","Hẹn tư vấn","Bản nháp"]],
+"SCR-M25-04":[["Kịch bản","Lời mở đầu","Mục tiêu","Trạng thái"],["Lớp buổi tối","Bạn tiện trao đổi hai phút không?","Tìm khung giờ phù hợp","Đã duyệt"],["Sau kiểm tra đầu vào","Bạn thấy bài đánh giá thế nào?","Hẹn tư vấn","Bản nháp"]],
+"SCR-M26-01":[["Học viên","Việc cần làm","Hạn","Trạng thái"],["Minh Anh","Xác nhận lịch buổi đầu","24/11","Đã xong"],["Gia Hân","Kiểm tra loa và micro","25/11","Đang thực hiện"]],
+"SCR-M26-02":[["Học viên","Việc cần làm","Hạn","Trạng thái"],["Minh Anh","Xác nhận lịch buổi đầu","24/11","Đã xong"],["Gia Hân","Kiểm tra loa và micro","25/11","Đang thực hiện"]],
+"SCR-M26-13":[["Câu hỏi","Điểm trung bình","Phản hồi","Kỳ"],["Giáo viên giải thích rõ ràng?","4,7/5","38","Tháng 11"],["Tốc độ lớp phù hợp?","4,4/5","38","Tháng 11"]],
+"SCR-M26-15":[["Câu hỏi","Điểm trung bình","Phản hồi","Kỳ"],["Giáo viên giải thích rõ ràng?","4,7/5","38","Tháng 11"],["Tốc độ lớp phù hợp?","4,4/5","38","Tháng 11"]],
+"SCR-M27-06":[["Mức","Khi nào","Người nhận","Hạn xử lý"],["1","Chưa trả lời học viên","Điều phối","1 ngày"],["2","Ca trễ quá 2 ngày","Trưởng vận hành","4 giờ"]],
+"SCR-M28-04":[["Tiêu chí","Mục tiêu","Kết quả","Kỳ"],["Phản hồi yêu cầu trong hạn","95%","97%","Tháng 11"],["Hoàn thành nhận xét lớp","100%","96%","Tháng 11"]],
+"SCR-M28-05":[["Tiêu chí","Mục tiêu","Kết quả","Kỳ"],["Phản hồi yêu cầu trong hạn","95%","97%","Tháng 11"],["Hoàn thành nhận xét lớp","100%","96%","Tháng 11"]],
+"SCR-M29-05":[["Câu hỏi","Năng lực","Điểm tối đa","Bằng chứng"],["Bạn sửa trọng âm như thế nào?","Phản hồi sư phạm","5","Ví dụ dạy A2"],["Bạn chuẩn bị tiết đầu ra sao?","Thiết kế bài dạy","5","Giáo án thực tế"]],
+"SCR-M31-01":[["Bài hướng dẫn","Chủ đề","Phiên bản","Trạng thái"],["Cách đổi lịch trước buổi học","Lịch học","v2","Đã duyệt"],["Mở học liệu sau khi thanh toán","Cửa hàng","v1","Đã duyệt"]],
+"SCR-M32-05":[["Nhân sự","Ngày công","Giờ dạy","Kỳ"],["Thu Hà","20,5","24","Tháng 11"],["Mai Linh","21","18","Tháng 11"]],
+"SCR-M33-02":[["Loại lớp","Đơn giá minh họa","Đơn vị","Hiệu lực"],["Lớp nhóm A2","250.000 ₫","Giờ","01/11/2026"],["Buổi kèm cá nhân","150.000 ₫","Buổi","01/11/2026"]],
+"SCR-M34-04":[["Chỉ số","Cách tính","Lịch chốt","Chủ sở hữu"],["Tỷ lệ tham dự","Buổi có mặt / buổi đã đặt","Cuối tuần","Điều phối"],["Học phí thực thu","Tổng phiếu thu đã ghi sổ","Cuối tháng","Tài chính"]],
+"SCR-M36-01":[["Phiên bản","Ngày phát hành","Nội dung","Trạng thái"],["1.2.0","23/11/2026","Mở Lab Nghe trên điện thoại","Đã phát hành"],["1.2.1","28/11/2026","Sửa đồng bộ phụ đề","Đang kiểm thử"]],
+"SCR-M36-03":[["Mã lỗi","Vấn đề","Phụ trách","Trạng thái"],["UAT-024","Phụ đề chậm ở câu 03","Quang Duy","Đang sửa"],["UAT-031","Lịch cắt tên lớp trên điện thoại","Mai Linh","Đã xác nhận"]],
+"SCR-M37-02":[["Nhóm","Số học viên","Mục tiêu","Kỳ"],["ENG-A2-07","12","Hoàn thành 80% Pre-class","Tháng 11"],["JPN-N5-02","10","Luyện Lab 3 ngày/tuần","Tháng 11"]],
+"SCR-M38-08":[["Mã chứng nhận","Trình độ","Học viên","Ngày cấp"],["ZF-A2-024","A2","Minh Anh","02/11/2026"],["ZF-B1-047","B1","Tuấn Kiệt","19/11/2026"]],
+"SCR-M39-06":[["Buổi học","Học viên","Ngày","Điểm danh"],["Gọi món tại quán","Minh Anh","19/11","Có mặt"],["Đặt bàn qua điện thoại","Minh Anh","17/11","Có mặt"]],
+"SCR-M48-02":[["Buổi học","Học viên","Ngày","Điểm danh"],["Gọi món tại quán","Minh Anh","19/11","Có mặt"],["Đặt bàn qua điện thoại","Minh Anh","17/11","Có mặt"]],
+"SCR-M40-03":[["Phiên","Học viên","Chủ đề","Thời lượng"],["AI-2411-024","Minh Anh","Ordering at a café","12 phút"],["AI-2411-047","Tuấn Kiệt","Đổi lịch họp","15 phút"]],
+"SCR-M40-08":[["Ca","Học viên","Phản hồi cần xem","Trạng thái"],["AI-024","Minh Anh","Trọng âm chocolate","Chờ giáo viên"],["AI-047","Tuấn Kiệt","Thì quá khứ trong email","Đã phân công"]],
+"SCR-M41-09":[["Nhân vật","Giọng","Khu vực","Trạng thái"],["Zen áo xanh","Emma","Lab Nghe","Đang dùng"],["Zen áo đào","Oliver","Lab Nói","Đang dùng"]],
+"SCR-M41-10":[["Huy hiệu","Điều kiện","Điểm","Trạng thái"],["Bảy ngày đều đặn","Học 7 ngày liên tiếp","50","Đang áp dụng"],["Giọng nói tự tin","Hoàn thành 5 bài nói","30","Đang áp dụng"]],
+"SCR-M43-04":[["Ca","Học viên","Lý do","Phụ trách"],["BG-024","Minh Anh","Cần kèm trọng âm chocolate","Cô Hà"],["BG-047","Tuấn Kiệt","Viết thiếu câu kết email","Cô Mai Linh"]],
+"SCR-M44-07":[["Ca","Học viên","Lý do","Phụ trách"],["BG-024","Minh Anh","Cần kèm trọng âm chocolate","Cô Hà"],["BG-047","Tuấn Kiệt","Viết thiếu câu kết email","Cô Mai Linh"]],
+"SCR-M50-10":[["Ca","Học viên","Lý do","Phụ trách"],["BG-024","Minh Anh","Cần kèm trọng âm chocolate","Cô Hà"],["BG-047","Tuấn Kiệt","Viết thiếu câu kết email","Cô Mai Linh"]],
+"SCR-M52-02":[["Ca","Học viên","Lý do","Phụ trách"],["BG-024","Minh Anh","Cần kèm trọng âm chocolate","Cô Hà"],["BG-047","Tuấn Kiệt","Viết thiếu câu kết email","Cô Mai Linh"]],
+"SCR-M44-09":[["Lỗi thường gặp","Ví dụ","Bài chữa","Kỹ năng"],["Thiếu lời lịch sự","Give me tea.","Gọi món với please","Nói"],["Sai trọng âm","cho-co-LATE","Nhấn âm đầu","Phát âm"]],
+"SCR-M46-06":[["Khối","Giờ chuẩn","Giờ thật trung bình","Số mẫu"],["Giao tiếp căn bản","24","23,5","38"],["Giao tiếp hằng ngày","36","38","32"]],
+"SCR-M47-05":[["Ngày","Khung giờ rảnh","Múi giờ","Ưu tiên"],["Thứ Ba","18:00–20:00","Việt Nam","Cao"],["Thứ Năm","18:00–20:00","Việt Nam","Cao"]],
+"SCR-M50-16":[["Ngày","Khung giờ rảnh","Múi giờ","Ưu tiên"],["Thứ Ba","18:00–20:00","Việt Nam","Cao"],["Thứ Năm","18:00–20:00","Việt Nam","Cao"]],
+"SCR-M48-05":[["Báo cáo","Giáo viên","Kỳ","Trạng thái"],["Minh Anh · ENG-A2-07","Cô Hà","16–22/11","Chờ duyệt"],["Gia Hân · JPN-N5-02","Thầy Nam","16–22/11","Đã duyệt"]],
+"SCR-M48-06":[["Báo cáo","Giáo viên","Kỳ","Trạng thái"],["Minh Anh · ENG-A2-07","Cô Hà","16–22/11","Chờ duyệt"],["Gia Hân · JPN-N5-02","Thầy Nam","16–22/11","Đã duyệt"]],
+"SCR-M50-17":[["Buổi","Giáo viên xin nghỉ","Dạy thay","Trạng thái"],["26/11 · ENG-A2-07","Thu Hà","Mai Linh","Chờ duyệt"],["27/11 · JPN-N5-02","Hoàng Nam","Quỳnh Chi","Đã xác nhận"]],
+"SCR-M50-20":[["Buổi","Giáo viên xin nghỉ","Dạy thay","Trạng thái"],["26/11 · ENG-A2-07","Thu Hà","Mai Linh","Chờ duyệt"],["27/11 · JPN-N5-02","Hoàng Nam","Quỳnh Chi","Đã xác nhận"]],
+"SCR-M51-03":[["Lớp","Giáo viên","Người dự giờ","Lịch"],["ENG-A2-07","Thu Hà","Quỳnh Chi","26/11 · 18:30"],["ENG-B1-03","Mai Linh","Hoàng Nam","25/11 · 19:00"]],
+"SCR-M52-01":[["Học viên","Dấu hiệu","Lần học cuối","Người hỗ trợ"],["Tuấn Kiệt","Nghỉ 2 buổi liên tiếp","17/11","Mai Linh"],["Gia Hân","Chưa làm bài sau lớp","19/11","Hoàng Nam"]],
+"SCR-M52-04":[["Học viên","Dấu hiệu","Lần học cuối","Người hỗ trợ"],["Tuấn Kiệt","Nghỉ 2 buổi liên tiếp","17/11","Mai Linh"],["Gia Hân","Chưa làm bài sau lớp","19/11","Hoàng Nam"]],
+"SCR-M53-04":[["Bài nộp","AI chấm","Giáo viên chấm","Chênh lệch"],["SP-024","82","80","2 điểm"],["WR-047","75","78","3 điểm"]],
+"SCR-M53-05":[["Bài nộp","AI chấm","Giáo viên chấm","Chênh lệch"],["SP-024","82","80","2 điểm"],["WR-047","75","78","3 điểm"]],
+"SCR-M54-03":[["Bản ghi","Học viên","Thời lượng","Ngày"],["Ordering at a café","Minh Anh","14 giây","23/11"],["At the station","Minh Anh","18 giây","19/11"]],
+"SCR-M54-04":[["Bản ghi","Học viên","Thời lượng","Ngày"],["Ordering at a café","Minh Anh","14 giây","23/11"],["At the station","Minh Anh","18 giây","19/11"]],
+"SCR-M54-05":[["Học viên","Phiên AI","Chi phí minh họa","Kỳ"],["Minh Anh","18","34.000 ₫","Tháng 11"],["Tuấn Kiệt","16","31.000 ₫","Tháng 11"]],
+"SCR-M54-06":[["Học viên","Phiên AI","Chi phí minh họa","Kỳ"],["Minh Anh","18","34.000 ₫","Tháng 11"],["Tuấn Kiệt","16","31.000 ₫","Tháng 11"]],
+"SCR-M01-20":[["Tham số","Giá trị"],["Tiêu đề mặc định","Zenford – Học ngoại ngữ trực tuyến"],["Mô tả tìm kiếm","Lộ trình ngoại ngữ cùng giáo viên và Zen"]],
+"SCR-M01-24":[["Sự kiện","Kênh","Kết nối","Lần nhận"],["Cập nhật điểm danh","Lớp ENG-A2-07","Đã kết nối","18:31"],["Tin nhắn giáo viên","Hộp thư lớp","Đã kết nối","18:32"]],
+"SCR-M02-05":[["Tài khoản","Email","Vai trò","Trạng thái"],["Minh Anh","minh.anh@example.test","Học viên","Đã xác thực"],["Thu Hà","thu.ha@example.test","Giáo viên","Đã xác thực"]],
+"SCR-M02-07":[["Tài khoản","Email","Vai trò","Trạng thái"],["Minh Anh","minh.anh@example.test","Học viên","Đã xác thực"],["Thu Hà","thu.ha@example.test","Giáo viên","Đã xác thực"]],
+"SCR-M02-09":[["Tài khoản","Email","Vai trò","Trạng thái"],["Minh Anh","minh.anh@example.test","Học viên","Đã xác thực"],["Thu Hà","thu.ha@example.test","Giáo viên","Đã xác thực"]],
+"SCR-M03-05":[["Đề nghị","Người gửi","Người duyệt","Trạng thái"],["Áp dụng biểu phí tháng 12","Lan Phương","Trưởng vận hành","Chờ duyệt"],["Phát hành giáo án A2","Quỳnh Chi","Trưởng Học thuật","Đã duyệt"]],
+"SCR-M03-06":[["Đề nghị","Người gửi","Người duyệt","Trạng thái"],["Áp dụng biểu phí tháng 12","Lan Phương","Trưởng vận hành","Chờ duyệt"],["Phát hành giáo án A2","Quỳnh Chi","Trưởng Học thuật","Đã duyệt"]],
+"SCR-M03-07":[["Chương trình","Điều kiện","Quyền lợi","Hiệu lực"],["Giao tiếp A2","Hoàn thành bài xác nhận","Học lại một lần phần chưa đạt","01/11/2026"],["Tiếng Nhật N5","Hoàn thành bài cuối khối","Ôn một lần phần chưa đạt","01/11/2026"]],
+"SCR-M03-08":[["Chương trình","Điều kiện","Quyền lợi","Hiệu lực"],["Giao tiếp A2","Hoàn thành bài xác nhận","Học lại một lần phần chưa đạt","01/11/2026"],["Tiếng Nhật N5","Hoàn thành bài cuối khối","Ôn một lần phần chưa đạt","01/11/2026"]],
+"SCR-M03-09":[["Quy tắc","Phạm vi","Kết quả","Trạng thái"],["Học liệu đã duyệt không đổi nội dung","Tái sử dụng","Giữ phiên bản","Đang áp dụng"],["Điều chỉnh lịch trong ngày","Vận hành","Chuyển người duyệt","Đang áp dụng"]],
+"SCR-M04-05":[["Trợ lý","Vai trò","Ngôn ngữ","Trạng thái"],["Zen học tập","Kèm trước giờ học","Tiếng Việt","Đang dùng"],["Trợ lý phụ huynh","Giải thích báo cáo","Tiếng Việt","Đang dùng"]],
+"SCR-M04-08":[["Phiên","Tác vụ","Lúc","Kết quả"],["AI-1124-031","Nhận xét phát âm","09:20","Chờ rà soát"],["AI-1124-024","Giải thích lời gọi món","09:12","Đã duyệt"]],
+"SCR-M04-10":[["Nhóm dữ liệu","Phạm vi","Công cụ cho phép","Người duyệt"],["Học liệu đã phát hành","Giảng dạy","AI Tutor","Học thuật"],["Bản ghi giọng nói","Chấm bài","Bộ chấm nội bộ","Vận hành"]],
+"SCR-M06-04":[["Yêu cầu","Học viên","Ngày","Trạng thái"],["Xem dữ liệu ghi âm","Minh Anh","23/11","Đã tiếp nhận"],["Xóa bản ghi bài thử","Gia Hân","21/11","Đã xử lý"]],
+"SCR-M06-05":[["Yêu cầu","Học viên","Ngày","Trạng thái"],["Xem dữ liệu ghi âm","Minh Anh","23/11","Đã tiếp nhận"],["Xóa bản ghi bài thử","Gia Hân","21/11","Đã xử lý"]],
+"SCR-M06-08":[["Thời điểm","Người xem","Phạm vi","Thao tác"],["24/11 · 10:20","Lan Phương","HV-024","Xem hồ sơ đồng ý"],["23/11 · 15:10","Quỳnh Chi","ENG-A2-07","Xuất báo cáo đã ẩn tên"]],
+"SCR-M09-04":[["Khách hàng","Mục tiêu","Giờ học mỗi tuần","Thời gian ước tính"],["Bảo Ngọc","A2 đến B1","3 giờ","16 tuần"],["Khánh An","Kana nhập môn","2 giờ","12 tuần"]],
+"SCR-M12-13":[["Mã bài","Học viên","Nội dung","Trạng thái"],["SP-024","Minh Anh","Xin nghe lại phần trọng âm","Chờ phân công"],["WR-047","Tuấn Kiệt","Xin xem phần bố cục thư","Đã trả lời"]],
+"SCR-M13-11":[["Học viên","Gói hiện tại","Gói đề xuất","Trạng thái"],["Minh Anh","Basic","Học với AI","Chờ xác nhận"],["Gia Hân","Học với AI","Basic","Đã duyệt"]],
+"SCR-M13-15":[["Đơn","Đợt","Đến hạn","Số tiền minh họa"],["ZF-2411-024","Đợt 2/3","01/12/2026","650.000 ₫"],["ZF-2411-047","Đợt 2/2","05/12/2026","1.200.000 ₫"]],
+"SCR-M16-14":[["Ngôn ngữ","Quy tắc","Người duyệt","Phiên bản"],["Tiếng Anh","Ưu tiên từ vựng đúng CEFR","Quỳnh Chi","v2"],["Tiếng Nhật","Kèm furigana ở cấp N5","Hoàng Nam","v1"]],
+"SCR-M16-18":[["Phiếu","Hạng mục","Phụ trách","Tiến độ"],["HL-024","Sửa nhịp câu nghe số 3","Quỳnh Chi","Đang sửa"],["HL-031","Thêm chú thích bài đọc","Thu Hà","Chờ duyệt"]],
+"SCR-M16-19":[["Phiếu","Hạng mục","Phụ trách","Tiến độ"],["HL-024","Sửa nhịp câu nghe số 3","Quỳnh Chi","Đang sửa"],["HL-031","Thêm chú thích bài đọc","Thu Hà","Chờ duyệt"]],
+"SCR-M17-01":[["Mẫu tác vụ","Đầu vào","Đầu ra","Mô hình"],["Tạo hội thoại A2","Tình huống tại quán","Kịch bản 8 lượt","Sonnet"],["Viết bài đọc N5","Chủ đề gia đình","Đoạn văn và câu hỏi","Gemini Flash"]],
+"SCR-M17-02":[["Mẫu tác vụ","Đầu vào","Đầu ra","Mô hình"],["Tạo hội thoại A2","Tình huống tại quán","Kịch bản 8 lượt","Sonnet"],["Viết bài đọc N5","Chủ đề gia đình","Đoạn văn và câu hỏi","Gemini Flash"]],
+"SCR-M17-13":[["Job","Tác vụ","Chi phí minh họa","Trạng thái"],["JOB-2411-05","Tạo audio 8 câu","0,08 USD","Đã xong"],["JOB-2411-06","Tạo ảnh bài đọc","0,12 USD","Đang chạy"]],
+"SCR-M18-03":[["Nguồn","Phát hiện","Đối tượng","Ngày"],["Khảo sát học viên A2","Nhu cầu luyện nói sau 19:00","Người đi làm","19/11"],["Phỏng vấn nhóm N5","Ưu tiên bài ngắn theo ngày","Sinh viên","18/11"]],
+"SCR-M18-04":[["Nội dung","Kênh","Lịch","Phụ trách"],["Video gọi món","Facebook","24/11 · 19:00","Mai Linh"],["Bản tin tự học cuối tuần","Email","26/11 · 08:00","Lan Phương"]],
+"SCR-M18-21":[["Nội dung","Kênh","Lịch","Phụ trách"],["Video gọi món","Facebook","24/11 · 19:00","Mai Linh"],["Bản tin tự học cuối tuần","Email","26/11 · 08:00","Lan Phương"]],
+"SCR-M18-24":[["Nội dung","Kênh","Lịch","Phụ trách"],["Video gọi món","Facebook","24/11 · 19:00","Mai Linh"],["Bản tin tự học cuối tuần","Email","26/11 · 08:00","Lan Phương"]],
+"SCR-M18-15":[["Thành phẩm","Tiêu chí","Người duyệt","Kết quả"],["Video Café English","Đúng phụ đề","Quỳnh Chi","Cần chỉnh"],["Ảnh lịch khai giảng N5","Đúng nhận diện","Mai Linh","Đã duyệt"]],
+"SCR-M18-17":[["Tài sản","Lý do","Hiệu lực","Trạng thái"],["Banner học phí tháng 10","Ưu đãi hết hạn","01/11/2026","Đã thu hồi"],["Video lịch học cũ","Đã đổi lịch","19/11/2026","Đã thu hồi"]],
+"SCR-M18-27":[["Chủ đề theo dõi","Nguồn","Lượt đề cập","Xu hướng"],["Lớp tiếng Anh buổi tối","Facebook","48","Tăng 12%"],["Tự học tiếng Nhật N5","Bình luận website","26","Tăng 8%"]],
+"SCR-M18-31":[["Chiến dịch","Khách để lại thông tin","Đã ghi danh","Tỷ lệ"],["30 ngày nói tiếng Anh","160","32","20%"],["Lớp Nhật ngữ mùa đông","105","21","20%"]],
+"SCR-M18-35":[["Agent","Vai trò","Đầu ra","Người duyệt"],["Agent nghiên cứu","Tổng hợp nhu cầu","Báo cáo tìm hiểu","Mai Linh"],["Agent nội dung","Viết kịch bản","Bản thảo quảng bá","Quỳnh Chi"]],
+"SCR-M19-07":[["Khách","Giai đoạn","Mục tiêu","Lịch hẹn"],["Bảo Ngọc","Đã tư vấn","Tiếng Anh công sở","24/11 · 17:30"],["Khánh An","Hẹn gọi lại","N5 nhập môn","25/11 · 14:30"]],
+"SCR-M19-09":[["Khách","Giai đoạn","Mục tiêu","Lịch hẹn"],["Bảo Ngọc","Đã tư vấn","Tiếng Anh công sở","24/11 · 17:30"],["Khánh An","Hẹn gọi lại","N5 nhập môn","25/11 · 14:30"]],
+"SCR-M19-08":[["Liên hệ","Việc tiếp theo","Lúc","Phụ trách"],["Bảo Ngọc","Gửi lịch lớp buổi tối","24/11 · 17:30","Mai Linh"],["Hoàng Minh","Nhắc làm bài đầu vào","25/11 · 09:00","Lan Phương"]],
+"SCR-M19-10":[["Liên hệ","Việc tiếp theo","Lúc","Phụ trách"],["Bảo Ngọc","Gửi lịch lớp buổi tối","24/11 · 17:30","Mai Linh"],["Hoàng Minh","Nhắc làm bài đầu vào","25/11 · 09:00","Lan Phương"]],
+"SCR-M20-08":[["Yêu cầu","Người chuyển","Người nhận","Trạng thái"],["CN-024","Minh Anh","Gia Hân","Chờ xét"],["CN-031","Bảo Ngọc","Hoàng Minh","Đã xác nhận"]],
+"SCR-M20-09":[["Yêu cầu","Người chuyển","Người nhận","Trạng thái"],["CN-024","Minh Anh","Gia Hân","Chờ xét"],["CN-031","Bảo Ngọc","Hoàng Minh","Đã xác nhận"]],
+"SCR-M20-11":[["Đơn","Ưu đãi đề nghị","Hạn mức","Trạng thái"],["ZF-1124-01","12%","10%","Chờ duyệt"],["ZF-1124-02","8%","10%","Đã duyệt"]],
+"SCR-M21-10":[["CTV","Mã","Khách giới thiệu","Trạng thái"],["Mai Linh","CTV-024","8","Đang hoạt động"],["Thu Thảo","CTV-031","5","Đang hoạt động"]],
+"SCR-M21-11":[["Khách","Mã giới thiệu","Nguồn","Ghi nhận"],["Bảo Ngọc","ZEN-LINH","Link cá nhân","20/11 · 08:30"],["Khánh An","ZEN-KANA","Mã đăng ký","22/11 · 14:00"]],
+"SCR-M21-14":[["Khách","Mã giới thiệu","Nguồn","Ghi nhận"],["Bảo Ngọc","ZEN-LINH","Link cá nhân","20/11 · 08:30"],["Khánh An","ZEN-KANA","Mã đăng ký","22/11 · 14:00"]],
+"SCR-M21-15":[["Ca","Đơn","Dấu hiệu","Trạng thái"],["CTV-HT-01","GT-1124-01","Hai mã cùng nhận công","Đang xác minh"],["CTV-HT-02","GT-1124-02","Đăng ký lại cùng email","Đã xử lý"]],
+"SCR-M21-18":[["Ca","Đơn","Dấu hiệu","Trạng thái"],["CTV-HT-01","GT-1124-01","Hai mã cùng nhận công","Đang xác minh"],["CTV-HT-02","GT-1124-02","Đăng ký lại cùng email","Đã xử lý"]],
+"SCR-M21-17":[["Người nhận","Kỳ","Thu nhập minh họa","Chứng từ"],["Mai Linh","Tháng 11","650.000 ₫","CT-1124-01"],["Thu Thảo","Tháng 11","420.000 ₫","CT-1124-02"]],
+"SCR-M21-22":[["Người nhận","Kỳ","Thu nhập minh họa","Chứng từ"],["Mai Linh","Tháng 11","650.000 ₫","CT-1124-01"],["Thu Thảo","Tháng 11","420.000 ₫","CT-1124-02"]],
+"SCR-M22-06":[["Dòng sản phẩm","Doanh thu minh họa","Chi phí minh họa","Kỳ"],["Basic","12.600.000 ₫","4.200.000 ₫","Tháng 11"],["Học với AI","26.000.000 ₫","9.100.000 ₫","Tháng 11"]],
+"SCR-M22-12":[["Dòng sản phẩm","Doanh thu minh họa","Chi phí minh họa","Kỳ"],["Basic","12.600.000 ₫","4.200.000 ₫","Tháng 11"],["Học với AI","26.000.000 ₫","9.100.000 ₫","Tháng 11"]],
+"SCR-M22-08":[["Hóa đơn","Người mua","Số tiền minh họa","Trạng thái"],["ZF26-00024","Minh Anh","149.000 ₫","Đã phát hành"],["ZF26-00031","Gia Hân","99.000 ₫","Chờ điều chỉnh"]],
+"SCR-M22-09":[["Hóa đơn","Người mua","Số tiền minh họa","Trạng thái"],["ZF26-00024","Minh Anh","149.000 ₫","Đã phát hành"],["ZF26-00031","Gia Hân","99.000 ₫","Chờ điều chỉnh"]],
+"SCR-M23-05":[["Chủ đề","Câu hỏi","Người xử lý","Trạng thái"],["Lớp buổi tối","Có lớp sau 19 giờ không?","Mai Linh","Đã có trả lời"],["Lịch bảo lưu","Trong kỳ thi có thể tạm nghỉ không?","Lan Phương","Chờ bổ sung"]],
+"SCR-M23-08":[["Chủ đề","Câu hỏi","Người xử lý","Trạng thái"],["Lớp buổi tối","Có lớp sau 19 giờ không?","Mai Linh","Đã có trả lời"],["Lịch bảo lưu","Trong kỳ thi có thể tạm nghỉ không?","Lan Phương","Chờ bổ sung"]],
+"SCR-M25-07":[["Cuộc gọi","Điểm chất lượng","Lỗi","Trạng thái"],["CALL-024","78/100","Nhắc lại câu hỏi hai lần","Cần rà soát"],["CALL-047","90/100","Không ghi nhận","Đã chấm"]],
+"SCR-M26-16":[["Thời điểm","Học viên","Nội dung","Phụ trách"],["23/11 · 17:30","Minh Anh","Hướng dẫn mở Lab Nghe","Lan Phương"],["21/11 · 09:00","Gia Hân","Xác nhận đổi lịch","Thu Hà"]],
+"SCR-M27-09":[["Phòng","Đã nhận","Trong hạn","Cần leo thang"],["Học thuật","12","11","1"],["Vận hành","18","16","2"]],
+"SCR-M30-02":[["Bài thực hành","Vai trò","Tài liệu","Thời lượng"],["Đổi lịch trước giờ học","Điều phối viên","Quy trình đổi lớp","12 phút"],["Tư vấn lần đầu","Chuyên viên tư vấn","Hướng dẫn tiếp nhận","15 phút"]],
+"SCR-M30-07":[["Bài thực hành","Vai trò","Tài liệu","Thời lượng"],["Đổi lịch trước giờ học","Điều phối viên","Quy trình đổi lớp","12 phút"],["Tư vấn lần đầu","Chuyên viên tư vấn","Hướng dẫn tiếp nhận","15 phút"]],
+"SCR-M30-06":[["Nhân sự","Năng lực","Bài xác nhận","Trạng thái"],["Lan Phương","Điều phối lớp","Xử lý đổi lịch","Đã đạt"],["Thu Thảo","Tư vấn đầu vào","Nhập vai tiếp nhận","Chờ đánh giá"]],
+"SCR-M31-03":[["Câu hỏi","Ca thực tế","Phản hồi đề xuất","Trạng thái"],["Lỡ buổi học xử lý thế nào?","HT-024","Kiểm tra lịch và liên hệ điều phối.","Đã duyệt"],["Không mở được audio?","HT-031","Kiểm tra loa rồi tải lại bài.","Chờ kiểm tra"]],
+"SCR-M31-04":[["Câu hỏi","Ca thực tế","Phản hồi đề xuất","Trạng thái"],["Lỡ buổi học xử lý thế nào?","HT-024","Kiểm tra lịch và liên hệ điều phối.","Đã duyệt"],["Không mở được audio?","HT-031","Kiểm tra loa rồi tải lại bài.","Chờ kiểm tra"]],
+"SCR-M33-03":[["Khoản","Người nhận","Số tiền minh họa","Kỳ xử lý"],["Tạm ứng","Thu Hà","500.000 ₫","Tháng 11"],["Hoàn ứng","Mai Linh","300.000 ₫","Tháng 11"]],
+"SCR-M34-02":[["Báo cáo","Chủ sở hữu","Tần suất","Cập nhật"],["Số lớp đang mở","Điều phối","Hằng ngày","24/11"],["Ghi danh theo kênh","Kinh doanh","Hằng tuần","23/11"]],
+"SCR-M36-04":[["Việc phát hành","Phụ trách","Mốc","Trạng thái"],["Kiểm tra sao lưu","Quang Duy","27/11 · 19:00","Đã xong"],["Xác nhận lịch thông báo","Lan Phương","27/11 · 20:00","Chờ duyệt"]],
+"SCR-M37-03":[["Chỉ số","Trước thí điểm","Sau thí điểm","Mục tiêu"],["Hoàn thành Pre-class","62%","81%","80%"],["Ngày luyện trung bình","2,1","3,4","3"]],
+"SCR-M41-11":[["Cụm từ","Mốc audio","Bài","Ý nghĩa"],["hot chocolate","00:04","Ordering at a café","Sô-cô-la nóng"],["to go","00:12","Ordering at a café","Mang đi"]],
+"SCR-M43-05":[["Bài","Điểm AI","Điểm giáo viên","Chênh lệch"],["Nói gọi món","82","80","2"],["Viết email","75","78","3"]],
+"SCR-M50-22":[["Bài","Điểm AI","Điểm giáo viên","Chênh lệch"],["Nói gọi món","82","80","2"],["Viết email","75","78","3"]],
+"SCR-M44-08":[["Phiếu","Nội dung","Giáo án","Phụ trách"],["HT-ACA-024","Đáp án chấp nhận cả hai cách gọi món","English A2 buổi 05","Quỳnh Chi"],["HT-ACA-031","Thiếu dấu nhấn từ","English A2 buổi 06","Thu Hà"]],
+"SCR-M49-06":[["Câu hỏi","Chủ đề","Nguồn trả lời","Trạng thái"],["Tuần này con học mấy buổi?","Lịch học","ENG-A2-07","Đã trả lời"],["Con cần ôn phần nào?","Tiến bộ","Nhận xét tuần 47","Đã trả lời"]],
+"SCR-M49-07":[["Câu hỏi","Chủ đề","Nguồn trả lời","Trạng thái"],["Tuần này con học mấy buổi?","Lịch học","ENG-A2-07","Đã trả lời"],["Con cần ôn phần nào?","Tiến bộ","Nhận xét tuần 47","Đã trả lời"]],
+"SCR-M50-18":[["Ngày","Lớp","Giờ dạy","Trạng thái"],["19/11/2026","ENG-A2-07","0,75 giờ","Đã xác nhận"],["17/11/2026","ENG-A2-07","0,75 giờ","Đã xác nhận"]],
+"SCR-M52-07":[["Nhóm","Ca can thiệp","Trở lại học","Kỳ"],["Tiếng Anh A2","8","6","Tháng 11"],["Tiếng Nhật N5","5","4","Tháng 11"]]
+};
+const collections = {
+"queues":[["Tác vụ","Hàng đợi","Trạng thái","Lần thử"],["Kết xuất báo cáo tháng 11","Báo cáo","Cần chạy lại","2"],["Gửi lịch học ENG-A2-07","Thông báo","Đã gửi","1"],["Tạo bản nghe bài 05","Học liệu","Đang chạy","1"]],
+"logs":[["Sự kiện","Nguồn","Thời điểm","Kết quả"],["Tải audio buổi 05","Trình duyệt","09:42","Hết thời gian chờ"],["Đồng bộ đơn ZF-2411","Cổng thanh toán","09:38","Đã đối soát"],["Lưu phiếu HT-024","Cổng hỗ trợ","09:35","Thành công"]],
+"services":[["Dịch vụ","Phụ trách","Kỳ rà soát","Trạng thái"],["Email giao dịch","Lan Phương","30/11/2026","Đã xác minh"],["Kho audio bài học","Quang Duy","15/12/2026","Đang hoạt động"],["Thông báo lịch học","Thu Hà","01/12/2026","Chờ duyệt"]],
+"locales":[["Ngôn ngữ","Nội dung","Bản dịch","Trạng thái"],["Tiếng Anh","Bắt đầu học","Start learning","Đã duyệt"],["Tiếng Nhật","Vào lớp","授業に参加","Đã duyệt"],["Tiếng Hàn","Tiếp tục","계속하기","Chờ duyệt"]],
+"mail":[["Chủ đề","Người nhận","Lần gửi","Trạng thái"],["Lịch học tiếng Anh tuần này","Minh Anh","24/11 · 08:00","Đã gửi"],["Xác nhận đăng ký lộ trình","Gia Hân","23/11 · 15:10","Đã gửi"],["Nhắc hoàn thành Pre-class","Tuấn Kiệt","24/11 · 16:30","Đã lên lịch"]],
+"docs":[["Tài liệu","Phiên bản","Phụ trách","Trạng thái"],["Hướng dẫn học tuần đầu","v2.1","Thu Hà","Đã phát hành"],["Phiếu ghi danh tiếng Anh","v1.3","Lan Phương","Đã duyệt"],["Báo cáo tiến bộ tháng 11","v1.0","Quỳnh Chi","Chờ duyệt"]],
+"people":[["Họ tên","Mã học viên","Lớp","Người phụ trách"],["Nguyễn Minh Anh","HV-024","ENG-A2-07","Cô Hà"],["Trần Gia Hân","HV-031","JPN-N5-02","Thầy Nam"],["Lê Tuấn Kiệt","HV-047","ENG-B1-03","Cô Linh"]],
+"staff":[["Nhân sự","Phòng ban","Vai trò","Trạng thái"],["Nguyễn Thu Hà","Giảng dạy","Giáo viên tiếng Anh","Đang làm việc"],["Lê Lan Phương","Vận hành","Điều phối viên","Đang làm việc"],["Trần Quỳnh Chi","Học thuật","Chuyên gia ngôn ngữ","Đang làm việc"]],
+"policy":[["Chính sách","Phiên bản","Hiệu lực","Phụ trách"],["Quyền học theo gói","v2.1","01/11/2026","Vận hành"],["Đồng ý sử dụng bản ghi","v1.2","15/10/2026","Chăm sóc học viên"],["Chia sẻ báo cáo với ba mẹ","v1.0","01/10/2026","Học thuật"]],
+"privacy":[["Phạm vi","Lựa chọn","Cập nhật","Hồ sơ"],["Ghi âm bài nói","Đã đồng ý","18/11/2026","Minh Anh"],["Chia sẻ kết quả với ba mẹ","Đã đồng ý","18/11/2026","Minh Anh"],["Nhận email giới thiệu","Đã tắt","16/11/2026","Minh Anh"]],
+"ai":[["Tác vụ","Nhà cung cấp","Mô hình","Hạn mức ngày"],["Giải thích ngữ pháp","Claude","Sonnet","200 lượt"],["Phân tích bài viết","ChatGPT","GPT-4.1","120 lượt"],["Tóm tắt bài đọc","Gemini","Flash","300 lượt"]],
+"assets":[["Học liệu","Ngôn ngữ","Phiên bản","Trạng thái"],["Ordering at a café","Tiếng Anh A2","v2","Đã duyệt"],["On the way to school","Tiếng Anh A2","v1","Đang biên tập"],["At the station","Tiếng Anh B1","v3","Đã phát hành"]],
+"program":[["Chương trình","Trình độ","Thời lượng","Lịch học"],["Giao tiếp tiếng Anh","A2","12 tuần","Thứ Ba và Thứ Năm"],["Tiếng Nhật nhập môn","N5","14 tuần","Thứ Hai và Thứ Sáu"],["Tiếng Hàn sơ cấp","A1","12 tuần","Thứ Tư và Thứ Bảy"]],
+"press":[["Bài viết","Chuyên mục","Tác giả","Ngày đăng"],["Một tuần luyện nghe cùng Zen","Kinh nghiệm học","Quỳnh Chi","23/11/2026"],["Bên trong lớp giao tiếp A2","Chuyện lớp học","Thu Hà","19/11/2026"],["Làm quen bảng chữ kana","Góc tự học","Hoàng Nam","16/11/2026"]],
+"books":[["Học liệu","Loại","Giá minh họa","Đã bán"],["Café English","Sách in","149.000 ₫","186"],["Nhật ngữ từ nét đầu","Sách điện tử","99.000 ₫","129"],["Một ngày ở Seoul","Khóa tự học","219.000 ₫","162"]],
+"courses":[["Khóa học","Bài hiện tại","Tiến độ","Hoạt động gần nhất"],["Giao tiếp tại quán cà phê","Gọi đồ uống","4/12 bài","23/11/2026"],["Tiếng Anh nơi công sở","Email xác nhận","2/14 bài","21/11/2026"],["Phát âm trong hội thoại","Trọng âm từ","6/10 bài","20/11/2026"]],
+"cert":[["Chứng nhận","Người học","Ngày cấp","Mã tra cứu"],["Hoàn thành Giao tiếp căn bản","Nguyễn Minh Anh","02/11/2026","ZF-A2-024"],["Hoàn thành Kana nhập môn","Trần Gia Hân","18/10/2026","ZF-N5-031"],["Hoàn thành Phát âm cơ bản","Lê Tuấn Kiệt","12/10/2026","ZF-A1-047"]],
+"quiz":[["Câu hỏi","Kỹ năng","Độ khó","Lượt làm"],["Chọn lời gọi đồ uống lịch sự","Giao tiếp","A2","84"],["Nghe và điền tên món","Nghe","A2","68"],["Viết email xác nhận cuộc hẹn","Viết","B1","47"]],
+"scores":[["Học viên","Bài nộp","Điểm","Trạng thái"],["Minh Anh","Ordering at a café","82/100","Đã chấm"],["Gia Hân","Giới thiệu bản thân","88/100","Đã chấm"],["Tuấn Kiệt","Email đổi lịch họp","Chờ kết quả","Chờ chấm"]],
+"orders":[["Đơn hàng","Người mua","Tổng minh họa","Trạng thái"],["ZF-2411-024","Minh Anh","149.000 ₫","Đã thanh toán"],["ZF-2411-031","Gia Hân","99.000 ₫","Chờ thanh toán"],["ZF-2411-047","Tuấn Kiệt","219.000 ₫","Đã thanh toán"]],
+"plans":[["Gói","Quyền lợi","Thời hạn","Học phí minh họa"],["Basic tự học","Bài giảng và bài tập","30 ngày","350.000 ₫"],["Học với AI","Pre-class và luyện Lab","30 ngày","650.000 ₫"],["Giao tiếp cùng giáo viên","8 buổi học trực tuyến","30 ngày","1.200.000 ₫"]],
+"campaigns":[["Chiến dịch","Kênh","Phụ trách","Trạng thái"],["30 ngày nói tiếng Anh","Website","Mai Linh","Đang chạy"],["Lớp Nhật ngữ mùa đông","Facebook","Lan Phương","Chờ duyệt"],["Hẹn nhau ở lớp A2","Newsletter","Quỳnh Chi","Đã lên lịch"]],
+"posts":[["Nội dung","Kênh","Lịch đăng","Trạng thái"],["Một phút gọi món bằng tiếng Anh","Facebook","24/11 · 19:00","Đã duyệt"],["Ba cách ôn từ trước giờ ngủ","Newsletter","26/11 · 08:00","Đã lên lịch"],["Theo chân lớp Nhật ngữ đầu tiên","Website","28/11 · 09:00","Bản nháp"]],
+"leads":[["Khách hàng","Nhu cầu","Nguồn","Phụ trách"],["Nguyễn Bảo Ngọc","Tiếng Anh công sở","Website","Mai Linh"],["Lê Hoàng Minh","Luyện nghe A2","Giới thiệu","Lan Phương"],["Trần Khánh An","Tiếng Nhật N5","Facebook","Thu Thảo"]],
+"crm":[["Khách hàng","Hồ sơ","Gói đang học","Phụ trách"],["Nguyễn Minh Anh","KH-024","Học với AI","Lan Phương"],["Trần Gia Hân","KH-031","Basic tự học","Mai Linh"],["Lê Tuấn Kiệt","KH-047","Tiếng Anh giao tiếp","Thu Thảo"]],
+"contracts":[["Hợp đồng","Khách hàng","Giá trị minh họa","Trạng thái"],["HD-1124-01","Nguyễn Minh Anh","1.950.000 ₫","Đã ký"],["HD-1124-02","Trần Gia Hân","1.050.000 ₫","Chờ xác nhận"],["HD-1124-03","Lê Tuấn Kiệt","3.600.000 ₫","Bản nháp"]],
+"affiliate":[["Đơn giới thiệu","Khách hàng","Hoa hồng minh họa","Trạng thái"],["GT-1124-01","Bảo Ngọc","65.000 ₫","Đã đối soát"],["GT-1124-02","Hoàng Minh","35.000 ₫","Chờ đối soát"],["GT-1124-03","Khánh An","120.000 ₫","Đã chi"]],
+"ledger":[["Chứng từ","Diễn giải","Số tiền minh họa","Trạng thái"],["PT-1124-01","Học phí lớp ENG-A2-07","1.200.000 ₫","Đã ghi sổ"],["PC-1124-02","Chi thù lao buổi dạy","250.000 ₫","Chờ duyệt"],["PT-1124-03","Sách Café English","149.000 ₫","Đã đối soát"]],
+"messages":[["Người gửi","Chủ đề","Lúc","Trạng thái"],["Minh Anh","Dời lịch học thứ Năm","09:10","Chờ trả lời"],["Gia Hân","Cách mở bài tập nghe","08:45","Đã trả lời"],["Tuấn Kiệt","Xin góp ý bài nói","Hôm qua","Đang xử lý"]],
+"calls":[["Người liên hệ","Nội dung","Lịch hẹn","Kết quả"],["Bảo Ngọc","Tư vấn lớp buổi tối","24/11 · 17:30","Đã hẹn"],["Hoàng Minh","Hướng dẫn kiểm tra trình độ","25/11 · 09:00","Chờ gọi lại"],["Khánh An","Tìm hiểu lộ trình N5","25/11 · 14:30","Đồng ý nhận tư vấn"]],
+"support":[["Mã phiếu","Nội dung","Phụ trách","Trạng thái"],["HT-024","Đổi lịch lớp thứ Năm","Lan Phương","Đang xử lý"],["HT-031","Chưa mở được audio bài 04","Quang Duy","Chờ phản hồi"],["HT-047","Xin nhận xét bài nói","Thu Hà","Đã giải quyết"]],
+"handover":[["Ca","Nội dung","Bàn giao đến","Trạng thái"],["BG-024","Hỗ trợ trọng âm cho Minh Anh","Tổ tiếng Anh","Chờ nhận"],["BG-031","Kiểm tra phụ đề bài 04","Học thuật","Đã nhận"],["BG-047","Lắp lịch kèm sau lớp","Điều phối","Hoàn thành"]],
+"hr":[["Ứng viên","Vị trí","Người đánh giá","Trạng thái"],["Nguyễn An","Giáo viên tiếng Anh","Lan Phương","Mời phỏng vấn"],["Trần Bình","Giáo viên tiếng Anh","Quỳnh Chi","Cần xem lại"],["Lê Chi","Giáo viên tiếng Anh","Lan Phương","Cần bổ sung CV"]],
+"training":[["Chuyên đề","Bài thực hành","Kết quả","Hạn"],["Tiếp nhận học viên mới","Gọi chào mừng","Đã đạt","20/11"],["Giải thích lộ trình","Tư vấn mục tiêu B1","Đang học","27/11"],["Xử lý yêu cầu đổi lịch","Nhập vai điều phối","Chưa bắt đầu","30/11"]],
+"shift":[["Ngày","Ca","Vào ca","Kết thúc"],["24/11/2026","Ca sáng","08:00","12:00"],["23/11/2026","Ca chiều","13:00","17:00"],["22/11/2026","Lớp buổi tối","18:30","20:30"]],
+"payroll":[["Khoản","Căn cứ","Giá trị minh họa","Kỳ"],["Giờ dạy lớp A2","12 giờ × 250.000 ₫","3.000.000 ₫","Tháng 11"],["Chấm bài nói","8 bài × 30.000 ₫","240.000 ₫","Tháng 11"],["Buổi kèm cá nhân","2 buổi × 150.000 ₫","300.000 ₫","Tháng 11"]],
+"kpi":[["Chỉ số","Tháng 9","Tháng 10","Tháng 11"],["Học viên đang học","148","164","182"],["Buổi học hoàn thành","213","236","258"],["Lượt đăng ký mới","26","34","41"]],
+"qa":[["Hạng mục","Phụ trách","Lần kiểm tra","Kết quả"],["Thanh toán bằng VietQR","Quang Duy","24/11 · 10:00","Đạt"],["Tiếp tục buổi Pre-class","Thu Hà","24/11 · 09:40","Đạt"],["Phụ đề bài nghe số 3","Quỳnh Chi","23/11 · 16:20","Cần sửa"]],
+"levels":[["Kỹ năng","Trình độ hiện tại","Điểm gần nhất","Mục tiêu"],["Nghe","A2","78/100","B1"],["Nói","A2","82/100","B1"],["Viết","A2","75/100","B1"]],
+"classes":[["Lớp","Giáo viên","Lịch","Chỗ còn"],["ENG-A2-07 · Giao tiếp hằng ngày","Cô Thu Hà","24/11 · 18:30","3/12"],["ENG-B1-03 · English at work","Cô Mai Linh","25/11 · 19:00","2/10"],["JPN-N5-02 · Chào hỏi","Thầy Hoàng Nam","27/11 · 18:00","4/12"]],
+"lessons":[["Bài học","Trọng tâm","Thời lượng","Trạng thái"],["Ordering at a café","Gọi món lịch sự","12 phút","Đang học"],["Finding the station","Hỏi đường","15 phút","Sắp tới"],["A table for two","Đặt bàn","10 phút","Đã hoàn thành"]],
+"labs":[["Phòng luyện","Bài tập","Thời lượng","Kỹ năng"],["Lab Nghe","Một buổi ở quán cà phê","8 phút","Nghe"],["Lab Nói","Gọi món cùng Zen","10 phút","Nói"],["Lab Đọc","Đọc thực đơn","6 phút","Đọc"]],
+"progress":[["Mốc","Hạn","Tiến độ","Trạng thái"],["Giao tiếp căn bản","02/11/2026","100%","Đã đạt"],["Giao tiếp hằng ngày","14/12/2026","60%","Đang học"],["Công việc và cuộc hẹn","18/01/2027","0%","Sắp tới"]],
+"teacher":[["Buổi dạy","Lớp","Lịch dạy","Học viên"],["Gọi món tại quán","ENG-A2-07","24/11 · 18:30","9"],["Viết email xác nhận","ENG-B1-03","25/11 · 19:00","8"],["Hỏi đường đến ga","ENG-A2-07","26/11 · 18:30","10"]],
+"quality":[["Tiêu chí","Kết quả","Minh chứng","Người duyệt"],["Hướng dẫn rõ ràng","4/5","Lớp ENG-A2-07, buổi 04","Quỳnh Chi"],["Sửa phát âm đúng lúc","5/5","Phản hồi câu số 3","Hoàng Nam"],["Phân bổ thời gian","4/5","Nhật ký lớp ngày 19/11","Quỳnh Chi"]],
+"infra":[["Tài nguyên","Mức sử dụng","Giới hạn","Trạng thái"],["Audio bài học","24 GB","100 GB","Bình thường"],["Phiên AI đồng thời","38","80","Bình thường"],["Hàng chờ tạo giọng đọc","12 tác vụ","20 tác vụ","Đang xử lý"]],
+"schedule":[["Công việc","Ngày hẹn","Phụ trách","Trạng thái"],["Chuẩn bị buổi học số 05","24/11 · 17:30","Minh Anh","Đang thực hiện"],["Nhận xét bài nói","25/11 · 09:00","Thu Hà","Chờ phản hồi"],["Ôn từ vựng sau lớp","26/11 · 18:00","Minh Anh","Đã lên lịch"]],
+"settings":[["Tham số","Giá trị","Phạm vi","Hiệu lực"],["Ngôn ngữ mặc định","Tiếng Việt","Toàn trung tâm","01/11/2026"],["Múi giờ","Asia/Ho_Chi_Minh","Toàn trung tâm","01/11/2026"],["Kênh nhắc lịch","Email","Tài khoản đang hoạt động","15/11/2026"]]
+};
+const viewTypes = {
+"SCR-M01-01":"queues",
+"SCR-M01-02":"logs",
+"SCR-M01-03":"logs",
+"SCR-M01-04":"services",
+"SCR-M01-05":"settings",
+"SCR-M01-06":"locales",
+"SCR-M01-07":"mail",
+"SCR-M01-08":"docs",
+"SCR-M01-09":"docs",
+"SCR-M01-10":"docs",
+"SCR-M01-11":"error",
+"SCR-M01-12":"people",
+"SCR-M01-13":"import",
+"SCR-M01-14":"media",
+"SCR-M01-15":"record",
+"SCR-M01-16":"word",
+"SCR-M01-17":"assets",
+"SCR-M01-18":"search",
+"SCR-M01-19":"editor",
+"SCR-M01-20":"settings",
+"SCR-M01-21":"notice",
+"SCR-M01-22":"auth",
+"SCR-M01-23":"docs",
+"SCR-M01-24":"logs",
+"SCR-M02-01":"auth",
+"SCR-M02-02":"reset",
+"SCR-M02-03":"signup",
+"SCR-M02-04":"profile",
+"SCR-M02-05":"people",
+"SCR-M02-06":"people",
+"SCR-M02-07":"staff",
+"SCR-M02-08":"staff",
+"SCR-M02-09":"staff",
+"SCR-M03-01":"profile",
+"SCR-M03-02":"staff",
+"SCR-M03-03":"settings",
+"SCR-M03-04":"contracts",
+"SCR-M03-05":"handover",
+"SCR-M03-06":"handover",
+"SCR-M03-07":"policy",
+"SCR-M03-08":"policy",
+"SCR-M03-09":"policy",
+"SCR-M03-10":"locales",
+"SCR-M03-11":"settings",
+"SCR-M03-12":"mail",
+"SCR-M03-13":"mail",
+"SCR-M03-14":"schedule",
+"SCR-M04-01":"ai",
+"SCR-M04-02":"ai",
+"SCR-M04-03":"ai",
+"SCR-M04-04":"ai",
+"SCR-M04-05":"messages",
+"SCR-M04-06":"assets",
+"SCR-M04-07":"qa",
+"SCR-M04-08":"logs",
+"SCR-M04-09":"docs",
+"SCR-M04-10":"policy",
+"SCR-M04-11":"chat",
+"SCR-M05-01":"logs",
+"SCR-M05-02":"logs",
+"SCR-M05-03":"logs",
+"SCR-M06-01":"privacy",
+"SCR-M06-02":"privacy",
+"SCR-M06-03":"privacy",
+"SCR-M06-04":"support",
+"SCR-M06-05":"support",
+"SCR-M06-06":"privacy",
+"SCR-M06-07":"privacy",
+"SCR-M06-08":"logs",
+"SCR-M06-09":"infra",
+"SCR-M06-10":"infra",
+"SCR-M06-11":"infra",
+"SCR-M06-12":"services",
+"SCR-M06-13":"letter",
+"SCR-M06-14":"qa",
+"SCR-M06-15":"privacy",
+"SCR-M07-01":"services",
+"SCR-M07-02":"services",
+"SCR-M07-03":"mail",
+"SCR-M07-04":"docs",
+"SCR-M07-05":"docs",
+"SCR-M08-01":"home",
+"SCR-M08-02":"about",
+"SCR-M08-03":"program",
+"SCR-M08-04":"program",
+"SCR-M08-05":"placement",
+"SCR-M08-06":"news",
+"SCR-M08-07":"faq",
+"SCR-M08-08":"stories",
+"SCR-M08-09":"contact",
+"SCR-M08-10":"campaign",
+"SCR-M08-11":"legal",
+"SCR-M08-12":"cookies",
+"SCR-M08-13":"posts",
+"SCR-M08-14":"editor",
+"SCR-M08-15":"posts",
+"SCR-M08-16":"locales",
+"SCR-M08-17":"posts",
+"SCR-M08-18":"settings",
+"SCR-M09-01":"calculator",
+"SCR-M09-02":"savedPlans",
+"SCR-M09-03":"settings",
+"SCR-M09-04":"leads",
+"SCR-M09-05":"letter",
+"SCR-M10-01":"shop",
+"SCR-M10-02":"detail",
+"SCR-M10-03":"cart",
+"SCR-M10-04":"checkout",
+"SCR-M10-05":"activation",
+"SCR-M10-06":"reader",
+"SCR-M10-07":"resources",
+"SCR-M10-08":"credits",
+"SCR-M10-09":"delivery",
+"SCR-M10-10":"books",
+"SCR-M10-11":"editor",
+"SCR-M10-12":"books",
+"SCR-M10-13":"books",
+"SCR-M10-14":"books",
+"SCR-M10-15":"books",
+"SCR-M10-16":"settings",
+"SCR-M10-17":"salesReport",
+"SCR-M10-18":"receipt",
+"SCR-M10-19":"printBook",
+"SCR-M11-01":"courses",
+"SCR-M11-02":"editor",
+"SCR-M11-03":"lesson",
+"SCR-M11-04":"docs",
+"SCR-M11-05":"cert",
+"SCR-M11-06":"cert",
+"SCR-M11-07":"cert",
+"SCR-M11-08":"doc",
+"SCR-M11-09":"library",
+"SCR-M11-10":"lesson",
+"SCR-M11-11":"goals",
+"SCR-M11-12":"cert",
+"SCR-M11-13":"plans",
+"SCR-M11-14":"messages",
+"SCR-M11-15":"courses",
+"SCR-M11-16":"scores",
+"SCR-M11-17":"settings",
+"SCR-M12-01":"quiz",
+"SCR-M12-02":"editor",
+"SCR-M12-03":"import",
+"SCR-M12-04":"quiz",
+"SCR-M12-05":"settings",
+"SCR-M12-06":"exercise",
+"SCR-M12-07":"results",
+"SCR-M12-08":"scores",
+"SCR-M12-09":"scores",
+"SCR-M12-10":"scores",
+"SCR-M12-11":"scores",
+"SCR-M12-12":"scores",
+"SCR-M12-13":"support",
+"SCR-M12-14":"quality",
+"SCR-M12-15":"payroll",
+"SCR-M12-16":"quiz",
+"SCR-M13-01":"plans",
+"SCR-M13-02":"payment",
+"SCR-M13-03":"payment",
+"SCR-M13-04":"orders",
+"SCR-M13-05":"orders",
+"SCR-M13-06":"plans",
+"SCR-M13-07":"plans",
+"SCR-M13-08":"orders",
+"SCR-M13-09":"orders",
+"SCR-M13-10":"orders",
+"SCR-M13-11":"people",
+"SCR-M13-12":"ledger",
+"SCR-M13-13":"logs",
+"SCR-M13-14":"ledger",
+"SCR-M13-15":"ledger",
+"SCR-M13-16":"plans",
+"SCR-M13-17":"settings",
+"SCR-M13-18":"letter",
+"SCR-M14-01":"learner",
+"SCR-M14-02":"learner",
+"SCR-M14-03":"plans",
+"SCR-M14-04":"plans",
+"SCR-M14-05":"plans",
+"SCR-M14-06":"request",
+"SCR-M14-07":"orders",
+"SCR-M14-08":"orders",
+"SCR-M14-09":"affiliate",
+"SCR-M14-10":"guide",
+"SCR-M14-11":"guide",
+"SCR-M14-12":"mail",
+"SCR-M14-13":"mail",
+"SCR-M14-14":"settings",
+"SCR-M15-01":"parent",
+"SCR-M15-02":"parent",
+"SCR-M15-03":"parent",
+"SCR-M15-04":"ledger",
+"SCR-M15-05":"orders",
+"SCR-M15-06":"orders",
+"SCR-M15-07":"mail",
+"SCR-M15-08":"request",
+"SCR-M15-09":"people",
+"SCR-M15-10":"privacy",
+"SCR-M15-11":"people",
+"SCR-M15-12":"privacy",
+"SCR-M15-13":"policy",
+"SCR-M15-14":"logs",
+"SCR-M16-01":"assets",
+"SCR-M16-02":"program",
+"SCR-M16-03":"assets",
+"SCR-M16-04":"editor",
+"SCR-M16-05":"editor",
+"SCR-M16-06":"lessons",
+"SCR-M16-07":"quiz",
+"SCR-M16-08":"assets",
+"SCR-M16-09":"assets",
+"SCR-M16-10":"lesson",
+"SCR-M16-11":"import",
+"SCR-M16-12":"assets",
+"SCR-M16-13":"docs",
+"SCR-M16-14":"locales",
+"SCR-M16-15":"media",
+"SCR-M16-16":"editor",
+"SCR-M16-17":"doc",
+"SCR-M16-18":"schedule",
+"SCR-M16-19":"support",
+"SCR-M16-20":"assets",
+"SCR-M16-21":"letter",
+"SCR-M17-01":"ai",
+"SCR-M17-02":"ai",
+"SCR-M17-03":"ai",
+"SCR-M17-04":"ai",
+"SCR-M17-05":"assets",
+"SCR-M17-06":"docs",
+"SCR-M17-07":"quality",
+"SCR-M17-08":"quality",
+"SCR-M17-09":"media",
+"SCR-M17-10":"quiz",
+"SCR-M17-11":"lesson",
+"SCR-M17-12":"quiz",
+"SCR-M17-13":"queues",
+"SCR-M17-14":"scores",
+"SCR-M18-01":"campaigns",
+"SCR-M18-02":"campaigns",
+"SCR-M18-03":"campaigns",
+"SCR-M18-04":"schedule",
+"SCR-M18-05":"campaigns",
+"SCR-M18-06":"campaigns",
+"SCR-M18-07":"posts",
+"SCR-M18-08":"policy",
+"SCR-M18-09":"docs",
+"SCR-M18-10":"posts",
+"SCR-M18-11":"assets",
+"SCR-M18-12":"editor",
+"SCR-M18-13":"posts",
+"SCR-M18-14":"assets",
+"SCR-M18-15":"quality",
+"SCR-M18-16":"assets",
+"SCR-M18-17":"policy",
+"SCR-M18-18":"services",
+"SCR-M18-19":"services",
+"SCR-M18-20":"campaigns",
+"SCR-M18-21":"schedule",
+"SCR-M18-22":"editor",
+"SCR-M18-23":"posts",
+"SCR-M18-24":"schedule",
+"SCR-M18-25":"posts",
+"SCR-M18-26":"messages",
+"SCR-M18-27":"posts",
+"SCR-M18-28":"ledger",
+"SCR-M18-29":"campaigns",
+"SCR-M18-30":"marketingReport",
+"SCR-M18-31":"campaigns",
+"SCR-M18-32":"qa",
+"SCR-M18-33":"marketingReport",
+"SCR-M18-34":"mail",
+"SCR-M18-35":"ai",
+"SCR-M18-36":"ledger",
+"SCR-M18-37":"unsubscribe",
+"SCR-M18-38":"letter",
+"SCR-M19-01":"leads",
+"SCR-M19-02":"leads",
+"SCR-M19-03":"import",
+"SCR-M19-04":"messages",
+"SCR-M19-05":"messages",
+"SCR-M19-06":"settings",
+"SCR-M19-07":"leads",
+"SCR-M19-08":"schedule",
+"SCR-M19-09":"leads",
+"SCR-M19-10":"schedule",
+"SCR-M19-11":"handover",
+"SCR-M19-12":"privacy",
+"SCR-M20-01":"crm",
+"SCR-M20-02":"crm",
+"SCR-M20-03":"people",
+"SCR-M20-04":"contracts",
+"SCR-M20-05":"contracts",
+"SCR-M20-06":"contracts",
+"SCR-M20-07":"doc",
+"SCR-M20-08":"plans",
+"SCR-M20-09":"request",
+"SCR-M20-10":"kpi",
+"SCR-M20-11":"contracts",
+"SCR-M20-12":"kpi",
+"SCR-M20-13":"crm",
+"SCR-M20-14":"program",
+"SCR-M21-01":"contact",
+"SCR-M21-02":"affiliate",
+"SCR-M21-03":"affiliate",
+"SCR-M21-04":"affiliate",
+"SCR-M21-05":"ledger",
+"SCR-M21-06":"affiliate",
+"SCR-M21-07":"assets",
+"SCR-M21-08":"orders",
+"SCR-M21-09":"contracts",
+"SCR-M21-10":"staff",
+"SCR-M21-11":"policy",
+"SCR-M21-12":"policy",
+"SCR-M21-13":"affiliate",
+"SCR-M21-14":"affiliate",
+"SCR-M21-15":"support",
+"SCR-M21-16":"ledger",
+"SCR-M21-17":"ledger",
+"SCR-M21-18":"logs",
+"SCR-M21-19":"assets",
+"SCR-M21-20":"campaigns",
+"SCR-M21-21":"affiliate",
+"SCR-M21-22":"doc",
+"SCR-M22-01":"ledger",
+"SCR-M22-02":"ledger",
+"SCR-M22-03":"ledger",
+"SCR-M22-04":"ledger",
+"SCR-M22-05":"affiliate",
+"SCR-M22-06":"ledger",
+"SCR-M22-07":"orders",
+"SCR-M22-08":"ledger",
+"SCR-M22-09":"ledger",
+"SCR-M22-10":"settings",
+"SCR-M22-11":"ledger",
+"SCR-M22-12":"kpi",
+"SCR-M22-13":"doc",
+"SCR-M23-01":"chat",
+"SCR-M23-02":"contact",
+"SCR-M23-03":"messages",
+"SCR-M23-04":"messages",
+"SCR-M23-05":"messages",
+"SCR-M23-06":"editor",
+"SCR-M23-07":"marketingReport",
+"SCR-M23-08":"messages",
+"SCR-M24-01":"services",
+"SCR-M24-02":"settings",
+"SCR-M24-03":"messages",
+"SCR-M24-04":"messages",
+"SCR-M24-05":"marketingReport",
+"SCR-M24-06":"logs",
+"SCR-M25-01":"settings",
+"SCR-M25-02":"privacy",
+"SCR-M25-03":"calls",
+"SCR-M25-04":"editor",
+"SCR-M25-05":"calls",
+"SCR-M25-06":"calls",
+"SCR-M25-07":"calls",
+"SCR-M25-08":"calls",
+"SCR-M25-09":"marketingReport",
+"SCR-M26-01":"people",
+"SCR-M26-02":"schedule",
+"SCR-M26-03":"letter",
+"SCR-M26-04":"privacy",
+"SCR-M26-05":"privacy",
+"SCR-M26-06":"notice",
+"SCR-M26-07":"support",
+"SCR-M26-08":"support",
+"SCR-M26-09":"support",
+"SCR-M26-10":"request",
+"SCR-M26-11":"support",
+"SCR-M26-12":"request",
+"SCR-M26-13":"editor",
+"SCR-M26-14":"survey",
+"SCR-M26-15":"quality",
+"SCR-M26-16":"logs",
+"SCR-M26-17":"schedule",
+"SCR-M26-18":"settings",
+"SCR-M27-01":"handover",
+"SCR-M27-02":"handover",
+"SCR-M27-03":"handover",
+"SCR-M27-04":"handover",
+"SCR-M27-05":"handover",
+"SCR-M27-06":"staff",
+"SCR-M27-07":"request",
+"SCR-M27-08":"request",
+"SCR-M27-09":"quality",
+"SCR-M28-01":"staff",
+"SCR-M28-02":"staff",
+"SCR-M28-03":"staff",
+"SCR-M28-04":"kpi",
+"SCR-M28-05":"quality",
+"SCR-M28-06":"handover",
+"SCR-M29-01":"hr",
+"SCR-M29-02":"hr",
+"SCR-M29-03":"quality",
+"SCR-M29-04":"hr",
+"SCR-M29-05":"quiz",
+"SCR-M29-06":"chat",
+"SCR-M29-07":"hr",
+"SCR-M29-08":"letter",
+"SCR-M30-01":"training",
+"SCR-M30-02":"quiz",
+"SCR-M30-03":"training",
+"SCR-M30-04":"chat",
+"SCR-M30-05":"exercise",
+"SCR-M30-06":"cert",
+"SCR-M30-07":"assets",
+"SCR-M30-08":"quality",
+"SCR-M31-01":"docs",
+"SCR-M31-02":"messages",
+"SCR-M31-03":"support",
+"SCR-M31-04":"quiz",
+"SCR-M31-05":"marketingReport",
+"SCR-M31-06":"messages",
+"SCR-M32-01":"shift",
+"SCR-M32-02":"shift",
+"SCR-M32-03":"settings",
+"SCR-M32-04":"request",
+"SCR-M32-05":"shift",
+"SCR-M32-06":"shift",
+"SCR-M33-01":"payroll",
+"SCR-M33-02":"payroll",
+"SCR-M33-03":"payroll",
+"SCR-M33-04":"payroll",
+"SCR-M33-05":"payroll",
+"SCR-M33-06":"payroll",
+"SCR-M33-07":"request",
+"SCR-M33-08":"doc",
+"SCR-M34-01":"kpi",
+"SCR-M34-02":"kpi",
+"SCR-M34-03":"kpi",
+"SCR-M34-04":"kpi",
+"SCR-M34-05":"settings",
+"SCR-M35-01":"chat",
+"SCR-M35-02":"kpi",
+"SCR-M35-03":"request",
+"SCR-M35-04":"handover",
+"SCR-M35-05":"letter",
+"SCR-M35-06":"settings",
+"SCR-M36-01":"docs",
+"SCR-M36-02":"qa",
+"SCR-M36-03":"support",
+"SCR-M36-04":"schedule",
+"SCR-M36-05":"support",
+"SCR-M37-01":"settings",
+"SCR-M37-02":"people",
+"SCR-M37-03":"kpi",
+"SCR-M37-04":"request",
+"SCR-M37-05":"support",
+"SCR-M37-06":"qa",
+"SCR-M37-07":"doc",
+"SCR-M37-08":"guide",
+"SCR-M37-09":"docs",
+"SCR-M37-10":"doc",
+"SCR-M38-01":"placement",
+"SCR-M38-02":"results",
+"SCR-M38-03":"levels",
+"SCR-M38-04":"classes",
+"SCR-M38-05":"scores",
+"SCR-M38-06":"settings",
+"SCR-M38-07":"levels",
+"SCR-M38-08":"cert",
+"SCR-M38-09":"doc",
+"SCR-M39-01":"classes",
+"SCR-M39-02":"editor",
+"SCR-M39-03":"classes",
+"SCR-M39-04":"booking",
+"SCR-M39-05":"booked",
+"SCR-M39-06":"classes",
+"SCR-M39-07":"teacher",
+"SCR-M39-08":"request",
+"SCR-M40-01":"chat",
+"SCR-M40-02":"editor",
+"SCR-M40-03":"logs",
+"SCR-M40-04":"lessons",
+"SCR-M40-05":"settings",
+"SCR-M40-06":"settings",
+"SCR-M40-07":"progress",
+"SCR-M40-08":"queues",
+"SCR-M40-09":"scores",
+"SCR-M41-01":"lesson",
+"SCR-M41-02":"lesson",
+"SCR-M41-03":"media",
+"SCR-M41-04":"record",
+"SCR-M41-05":"word",
+"SCR-M41-06":"settings",
+"SCR-M41-07":"results",
+"SCR-M41-08":"levels",
+"SCR-M41-09":"assets",
+"SCR-M41-10":"settings",
+"SCR-M41-11":"assets",
+"SCR-M41-12":"infra",
+"SCR-M42-01":"lessons",
+"SCR-M42-02":"lesson",
+"SCR-M42-03":"lesson",
+"SCR-M42-04":"lesson",
+"SCR-M42-05":"teacher",
+"SCR-M42-06":"teacher",
+"SCR-M42-07":"scores",
+"SCR-M42-08":"letter",
+"SCR-M43-01":"teacher",
+"SCR-M43-02":"teacher",
+"SCR-M43-03":"editor",
+"SCR-M43-04":"handover",
+"SCR-M43-05":"quality",
+"SCR-M44-01":"lessons",
+"SCR-M44-02":"exercise",
+"SCR-M44-03":"lesson",
+"SCR-M44-04":"exercise",
+"SCR-M44-05":"results",
+"SCR-M44-06":"progress",
+"SCR-M44-07":"handover",
+"SCR-M44-08":"handover",
+"SCR-M44-09":"quiz",
+"SCR-M44-10":"scores",
+"SCR-M45-01":"learner",
+"SCR-M45-02":"labs",
+"SCR-M45-03":"lesson",
+"SCR-M45-04":"lesson",
+"SCR-M45-05":"lesson",
+"SCR-M45-06":"lesson",
+"SCR-M45-07":"assets",
+"SCR-M45-08":"doc",
+"SCR-M45-09":"exercise",
+"SCR-M45-10":"levels",
+"SCR-M45-11":"scores",
+"SCR-M45-12":"scores",
+"SCR-M45-13":"settings",
+"SCR-M46-01":"road",
+"SCR-M46-02":"history",
+"SCR-M46-03":"time",
+"SCR-M46-04":"road",
+"SCR-M46-05":"road",
+"SCR-M46-06":"quality",
+"SCR-M46-07":"settings",
+"SCR-M47-01":"blocks",
+"SCR-M47-02":"blocks",
+"SCR-M47-03":"booked",
+"SCR-M47-04":"teacher",
+"SCR-M47-05":"settings",
+"SCR-M47-06":"lesson",
+"SCR-M47-07":"request",
+"SCR-M47-08":"support",
+"SCR-M47-09":"settings",
+"SCR-M48-01":"parent",
+"SCR-M48-02":"teacher",
+"SCR-M48-03":"feedback",
+"SCR-M48-04":"levels",
+"SCR-M48-05":"scores",
+"SCR-M48-06":"scores",
+"SCR-M48-07":"letter",
+"SCR-M48-08":"settings",
+"SCR-M49-01":"chat",
+"SCR-M49-02":"chat",
+"SCR-M49-03":"messages",
+"SCR-M49-04":"request",
+"SCR-M49-05":"messages",
+"SCR-M49-06":"logs",
+"SCR-M49-07":"quiz",
+"SCR-M49-08":"marketingReport",
+"SCR-M50-01":"teacher",
+"SCR-M50-02":"teacher",
+"SCR-M50-03":"classes",
+"SCR-M50-04":"people",
+"SCR-M50-05":"assets",
+"SCR-M50-06":"request",
+"SCR-M50-07":"lessons",
+"SCR-M50-08":"levels",
+"SCR-M50-09":"assets",
+"SCR-M50-10":"handover",
+"SCR-M50-11":"handover",
+"SCR-M50-12":"progress",
+"SCR-M50-13":"scores",
+"SCR-M50-14":"scores",
+"SCR-M50-15":"quality",
+"SCR-M50-16":"schedule",
+"SCR-M50-17":"request",
+"SCR-M50-18":"shift",
+"SCR-M50-19":"payroll",
+"SCR-M50-20":"request",
+"SCR-M50-21":"assets",
+"SCR-M50-22":"quality",
+"SCR-M51-01":"quality",
+"SCR-M51-02":"teacher",
+"SCR-M51-03":"schedule",
+"SCR-M51-04":"quality",
+"SCR-M51-05":"training",
+"SCR-M51-06":"quality",
+"SCR-M51-07":"quality",
+"SCR-M51-08":"training",
+"SCR-M52-01":"support",
+"SCR-M52-02":"handover",
+"SCR-M52-03":"support",
+"SCR-M52-04":"support",
+"SCR-M52-05":"settings",
+"SCR-M52-06":"chat",
+"SCR-M52-07":"quality",
+"SCR-M53-01":"qa",
+"SCR-M53-02":"qa",
+"SCR-M53-03":"qa",
+"SCR-M53-04":"scores",
+"SCR-M53-05":"scores",
+"SCR-M53-06":"infra",
+"SCR-M53-07":"guide",
+"SCR-M53-08":"media",
+"SCR-M53-09":"guide",
+"SCR-M53-10":"qa",
+"SCR-M53-11":"doc",
+"SCR-M54-01":"infra",
+"SCR-M54-02":"notice",
+"SCR-M54-03":"assets",
+"SCR-M54-04":"media",
+"SCR-M54-05":"ai",
+"SCR-M54-06":"ai"
+};
+// Store prices and discount arithmetic use whole VND throughout.
+const products = [
+  ["cafe","Café English","Gọi món và trò chuyện tự nhiên qua 12 tình huống tại quán cà phê.","EN","A2","Sách in",169000,149000,4.9,186,"12 hội thoại","Café","English"],
+  ["kana","Nhật ngữ từ nét đầu","Ghi nhớ hai bảng kana qua bài viết theo nét và thẻ ôn nhanh.","JA","N5","Sách điện tử",119000,99000,4.8,129,"46 bài viết","かな","Kana"],
+  ["seoul","Một ngày ở Seoul","Thực hành hỏi đường, gọi món và mua sắm trong 8 bài học có âm thanh.","KO","A1","Khóa tự học",249000,219000,4.9,162,"8 bài học","서울","Seoul"],
+  ["tones","Thanh điệu đầu tiên","Phân biệt bốn thanh điệu qua các cặp từ và bài nghe ngắn.","ZH","HSK 1","Khóa tự học",199000,179000,4.7,94,"16 bài nghe","声调","Pinyin"],
+  ["saigon","Tiếng Việt quanh tôi","Hội thoại đời thường cho người mới sống và làm việc tại Việt Nam.","VI","A1","Sách in",159000,159000,4.8,78,"10 chủ đề","Ă ơi","Sài Gòn"],
+  ["voices","Speak up!","Luyện trọng âm, nhịp câu và ngữ điệu với bài nói có phản hồi.","EN","B1","Gói lượt chấm",99000,79000,4.9,148,"10 lượt nói","Speak","up!"],
+  ["tokyo","Nhật ký Tokyo","Đọc những mẩu chuyện ngắn và tích lũy từ vựng theo chủ đề.","JA","N4","Sách điện tử",139000,139000,4.8,86,"18 bài đọc","東京","Tokyo"],
+  ["work","English at work","Viết email, tham gia cuộc họp và trình bày ý tưởng bằng tiếng Anh.","EN","B1","Khóa tự học",329000,289000,4.9,102,"14 bài học","Work","English"]
+].map(([id,title,description,lang,level,type,list,price,rating,sold,unit,line1,line2],i)=>({id,title,description,lang,level,type,list,price,rating,sold,unit,line1,line2,number:i+1}));
+const storeState={query:"",language:"Tất cả",level:"Tất cả",type:"Tất cả",price:"Tất cả",sort:"Mới nhất",page:1,product:"cafe",cart:{},recipient:"Tôi",voucher:"",voucherMessage:"",method:"VietQR",order:null,completed:[]};
+const findProduct=id=>products.find(p=>p.id===id);
+const money=value=>new Intl.NumberFormat("vi-VN").format(value)+" ₫";
+const languageName=code=>languages.find(([,id])=>id===code)?.[0] || code;
+function op(action,label,id="",style="") {
+  return `<button type="button" class="${buttonStyle(style)}" data-op="${escape(action)}" data-id="${escape(id)}">${escape(label)}</button>`;
 }
+function choiceField(label,key,values,current) {
+  return `<label>${label}<select aria-label="${escape(label)}" data-choice="${key}">${options(values,current)}</select></label>`;
+}
+function cover(p,small=false) {
+  return `<div class="book-art book-${p.lang} ${small?"mini":""}" aria-hidden="true"><div class="book-face"><span class="cover-imprint">zenford</span><b>${p.line1}<br>${p.line2}</b><span class="cover-foot">${p.level} · ${p.unit}</span></div></div>`;
+}
+function productLink(p,content,cls="") {
+  return `<a class="${cls}" href="#SCR-M10-02" data-product="${p.id}" aria-label="${escape(content.startsWith("<")?p.title:content)}">${content}</a>`;
+}
+const cartQty=()=>Object.values(storeState.cart).reduce((n,q)=>n+q,0);
+const cartLink=()=>link("SCR-M10-03",`Giỏ hàng (${cartQty()})`);
+function productCard(p) {
+  return `<article class="product-card">${productLink(p,cover(p))}<div class="stack compact"><div class="row">${pill(p.type)}<small>★ ${p.rating.toFixed(1)}</small></div><h3>${productLink(p,p.title)}</h3><small>${languageName(p.lang)} · ${p.level} · ${p.unit}</small><p>${p.description}</p><div class="price"><strong>${money(p.price)}</strong> ${p.list>p.price?`<del>${money(p.list)}</del>`:""}</div>${op("add","Thêm vào giỏ",p.id,"primary small")}</div></article>`;
+}
+function shopResults() {
+  const st=storeState;
+  const filtered=products.filter(p=>fold(p.title+" "+p.description).includes(fold(st.query)) && (st.language==="Tất cả"||st.language===languageName(p.lang)) && (st.level==="Tất cả"||st.level===p.level) && (st.type==="Tất cả"||st.type===p.type) && (st.price==="Tất cả"||(st.price==="Dưới 150.000 ₫"?p.price<150000:p.price>=150000)));
+  filtered.sort((a,b)=>st.sort==="Bán chạy"?b.sold-a.sold:st.sort==="Giá tăng dần"?a.price-b.price:st.sort==="Giá giảm dần"?b.price-a.price:b.number-a.number);
+  const pages=Math.max(1,Math.ceil(filtered.length/6));
+  st.page=Math.min(pages,Math.max(1,st.page));
+  return `<div class="row"><strong>${filtered.length} sản phẩm</strong><small>Giá minh họa</small></div>${filtered.length?`<div class="product-grid">${filtered.slice((st.page-1)*6,st.page*6).map(productCard).join("")}</div>`:card('<h2>Chưa tìm thấy sản phẩm</h2><p>Thử tên khác hoặc xóa bộ lọc để xem lại cửa hàng.</p>'+op("shop-reset","Xóa bộ lọc"))}${pages>1?`<nav class="actions" aria-label="Trang sản phẩm">${Array.from({length:pages},(_,i)=>op("shop-page","Trang "+(i+1),String(i+1),st.page===i+1?"primary small":"small")).join("")}</nav>`:""}`;
+}
+function shop(screen) {
+  const st=storeState,all=values=>["Tất cả",...new Set(values)];
+  return workspace(screen,pageHeading(screen,"Cửa hàng học liệu","Sách, khóa tự học và bài luyện theo ngôn ngữ bạn đang học.",cartLink())+
+    `<div class="shop-filters"><label>Tìm học liệu<input data-search="shop" type="search" value="${escape(st.query)}" placeholder="Tên học liệu"></label>${choiceField("Ngôn ngữ","language",all(languages.map(a=>a[0])),st.language)}${choiceField("Trình độ","level",all(products.map(p=>p.level)),st.level)}${choiceField("Loại sản phẩm","type",all(products.map(p=>p.type)),st.type)}${choiceField("Khoảng giá","price",["Tất cả","Dưới 150.000 ₫","Từ 150.000 ₫"],st.price)}${choiceField("Sắp xếp","sort",["Mới nhất","Bán chạy","Giá tăng dần","Giá giảm dần"],st.sort)}</div><div id="shop-results" class="stack">${shopResults()}</div>`);
+}
+const bookChapters={cafe:["A seat by the window","Ordering at a café","Could I have the bill?"],kana:["Hiragana cơ bản","Âm ghép và âm ngắt","Đọc bảng hiệu"],seoul:["Chào buổi sáng","Ở ga tàu điện","Đặt món ăn"],tones:["Nghe và phân biệt","Thanh ba biến điệu","Thử sức hội thoại"],saigon:["Làm quen","Một buổi ở chợ","Đường về nhà"],voices:["Nhấn âm từ","Nhịp câu","Gửi bài nói"],tokyo:["Chuyến tàu sáng","Cửa hàng tiện lợi","Cuối tuần ở công viên"],work:["Writing to a colleague","Joining a meeting","Pitching an idea"]};
+function productDetail(screen){
+  const p=findProduct(storeState.product),chapters=bookChapters[p.id];
+  return workspace(screen,pageHeading(screen,p.title,languageName(p.lang)+" · "+p.level,cartLink())+`<div class="split">${card(cover(p)+`<p>${p.description}</p><h2>Nội dung</h2><ol>${chapters.map(v=>`<li>${v}</li>`).join("")}</ol>`)}<div class="stack">${card(`<div>${pill(p.type)}</div><h2>${money(p.price)}</h2><small>Giá minh họa${p.list!==p.price?" · Giá gốc "+money(p.list)+" · Ưu đãi đến 30/11/2026":""}</small><p>${p.type==="Sách in"?"Còn hàng · Giao trong 3–5 ngày.":p.type==="Gói lượt chấm"?"10 lượt gửi bài trong 90 ngày.":"Truy cập 180 ngày trên tối đa 2 thiết bị."}</p><div class="actions">${op("buy","Mua ngay",p.id,"primary")}${op("add","Thêm vào giỏ",p.id)}</div><details><summary>Xem trước nội dung</summary><p>${productExcerpts[p.id]}</p></details>`)}${card(`<h3>Đánh giá học viên</h3><strong>★ ${p.rating.toFixed(1)} / 5</strong><p>“${productReviews[p.id]}”</p><small>Minh Anh · Đã sử dụng</small>`)}</div></div><h2>Có thể bạn cũng thích</h2><div class="product-grid">${products.filter(other=>other.id!==p.id).slice(0,3).map(productCard).join("")}</div>`);
+}
+const productExcerpts={cafe:"Barista: What can I get for you? · Customer: I’d like a hot chocolate, please.",kana:"あ (a) · い (i) · う (u). Đọc từng chữ rồi tìm âm đầu của いぬ.",seoul:"안녕하세요! 지하철역이 어디예요? — Xin chào! Ga tàu điện ở đâu?",tones:"mā · má · mǎ · mà. Âm tiết giống nhau, thanh điệu làm thay đổi nghĩa.",saigon:"Cho tôi hỏi, từ đây đến chợ đi bộ mất bao lâu?",voices:"Read aloud: Could I have a glass of water, please?",tokyo:"朝、駅で友達に会いました。Buổi sáng tôi gặp bạn ở nhà ga.",work:"Hi Linh, could we move our meeting to Thursday afternoon?"};
+const productReviews={cafe:"Mình đã dùng được câu gọi đồ uống ngay sau bài hai.",kana:"Các ô tập nét giúp mình phân biệt những chữ dễ nhầm.",seoul:"Bài ở ga tàu rất sát tình huống mình cần.",tones:"Luyện từng cặp âm dễ nghe ra điểm khác nhau hơn.",saigon:"Mình thích nhất bài hỏi đường ở chợ.",voices:"Phản hồi trọng âm giúp mình sửa ngay lần đọc sau.",tokyo:"Truyện ngắn vừa đủ để đọc mỗi buổi sáng.",work:"Mình dùng được ngay mẫu email đổi lịch họp."};
+function totals(){
+  const entries=Object.entries(storeState.cart).map(([id,q])=>({p:findProduct(id),q}));
+  const sub=entries.reduce((v,{p,q})=>v+p.price*q,0), discount=storeState.voucher==="ZEN10"?Math.round(sub*.1):0;
+  return {entries,sub,discount,ship:entries.some(({p})=>p.type==="Sách in")?25000:0};
+}
+function bill(t,delivery=false){
+  const fee=delivery?t.ship:0;
+  return `<div class="bill stack compact"><h3>Tóm tắt đơn hàng</h3><div class="row"><span>Tạm tính</span><b>${money(t.sub)}</b></div><div class="row"><span>Giảm giá</span><b>−${money(t.discount)}</b></div>${delivery?`<div class="row"><span>Giao hàng</span><b>${money(fee)}</b></div>`:""}<hr class="rule"><div class="row"><strong>Tổng cộng</strong><b>${money(t.sub-t.discount+fee)}</b></div><small>Giá minh họa</small></div>`;
+}
+function emptyCart(screen){return workspace(screen,pageHeading(screen,screen.name,"")+card('<h2>Giỏ hàng đang trống</h2><p>Chọn một cuốn sách hoặc khóa học để bắt đầu.</p>'+link("SCR-M10-01","Khám phá cửa hàng","primary")));}
+function shoppingCart(screen){
+  const t=totals();if(!t.entries.length)return emptyCart(screen);
+  return workspace(screen,pageHeading(screen,"Giỏ hàng",cartQty()+" sản phẩm",link("SCR-M10-01","Tiếp tục mua sắm"))+`<div class="split"><div class="stack">${t.entries.map(({p,q})=>card(`<div class="cart-item">${cover(p,true)}<div><h3>${productLink(p,p.title)}</h3><small>${p.type}</small><p>${money(p.price)}</p></div><div class="actions">${p.type==="Sách in"?op("less","−",p.id,"small")+`<b>${q}</b>`+op("more","+",p.id,"small"):""}${op("remove","Xóa",p.id,"small")}</div></div>`)).join("")}${choiceField("Người nhận quyền","recipient",["Tôi","Con · Minh Anh"],storeState.recipient)}</div><div class="stack">${bill(t)}<form data-task="voucher" class="stack compact"><label>Mã ưu đãi<input name="code" value="${escape(storeState.voucher)}" placeholder="ZEN10"></label><small>ZEN10 giảm 10% đơn hàng.</small><button class="zf-btn zf-btn--white">Áp dụng mã</button><span role="status">${escape(storeState.voucherMessage)}</span></form>${link("SCR-M10-04","Thanh toán","primary")}</div></div>`);
+}
+function checkout(screen){
+  const t=totals();if(!t.entries.length)return emptyCart(screen);
+  return workspace(screen,pageHeading(screen,"Thanh toán","Tiếp tục với tư cách khách. Thông tin dưới đây chỉ dùng trong phiên thử.")+`<div class="split"><form data-task="checkout" class="card stack"><h2>Người nhận</h2><label>Họ và tên<input name="buyer" required value="Nguyễn Minh Anh"></label><label>Email<input name="email" type="email" required value="minh.anh@example.test"></label><label>Số điện thoại<input type="tel" name="phone"></label>${t.ship?'<label>Địa chỉ giao sách<input name="address" required placeholder="Số nhà, tên đường, tỉnh thành"></label>':""}<details><summary>Xuất hóa đơn công ty</summary><label>Tên công ty<input name="company"></label><label>Mã số thuế<input name="tax"></label><label>Email nhận hóa đơn<input type="email" name="invoiceEmail"></label></details>${choiceField("Phương thức thanh toán","method",["VietQR","VNPay","9Pay"],storeState.method)}<label class="inline"><input required type="checkbox">Tôi đồng ý với điều khoản mua hàng và chính sách hoàn tiền.</label><button class="zf-btn">Đặt hàng và thanh toán</button></form><div>${bill(t,true)}</div></div>`);
+}
+function orderPage(screen){
+  const historic={code:"ZF-2411-024",buyer:"Nguyễn Minh Anh",email:"minh.anh@example.test",total:149000,method:"VietQR",entries:[{p:findProduct("cafe"),q:1}],paid:true};
+  const o=storeState.order || (screen.id==="SCR-M13-03"?historic:null);
+  if(!o)return workspace(screen,pageHeading(screen,screen.name,"")+card("<h2>Bạn chưa có đơn hàng</h2>"+link("SCR-M10-01","Đến cửa hàng","primary")));
+  const done=o.paid;
+  return workspace(screen,pageHeading(screen,done?"Đã thanh toán":"Xác nhận đơn hàng",o.code)+card(`<div>${pill(done?"Thành công":"Chờ xác nhận",done?"mint":"warn")}</div><h2>${money(o.total)}</h2><p>${escape(o.buyer)} · ${escape(o.email)}</p>${table(["Học liệu","Số lượng","Thành tiền"],o.entries.map(({p,q})=>[p.title,String(q),money(p.price*q)]))}<p>Giảm giá · ${money(o.discount||0)} &nbsp; · &nbsp; Phí giao hàng · ${money(o.delivery||0)}</p><p>Người nhận quyền · ${escape(o.recipient||"Tôi")} · ${o.method} · Giá minh họa</p><div class="actions">${done?(o.entries.some(({p})=>!findProduct(p.id))?link("SCR-M14-04","Mở gói học của tôi","primary"):link("SCR-M11-09","Mở học liệu của tôi","primary")):op("confirm-paid","Xác nhận thanh toán thử","","primary")}${link("SCR-M10-01","Về cửa hàng")}</div>`));
+}
+// The November check-in links the forecast, study log and evidence views.
+const road={child:"Minh Anh",period:"Tháng 11",selected:1};
+const milestones=[
+  ["Giao tiếp căn bản","Giới thiệu bản thân và hỏi thông tin cá nhân.","02/11/2026","Đã đạt","Bài nói giới thiệu bản thân · 86/100"],
+  ["Giao tiếp hằng ngày","Gọi món, hỏi đường và trao đổi khi mua sắm.","14/12/2026","Đang học","Ordering at a café · 82/100"],
+  ["Trao đổi trong công việc","Sắp xếp cuộc hẹn và viết email ngắn.","18/01/2027","Sắp tới","Bài viết xác nhận lịch hẹn"],
+  ["Thi thử B1","Hoàn thành bài nghe, nói, đọc và viết.","08–14/02/2027","Dự kiến","Bài thi thử tổng hợp B1"]
+];
+const reviews=[
+  ["23/11/2026","01–07/02/2027","08–14/02/2027","Chậm 7 ngày","Tuần vừa qua bạn học 150 trong 180 phút theo kế hoạch."],
+  ["09/11/2026","01–07/02/2027","01–07/02/2027","Đúng tiến độ","Bạn hoàn thành khối giao tiếp căn bản và duy trì 3 giờ học mỗi tuần."],
+  ["19/10/2026","Lần đánh giá đầu","01–07/02/2027","Khởi tạo","Lập kế hoạch đầu tiên sau bài đánh giá A2."]
+];
+function milestoneList(completedOnly=false){
+  return `<ol class="road-line">${milestones.filter(([, , ,status])=>!completedOnly||status==="Đã đạt").map(([name,desc,date,status],i)=>`<li><span class="road-dot ${i<2?"filled":""}" aria-hidden="true">${i===0?"✓":i+1}</span><div class="stack compact"><div class="row"><strong>${name}</strong>${pill(status,i===0?"mint":i===1?"warn":"gray")}</div><small>${date}</small><p>${desc}</p>${!completedOnly&&i<2?`<a class="text-link" data-milestone="${i}" href="#SCR-M47-02">Xem bằng chứng học tập</a>`:""}</div></li>`).join("")}</ol>`;
+}
+function roadmap(screen){
+  const parent=screen.id==="SCR-M46-04",staff=screen.id==="SCR-M46-05";
+  const paused=parent?road.child==="Gia Hân":!staff&&road.track==="Tiếng Nhật N5";
+  const selector=parent?choiceField("Hồ sơ của con","child",["Minh Anh","Gia Hân"],road.child):staff?"":choiceField("Lộ trình đang xem","track",["Tiếng Anh A2","Tiếng Nhật N5"],road.track||"Tiếng Anh A2");
+  const heading=pageHeading(screen,staff?"Lộ trình của Minh Anh":screen.name,(parent&&paused?"Gia Hân":"Minh Anh")+(paused?" · Tiếng Nhật nhập môn":" · Tiếng Anh giao tiếp · Mục tiêu B1"));
+  if(paused)return workspace(screen,heading+selector+card(`${pill("Tạm dừng","warn")}<h2>Đang bảo lưu lịch học</h2><p>Lộ trình tiếng Nhật được bảo lưu từ 16/11 đến 14/12. Zenford sẽ tính lại ngày dự kiến khi buổi học tiếp theo hoàn tất.</p>`));
+  return workspace(screen,heading+selector+`<div class="road-summary">${pill("Chậm 7 ngày","warn")}<h2>08 – 14 tháng 2, 2027</h2><p>Khoảng thời gian dự kiến đạt B1</p><small>Kế hoạch ban đầu · 01–07/02/2027 &nbsp; | &nbsp; Lần tính trước · 01–07/02/2027</small></div><div class="split">${card(`<h2>${parent?"Các mốc đã đạt":"Các mốc học tập"}</h2>${milestoneList(parent)}`)}<div class="stack">${card(`<h3>Điều gì đã thay đổi?</h3><small>Cập nhật ngày 23/11/2026</small><p>Tuần qua Minh Anh học 150 phút, ít hơn kế hoạch 30 phút. Ngày đạt mục tiêu lùi một tuần so với lần tính trước.</p>${parent?"":link("SCR-M46-02","Xem lịch sử thay đổi","small")}`)}${card(`<h3>Thêm 30 phút mỗi tuần</h3><p>Chia thành hai buổi luyện nghe 15 phút để trở lại nhịp 3 giờ mỗi tuần.</p>${parent?link("SCR-M48-02","Xem lịch của con"):link("SCR-M46-03","Xem thời gian học")}`)}${staff?link("SCR-M52-04","Xem ca chăm sóc"):""}</div></div>`);
+}
+function roadHistory(screen){
+  const list=reviews.filter(r=>road.period==="Tất cả"||r[0].slice(3,5)===road.period.slice(-2));
+  return workspace(screen,pageHeading(screen,screen.name,"Minh Anh · Mục tiêu B1",link("SCR-M46-01","Về lộ trình"))+choiceField("Kỳ đánh giá","period",["Tất cả","Tháng 11","Tháng 10","Tháng 09"],road.period)+card(list.length?table(["Ngày tính","Dự kiến trước","Dự kiến mới","Thay đổi","Lý do"],list):"<p>Chưa có thay đổi trong kỳ đã chọn.</p>"));
+}
+function studyTime(screen){
+  const days=[["Thứ Hai",10,10,5],["Thứ Ba",15,10,5],["Thứ Tư",0,0,0],["Thứ Năm",10,10,10],["Thứ Sáu",10,5,10],["Thứ Bảy",5,10,10],["Chủ nhật",0,5,10]];
+  return workspace(screen,pageHeading(screen,screen.name,"16–22 tháng 11, 2026",link("SCR-M46-01","Về lộ trình"))+`<div class="grid3">${metric("150 / 180","Phút tự học theo kế hoạch")}${metric("2","Buổi In-class đã tham gia")}${metric("6 / 7","Ngày có tự học")}</div>`+card(`<h2>Nhịp học trong tuần</h2><p>Thời gian chuẩn bị trước buổi học, ôn sau buổi học và luyện trong Lab.</p><div class="week-bars">${days.map(([day,pre,post,lab])=>`<div><small>${day}</small><div class="day-bar" aria-hidden="true">${[pre,post,lab].map((v,i)=>`<i style="width:${v/30*100}%;background:var(--${["sky","mint","peach"][i]})"></i>`).join("")}</div><b>${pre+post+lab?pre+post+lab+" phút":"Nghỉ"}</b></div>`).join("")}</div>${table(["Ngày","Pre-class","Post-class","Lab"],days.map(([day,...v])=>[day,...v.map(n=>n+" phút")]))}`));
+}
+function learningBlocks(screen){
+  const [name,desc,date,status,evidence]=milestones[road.selected];
+  return workspace(screen,pageHeading(screen,screen.name,"Minh Anh · Tiếng Anh A2",link("SCR-M46-01","Lộ trình dự kiến"))+(screen.id==="SCR-M47-01"?card("<h2>Giao tiếp từ A2 đến B1</h2>"+milestoneList()):card(`<div>${pill(status,"mint")}</div><h2>${name}</h2><p>${desc}</p><p>Mốc học tập · ${date}</p><h3>Bằng chứng</h3><p>${evidence}</p>${link("SCR-M45-07","Xem vở học")}`)));
+}
+const viewState=new Map();
+function localView(id){
+  if(!viewState.has(id))viewState.set(id,{search:"",filter:"Tất cả",selected:0,changes:{},activity:[],messages:[],done:false});
+  return viewState.get(id);
+}
+const moduleCollection=("queues people policy ai logs privacy services press program books courses quiz orders courses people assets ai campaigns leads crm affiliate ledger messages messages calls support handover staff hr training docs shift payroll kpi kpi qa qa levels classes lessons lessons lessons teacher lessons labs progress progress people messages teacher quality support qa infra").split(" ");
+const sceneCollection={doc:"docs",letter:"mail",receipt:"orders",printBook:"books",notice:"mail",salesReport:"books",marketingReport:"campaigns",goals:"courses",credits:"scores",delivery:"orders",resources:"assets",feedback:"quality"};
+function dataset(screen){
+  const key=viewTypes[screen.id];
+  return routeRecords[screen.id] || collections[key] || collections[sceneCollection[key] || moduleCollection[Number(screen.mod.slice(1))-1]];
+}
+const currentScreen=()=>screens.get(location.hash.slice(1));
+const cap=s=>s.charAt(0).toUpperCase()+s.slice(1);
+const compactDate=["24/11/2026","23/11/2026","21/11/2026"];
+// These field fixtures supplement the module's records when the specification supplies a table schema.
+function fixtureValue(label,i,row,columns){
+  const k=fold(label.trim());
+  const exact=columns.findIndex(c=>fold(c)===k);
+  if(exact>=0)return row[exact];
+  const fields=[
+    [/^(ho ten|ten hoc vien|hoc vien|khach hang|nguoi mua|nguoi nhan|nguoi gui|ung vien)$/,["Nguyễn Minh Anh","Trần Gia Hân","Lê Tuấn Kiệt"]],
+    [/email/,["minh.anh@example.test","gia.han@example.test","tuan.kiet@example.test"]],
+    [/sdt|dien thoai/,["••• 024","••• 031","••• 047"]],
+    [/giao vien|nguoi duyet|phu trach|nguoi xu ly|nguoi cham/,["Thu Hà","Hoàng Nam","Quỳnh Chi"]],
+    [/ngon ngu/,["Tiếng Anh","Tiếng Nhật","Tiếng Hàn"]],
+    [/trinh do|cap do/,["A2","N5","A1"]],
+    [/phien ban/,["v2.1","v1.3","v1.0"]],
+    [/^lop$|ma lop/,["ENG-A2-07","JPN-N5-02","ENG-B1-03"]],
+    [/^ma hoc vien/,["HV-024","HV-031","HV-047"]],
+    [/^kenh|^nguon kenh/,["Website","Email","Facebook"]],
+    [/^thoi diem|^ngay|^han$|cap nhat|lan cuoi|hieu luc/,compactDate],
+    [/^ty le|^ti le|^phan tram/,["86%","78%","92%"]],
+    [/^diem($| )/,["82","88","75"]],
+    [/^so luong|^so lan|^so buoi|^so luot/,["12","8","6"]],
+    [/^gio hoc|^khung gio/,["18:30","19:00","18:00"]],
+    [/^tien te/,["VND","VND","VND"]],
+    [/^ly do loi/,["Quá thời gian chờ","Thiếu tệp âm thanh","Tệp đã hết hạn"]],
+    [/^goi($| )/,["Học với AI","Basic tự học","Giao tiếp tiếng Anh"]],
+    [/^trang thai$|^ket qua$/,null],
+    [/^ten$|^tieu de$|^doi tuong$/,null]
+  ];
+  for(const [pattern,values] of fields){
+    if(!pattern.test(k))continue;
+    if(values)return values[i%values.length];
+    if(k==="trang thai"||k==="ket qua"){
+      const col=columns.findIndex(c=>/trang thai|ket qua/.test(fold(c)));
+      return col>=0?row[col]:null;
+    }
+    return row[0];
+  }
+  return null;
+}
+function sourceColumns(screen){
+  const parts=screen.el.find(e=>/^(bang|danh sach)[^:]{0,55}: /.test(fold(e)));
+  if(!parts)return [];
+  return parts.split(":")[1].split(",").map(v=>cap(v.trim())).filter(v=>v.length<32 && !/[()\[\]]/.test(v));
+}
+function rowsFor(screen){
+  const [columns,...seed]=dataset(screen),state=localView(screen.id);
+  const extra=[...(viewTypes[screen.id]==="support" && !routeRecords[screen.id]?supportTickets:[]),...(state.extra||[])];
+  return [...seed,...extra].map((r,i)=>state.changes[i]?.row||r);
+}
+function recordList(screen){
+  const state=localView(screen.id),[cols]=dataset(screen),rows=rowsFor(screen);
+  const filterIndex=Math.max(1,cols.findIndex(c=>/trang thai|ket qua|ngon ngu|phu trach|ky$/.test(fold(c))));
+  const values=[...new Set(rows.map(r=>r[filterIndex]))];
+  const inputs=`<div class="record-tools"><label>Tìm kiếm<input type="search" data-search="records" placeholder="Nhập từ khóa" value="${escape(state.search)}"></label>${choiceField(cols[filterIndex],"record-filter",["Tất cả",...values],state.filter)}</div>`;
+  const body=recordResults(screen);
+  const tools=recordTools(screen);
+  const peers=data.screens.filter(x=>x.portal===screen.portal&&x.mod===screen.mod&&x.id!==screen.id);
+  return workspace(screen,pageHeading(screen,displayTitle(screen),screenContext(screen),roleModules[screen.id]?link(...roleModules[screen.id],"primary"):"")+
+    card(tools+inputs+`<div id="record-results" class="stack compact">${body}</div>`)+
+    (state.activity.length?card("<h3>Hoạt động gần đây</h3>"+state.activity.map(a=>`<p>${escape(a)}</p>`).join("")):"")+
+    (peers.length?`<nav class="actions" aria-label="Tác vụ cùng khu vực">${peers.slice(0,4).map(x=>link(x.id,displayTitle(x),"small")).join("")}</nav>`:""));
+}
+function recordResults(screen){
+  const state=localView(screen.id),[cols]=dataset(screen),rows=rowsFor(screen);
+  const filterIndex=Math.max(1,cols.findIndex(c=>/trang thai|ket qua|ngon ngu|phu trach|ky$/.test(fold(c))));
+  const extras=sourceColumns(screen).filter(k=>!cols.some(v=>fold(v)===fold(k)||fold(k).includes(fold(v))) && !(k==="Tên"||k==="Họ tên") && fixtureValue(k,0,rows[0],cols)!==null).slice(0,3);
+  const entries=rows.map((r,i)=>({r,i})).filter(({r})=>fold(r.join(" ")).includes(fold(state.search)) && (state.filter==="Tất cả"||r[filterIndex]===state.filter));
+  if(!entries.length)return "<p>Không có kết quả phù hợp.</p>"+op("clear-records","Xóa bộ lọc");
+  return `<small>${entries.length} kết quả</small>${table([...cols,...extras,""],entries.map(({r,i})=>[...r.map(escape),...extras.map(k=>escape(fixtureValue(k,i,r,cols))),staffDetails[listTargets[screen.id]]?`<a class="zf-btn zf-btn--white zf-btn--sm" data-open-record="${i}" data-origin="${screen.id}" href="#${listTargets[screen.id]}">Chi tiết</a>`:op("record-detail","Chi tiết",String(i),"small")]))}`;
+}
+function displayTitle(screen){
+  const replacements={"SCR-M14-01":"Không gian học tập","SCR-M15-01":"Gia đình của tôi","SCR-M41-02":"Học với Zen","SCR-M41-01":"Học với Zen","SCR-M01-12":"Hồ sơ học viên","SCR-M01-13":"Nhập dữ liệu","SCR-M49-02":"Hỏi Zen","SCR-M47-07":"Nhờ giáo viên hỗ trợ","SCR-M37-04":"Góp ý cho Zenford"};
+  return replacements[screen.id]||screen.name.replace(/^(Tab |Popup |Hộp thoại |Khối )/i,"").replace(/ \((sitemap|mẫu hiển thị)\)$/i,"").replace(/^./,c=>c.toUpperCase());
+}
+function screenContext(screen){
+  if(screen.portal==="Admin CRM")return screen.menu.split(">").slice(-2,-1).join("").trim()+" · Tháng 11/2026";
+  if(screen.portal.includes("giáo viên"))return "Cô Thu Hà · Học kỳ mùa thu 2026";
+  if(screen.portal.includes("phụ huynh"))return "Gia đình Minh Anh · Tháng 11/2026";
+  if(screen.portal.includes("học viên")||screen.portal==="Màn học AI")return "Minh Anh · Học kỳ mùa thu 2026";
+  return "";
+}
+function fieldInput(label,name,value="",type="text"){
+  return `<label>${escape(label)}<input name="${name}" type="${type}" value="${escape(value)}" required></label>`;
+}
+function wrapForm(task,body,cta="Lưu thay đổi"){
+  return `<form data-task="${task}" class="card stack">${body}<div class="actions"><button class="zf-btn">${cta}</button></div></form>`;
+}
+const configuration={
+  M01:[["Thời hạn OTP (phút)","5"],["Số lần thử tối đa","5"],["Thời gian khóa (phút)","15"]],
+  M02:[["Thời hạn phiên (phút)","60"],["Kênh xác thực","Email"]],
+  M03:[["Ngôn ngữ mặc định","Tiếng Việt"],["Nhắc trước hạn (ngày)","3"]],
+  M04:[["Mô hình mặc định","Sonnet"],["Ngân sách tháng (USD)","120"]],
+  M06:[["Thời gian giữ bản ghi (ngày)","90"],["Kênh nhận yêu cầu","Email"]],
+  M08:[["Tên website","Zenford"],["Tiêu đề trang chủ","Học ngoại ngữ cùng Zenford"]],
+  M09:[["Giờ chuẩn một khối","36"],["Số buổi mỗi tuần","2"]],
+  M10:[["Nhắc giỏ hàng sau (giờ)","24"],["Số trang xem trước","3"],["Ngưỡng cảnh báo tồn","8"]],
+  M11:[["Giờ nhắc học","19:30"],["Mục tiêu mỗi ngày (phút)","20"]],
+  M12:[["Thời lượng làm bài (phút)","20"],["Số câu","12"],["Điểm đạt","75"]],
+  M13:[["Phương thức mặc định","VietQR"],["Thời gian giữ đơn (phút)","15"]],
+  M14:[["Khu vực mặc định","Việc hôm nay"],["Kênh nhắc lịch","Email"]],
+  M19:[["Nhóm nhận lead","Tư vấn tiếng Anh"],["Thời gian bảo hộ (ngày)","14"]],
+  M22:[["Ký hiệu hóa đơn","ZF26"],["Đơn vị tiền","VND"]],
+  M24:[["Tên fanpage","Zenford Language Studio"],["Khung giờ trực","08:00–20:00"]],
+  M25:[["Giọng đọc","Tiếng Việt miền Nam"],["Khung giờ gọi","09:00–17:30"]],
+  M26:[["Hạn phản hồi (giờ)","24"],["Phụ trách mặc định","Lan Phương"]],
+  M32:[["Bắt đầu ca","08:00"],["Kết thúc ca","17:00"],["Dung sai (phút)","5"]],
+  M34:[["Tỷ lệ cảnh báo (%)","80"],["Người nhận","Ban điều hành"]],
+  M35:[["Giờ gửi tổng hợp","07:30"],["Kênh gửi","Email"]],
+  M37:[["Tính năng thí điểm","Pre-class A2"],["Nhóm tham gia","ENG-A2-07"]],
+  M38:[["Điểm qua mốc","75"],["Số câu đánh giá","12"]],
+  M40:[["Ngôn ngữ giải thích","Tiếng Việt"],["Điểm đạt","75"]],
+  M41:[["Tốc độ phát","1.0"],["Hiển thị phụ đề","Tiếng Anh"]],
+  M45:[["Mục tiêu mỗi ngày (phút)","20"],["Số thẻ ôn mỗi lượt","8"]],
+  M46:[["Lịch tính lại","Thứ Hai 07:00"],["Số tuần lấy trung bình","4"],["Tạm dừng sau số ngày nghỉ","14"]],
+  M47:[["Ngưỡng hoàn thành (%)","80"],["Hạn phản hồi hỗ trợ (giờ)","24"]],
+  M48:[["Kỳ báo cáo","Hằng tuần"],["Ngày gửi","Thứ Hai"]],
+  M52:[["Số ngày không học","7"],["Người nhận cảnh báo","Điều phối viên"]]
+};
+function configurationView(screen){
+  const st=localView(screen.id);
+  const fields=routeRecords[screen.id]?.slice(1).map(row=>[row[0],row[1]])||configuration[screen.mod]||[["Phụ trách","Lan Phương"],["Chu kỳ rà soát","Hằng tuần"]];
+  return workspace(screen,pageHeading(screen,displayTitle(screen),screenContext(screen))+wrapForm("settings",fields.map(([label,value],i)=>fieldInput(label,"f"+i,st.values?.["f"+i]??value,/^\d+$/.test(value)?"number":"text")).join(""))+(st.saved?note("Đã lưu thiết lập trong phiên này.","mint"):""));
+}
+function operationalReport(screen){
+  const [cols,...rows]=dataset(screen), st=localView(screen.id), previous=st.range==="Tháng 10";
+  const [name,unit,current,last]=summarySeries[screen.id];
+  const values=previous?last:current, max=Math.max(...current,...last);
+  return workspace(screen,pageHeading(screen,displayTitle(screen),screenContext(screen))+choiceField("Kỳ báo cáo","range",["Tháng 11","Tháng 10"],st.range||"Tháng 11")+card(`<h2>${name} theo tuần</h2><div class="week-bars">${values.map((v,i)=>`<div><small>Tuần ${i+1}</small><div class="day-bar"><i style="width:${v/max*100}%;background:var(--mint)"></i></div><b>${v} ${unit}</b></div>`).join("")}</div>`)+card(table(cols,rows)+op("export","Tải bảng dữ liệu","","small")));
+}
+function documentView(screen){
+  const [cols,...rows]=dataset(screen), st=localView(screen.id);
+  const topic=mailText[screen.mod]||["Tổng hợp tháng 11","Zenford gửi bạn thông tin cập nhật trong kỳ. Bạn có thể xem các mục bên dưới và liên hệ điều phối nếu cần bổ sung."];
+  const doc=screen.name.includes("PDF")||viewTypes[screen.id]==="doc"||viewTypes[screen.id]==="printBook";
+  return workspace(screen,pageHeading(screen,displayTitle(screen),"")+card(`<div class="row"><strong>zenford</strong>${pill(doc?"Bản lưu":"Hộp thư đến")}</div><hr class="rule"><small>24 tháng 11, 2026 · ${doc?"ZF/2026/024":"Zenford gửi Minh Anh"}</small><h2>${topic[0]}</h2><p>${topic[1]}</p>${table(cols,rows)}<p>Trung tâm ngoại ngữ Zenford</p><div class="actions">${op("print","In / Lưu PDF","","small")}${doc?"":op("read",st.done?"Đã đánh dấu đã đọc":"Đánh dấu đã đọc","","small")}</div>`));
+}
+const mailText={
+ M06:["Đồng ý sử dụng dữ liệu học tập","Ba mẹ có thể xem phạm vi sử dụng bản ghi của Minh Anh và cập nhật lựa chọn trong cổng phụ huynh."],
+ M09:["Lộ trình tiếng Anh của bạn","Chào Minh Anh, kế hoạch A2 đến B1 của bạn gồm các buổi tự học xen kẽ lớp giao tiếp. Zenford sẽ cập nhật dự kiến theo bài làm mỗi tuần."],
+ M10:["Xác nhận đơn học liệu","Cảm ơn bạn đã chọn học cùng Zenford. Học liệu đã thanh toán được mở trong thư viện của người nhận."],
+ M13:["Nhắc kỳ học phí tháng 11","Kỳ học tiếp theo sắp bắt đầu. Vui lòng kiểm tra đơn và người nhận quyền trước khi xác nhận thanh toán."],
+ M16:["Bàn giao học liệu cuối ngày","Bản nghe Ordering at a café đã hoàn tất. Nhóm Học thuật vui lòng kiểm tra phụ đề trước khi phát hành."],
+ M18:["Cuối tuần học gì cùng Zen?","Thử luyện nghe một hội thoại ngắn, ghi lại hai cụm từ mới và dùng chúng trong buổi học tiếp theo."],
+ M26:["Chào bạn đến với tuần học đầu","Bạn có thể bắt đầu bằng bài chẩn đoán ngắn trước giờ học. Cô Hà sẽ xem kết quả để chọn hoạt động phù hợp."],
+ M29:["Lịch phỏng vấn giáo viên tiếng Anh","Mời bạn tham gia buổi trao đổi chuyên môn lúc 09:00 ngày 27/11. Vui lòng chuẩn bị một hoạt động dạy thử cho nhóm A2."],
+ M33:["Phiếu lương tháng 11","Các khoản trong kỳ bao gồm giờ dạy, công chấm và buổi kèm được điều phối xác nhận."],
+ M35:["Báo cáo điều hành buổi sáng","Số lớp và học viên hoạt động tiếp tục tăng trong tháng 11. Nhóm vận hành đang rà soát lịch của tuần tới."],
+ M38:["Chứng nhận năng lực đầu vào","Minh Anh đã hoàn thành đánh giá tiếng Anh và đạt trình độ A2 trong kỳ đánh giá tháng 11."],
+ M45:["Vở ôn tập của Minh Anh","Gọi món lịch sự bằng I’d like… và nhấn trọng âm đầu trong chocolate. Hãy thử lại hai câu này trước buổi học."],
+ M48:["Tiến bộ của Minh Anh","Tuần này Minh Anh dùng lời gọi món lịch sự tốt hơn. Cô Hà đề nghị luyện thêm 15 phút nghe vào thứ Tư."]
+};
+const news=[
+ ["Một tuần luyện nghe cùng Zen","Kinh nghiệm học","23/11/2026","Dành 10 phút mỗi tối nghe một đoạn hội thoại ngắn. Lần đầu nghe để nắm ý, lần sau tập trung vào hai cụm từ bạn muốn dùng. Trong lớp thứ Năm, thử dùng chúng khi trao đổi cùng giáo viên."],
+ ["Bên trong lớp giao tiếp A2","Chuyện lớp học","19/11/2026","Cô Thu Hà bắt đầu buổi học bằng một thực đơn nhỏ. Mỗi cặp học viên lần lượt đóng vai khách và nhân viên, rồi cùng tìm cách gọi đồ uống lịch sự hơn."],
+ ["Bắt đầu với bảng chữ kana","Góc tự học","16/11/2026","Học năm ký tự đầu tiên, đọc thành tiếng và viết một từ có chứa mỗi âm. Sau một ngày, trộn các thẻ lại để tự kiểm tra."]
+];
+const notices=["Buổi giao tiếp A2 bắt đầu lúc 18:30 thứ Ba.","Cô Hà đã nhận xét bài nói Ordering at a café.","Bài ôn trọng âm tuần này đã có trong Lab."];
+const faq=[["Có thể học thử trước khi đăng ký không?","Bạn có thể mở buổi Pre-class tiếng Anh A2 để thử hoạt động nghe, nói và xem phản hồi."],["Ba mẹ theo dõi tiến độ ở đâu?","Trong cổng phụ huynh, chọn hồ sơ con để xem các mốc học tập và nhận xét được chia sẻ."],["Học phí được gia hạn thế nào?","Đến kỳ, Zenford gửi nhắc phí kèm đường dẫn thanh toán và mã QR để bạn chủ động xác nhận."]];
+function contentView(screen){
+  const type=viewTypes[screen.id], st=localView(screen.id);
+  let body="";
+  if(type==="about"||type==="campaign")body=card(`<div>${pill("Lớp ngoại ngữ trực tuyến","mint")}</div><h2>${type==="about"?"Học cùng giáo viên, luyện mỗi ngày với Zen":"30 ngày nói tiếng Anh"}</h2><p>Mỗi buổi học bắt đầu bằng một tình huống bạn có thể gặp ngoài đời. Zen giúp bạn chuẩn bị trước, giáo viên lắng nghe trong lớp và cùng bạn chọn phần cần luyện sau buổi học.</p><div class="actions">${link("SCR-M08-03","Khám phá chương trình","primary")}${link("SCR-M08-09","Gặp tư vấn viên")}</div>`);
+  if(type==="news")body=news.map(([t,c,d,p])=>card(`<small>${c} · ${d}</small><h2>${t}</h2><p>${p.split(". ")[0]}.</p><details><summary>Đọc tiếp</summary><p>${p.slice(p.indexOf(". ")+2)}</p></details>`)).join("");
+  if(type==="faq"||type==="guide"||type==="legal")body=card((type==="faq"?faq:type==="legal"?[["Thông tin sử dụng","Học liệu cấp cho tài khoản đã đăng ký và chỉ dùng cho việc học cá nhân."],["Quyền riêng tư","Bạn có thể xem và điều chỉnh các lựa chọn chia sẻ trong hồ sơ cá nhân."],["Hỗ trợ đơn hàng","Khi có thắc mắc, gửi mã đơn cho Zenford để được hỗ trợ."]]:[["1. Kiểm tra lịch","Mở lịch học để xem giờ và tên lớp tiếp theo."],["2. Chuẩn bị trước giờ học","Hoàn thành Pre-class và thử ghi âm câu mẫu."],["3. Ôn lại sau buổi học","Mở vở học để luyện lại từ và cấu trúc cần chú ý."]]).map(([q,a])=>`<details><summary>${q}</summary><p>${a}</p></details>`).join("")+link("SCR-M08-09","Liên hệ Zenford","small"));
+  if(type==="stories"||type==="feedback")body=card(`<h2>${type==="feedback"?"Nhận xét từ cô Thu Hà":"Câu chuyện của Minh Anh"}</h2><blockquote>“${type==="feedback"?"Minh Anh đã biết thêm please vào cuối câu. Ở buổi sau, hãy nói chậm hơn khi nhấn âm đầu của chocolate.":"Trước đây mình ngại gọi món bằng tiếng Anh. Sau hai buổi đóng vai, mình đã tự gọi được đồ uống yêu thích."}”</blockquote><small>ENG-A2-07 · 19/11/2026</small>${link("SCR-M46-01","Xem hành trình học","small")}`);
+  if(type==="error"||type==="notice")body=card(`<h2>${type==="error"?"Không tìm thấy trang":"Zen đang chuẩn bị phiên học"}</h2><p>${type==="error"?"Đường dẫn có thể đã thay đổi. Bạn có thể trở về trang chủ để tiếp tục.":"Nội dung đã học vẫn được lưu trong phiên này. Bạn có thể ôn các cụm từ trong vở học."}</p>${link(type==="error"?"SCR-M08-01":"SCR-M45-07",type==="error"?"Về trang chủ":"Mở vở học","primary")}`);
+  if(type==="cookies"||type==="privacy")body=wrapForm("preferences",`<h2>Lựa chọn của bạn</h2>${(type==="cookies"?["Cookie cần thiết","Ghi nhớ lựa chọn ngôn ngữ","Thống kê lượt xem"]:["Lưu bản ghi bài nói","Chia sẻ kết quả với phụ huynh","Nhận thông tin chương trình mới"]).map((v,i)=>`<label class="inline"><input type="checkbox" name="p${i}" ${(st.preferences?st.preferences["p"+i]:i<2)?"checked":""} ${type==="cookies"&&i===0?"disabled":""}>${v}</label>`).join("")}`)+(st.saved?note("Đã cập nhật lựa chọn của bạn.","mint"):"");
+  if(type==="unsubscribe")body=card(st.done?"<h2>Đã hủy nhận bản tin</h2><p>Bạn vẫn có thể xem tin học tập trên website Zenford.</p>":"<h2>Bản tin học cùng Zen</h2><p>minh.anh@example.test đang nhận bản tin mỗi tuần.</p>"+op("read","Hủy nhận bản tin","","primary"));
+  return workspace(screen,pageHeading(screen,displayTitle(screen),"")+body);
+}
+function dashboard(screen){
+  const type=viewTypes[screen.id],parent=type==="parent";
+  return workspace(screen,pageHeading(screen,parent?"Gia đình Minh Anh":"Chào Minh Anh",parent?"Theo dõi việc học và lịch sắp tới của con.":"Thứ Ba, 24 tháng 11 · Tiếng Anh A2")+`<div class="split">${card(`<div>${pill("ENG-A2-07","mint")}</div><h2>Giao tiếp hằng ngày</h2><p>Buổi 05 · Ordering at a café</p><div class="zf-bar" aria-label="Đã hoàn thành 4 trên 10 bài"><i style="width:40%"></i></div><small>4 / 10 bài đã hoàn thành</small><div class="actions">${parent?link("SCR-M46-04","Xem lộ trình của con","primary"):link("SCR-M42-01","Tiếp tục Pre-class","primary")}${link(parent?"SCR-M48-03":"SCR-M46-01",parent?"Nhận xét giáo viên":"Lộ trình của tôi")}</div>`)}${card(`<h3>Lớp tiếp theo</h3><strong>24/11 · 18:30–19:15</strong><p>Giao tiếp tại quán cà phê cùng cô Thu Hà.</p>${link(parent?"SCR-M48-02":"SCR-M39-05","Xem lịch học","small")}`)}</div>${card(`<h2>Thông báo gần đây</h2><ul>${notices.map(n=>`<li>${n}</li>`).join("")}</ul>`)}`);
+}
+const classBookings=new Set([0]);
+function bookingView(screen){
+  const all=viewTypes[screen.id]==="booking",rows=collections.classes.slice(1);
+  return workspace(screen,pageHeading(screen,all?"Tìm và đặt lớp":"Lịch học của tôi","Tuần 23–29/11/2026",link(all?"SCR-M39-05":"SCR-M39-04",all?"Lớp đã đặt":"Tìm lớp mới"))+`<div class="grid2">${rows.map(([t,teacher,date,seats],i)=>{
+    if(!all&&!classBookings.has(i))return "";
+    return card(`<div>${pill(classBookings.has(i)?"Đã đặt":"Đang nhận học viên",classBookings.has(i)?"mint":"warn")}</div><h2>${t}</h2><p>${date} · 45 phút · ${teacher}</p><small>${seats} chỗ còn theo lịch mở lớp</small>${op("book-class",classBookings.has(i)?"Hủy chỗ":"Đặt chỗ",String(i),classBookings.has(i)?"":"primary")}`);
+  }).join("")}</div>${!all&&!classBookings.size?card("<h2>Bạn chưa đặt lớp nào</h2>"+link("SCR-M39-04","Tìm lớp","primary")):""}`);
+}
+const libraryOwned=new Set(["cafe"]);
+function library(screen){
+  return workspace(screen,pageHeading(screen,"Khóa học và tài liệu của tôi","Minh Anh · Thư viện cá nhân",link("SCR-M10-01","Đến cửa hàng"))+`<div class="product-grid">${[...libraryOwned].map(id=>{const p=findProduct(id);return card(cover(p)+`<h2>${p.title}</h2><p>${p.description}</p><a class="zf-btn" data-product="${id}" href="#SCR-M10-06">Mở học liệu</a>`)}).join("")}</div>`);
+}
+function reader(screen){
+  const p=findProduct(storeState.product),st=localView(screen.id),page=st.page||0;
+  return workspace(screen,pageHeading(screen,p.title,languageName(p.lang)+" · "+p.level,link("SCR-M11-09","Thư viện"))+card(`<small>Chương ${page+1} / 3</small><h2>${bookChapters[p.id][page]}</h2><p>${[productExcerpts[p.id],"Đọc lại ví dụ và chọn hai cụm từ bạn muốn sử dụng trong một hội thoại mới.","Viết ba câu để tóm tắt bài học. Đọc thành tiếng và so sánh với ví dụ ở chương đầu."][page]}</p><small>Ấn bản học tập của minh.anh@example.test</small><div class="actions">${page>0?op("reader-page","Chương trước",String(page-1)):""}${page<2?op("reader-page","Chương tiếp",String(page+1),"primary"):""}</div>`)+wrapForm("reader-note",`<label>Ghi chú trong chương<textarea name="note" required>${escape(st.notes?.[p.id+page]||"")}</textarea></label>`,"Lưu ghi chú"));
+}
+function exerciseView(screen){
+  const st=localView(screen.id), id=screen.id, kind=viewTypes[id];
+  const writing=id==="SCR-M45-06", listening=id==="SCR-M45-03", speaking=id==="SCR-M45-04"||kind==="record";
+  const words=kind==="word", media=kind==="media"||kind==="resources";
+  if(words)return workspace(screen,pageHeading(screen,"Tra từ","Từ vựng tiếng Anh A2")+card(`<label>Từ vựng<select data-choice="word">${options(["please","menu","chocolate"],st.word||"please")}</select></label><h2>${st.word||"please"}</h2><p>${({please:"/pliːz/ · Xin vui lòng. Dùng để lời yêu cầu lịch sự hơn.",menu:"/ˈmen.juː/ · Thực đơn, danh sách món ăn.",chocolate:"/ˈtʃɒk.lət/ · Sô-cô-la. Nhấn trọng âm đầu."})[st.word||"please"]}</p>`));
+  const player=`<audio controls preload="none" aria-label="Nghe câu mẫu" src="${lessonAudio}"></audio>`;
+  if(media)return workspace(screen,pageHeading(screen,displayTitle(screen),"English A2 · Ordering at a café")+card(`<h2>Gọi đồ uống</h2>${player}<details><summary>Lời đọc</summary><p>I’d like a hot chocolate, please.</p></details>${link("SCR-M45-03","Luyện nghe","small")}`));
+  const prompt=writing?"Viết một lời nhắn đặt bàn cho hai người.":speaking?"Gọi một ly sô-cô-la nóng một cách lịch sự.":listening?"Nghe và chép lại câu khách hàng nói.":id==="SCR-M45-05"?"Đọc thực đơn: hot chocolate £3, tea £2. Which drink costs £3?":"Bạn muốn gọi một ly trà. Bạn sẽ nói thế nào?";
+  const heading=kind==="placement"?"Kiểm tra trình độ tiếng Anh":displayTitle(screen);
+  return workspace(screen,pageHeading(screen,heading,"Tiếng Anh · Giao tiếp hằng ngày")+labHint(id)+card(`<small>${speaking?"Nói":writing?"Viết":listening?"Nghe":"Thực hành"} · A2</small><h2>${prompt}</h2>${listening||speaking?player:""}${st.checked?note(escape(st.feedback),st.correct?"mint":"warn")+op("retry-exercise","Làm lại")+(kind==="placement"?link("SCR-M08-03","Xem lộ trình phù hợp","primary"):link("SCR-M45-07","Xem vở học","small")):speaking?op("sample-speaking","Dùng bản ghi mẫu","","primary"):wrapForm("exercise",writing||listening?'<label>Câu trả lời<textarea name="answer" required></textarea></label>':`<fieldset class="stack compact"><legend>Chọn một đáp án</legend>${(id==="SCR-M45-05"?["Tea","Hot chocolate","Coffee"]:["Give me tea.","I’d like a cup of tea, please.","I have tea yesterday."]).map((v,i)=>`<label class="zf-answer"><input required type="radio" name="answer" value="${i}">${v}</label>`).join("")}</fieldset>`,"Kiểm tra câu trả lời")}`));
+}
+function chatView(screen){
+  const st=localView(screen.id),academicChat=/M40|M41/.test(screen.mod);
+  const name=academicChat?"Zen":screen.mod==="M35"?"Trợ lý điều hành":"Trợ lý Zenford";
+  const initial=academicChat?"Bạn muốn luyện gọi món hay ôn cách dùng please?":screen.mod==="M49"?"Bạn muốn xem lịch của Minh Anh hay nhận xét gần nhất của cô Hà?":screen.mod==="M35"?"Bạn muốn xem tình hình lớp học hay số đăng ký tháng này?":"Bạn muốn hỏi về lịch học, học phí hay chương trình tiếng Anh?";
+  return workspace(screen,pageHeading(screen,displayTitle(screen),"")+card(`<h2>${name}</h2><div class="dialogue">${initial}</div>${st.messages.map(([q,a])=>`<div class="dialogue you">${escape(q)}</div><div class="dialogue">${escape(a)}</div>`).join("")}<form data-task="chat" class="stack compact"><label>Tin nhắn<input name="message" required placeholder="Nhập câu hỏi của bạn"></label><button class="zf-btn">Gửi tin nhắn</button></form>`));
+}
+function formPage(screen){
+  const st=localView(screen.id),type=viewTypes[screen.id], auth=["auth","signup","reset"].includes(type);
+  if(auth&&st.done)return workspace(screen,pageHeading(screen,"Tài khoản Zenford","")+card(`<h2>${type==="reset"?"Đã đặt lại mật khẩu thử":"Chào Minh Anh"}</h2>${link("SCR-M14-02","Đến cổng học viên","primary")}`));
+  const subject=type==="contact"?"Đăng ký tư vấn":type==="survey"?"Gửi đánh giá":displayTitle(screen);
+  const authForm=fieldInput("Email","email","minh.anh@example.test","email")+fieldInput(type==="reset"?"Mật khẩu mới":"Mật khẩu thử","password","","password")+'<small>Chỉ dùng thông tin thử trong bản mẫu này.</small>';
+  const fields=type==="profile"?fieldInput("Họ tên","name",st.values?.name||"Nguyễn Minh Anh")+fieldInput("Email liên hệ","email",st.values?.email||"minh.anh@example.test","email"):
+    type==="editor"?fieldInput("Tiêu đề","title",st.values?.title||dataset(screen)[1][0])+`<label>Nội dung<textarea required name="message">${escape(st.values?.message||dataset(screen)[1].slice(1).join(" · "))}</textarea></label>`:
+    type==="survey"?`<label>Mức độ hài lòng<select name="score">${options(["5 · Rất hài lòng","4 · Hài lòng","3 · Bình thường","2 · Chưa hài lòng","1 · Cần hỗ trợ"])}</select></label><label>Nhận xét<textarea name="message"></textarea></label>`:
+    fieldInput("Họ tên","name","Nguyễn Minh Anh")+fieldInput("Email","email","minh.anh@example.test","email")+`<label>${type==="request"?"Nội dung yêu cầu":"Nhu cầu của bạn"}<textarea required name="message" placeholder="${type==="request"?"Tôi cần hỗ trợ về…":"Tôi muốn học tiếng Anh để…"}"></textarea></label>`;
+  return workspace(screen,pageHeading(screen,subject,"")+wrapForm("user-form",auth?authForm:fields,auth?(type==="reset"?"Đặt lại mật khẩu":type==="signup"?"Tạo tài khoản thử":"Đăng nhập thử"):type==="profile"||type==="editor"?"Lưu thay đổi":"Gửi")+(auth?`<div class="actions">${link("SCR-M02-02","Quên mật khẩu","small")}${link("SCR-M02-03","Đăng ký","small")}</div>`:"")+(st.saved?note("Đã ghi nhận trong phiên này.","mint"):"")+(st.activity.length?card("<h3>Đã ghi nhận</h3>"+st.activity.map(v=>`<p>${escape(v)}</p>`).join("")):""));
+}
+const placementItems={
+ EN:[["At a café","Choose the polite order.",["Give me tea.","I’d like a tea, please.","I had tea yesterday."],1],["A meeting","Which sentence asks to change the time?",["Could we meet at three instead?","It was three.","I work here."],0]],
+ JA:[["あいさつ","Chọn lời chào vào buổi sáng.",["こんばんは","ありがとう","おはようございます"],2],["駅で","駅はどこですか nghĩa là gì?",["Nhà ga ở đâu?","Bao nhiêu tiền?","Mấy giờ rồi?"],0]],
+ KO:[["인사","Chọn lời chào lịch sự.",["안녕하세요","학교","사과"],0],["카페","커피 한 잔 주세요 nghĩa là gì?",["Cà phê có ngon không?","Cho tôi một ly cà phê.","Hẹn gặp lại."],1]],
+ ZH:[["问好","Chọn cách nói cảm ơn.",["你好","谢谢","再见"],1],["在车站","车站在哪里 nghĩa là gì?",["Tôi đi bằng tàu.","Nhà ga ở đâu?","Tàu đến rồi."],1]],
+ VI:[["Làm quen","Chọn câu dùng để hỏi tên.",["Bạn tên là gì?","Bạn bao nhiêu tuổi?","Tôi khỏe."],0],["Ở chợ","Bạn muốn biết giá. Bạn sẽ hỏi gì?",["Chợ ở đâu?","Bạn đi đâu?","Món này bao nhiêu tiền?"],2]]
+};
+function placementView(screen){
+  const st=localView(screen.id),lang=st.lang||"EN",items=placementItems[lang],n=st.n||0;
+  let body="";
+  if(!st.started)body=card(`<h2>Bạn muốn thử ngôn ngữ nào?</h2><p>Hai câu hỏi tình huống, khoảng 2 phút. Kết quả giúp bạn chọn bài học thử tiếp theo.</p>${choiceField("Ngôn ngữ đánh giá","placement-language",languages.map(l=>l[0]),languageName(lang))}${op("placement-start","Bắt đầu","","primary")}`);
+  else if(n<items.length){
+    const [topic,prompt,opts]=items[n];
+    body=wrapForm("placement-answer",`<small>${languageName(lang)} · Câu ${n+1} / ${items.length}</small><div class="zf-bar"><i style="width:${(n+1)*50}%"></i></div><h2>${topic}</h2><fieldset class="stack compact"><legend>${prompt}</legend>${opts.map((v,i)=>`<label class="zf-answer"><input required type="radio" name="answer" value="${i}">${v}</label>`).join("")}</fieldset>`,n===0?"Câu tiếp theo":"Xem kết quả");
+  }else body=card(`<div>${pill("Đã hoàn thành","mint")}</div><h2>${st.points} / ${items.length} câu đúng</h2><p>${st.points===2?"Bạn nhận biết tốt các tình huống cơ bản. Hãy thử bài giao tiếp tiếp theo.":"Bạn có thể bắt đầu với các bài chào hỏi và gọi món."} Đây là kết quả tham khảo của bài thử ngắn.</p><div class="actions">${link("SCR-M08-03","Xem chương trình học","primary")}${op("placement-reset","Làm lại")}</div>`);
+  return workspace(screen,pageHeading(screen,"Đánh giá đầu vào","Tìm bài học phù hợp với bạn.")+body);
+}
+const notificationsRead=new Set(),supportTickets=[];
+function notificationsView(screen){
+  return workspace(screen,pageHeading(screen,"Thông báo","Tháng 11/2026")+notices.map((n,i)=>card(`<div class="row">${pill(notificationsRead.has(i)?"Đã đọc":"Chưa đọc",notificationsRead.has(i)?"gray":"warn")}<small>${compactDate[i]}</small></div><h3>${n}</h3><div class="actions">${link(["SCR-M39-05","SCR-M48-03","SCR-M45-02"][i],["Mở lịch học","Xem nhận xét","Mở Lab"][i],"small")}${!notificationsRead.has(i)?op("mark-notice","Đánh dấu đã đọc",String(i),"small"):""}</div>`)).join(""));
+}
+function orderHistory(screen){
+  const orders=storeState.completed||[];
+  const base=[["ZF-2411-024","Café English","21/11/2026",money(149000),"Đã thanh toán"]];
+  const latest=orders.map(o=>[o.code,o.entries.map(({p})=>p.title).join(", "),"24/11/2026",money(o.total),"Đã thanh toán"]);
+  return workspace(screen,pageHeading(screen,screen.name,"Minh Anh · Giá minh họa",link("SCR-M10-01","Cửa hàng"))+card(table(["Mã đơn","Học liệu","Ngày","Tổng tiền","Trạng thái"],[...latest,...base]))+link("SCR-M11-09","Đến thư viện của tôi"));
+}
+function partnerHome(screen){
+  return workspace(screen,pageHeading(screen,"Tổng quan cộng tác viên","Mai Linh · Tháng 11/2026")+`<div class="grid3">${metric("3","Đơn giới thiệu")}${metric("220.000 ₫","Hoa hồng minh họa")}${metric("120.000 ₫","Đã chi minh họa")}</div>`+card(`<h2>Đơn giới thiệu gần đây</h2>${table(collections.affiliate[0],collections.affiliate.slice(1))}<div class="actions">${link("SCR-M21-05","Ví hoa hồng","primary")}${link("SCR-M21-06","Mã giới thiệu")}</div>`));
+}
+function teacherHome(screen){
+  return workspace(screen,pageHeading(screen,"Chào cô Thu Hà","Thứ Ba, 24 tháng 11")+`<div class="split">${card(`<div>${pill("Lớp sắp dạy","mint")}</div><h2>ENG-A2-07 · Gọi món tại quán</h2><p>18:30–19:15 · 9 học viên · Buổi 05</p><div class="actions">${link("SCR-M42-05","Xem tình hình Pre-class","primary")}${link("SCR-M50-05","Mở giáo án")}</div>`)}${card(`<h3>Việc cần làm</h3><p>Minh Anh cần luyện trọng âm trong “chocolate”.</p>${link("SCR-M50-10","Xem hàng chờ hỗ trợ","small")}`)}</div>${card(`<h2>Lịch dạy trong tuần</h2>${table(collections.teacher[0],collections.teacher.slice(1))}`)}`);
+}
+const userRoutes={
+ "SCR-M08-05":placementView,"SCR-M38-01":placementView,
+ "SCR-M13-04":orderHistory,"SCR-M14-07":orderHistory,
+ "SCR-M14-12":notificationsView,"SCR-M14-13":notificationsView,"SCR-M15-07":notificationsView,
+ "SCR-M21-02":partnerHome,"SCR-M50-01":teacherHome
+};
+
+const roleModules={
+ "SCR-M26-09":["SCR-M47-07","Nhờ hỗ trợ"],"SCR-M47-08":["SCR-M47-07","Gửi yêu cầu"],
+ "SCR-M10-08":["SCR-M10-01","Mua lượt chấm"],"SCR-M39-01":["SCR-M39-04","Tìm và đặt lớp"],
+ "SCR-M38-04":["SCR-M39-04","Đặt lớp phù hợp"],"SCR-M44-01":["SCR-M44-02","Bắt đầu đánh giá nhanh"],
+ "SCR-M12-08":["SCR-M12-06","Làm bài"],"SCR-M11-15":["SCR-M46-04","Lộ trình của con"],
+ "SCR-M45-10":["SCR-M46-03","Thời gian học của tôi"],"SCR-M50-02":["SCR-M43-01","Chuẩn bị lớp"],
+ "SCR-M42-06":["SCR-M42-07","Đọc báo cáo Pre-class"],"SCR-M34-02":["SCR-M34-03","Xem báo cáo"]
+};
+const listTargets={
+ "SCR-M19-01":"SCR-M19-02","SCR-M20-01":"SCR-M20-02","SCR-M26-07":"SCR-M26-08","SCR-M27-01":"SCR-M27-02",
+ "SCR-M28-01":"SCR-M28-02","SCR-M18-01":"SCR-M18-02","SCR-M16-08":"SCR-M16-09","SCR-M04-01":"SCR-M04-02",
+ "SCR-M50-03":"SCR-M50-04","SCR-M39-01":"SCR-M39-03","SCR-M11-01":"SCR-M11-02"
+};
+const staffDetails={
+ "SCR-M19-02":["SCR-M19-01","Lịch sử tư vấn",["23/11 · Khách đã chọn nhận tư vấn qua email.","22/11 · Đã gửi thông tin lớp buổi tối."]],
+ "SCR-M20-02":["SCR-M20-01","Lịch sử liên hệ",["23/11 · Đã xác nhận lịch học tháng 12.","18/11 · Đã gửi hướng dẫn xem tiến độ."]],
+ "SCR-M26-08":["SCR-M26-07","Trao đổi",["Điều phối đã tiếp nhận yêu cầu.","Đang kiểm tra thông tin với bộ phận phụ trách."]],
+ "SCR-M27-02":["SCR-M27-01","Bàn giao",["Đã đính kèm tóm tắt và bằng chứng học tập.","Nhóm phụ trách sẽ xác nhận sau khi rà soát."]],
+ "SCR-M28-02":["SCR-M28-01","Thông tin công việc",["Hợp đồng toàn thời gian · Đang hiệu lực.","Kỳ đánh giá tiếp theo · Tháng 12/2026."]],
+ "SCR-M18-02":["SCR-M18-01","Đề bài chiến dịch",["Đối tượng chính là người đi làm muốn học trong khung giờ buổi tối.","Đầu ra gồm một trang giới thiệu, hai video ngắn và một bản tin."]]
+};
+function detailProfile(screen){
+  const [origin,heading,events]=staffDetails[screen.id],source=screens.get(origin),st=localView(origin);
+  const [cols]=dataset(source),rows=rowsFor(source),row=rows[st.selected]||rows[0];
+  const details=cols.map((c,i)=>`<div><dt>${escape(c)}</dt><dd>${escape(row[i])}</dd></div>`).join("");
+  const key="log-"+st.selected,view=localView(screen.id);
+  return workspace(screen,pageHeading(screen,displayTitle(screen),screenContext(screen),link(origin,"Về danh sách"))+`<div class="split">${card(`<h2>${escape(row[0])}</h2><dl class="record-dl">${details}</dl>`)}${card(`<h3>${heading}</h3>${[...(view[key]||[]),...events].map(v=>`<p>${escape(v)}</p>`).join("")}<form data-task="profile-log" class="stack"><label>Ghi chú mới<textarea name="note" required></textarea></label><button class="zf-btn">Thêm ghi chú</button></form>`)}</div>`);
+}
+function inbox(screen){
+  const st=localView(screen.id),threads=[
+    ["Minh Anh","Đổi lịch lớp thứ Năm","Em có thể chuyển buổi thứ Năm sang tuần tới được không ạ?"],
+    ["Gia Hân","Bài nghe số 04","Mình đã mở được phần nghe. Cảm ơn trung tâm!"],
+    ["Tuấn Kiệt","Nhận xét bài nói","Nhờ cô góp ý giúp mình cách nhấn trọng âm trong bài vừa nộp."]
+  ], i=st.thread||0,[sender,subject,message]=threads[i];
+  return workspace(screen,pageHeading(screen,displayTitle(screen),screenContext(screen))+`<div class="split inbox-layout">${card(`<h2>Hội thoại</h2>${threads.map(([person,topic],idx)=>op("thread",person+" · "+topic,String(idx),i===idx?"primary small":"small")).join("")}`)}${card(`<h2>${subject}</h2><small>${sender} · 24/11/2026</small><p class="dialogue">${message}</p>${(st["replies"+i]||[]).map(v=>`<p class="dialogue you">${escape(v)}</p>`).join("")}<form data-task="inbox-reply" class="stack"><label>Trả lời ${sender}<textarea name="reply" required></textarea></label><button class="zf-btn">Gửi trả lời</button></form>`)}</div>`);
+}
+function transcript(screen){
+  return workspace(screen,pageHeading(screen,displayTitle(screen),"Minh Anh · ENG-A2-07 · Buổi 05")+card(`<h2>Gọi món tại quán</h2><p><b>18:30–18:35</b> · Khởi động bằng một thực đơn và hai lời chào.</p><p><b>18:35–18:55</b> · Đóng vai khách và nhân viên, đổi vai sau mỗi lượt.</p><p><b>18:55–19:15</b> · Sửa trọng âm và ghi lại một câu gọi món lịch sự.</p><div class="actions">${link("SCR-M42-07","Xem báo cáo trước buổi học","small")}${link("SCR-M44-01","Kế hoạch sau lớp","small")}</div>`));
+}
+function studyList(screen){
+  const course=collections.courses[1],units=bookChapters.cafe;
+  return workspace(screen,pageHeading(screen,displayTitle(screen),"Minh Anh · Tiếng Anh A2")+card(`<h2>${course[0]}</h2><p>Giáo viên phụ trách · Cô Thu Hà</p><ol class="road-line">${units.map((u,i)=>`<li><span class="road-dot ${i===0?"filled":""}">${i+1}</span><div class="stack compact"><strong>${u}</strong><small>${["Đã hoàn thành","Đang học","Sắp tới"][i]}</small>${link(["SCR-M45-05","SCR-M42-01","SCR-M45-04"][i],"Mở bài","small")}</div></li>`).join("")}</ol>`));
+}
+const inboxRoutes=new Set(["SCR-M19-04","SCR-M23-03","SCR-M23-04","SCR-M24-03","SCR-M24-04","SCR-M31-02","SCR-M31-06","SCR-M49-05"]);
+function ownTickets(screen){
+  const rows=[...supportTickets,collections.support[1]];
+  return workspace(screen,pageHeading(screen,"Yêu cầu hỗ trợ của tôi","Minh Anh",link("SCR-M47-07","Gửi yêu cầu","primary"))+card(table(collections.support[0],rows.map(row=>row.map(escape)))));
+}
+function privateRecords(screen){
+  const ownScores=collections.scores[1], ownCert=collections.cert[1];
+  let content="";
+  if(screen.id==="SCR-M12-08")content=card("<h2>Bài nói gần nhất</h2>"+table(collections.scores[0],[ownScores])+link("SCR-M12-06","Làm bài luyện"));
+  else if(screen.id==="SCR-M11-12")content=card("<h2>Chứng nhận của Minh Anh</h2>"+table(collections.cert[0],[ownCert])+link("SCR-M11-08","Mở chứng nhận"));
+  else content=card(`<h2>Hóa đơn ZF-2411-024</h2><p>Minh Anh · Café English</p><strong>149.000 ₫ (minh họa)</strong><small>Đã thanh toán ngày 21/11/2026 · VietQR</small>${op("print","In hóa đơn","","small")}`);
+  return workspace(screen,pageHeading(screen,displayTitle(screen),"Tài khoản Minh Anh")+content);
+}
+function payrollSlip(screen){
+  return workspace(screen,pageHeading(screen,"Phiếu lương tháng 11","Nguyễn Thu Hà · Giáo viên tiếng Anh")+card(`<h2>3.540.000 ₫</h2><small>Thu nhập minh họa trong kỳ</small>${table(collections.payroll[0],collections.payroll.slice(1))}${op("print","In phiếu lương","","small")}`));
+}
+Object.assign(userRoutes,{
+ "SCR-M11-10":studyList,"SCR-M11-15":studyList,"SCR-M26-09":ownTickets,"SCR-M47-08":ownTickets,
+ "SCR-M11-12":privateRecords,"SCR-M12-08":privateRecords,"SCR-M14-08":privateRecords,"SCR-M15-06":privateRecords,
+ "SCR-M33-06":payrollSlip,"SCR-M50-19":payrollSlip,"SCR-M43-01":transcript,"SCR-M43-02":transcript,"SCR-M50-05":transcript
+});
+for(const id of Object.keys(staffDetails))userRoutes[id]=detailProfile;
+for(const id of inboxRoutes)userRoutes[id]=inbox;
+
+function certified(screen){
+  const st=localView(screen.id),lookup=screen.id==="SCR-M11-07";
+  const certs=collections.cert.slice(1),record=lookup?certs.find(r=>r[3]===st.code):certs[0];
+  const find=lookup?wrapForm("lookup-cert",fieldInput("Mã chứng nhận","code",st.code||"ZF-A2-024")+"<small>Tra thử mã ZF-A2-024.</small>","Tra cứu"):"";
+  const paper=record?card(`<div class="certificate"><span class="zf-overline">Zenford</span><h2>Chứng nhận hoàn thành</h2><p>Trao cho</p><h3>${record[1]}</h3><p>${record[0]}</p><p>Ngày cấp ${record[2]} · ${record[3]}</p></div>${op("print","In chứng nhận","","small")}`):st.code?note("Không tìm thấy chứng nhận với mã này.","warn"):"";
+  return workspace(screen,pageHeading(screen,lookup?"Tra cứu chứng nhận":"Chứng nhận học tập","")+find+paper);
+}
+function guardian(screen){
+  const st=localView(screen.id);
+  return workspace(screen,pageHeading(screen,"Gia đình của tôi","Tài khoản Minh Anh")+card(`<div>${pill("Đã liên kết","mint")}</div><h2>Nguyễn Mai Anh</h2><p>Mẹ · Được xem lịch và báo cáo học tập đã chia sẻ.</p>${link("SCR-M15-12","Xem quyền chia sẻ","small")}`)+wrapForm("invite",fieldInput("Email phụ huynh","email","","email"),"Tạo lời mời thử")+(st.invite?note("Lời mời đang chờ · "+escape(st.invite),"mint"):""));
+}
+function contractSign(screen){
+  const st=localView(screen.id);
+  return workspace(screen,pageHeading(screen,"Xác nhận hợp đồng","HD-1124-01 · Nguyễn Minh Anh")+card(`<h2>Ghi danh tiếng Anh giao tiếp</h2><p>Quyền học trong 3 tháng, gồm các buổi trực tuyến và bài luyện trước, sau giờ học.</p><strong>Học phí minh họa · 1.950.000 ₫</strong><p>Người nhận quyền · Nguyễn Minh Anh</p>${st.done?note("Minh Anh đã xác nhận hợp đồng trong phiên thử.","mint"):wrapForm("acknowledge",'<label class="inline"><input type="checkbox" required>Tôi đã đọc nội dung và đồng ý xác nhận trong bản thử.</label>',"Xác nhận")}`));
+}
+function accountLogin(screen){
+  const st=localView(screen.id);
+  if(st.done)return workspace(screen,pageHeading(screen,"Chọn không gian làm việc","Chào Minh Anh")+card(link("SCR-M14-02","Cổng học viên","primary")+link("SCR-M15-02","Cổng phụ huynh")));
+  const otp=st.stage==="otp";
+  return workspace(screen,pageHeading(screen,"Đăng nhập","Dùng tài khoản minh họa để thử các bước đăng nhập.")+wrapForm(otp?"auth-code":"auth-login",otp?fieldInput("Mã xác thực","code")+'<small>Mã trong phiên thử · 246810</small>':fieldInput("Email","email","minh.anh@example.test","email")+fieldInput("Mật khẩu thử","password","zenford-demo","password")+'<small>Tài khoản thử · minh.anh@example.test · zenford-demo</small>',otp?"Xác nhận mã":"Đăng nhập")+(st.error?note(escape(st.error),"warn"):"")+`<div class="actions">${link("SCR-M02-02","Quên mật khẩu","small")}${link("SCR-M02-03","Đăng ký","small")}</div>`);
+}
+function feeSummary(screen){
+  const st=localView(screen.id);
+
+  return workspace(screen,pageHeading(screen,"Học phí của con","Gia đình Minh Anh")+card(`<div>${pill(st.done?"Đã thanh toán":"Sắp đến hạn",st.done?"mint":"warn")}</div><h2>650.000 ₫</h2><p>Minh Anh · Học với AI · Tháng 12/2026</p><small>Hạn thanh toán 01/12/2026 · Học phí minh họa</small>${st.done?note("Đã ghi nhận khoản thanh toán thử cho kỳ tháng 12.","mint"):wrapForm("family-pay",'<label>Phương thức<select name="method"><option>VietQR</option><option>VNPay</option></select></label>',"Xác nhận thanh toán thử")}`));
+}
+function receivedOrder(screen){
+  const o=storeState.completed?.[0]||{code:"ZF-2411-024",buyer:"Nguyễn Minh Anh",recipient:"Tôi",email:"minh.anh@example.test",entries:[{p:products[0],q:1}],total:149000,method:"VietQR"};
+  return workspace(screen,pageHeading(screen,"Xác nhận đơn hàng",o.code)+card(`<h2>Cảm ơn ${escape(o.buyer)}!</h2><p>Zenford đã ghi nhận đơn hàng của bạn. Người nhận quyền · ${escape(o.recipient)}.</p><small>${escape(o.email)}</small>${table(["Học liệu","Số lượng","Đơn giá"],o.entries.map(({p,q})=>[p.title,String(q),money(p.price)]))}<strong>Đã thanh toán · ${money(o.total)} (minh họa)</strong><p>Phương thức · ${o.method}</p>${link("SCR-M11-09","Vào thư viện","primary")}`));
+}
+function jobInterview(screen){
+  const st=localView(screen.id),questions=["Bạn sẽ bắt đầu buổi học A2 đầu tiên như thế nào?","Một học viên nói sai trọng âm nhiều lần. Bạn phản hồi ra sao?","Bạn dùng bằng chứng nào để biết học viên đã tiến bộ?"],n=st.answers?.length||0;
+  return workspace(screen,pageHeading(screen,"Phỏng vấn giáo viên tiếng Anh","Ứng viên Nguyễn An · Phiên phỏng vấn thử")+card(n===3?`<h2>Đã hoàn thành phỏng vấn</h2><p>Ba câu trả lời đã được lưu trong phiên này để Nhân sự xem xét.</p>${link("SCR-M29-07","Xem tiến trình ứng viên")}`:`<small>Câu ${n+1} / 3</small><h2>${questions[n]}</h2>${wrapForm("interview",'<label>Câu trả lời<textarea name="answer" required></textarea></label>',n===2?"Hoàn thành":"Gửi câu trả lời")}`));
+}
+function dictionaryQuiz(screen){
+  const st=localView(screen.id),set=[["menu","thực đơn"],["please","xin vui lòng"],["bill","hóa đơn"]],i=st.cardIndex||0;
+  return workspace(screen,pageHeading(screen,"Ôn thẻ từ vựng","Café English · 3 thẻ")+card(`<small>Thẻ ${i+1} / 3</small><h2>${set[i][0]}</h2>${st.reveal?`<p>${set[i][1]}</p>${op("card-next",i===2?"Ôn lại từ đầu":"Thẻ tiếp theo","","primary")}`:op("card-reveal","Xem nghĩa","","primary")}`));
+}
+function documentReceipt(screen){
+  return workspace(screen,pageHeading(screen,displayTitle(screen),"Phiếu PT-1124-01")+card(`<h2>Phiếu thu học phí</h2><p>Ngày 21/11/2026 · Người nộp Nguyễn Minh Anh</p>${table(["Diễn giải","Số tiền minh họa"],[["Học phí lớp giao tiếp ENG-A2-07","1.200.000 ₫"]])}<p>Thu bằng chuyển khoản · Đã đối soát</p>${op("print","In phiếu thu","","small")}`));
+}
+Object.assign(userRoutes,{
+ "SCR-M01-22":accountLogin,"SCR-M02-01":accountLogin,"SCR-M02-05":guardian,
+ "SCR-M10-18":receivedOrder,"SCR-M11-07":certified,"SCR-M11-08":certified,"SCR-M38-09":certified,
+ "SCR-M20-06":contractSign,"SCR-M13-05":feeSummary,"SCR-M29-06":jobInterview,
+ "SCR-M22-13":documentReceipt,"SCR-M45-09":dictionaryQuiz,"SCR-M33-08":payrollSlip
+});
+function homeLearning(){
+  const steps=[["Trước buổi học","Dành 12 phút cùng Zen để thử bài và tìm phần cần luyện.","SCR-M42-01","Chuẩn bị cùng Zen"],["Trong buổi học","Đóng vai khách và nhân viên quán cà phê cùng cô Thu Hà.","SCR-M39-04","Tìm lớp giao tiếp"],["Sau buổi học","Nghe lại lời góp ý và luyện một câu khó trong vở học.","SCR-M45-07","Mở vở học"]];
+  return `<section class="section marketing"><div class="section-title"><h2>Một vòng học cùng Zenford</h2></div><div class="tiles">${steps.map(([t,desc,id,cta],i)=>`<a class="tile" href="#${id}"><span class="tile-icon" aria-hidden="true">${i+1}</span><h3>${t}</h3><p>${desc}</p><span class="end">${cta} ${routeIcon("arrow-up-right")}</span></a>`).join("")}</div></section>`;
+}
+function homeCommunity(){
+  return `<section class="section"><div class="section-title"><h2>Học cùng giáo viên</h2>${link("SCR-M08-09","Đăng ký tư vấn","small")}</div><div class="grid2">${card(`<small>Tiếng Anh giao tiếp</small><h3>Cô Nguyễn Thu Hà</h3><p>Cô Hà phụ trách lớp A2 buổi tối. Mỗi buổi, học viên luyện nói theo cặp và nhận góp ý ngay sau từng tình huống.</p>${link("SCR-M39-04","Xem lịch lớp","small")}`)}${card(`<small>Học viên lớp ENG-A2-07</small><blockquote>“Sau hai buổi đóng vai, mình đã tự gọi được đồ uống yêu thích.”</blockquote><strong>Minh Anh</strong>${link("SCR-M08-08","Câu chuyện học viên","small")}`)}</div></section>
+  <section class="section"><div class="section-title"><h2>Nhật ký Zenford</h2>${link("SCR-M08-06","Xem tin tức","small")}</div><div class="tiles">${news.map(([t,c,date,copy])=>`<a class="tile" href="#SCR-M08-06"><small>${date} · ${c}</small><h3>${t}</h3><p>${copy.split(". ")[0]}.</p></a>`).join("")}</div></section>
+  <section class="section"><div class="section-title"><h2>Không gian làm việc</h2></div><div class="actions">${link("SCR-M50-01","Giảng dạy")}${link("SCR-M16-03","Xưởng học thuật")}${link("SCR-M29-04","AI review CV")}${link("SCR-M21-02","Cộng tác viên")}</div></section>`;
+}
+function scheduleView(screen){
+  const [cols]=dataset(screen),rows=rowsFor(screen),st=localView(screen.id);
+  const timeColumn=cols.findIndex(k=>/lich|ngay|moc|thoi diem|luc|han$/.test(fold(k)));
+  const dateIndex=timeColumn<0?2:timeColumn;
+  const peopleIndex=cols.findIndex(k=>/phu trach|giao vien/.test(fold(k)));
+  const who=peopleIndex>=0?peopleIndex:1;
+  const filter=st.person||"Tất cả";
+  const visible=rows.map((row,i)=>({row,i})).filter(({row})=>filter==="Tất cả"||row[who]===filter);
+  return workspace(screen,pageHeading(screen,displayTitle(screen),screenContext(screen))+choiceField(cols[who],"agenda-person",["Tất cả",...new Set(rows.map(r=>r[who]))],filter)+card(`<h2>Lịch trong kỳ</h2><ol class="road-line">${visible.map(({row,i})=>`<li><span class="road-dot">${i+1}</span><div class="stack compact"><small>${escape(row[dateIndex])}</small><h3>${escape(row[0])}</h3><p>${escape(row.filter((v,k)=>k!==0&&k!==dateIndex).join(" · "))}</p>${op("record-detail","Xem chi tiết",String(i),"small")}</div></li>`).join("")}</ol>`));
+}
+function timelineView(screen){
+  const [cols]=dataset(screen), rows=rowsFor(screen);
+  return workspace(screen,pageHeading(screen,displayTitle(screen),screenContext(screen))+card(`<h2>Diễn biến gần đây</h2><ol class="road-line">${rows.map((row,i)=>`<li><span class="road-dot ${i===0?"filled":""}">${i+1}</span><div class="stack compact"><strong>${escape(row[0])}</strong><span>${escape(row.slice(1).join(" · "))}</span><details><summary>Xem bản ghi</summary><dl class="record-dl">${cols.map((c,j)=>`<div><dt>${escape(c)}</dt><dd>${escape(row[j])}</dd></div>`).join("")}</dl></details></div></li>`).join("")}</ol>`));
+}
+function leadBoard(screen){
+  const [cols]=dataset(screen),rows=rowsFor(screen),st=localView(screen.id);
+  const steps=["Hẹn gọi lại","Đã tư vấn","Đã ghi danh"];
+  return workspace(screen,pageHeading(screen,displayTitle(screen),"Tư vấn ghi danh · Tháng 11/2026")+`<div class="grid3">${steps.map((stage,idx)=>{
+    const matching=rows.map((row,i)=>({row,i})).filter(({row})=>row[1]===stage);
+    return card(`<div class="row"><h3>${stage}</h3>${pill(String(matching.length),"gray")}</div>${matching.map(({row,i})=>`<article class="sheet stack compact"><strong>${escape(row[0])}</strong><small>${escape(row[2])} · ${escape(row[3])}</small>${idx<2?op("lead-next","Chuyển sang "+steps[idx+1].toLowerCase(),String(i),"small"):""}</article>`).join("")||"<p>Chưa có khách ở bước này.</p>"}`);
+  }).join("")}</div>`);
+}
+function dailyTasks(screen){
+  const tasks=[["SCR-M42-01","Chuẩn bị trước buổi học","Ordering at a café","12 phút"],["SCR-M45-03","Luyện nghe","Chép chính tả câu gọi món","8 phút"],["SCR-M45-09","Ôn thẻ từ","menu · please · bill","5 phút"]];
+  return workspace(screen,pageHeading(screen,"Việc hôm nay","Minh Anh · Thứ Ba, 24/11")+`<div class="grid3">${metric("3","Hoạt động hôm nay")}${metric("25 phút","Thời gian dự kiến")}${metric(preState.complete?"1 / 3":"0 / 3","Đã hoàn thành")}</div><div class="grid3">${tasks.map(([id,t,d,m],i)=>card(`<div>${pill(i===0&&preState.complete?"Đã hoàn thành":m,i===0?"mint":"gray")}</div><h2>${t}</h2><p>${d}</p>${link(id,"Mở hoạt động",i===0?"primary":"")}`)).join("")}</div>`);
+}
+const summarySeries={
+ "SCR-M10-17":["Doanh thu minh họa","triệu ₫",[4.2,5.1,6.3],[3.8,4.1,4.6]],
+ "SCR-M18-30":["Lượt đăng ký từ chiến dịch","lượt",[34,38,45],[22,27,30]],
+ "SCR-M18-33":["Lợi nhuận trên chi phí quảng cáo","%",[22,28,32],[16,19,24]],
+ "SCR-M23-07":["Phiên tư vấn trên website","phiên",[42,56,64],[38,44,52]],
+ "SCR-M24-05":["Hội thoại Messenger","phiên",[35,44,52],[27,30,38]],
+ "SCR-M25-09":["Cuộc gọi kết nối thành công","cuộc",[26,34,39],[20,28,32]],
+ "SCR-M31-05":["Yêu cầu giải quyết qua chat","ca",[18,22,28],[14,16,21]],
+ "SCR-M49-08":["Câu hỏi phụ huynh đã trả lời","câu",[24,30,35],[18,23,28]]
+};
+function kpiDashboard(screen){
+  const [cols,...rows]=dataset(screen);
+  return workspace(screen,pageHeading(screen,displayTitle(screen),"Học kỳ mùa thu 2026")+`<div class="grid3">${rows.slice(0,3).map(row=>metric(row[row.length-1],row[0])).join("")}</div>`+card(`<h2>Kết quả theo tháng</h2>${table(cols,rows)}${op("export","Tải bảng dữ liệu","","small")}`));
+}
+function roleGuide(screen){
+  const menu=[["SCR-M42-01","1. Chuẩn bị trước giờ học"],["SCR-M39-05","2. Mở lịch đã đặt"],["SCR-M45-07","3. Ôn lại cùng vở học"]];
+  return workspace(screen,pageHeading(screen,displayTitle(screen),"Minh Anh · Bắt đầu tuần học đầu tiên")+card(`<h2>Bắt đầu buổi học đầu tiên</h2><p>Chuẩn bị tai nghe và dành khoảng 12 phút cho bài trước giờ học.</p>${menu.map(([id,t])=>link(id,t,"small")).join("")}`));
+}
+for(const id of ["SCR-M18-21","SCR-M19-08","SCR-M32-02","SCR-M50-02","SCR-M51-03","SCR-M36-04"])userRoutes[id]=scheduleView;
+for(const id of ["SCR-M05-03","SCR-M01-10","SCR-M03-13","SCR-M11-04","SCR-M26-16"])userRoutes[id]=timelineView;
+Object.assign(userRoutes,{"SCR-M19-07":leadBoard,"SCR-M45-01":dailyTasks,"SCR-M34-01":kpiDashboard,"SCR-M34-03":kpiDashboard,
+ "SCR-M14-10":roleGuide,"SCR-M14-11":roleGuide});
+const offeredPlans=[
+ {id:"basic-month",title:"Basic tự học",price:350000,benefits:"Tự học theo bài, làm bài tập và lưu kết quả.",sessions:"Truy cập thư viện trong 30 ngày"},
+ {id:"ai-month",title:"Học với AI",price:650000,benefits:"Pre-class, luyện bốn kỹ năng và vở học cá nhân.",sessions:"Luyện với Zen mỗi ngày trong 30 ngày"},
+ {id:"group-month",title:"Lớp giao tiếp",price:1200000,benefits:"Học trực tuyến cùng giáo viên và nhận phản hồi sau lớp.",sessions:"8 buổi · 45 phút/buổi trong 30 ngày"}
+];
+const purchasedPlans=new Set(["ai-month"]);
+const enrollment={id:"basic-month",recipient:"Tôi",method:"VietQR"};
+function choosePlan(screen){
+  const p=offeredPlans.find(x=>x.id===enrollment.id);
+  return workspace(screen,pageHeading(screen,"Chọn gói học","Học phí minh họa · Gói có hiệu lực 30 ngày kể từ khi xác nhận.")+`<div class="product-grid">${offeredPlans.map(item=>card(`<div>${pill(item.id===p.id?"Đang chọn":"30 ngày",item.id===p.id?"mint":"gray")}</div><h2>${item.title}</h2><p>${item.benefits}</p><small>${item.sessions}</small><b>${money(item.price)}</b>${op("choose-plan",item.id===p.id?"Đã chọn":"Chọn gói",item.id,"small")}`)).join("")}</div>`+wrapForm("enroll",`<h2>${p.title}</h2><div class="grid2"><label>Người nhận quyền<select name="recipient">${options(["Tôi","Con · Minh Anh"],enrollment.recipient)}</select></label><label>Phương thức<select name="method">${options(["VietQR","VNPay","9Pay"],enrollment.method)}</select></label></div><label>Mã ưu đãi (nếu có)<input name="voucher" placeholder="ZEN10"></label><small>Thanh toán một lần. Zenford sẽ gửi nhắc khi đến kỳ.</small>`,"Đặt mua"));
+}
+function entitlements(screen){
+  return workspace(screen,pageHeading(screen,displayTitle(screen),"Minh Anh · Gói đang sử dụng",link("SCR-M13-01","Xem các gói học"))+Array.from(purchasedPlans,key=>{
+    const p=offeredPlans.find(x=>x.id===key);
+    return card(`<div>${pill("Đang hoạt động","mint")}</div><h2>${p.title}</h2><p>${p.benefits}</p><small>${p.sessions}</small>${link(p.id==="basic-month"?"SCR-M11-09":p.id==="group-month"?"SCR-M39-04":"SCR-M42-01","Vào học","primary")}`);
+  }).join(""));
+}
+function enquiry(screen){
+  const st=localView(screen.id), mode=st.kind||"Đăng ký tư vấn";
+  if(st.submitted)return workspace(screen,pageHeading(screen,"Cảm ơn bạn đã liên hệ","")+card(`<h2>Đã tiếp nhận ${escape(st.submitted.kind.toLowerCase())}</h2><p>${escape(st.submitted.name)} · ${escape(st.submitted.lang)} · ${escape(st.submitted.email)}</p>${st.submitted.slot?`<p>Khung giờ mong muốn · ${escape(st.submitted.slot)}</p>`:""}${op("another-enquiry","Gửi yêu cầu khác","","small")}`));
+  return workspace(screen,pageHeading(screen,"Liên hệ Zenford","Để lại nhu cầu học hoặc chọn thời gian bạn muốn học thử.")+choiceField("Nhu cầu","enquiry-kind",["Đăng ký tư vấn","Đặt lịch học thử","Liên hệ"],mode)+wrapForm("enquiry",`<div class="grid2">${fieldInput("Họ và tên","name")}${fieldInput("Email","email","","email")}</div><div class="grid2"><label>Số điện thoại<input name="phone" type="tel"></label><label>Ngôn ngữ quan tâm<select name="lang">${options(languages.map(l=>l[0]))}</select></label></div>${mode==="Đặt lịch học thử"?'<label>Khung giờ mong muốn<select name="slot"><option>Thứ Ba · 18:30</option><option>Thứ Năm · 19:00</option><option>Thứ Bảy · 09:00</option></select></label>':""}<label>Nội dung<textarea name="message" rows="2"></textarea></label><label class="inline"><input type="checkbox" required>Tôi đồng ý để Zenford liên hệ về yêu cầu này.</label>`,"Gửi yêu cầu"));
+}
+function readiness(screen){
+  const st=localView(screen.id);
+  return workspace(screen,pageHeading(screen,"Thiết lập trình duyệt","Chuẩn bị thiết bị trước buổi học.")+card(`<h2>Trình duyệt của bạn</h2><p>Bạn có thể mở lại bài học bằng đường dẫn dưới đây.</p><label>Đường dẫn vào lớp<input readonly value="#SCR-M42-01"></label>${link("SCR-M42-01","Mở Pre-class","primary")}`)+wrapForm("preferences",`<label class="inline"><input type="checkbox" name="p0" ${st.preferences?.p0?"checked":""}>Hiển thị lời nhắc trước buổi học trong bản thử</label>`,"Lưu lựa chọn")+(st.saved?note("Đã lưu lựa chọn.","mint"):""));
+}
+Object.assign(userRoutes,{"SCR-M08-09":enquiry,"SCR-M23-02":enquiry,"SCR-M01-21":readiness,"SCR-M13-01":choosePlan,
+ "SCR-M14-04":entitlements,"SCR-M14-05":entitlements});
+function recordTools(screen){
+  const admin=screen.portal==="Admin CRM", spec=fold(screen.el.join(" "));
+  const create=admin&&/nut (tao|them)|form (tao|them)|tao moi/.test(spec);
+  const download=/xuat (excel|csv|file|du lieu)/.test(spec);
+  if(!create&&!download)return "";
+  return `<div class="actions">${create?op("new-record","Thêm mới","","primary"):""}${download?op("export","Tải CSV","","small"):""}</div>`;
+}
+function recordActions(screen,cols,row){
+  if(screen.portal!=="Admin CRM")return "";
+  const status=cols.findIndex(c=>/^(trang thai|ket qua)$/.test(fold(c)));
+  if(status<0)return "";
+  const spec=fold(screen.el.join(" "));
+  const pairs=/nut duyet|nut phe duyet/.test(spec)?[["Duyệt","Đã duyệt"],["Trả lại","Cần chỉnh sửa"]]:/nut chay lai/.test(spec)?[["Chạy lại","Đã chạy lại"]]:[];
+  return `<div class="actions">${pairs.filter(([,result])=>row[status]!==result).map(([label,result])=>op("record-decision",label,result,"small")).join("")}</div>`;
+}
+function labDirectory(screen){
+  const list=[["03","Nghe","Chép chính tả tại quán cà phê","8 phút"],["04","Nói","Gọi một ly sô-cô-la nóng","10 phút"],["05","Đọc","Đọc thực đơn và tìm giá","6 phút"],["06","Viết","Đặt bàn cho hai người","10 phút"]];
+  return workspace(screen,pageHeading(screen,"Phòng luyện kỹ năng","Chọn một bài ngắn để luyện theo mục tiêu hôm nay.")+`<div class="grid2">${list.map(([n,title,text,time])=>card(`<small>${time}</small><h2>Lab ${title}</h2><p>${text}</p>${link("SCR-M45-"+n,"Vào luyện "+title.toLowerCase(),"primary")}`)).join("")}</div>`);
+}
+const planning={minutes:30,days:5,saved:[]};
+function calculator(screen){
+  const saved=viewTypes[screen.id]==="savedPlans";
+  if(saved)return workspace(screen,pageHeading(screen,"Lộ trình đã lưu","",link("SCR-M09-01","Tính lộ trình"))+(planning.saved.length?planning.saved.map((x,i)=>card(`<h2>Tiếng Anh A2 đến B1</h2><p>${x.minutes} phút/ngày · ${x.days} ngày/tuần · khoảng ${x.weeks} tuần.</p>${op("delete-plan","Xóa",String(i),"small")}`)).join(""):card("<p>Bạn chưa lưu lộ trình nào.</p>")));
+  const weeks=Math.ceil(60*48/(planning.minutes*planning.days));
+  return workspace(screen,pageHeading(screen,"Ước tính lộ trình","Tiếng Anh A2 → B1 · 48 giờ luyện tập dự kiến")+card(`<h2>Bạn dành bao nhiêu thời gian mỗi tuần?</h2>${choiceField("Phút mỗi ngày","minutes",["15","30","45","60"],String(planning.minutes))}${choiceField("Ngày mỗi tuần","days",["2","3","4","5","6","7"],String(planning.days))}`)+card(`<h2>Khoảng ${weeks} tuần</h2><p>Dự kiến theo thời gian bạn chọn. Kết quả sẽ được cập nhật qua bài học thực tế.</p><div class="actions">${op("save-plan","Lưu lộ trình","","primary")}${link("SCR-M09-02","Lộ trình đã lưu")}${link("SCR-M39-04","Tìm lớp phù hợp")}</div>`));
+}
+function activation(screen){
+  const st=localView(screen.id);
+  return workspace(screen,pageHeading(screen,screen.name,"Học liệu đi kèm sách in")+ (st.done?card("<h2>Đã mở Café English</h2><p>Quyền đọc trong 180 ngày đã được thêm vào thư viện Minh Anh.</p>"+link("SCR-M11-09","Vào thư viện","primary")):wrapForm("activate",fieldInput("Mã kích hoạt","code")+'<small>Mã dùng thử · ZEN-CAFE-24</small>',"Kích hoạt"))+(st.feedback?note(escape(st.feedback),"warn"):""));
+}
+function accountExtras(screen){
+  const type=viewTypes[screen.id],st=localView(screen.id);
+  if(type==="credits")return workspace(screen,pageHeading(screen,screen.name,"Minh Anh")+card(`<h2>7 lượt chấm nói còn lại</h2><p>English A2 · Hạn dùng 28/02/2027</p>${table(["Ngày","Hoạt động","Thay đổi"],[["22/11","Trọng âm trong chocolate","−1 lượt"],["19/11","Gọi đồ uống tại quán","−1 lượt"],["16/11","Giới thiệu bản thân","−1 lượt"],["15/11","Kích hoạt gói luyện nói","+10 lượt"]])}${productLink(findProduct("voices"),"Mua thêm lượt","zf-btn")}`));
+  if(type==="delivery")return workspace(screen,pageHeading(screen,screen.name,"Đơn sách Café English · GH-024")+card(`${pill(st.done?"Đã yêu cầu đổi trả":"Đã giao","mint")}<h2>Giao đến Minh Anh</h2>${table(["Mốc","Thời gian"],[["Đã giao sách","21/11 · 14:30"],["Đang giao","21/11 · 08:15"],["Đã đóng gói","19/11 · 16:30"]])}${st.done?note(escape(st.values.message)):wrapForm("return",'<label>Lý do đổi trả<textarea required name="message"></textarea></label>',"Yêu cầu đổi trả")}`));
+  if(type==="goals")return workspace(screen,pageHeading(screen,"Mục tiêu hôm nay","Minh Anh · Thứ Ba, 24/11")+card(`<h2>15 / 20 phút</h2><p>Bạn còn 5 phút luyện tập để đạt mục tiêu hôm nay. Chuỗi hiện tại là 4 ngày.</p>${link("SCR-M45-02","Chọn một bài Lab","primary")}`));
+  if(type==="results")return workspace(screen,pageHeading(screen,displayTitle(screen),"Bài đánh giá gần nhất · 23/11/2026")+card(`<h2>Tiếng Anh A2</h2><p>Bạn đã có thể trao đổi trong các tình huống quen thuộc. Ưu tiên luyện nghe ý chính và viết lời nhắn ngắn.</p>${table(collections.levels[0],collections.levels.slice(1))}${link("SCR-M46-01","Xem lộ trình","primary")}`));
+  if(type==="import")return workspace(screen,pageHeading(screen,screen.name,"")+wrapForm("import",`<label>Dữ liệu CSV<textarea required name="csv" rows="5">Họ tên,Email
+Nguyễn Minh Anh,minh.anh@example.test
+Trần Gia Hân,gia.han@example.test</textarea></label>`,"Xem trước dữ liệu")+(st.imported?card(`<h2>${st.imported.length-1} dòng đã đọc</h2>${table(st.imported[0].map(escape),st.imported.slice(1).map(row=>row.map(escape)))}`):""));
+  return catalog();
+}
+const specialViews={
+  shop,detail:productDetail,cart:shoppingCart,checkout,payment:orderPage,road:roadmap,history:roadHistory,time:studyTime,blocks:learningBlocks,
+  calculator,savedPlans:calculator,about:contentView,campaign:contentView,news:contentView,faq:contentView,guide:contentView,legal:contentView,stories:contentView,feedback:contentView,cookies:contentView,privacy:contentView,notice:contentView,error:contentView,unsubscribe:contentView,
+  learner:dashboard,parent:dashboard,booking:bookingView,booked:bookingView,library,reader,lesson:exerciseView,placement:exerciseView,exercise:exerciseView,media:exerciseView,word:exerciseView,record:exerciseView,resources:exerciseView,chat:chatView,
+  profile:formPage,contact:formPage,request:formPage,editor:formPage,auth:formPage,reset:formPage,signup:formPage,survey:formPage,
+  settings:configurationView,doc:documentView,letter:documentView,printBook:documentView,receipt:documentView,salesReport:operationalReport,marketingReport:operationalReport,
+  labs:labDirectory,activation,credits:accountExtras,delivery:accountExtras,goals:accountExtras,results:accountExtras,import:accountExtras,search:()=>catalog()
+};
+function genericScreen(screen){
+  const type=viewTypes[screen.id];
+  return (userRoutes[screen.id]||specialViews[type]||recordList)(screen);
+}
+function refreshControls(control){
+  const {op:action,id,choice}=control.dataset;
+  render();
+  const next=[...main.querySelectorAll("[data-op],[data-choice]")].find(el=>choice?el.dataset.choice===choice:el.dataset.op===action&&el.dataset.id===id);
+  if(next)next.focus({preventScroll:true});
+}
+function recordDialog(screen,i){
+  const st=localView(screen.id),[cols]=dataset(screen),row=rowsFor(screen)[i];
+  st.selected=i;
+  const fields=cols.map((col,j)=>fieldInput(col,"r"+j,row[j])).join("");
+  const readOnly=screen.portal!=="Admin CRM" || /bao cao|nhat ky|lich su/.test(fold(screen.name));
+  const dlg=document.getElementById("item-dialog");
+  const body=readOnly?`<dl class="record-dl">${cols.map((c,j)=>`<div><dt>${escape(c)}</dt><dd>${escape(row[j])}</dd></div>`).join("")}</dl>`:wrapForm("record-save",fields);
+  const decisions=recordActions(screen,cols,row);
+  dlg.innerHTML=`<div class="stack"><div class="row"><h2>${escape(row[0])}</h2>${op("close-item","Đóng","","small")}</div>${body}${decisions}</div>`;
+  dlg.showModal();
+}
+function exportRows(screen){
+  const rows=[dataset(screen)[0],...rowsFor(screen)];
+  const quote=v=>'"'+String(v).replaceAll('"','""')+'"';
+  const url=URL.createObjectURL(new Blob(["\uFEFF"+rows.map(r=>r.map(quote).join(",")).join("\r\n")],{type:"text/csv;charset=utf-8"}));
+  const a=document.createElement("a");a.href=url;a.download=screen.id+".csv";a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+document.addEventListener("click",event=>{
+  const selected=event.target.closest("[data-open-record]");if(selected)localView(selected.dataset.origin).selected=Number(selected.dataset.openRecord);
+  const p=event.target.closest("[data-product]");if(p)storeState.product=p.dataset.product;
+  const milestone=event.target.closest("[data-milestone]");if(milestone)road.selected=Number(milestone.dataset.milestone);
+  const el=event.target.closest("[data-op]");if(!el)return;
+  const {op:action,id}=el.dataset,screen=currentScreen(),st=screen&&localView(screen.id);
+  const product=findProduct(id);
+  switch(action){
+    case "shop-page":storeState.page=Number(id);break;
+    case "shop-reset":Object.assign(storeState,{query:"",language:"Tất cả",level:"Tất cả",type:"Tất cả",price:"Tất cả",page:1});break;
+    case "add":case "buy": if(!product)return;
+      storeState.cart[id]=product.type==="Sách in"?(storeState.cart[id]||0)+1:1;
+      if(action==="buy"){go("SCR-M10-03");return}
+      flash("Đã thêm "+product.title+" vào giỏ hàng.");break;
+    case "less":case "more":storeState.cart[id]+=action==="more"?1:-1;if(!storeState.cart[id])delete storeState.cart[id];break;
+    case "remove":delete storeState.cart[id];break;
+    case "confirm-paid":if(!storeState.order||storeState.order.paid)return;
+      storeState.order.paid=true;(storeState.completed||=[]).unshift(storeState.order);storeState.order.entries.forEach(({p})=>{if(findProduct(p.id))libraryOwned.add(p.id);else purchasedPlans.add(p.id);});go("SCR-M13-03");return;
+    case "lead-next":{
+      const i=Number(id),row=[...rowsFor(screen)[i]];
+      row[1]=row[1]==="Hẹn gọi lại"?"Đã tư vấn":"Đã ghi danh";
+      st.changes[i]={row};break;
+    }
+    case "card-reveal":st.reveal=true;break;
+    case "card-next":st.cardIndex=((st.cardIndex||0)+1)%3;st.reveal=false;break;
+    case "choose-plan":enrollment.id=id;break;
+    case "another-enquiry":st.submitted=null;break;
+    case "thread":st.thread=Number(id);break;
+    case "placement-start":Object.assign(st,{started:true,n:0,points:0});break;
+    case "placement-reset":Object.assign(st,{started:false,n:0,points:0});break;
+    case "mark-notice":notificationsRead.add(Number(id));break;
+    case "new-record":{
+      const [cols]=dataset(screen),dlg=document.getElementById("item-dialog");
+      dlg.innerHTML='<div class="stack"><div class="row"><h2>Thêm mới</h2>'+op("close-item","Đóng","","small")+'</div>'+wrapForm("new-record",cols.map((c,i)=>fieldInput(c,"r"+i)).join(""),"Lưu")+'</div>';
+      dlg.showModal();return;
+    }
+    case "record-decision":{
+      const row=[...rowsFor(screen)[st.selected]], [cols]=dataset(screen);
+      const status=cols.findIndex(c=>/^(trang thai|ket qua)$/.test(fold(c)));
+      if(status<0)return;
+      row[status]=id;st.changes[st.selected]={row};st.filter="Tất cả";st.activity.unshift(row[0]+" · "+id);
+      document.getElementById("item-dialog").close();break;
+    }
+    case "record-detail":recordDialog(screen,Number(id));return;
+    case "close-item":document.getElementById("item-dialog").close();return;
+    case "clear-records":st.search="";st.filter="Tất cả";break;
+    case "print":window.print();return;
+    case "export":exportRows(screen);return;
+    case "book-class":if(classBookings.has(Number(id)))classBookings.delete(Number(id));else classBookings.add(Number(id));break;
+    case "reader-page":st.page=Number(id);break;
+    case "read":st.done=true;break;
+    case "retry-exercise":st.checked=false;break;
+    case "sample-speaking":Object.assign(st,{checked:true,correct:true,feedback:"Bản ghi thử · 82/100. Bạn nói rõ câu gọi món. Hãy nhấn âm đầu trong chocolate."});break;
+    case "save-plan":planning.saved.push({minutes:planning.minutes,days:planning.days,weeks:Math.ceil(2880/(planning.minutes*planning.days))});go("SCR-M09-02");return;
+    case "delete-plan":planning.saved.splice(Number(id),1);break;
+    default:return;
+  }
+  refreshControls(el);
+});
+document.addEventListener("input",({target})=>{
+  if(target.dataset.search==="shop"){storeState.query=target.value;storeState.page=1;document.getElementById("shop-results").innerHTML=shopResults();}
+  if(target.dataset.search==="records"){const sc=currentScreen();localView(sc.id).search=target.value;document.getElementById("record-results").innerHTML=recordResults(sc);}
+});
+document.addEventListener("change",({target})=>{
+  const key=target.dataset.choice;if(!key)return;
+  if(key==="portal-page"){go(target.value);return;}
+  const value=target.value,st=localView(currentScreen().id);
+  if(key==="placement-language"){st.lang=languages.find(([name])=>name===value)[1];}
+  else if(["language","level","type","price","sort"].includes(key)){storeState[key]=value;storeState.page=1;}
+  else if(key==="recipient"||key==="method"){storeState[key]=value;return;}
+  else if(key==="child"||key==="period"||key==="track")road[key]=value;
+  else if(key==="record-filter")st.filter=value;
+  else if(key==="enquiry-kind")st.kind=value;
+  else if(key==="agenda-person")st.person=value;
+  else if(key==="word"||key==="range")st[key]=value;
+  else if(key==="days"||key==="minutes")planning[key]=Number(value);
+  else return;
+  refreshControls(target);
+});
+let orderSequence=24;
+document.addEventListener("submit",event=>{
+  const form=event.target,task=form.dataset.task;if(!task)return;
+  event.preventDefault();
+  const sc=currentScreen(),st=localView(sc.id),vals=Object.fromEntries(new FormData(form));
+  switch(task){
+    case "enquiry":{
+      st.submitted={...vals,kind:st.kind||"Đăng ký tư vấn"};
+      const leads=localView("SCR-M19-01");(leads.extra||=[]).push([vals.name,vals.lang,"Website","Mai Linh"]);break;
+    }
+    case "enroll":{
+      const plan=offeredPlans.find(p=>p.id===enrollment.id),code=vals.voucher.trim().toUpperCase();
+      if(code&&code!=="ZEN10")return flash("Mã ưu đãi chưa hợp lệ.");
+      enrollment.recipient=vals.recipient;enrollment.method=vals.method;
+      storeState.order={code:"ZF-2411-"+(++orderSequence),buyer:"Nguyễn Minh Anh",email:"minh.anh@example.test",recipient:vals.recipient,method:vals.method,entries:[{p:plan,q:1}],discount:code?Math.round(plan.price*.1):0,delivery:0,total:code?Math.round(plan.price*.9):plan.price,paid:false};
+      go("SCR-M13-02");return;
+    }
+    case "lookup-cert":st.code=vals.code.trim().toUpperCase();break;
+    case "invite":st.invite=vals.email;break;
+    case "auth-login":
+      st.error="";
+      if(vals.email!=="minh.anh@example.test"||vals.password!=="zenford-demo")st.error="Thông tin chưa khớp với tài khoản thử.";
+      else st.stage="otp";
+      break;
+    case "auth-code":
+      st.error="";
+      if(vals.code.trim()!=="246810")st.error="Mã xác thực chưa đúng.";
+      else st.done=true;
+      break;
+    case "family-pay":st.method=vals.method;st.done=true;break;
+    case "acknowledge":st.done=true;break;
+    case "interview":(st.answers||=[]).push(vals.answer);break;
+    case "profile-log":{
+      const origin=staffDetails[sc.id][0],key="log-"+localView(origin).selected;
+      (st[key]||=[]).unshift(vals.note);break;
+    }
+    case "inbox-reply":(st["replies"+(st.thread||0)]||=[]).push(vals.reply);break;
+    case "placement-answer":{
+      const items=placementItems[st.lang||"EN"];
+      if(st.n>=items.length)return;
+      if(Number(vals.answer)===items[st.n][3])st.points++;
+      st.n++;break;
+    }
+    case "new-record":{
+      const [cols]=dataset(sc),row=cols.map((_,i)=>vals["r"+i].trim());
+      if(row.some(v=>!v))return flash("Vui lòng điền đủ thông tin.");
+      (st.extra||=[]).push(row);st.search="";st.filter="Tất cả";st.activity.unshift("Đã thêm "+row[0]);
+      document.getElementById("item-dialog").close();break;
+    }
+    case "checkout":{
+      const t=totals();if(!t.entries.length)return;
+      storeState.order={code:"ZF-2411-"+(++orderSequence),buyer:vals.buyer,email:vals.email,recipient:storeState.recipient,method:storeState.method,entries:t.entries,discount:t.discount,delivery:t.ship,total:t.sub-t.discount+t.ship,paid:false};
+      storeState.cart={};storeState.voucher="";storeState.voucherMessage="";go("SCR-M13-02");return;
+    }
+    case "voucher":storeState.voucher=vals.code.trim().toUpperCase()==="ZEN10"?"ZEN10":"";storeState.voucherMessage=storeState.voucher?"Đã giảm 10% giá trị học liệu.":"Mã ưu đãi chưa hợp lệ.";break;
+    case "record-save":{
+      const [cols]=dataset(sc),row=cols.map((_,i)=>vals["r"+i].trim());
+      if(row.some(v=>!v))return flash("Vui lòng điền đủ thông tin.");
+      st.changes[st.selected]={row};st.activity.unshift("Đã cập nhật "+row[0]);st.filter="Tất cả";document.getElementById("item-dialog").close();break;
+    }
+    case "reader-note":(st.notes||={})[storeState.product+(st.page||0)]=vals.note;flash("Đã lưu ghi chú vào chương này.");break;
+    case "preferences":st.preferences=vals;st.saved=true;break;
+    case "settings":st.values=vals;st.saved=true;break;
+    case "return":st.done=true;st.values=vals;break;
+    case "activate":if(vals.code.trim().toUpperCase()==="ZEN-CAFE-24"){st.done=true;st.feedback="";libraryOwned.add("cafe");}else st.feedback="Mã chưa đúng. Hãy kiểm tra lại các ký tự.";break;
+    case "user-form":st.done=true;st.saved=true;
+      if(!["auth","reset","signup"].includes(viewTypes[sc.id])){st.values=vals;if(vals.message)st.activity.unshift(vals.message);
+        if(viewTypes[sc.id]==="request"&&vals.message)supportTickets.unshift(["HT-"+(100+supportTickets.length),vals.message,"Lan Phương","Đã tiếp nhận"]);}
+      break;
+    case "import":{
+      const rows=vals.csv.trim().split(/\r?\n/).map(r=>r.split(",").map(c=>c.trim()));
+      if(rows.length<2||rows.some(r=>r.length!==rows[0].length))return flash("Mỗi dòng cần cùng số cột với dòng tiêu đề.");
+      st.imported=rows;break;
+    }
+    case "chat":{
+      const q=fold(vals.message),reply=/lich|buoi/.test(q)?"Lớp ENG-A2-07 bắt đầu lúc 18:30 thứ Ba. Bạn có thể xem chi tiết trong Lịch học.":/phi|tien/.test(q)?"Gói Basic có mức minh họa 350.000 ₫ cho 30 ngày. Bạn có thể xem quyền lợi trước khi chọn.":/please|goi mon|cafe/.test(q)?"Hãy bắt đầu với I’d like…, thêm đồ uống và kết thúc bằng please. Bạn muốn thử gọi món nào?":/nhan xet|tien bo/.test(q)?"Cô Hà nhận xét Minh Anh gọi món lịch sự hơn và cần luyện trọng âm của chocolate.":"Trong cuộc trò chuyện thử này, Zen có thể giải đáp về lịch học, học phí, tiến bộ và cách gọi món.";
+      st.messages.push([vals.message,reply]);break;
+    }
+    case "exercise":{
+      const a=fold(vals.answer).replace(/[^a-z0-9 ]/g,"").trim();
+      st.checked=true;st.correct=sc.id==="SCR-M45-03"?/like a hot chocolate please/.test(a):sc.id==="SCR-M45-06"?a.split(/\s+/).length>=4:vals.answer==="1";
+      st.feedback=sc.id==="SCR-M45-06"?"Đã lưu bài viết để giáo viên góp ý.":st.correct?"Đúng · Bạn đã nắm được điểm chính.":sc.id==="SCR-M45-03"?"Chưa đúng · Nghe lại cụm hot chocolate và từ cuối câu.":sc.id==="SCR-M45-05"?"Chưa đúng · Đối chiếu giá £3 trong thực đơn.":"Chưa đúng · Tìm lời yêu cầu có please.";
+      break;
+    }
+    default:return;
+  }
+  render();
+});
+
 const preSteps = [["SCR-M42-02","Chẩn đoán"],["SCR-M42-03","Dạy nền"],["SCR-M42-04","Luyện tập"]];
 const preState = { question:0, answer:"", responded:false, alternate:false, explanation:"", spoken:false, practiced:false, transcript:false, complete:false, resume:"SCR-M42-02", teacherFlag:false, started:false, results:[] };
 const concepts = ["Mẫu câu I’d like…", "Câu hỏi Could I have…?", "Trọng âm của “chocolate”"];
@@ -2069,8 +3719,12 @@ function render(viewChanged = false) {
   if (id === "main") return;
   const screen = screens.get(id);
   const active = routeFamily(id);
-  document.getElementById("top-nav").innerHTML = shortcuts.map(([target,name]) =>
-    `<a href="#${target}"${active && active===routeFamily(target)?' aria-current="location"':""}>${name}</a>`).join("");
+  const menu = screen?.portal === "Admin CRM" ? [["SCR-M16-03","Học thuật"],["SCR-M19-01","Khách hàng"],["SCR-M29-04","Tuyển dụng"]] :
+    screen?.portal === "Cổng phụ huynh" ? [["SCR-M15-02","Gia đình"],["SCR-M46-04","Lộ trình của con"],["SCR-M13-05","Học phí"]] :
+    screen?.portal === "Cổng giáo viên" ? [["SCR-M50-01","Lớp của tôi"],["SCR-M50-02","Lịch dạy"],["SCR-M42-05","Pre-class"]] :
+    [["SCR-M08-03","Chương trình"],["SCR-M10-01","Cửa hàng"],["SCR-M46-01","Lộ trình"],["SCR-M42-01","Học với AI"]];
+  document.getElementById("top-nav").innerHTML = menu.map(([target,name]) =>
+    `<a href="#${target}"${(id===target || (active && active===routeFamily(target)))?' aria-current="location"':""}>${name}</a>`).join("");
   if (id === "danh-muc") {
     main.innerHTML = catalog();
     renderCatalogResults();
@@ -2127,7 +3781,6 @@ function openDecision(title, label, callback, {score = false, hint = ""} = {}) {
 }
 
 const actions = {
-  "generic":()=>flash("Đây là thao tác minh họa. Xem màn hình liên quan để tiếp tục."),
   "program-filter":control=>{programFilter=control.dataset.id;return true},
   "close-dialog":()=>dialog.close(),
   "pre-reset":()=>{Object.assign(preState,{question:0,answer:"",results:[],responded:false,complete:false,spoken:false,practiced:false,teacherFlag:false,explanation:"",alternate:false,transcript:false});return true},
